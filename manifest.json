@@ -1,0 +1,24 @@
+{
+    "name": "Auto Renamer",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons": {
+        
+    },
+    "browser_action":{
+        "default_popup": "popup.html",
+        "default_title": "Auto Rename"
+    },
+
+    "background": {
+        "scripts": ["src/saveImageEvent.js"],
+        "persistent": false
+    },
+
+    "permissions":[
+        "storage",
+        "contextMenus",
+        "fileSystem",
+        "downloads"
+    ]
+}
