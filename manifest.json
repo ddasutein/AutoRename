@@ -2,9 +2,8 @@
     "name": "Auto Renamer",
     "version": "1.0",
     "manifest_version": 2,
-    "options_page": "options.html",
     "icons": {
-        "48":"assets/icons8-edit-image-48.png"
+        
     },
     "browser_action":{
         "default_popup": "popup.html",
@@ -12,7 +11,7 @@
     },
 
     "background": {
-        "scripts": ["js/saveImageEvent.js"],
+        "scripts": ["src/saveImageEvent.js"],
         "persistent": false
     },
 
