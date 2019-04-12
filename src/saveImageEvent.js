@@ -16,7 +16,7 @@ function getRandomStrings(length) {
 }
 
 const __randomStringLength = 8;
-var __extJPEG = ".jpeg";
+var __extJPEG = ".jpg";
 var __extPNG = ".png"
 
 chrome.contextMenus.onClicked.addListener(function(info, tab){
