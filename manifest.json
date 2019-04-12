@@ -9,11 +9,12 @@
         "default_popup": "popup.html",
         "default_title": "Auto Rename"
     },
-
     "background": {
         "scripts": ["src/saveImageEvent.js"],
         "persistent": false
     },
+
+    "options_page": "options.html",
 
     "permissions":[
         "storage",
