@@ -1,6 +1,6 @@
 var contextMenuItem = {
     "id": "saveImage",
-    "title": "Save image (Auto Rename)",
+    "title": "Save image (AutoRename)",
     "contexts": ["image"],
 };
 
