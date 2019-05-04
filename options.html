@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AutoRename Extension Settings</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
+
 <body>
     <div class="content">
-            <h1>AutoRename Settings</h1>
-            <p class="extensionVersionLabel"></p>
+        <p style="float: left"><img src="/assets/icons8-edit-image-48.png"></p>
+        <h2>AutoRename Extension</h2>
+        <p>Developed by: Dasutein</p>
+        <p>Contribute: <a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
+        <p class="extensionVersionLabel">Version 1.0</p>
+        <hr>
+        <p data-i18n="extensionName"><b></b></p>
+        <label>
+            Language:
+            <select id="extension_language_pref">
+                <option value="systemDefault">Use System Language</option>
+                <option value="english">English</option>
+                <option value="japanese">Japanese</option>
+            </select>
+        </label>
+        <br>
+
+        <hr>
+        <h2><b>Twitter</b></h2>
+        <label>
+            <input type="checkbox" id="twitter_mention" checked>
+            Include mention symbol @ in username in file name
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="twitter_tweet_id" checked>
+            Include tweet id in file name
+        </label>
+        <br>
+        <label>
+            Random string generator length:
+            <select id="twitter_string_length">
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="16">16</option>
+            </select>
+        </label>
+        <br>
+        <br>
+        <button type="submit" id="buttonSaveTwitterPref">Save Twitter Preferences</button>
+        <br>
+        <p></p>
+
     </div>
-    <script type="text/javascript" src="js/extensionVersion.js">
-</script>
+    <script src="src/options.js"></script>
+    <!-- <script src="src/i18n.js"></script> -->
+    <script type="text/javascript" src="src/extensionVersion.js"></script>
 
 </body>
+
 </html>
