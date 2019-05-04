@@ -1,0 +1,14 @@
+{
+    "extensionName":{
+        "message": "AutoRename",
+        "description": "extension name"
+    },
+    "viewTweetDetailAlertPrompt":{
+        "message": "Click on the tweet to use this extension.",
+        "description": "alerting the user to click on the tweet to use the extension"
+    },
+    "websiteNotSupported":{
+        "message": "Sorry, this extension only supports Twitter at this time.",
+        "description": "alert the user that this extension only works for supported websites"
+    }
+}
