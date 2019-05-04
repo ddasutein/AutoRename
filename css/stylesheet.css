@@ -1,11 +1,24 @@
-* {
-    background-color: #eee;
+body {
+    background: #eee;
     font-family: 'Segoe UI', sans-serif;
     margin: 5px;
-    padding: 0px;
+    padding: 5px;
+}
+
+button {
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #27ae60;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .content {
-    background: #fff;
-    margin:auto;
+    background: #fff !important;
+    box-shadow: 1px 1px 0.2em rgb(199, 199, 199);
+    color: #161616;
+    margin: 5px;
+    padding: 5px 20px 5px 20px;
 }

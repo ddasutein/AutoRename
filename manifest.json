@@ -1,7 +1,8 @@
 {
     "name": "AutoRename",
-    "version": "1.0",
+    "version": "1.0.0",
     "description": "Rename files in a much cleaner way.",
+    "default_locale": "en",
     "manifest_version": 2,
     "icons": {
         "48": "/assets/icons8-edit-image-48.png"
@@ -20,7 +21,6 @@
     "permissions":[
         "storage",
         "contextMenus",
-        "fileSystem",
         "downloads"
     ]
 }
