@@ -12,7 +12,7 @@
         "default_title": "AutoRename"
     },
     "background": {
-        "scripts": ["src/saveImageEvent.js"],
+        "scripts": ["js/saveImageEvent.js"],
         "persistent": false
     },
 
