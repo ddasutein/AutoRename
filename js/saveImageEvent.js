@@ -1,4 +1,4 @@
-var contextMenuItem = {
+let contextMenuItem = {
     "id": "saveImage",
     "title": "Save image (AutoRename)",
     "contexts": ["image"],
@@ -15,8 +15,8 @@ function generateRandomString(length) {
     return random.join('');
 }
 
-var __extJPEG = ".jpg";
-var __extPNG = ".png";
+let __extJPEG = ".jpg";
+let __extPNG = ".png";
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
@@ -27,51 +27,53 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         showTweetId: true
     }, function (items) {
 
-        var _fileName = "";
-        var tweetUrl = tab.url;
-        var tweetUrlSplit = tweetUrl.split('/');
-        var twitterWebsite = tweetUrlSplit[2];
-        var twitterUsername = tweetUrlSplit[3];
-        var tweetId = tweetUrlSplit[5];
+        let _fileName = "";
+        let currentUrl = tab.url;
+        let currentUrlSplit = currentUrl.split('/');
+        let currentWebsite = currentUrlSplit[2];
 
-        if (items.showTweetId === true) {
+        switch (currentWebsite) {
+            case "twitter.com":
 
-            if (items.showMentionSymbol === true) {
-                _fileName = "@" + twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-            } else if (items.showMentionSymbol === false) {
-                _fileName = twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-            }
+                let twitterUsername = currentUrlSplit[3];
+                let tweetId = currentUrlSplit[5];
 
-        } else if (items.showTweetId === false) {
+                if (items.showTweetId === true) {
 
-            if (items.showMentionSymbol === true) {
-                _fileName = "@" + twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-            } else if (items.showMentionSymbol === false) {
-                name = twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-            }
+                    if (items.showMentionSymbol === true) {
+                        _fileName = "@" + twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
+                    } else if (items.showMentionSymbol === false) {
+                        _fileName = twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
+                    }
 
-        }
+                } else if (items.showTweetId === false) {
 
-        // Just generate a random string if both options are disabled (required)
-        if (items.showTweetId === false && items.showMentionSymbol === false) {
-            _fileName = generateRandomString(items.fileNameStringLength) + __extJPEG;
-        }
+                    if (items.showMentionSymbol === true) {
+                        _fileName = "@" + twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
+                    } else if (items.showMentionSymbol === false) {
+                        name = twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
+                    }
 
-        if (twitterWebsite !== "twitter.com") {
-            alert("Sorry, this extension only supports Twitter at this time.");
-            return;
-        }
+                }
 
-        if (tweetId == null) {
-            alert("Click on the tweet to use this extension.");
-            return;
-        } else {
-            chrome.downloads.download({
-                url: info.srcUrl,
-                filename: _fileName,
-                // filename: "@" + twitterUsername + " [" + tweetId + "]" + "[" + generateRandomString(__randomStringLength) + "]" + __extJPEG,
-                saveAs: true
-            })
+                // Just generate a random string if both options are disabled (required)
+                if (!items.showTweetId && !items.showMentionSymbol) {
+                    _fileName = generateRandomString(items.fileNameStringLength) + __extJPEG;
+                }
+
+                if (tweetId == null) {
+                    alert("Click on the tweet to use this extension.");
+                    return;
+                } else {
+                    chrome.downloads.download({
+                        url: info.srcUrl,
+                        filename: _fileName,
+                        saveAs: true
+                    })
+                }
+                break;
+            default:
+                alert("Sorry, this extension only supports Twitter at this time.");
         }
     });
 });
