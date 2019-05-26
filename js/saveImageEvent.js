@@ -1,6 +1,6 @@
 let contextMenuItem = {
     "id": "saveImage",
-    "title": "Save image (AutoRename)",
+    "title": "Save image as (AutoRename)",
     "contexts": ["image"],
 };
 

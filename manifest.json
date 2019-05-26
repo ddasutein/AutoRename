@@ -5,7 +5,7 @@
     "default_locale": "en",
     "manifest_version": 2,
     "icons": {
-        "48": "/assets/icons8-edit-image-48.png"
+        "128": "/assets/AutoRename-Logo-128px.png"
     },
     "browser_action":{
         "default_popup": "popup.html",
