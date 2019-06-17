@@ -5,6 +5,7 @@
     "default_locale": "en",
     "manifest_version": 2,
     "icons": {
+	    "48": "/assets/AutoRename-Logo-48px.png",
         "128": "/assets/AutoRename-Logo-128px.png"
     },
     "browser_action":{
