@@ -1,24 +1,33 @@
-(function() {
+// Code reference from: https://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension 
 
-    window.addEventListener('load', function() {
-        var needsTranslation = document.querySelectorAll("[data-i18n]"),
-            t = chrome.i18n.getMessage;
-        for (var i = 0, l = needsTranslation.length; i < l; i++) {
-            var element = needsTranslation[i],
-                targets = element.split(/\s*,\s*/);
-            for (var j = 0, m = targets.length; j < m; j++) {
-                var parameters = targets[j].split(/\s*=\s*/);
-                if (parameters.length === 1 || parameters[0] === 'textContent') {
-                    element.textContent = t(element.dataset.i18n);
-                }
-                else if (parameters[0] === 'innerHTML') {
-                    element.innerHTML = t(element.dataset.i18n);
-                }
-                else {
-                    element.setAttribute(parameters[0], t(parameters[1]));
-                }
-            }
-        }
+function replace_i18n(obj, tag) {
+    var msg = tag.replace(/__MSG_(\w+)__/g, function(match, v1) {
+        return v1 ? chrome.i18n.getMessage(v1) : '';
     });
-    
-    }).call(this);
+
+    if(msg != tag) obj.innerHTML = msg;
+}
+
+function localizeHtmlPage() {
+    // Localize using __MSG_***__ data tags
+    var data = document.querySelectorAll('[data-i18n]');
+
+    for (var i in data) if (data.hasOwnProperty(i)) {
+        var obj = data[i];
+        var tag = obj.getAttribute('data-i18n').toString();
+
+        replace_i18n(obj, tag);
+    }
+
+    // Localize everything else by replacing all __MSG_***__ tags
+    var page = document.getElementsByTagName('html');
+
+    for (var j = 0; j < page.length; j++) {
+        var obj = page[j];
+        var tag = obj.innerHTML.toString();
+
+        replace_i18n(obj, tag);
+    }
+}
+
+localizeHtmlPage();

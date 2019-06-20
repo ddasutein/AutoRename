@@ -1,8 +1,9 @@
+<!-- Note: data-i18n corresponds to extension localization. Script can be found in /js/i18n -->
 <!DOCTYPE html>
-<html>
+<html lang="ja-JP">
 
 <head>
-    <title>AutoRename Extension Settings</title>
+    <title data-i18n="__MSG_extensionName__">AutoRename Extension Settings</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
@@ -17,51 +18,44 @@
         <p id="extension_version">Version 1.0</p>
         <p id="extension_description">description</p>
         <hr>
-        <h2>Set Extension Language</h2>
+        <!-- <h2 data-i18n="__MSG_settingsSetLanguage__">Set Language</h2>
+        <label data-i18n="__MSG_settingsLabelLanguage__"></label>
         <label>
-            Language:
             <select id="extension_language_pref">
-                <option value="systemDefault">Use System Language</option>
                 <option value="english">English</option>
                 <option value="japanese">Japanese</option>
             </select>
         </label>
         <br>
         <br>
-        <hr>
-        <h2><b>Twitter</b></h2>
-        <label>
-            <input type="checkbox" id="twitter_mention" checked>
-            Include mention symbol @
-        </label>
+        <hr> -->
+        <h2 data-i18n="__MSG_settingsTwitter__"><b>Twitter</b></h2>
+        <input type="checkbox" id="twitter_mention" checked>
+        <label data-i18n="__MSG_settingsTwitterMentionSymbol__"> </label>
         <br>
-        <label>
-            <input type="checkbox" id="twitter_tweet_id" checked>
-            Include tweet username and id
-        </label>
+        <input type="checkbox" id="twitter_tweet_id" checked>
+        <label data-i18n="__MSG_settingsTwitterUsernameID__"></label>
         <br>
         <br>
-        <label>
-            Choose string generator length:
-            <select id="twitter_string_length">
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-            </select>
-        </label>
+        <select id="twitter_string_length">
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+        </select>
+        <label data-i18n="__MSG_settingsTwitterGeneratedString__"></label>
         <br>
         <br>
-        <button type="submit" id="buttonSaveTwitterPref">Save Twitter Preferences</button>
+        <button data-i18n="__MSG_settingsButtonSaveTwitterPref__" type="submit" id="buttonSaveTwitterPref">Save</button>
         <br>
         <p></p>
 
@@ -69,6 +63,7 @@
     <script src="js/options.js"></script>
     <!-- <script src="src/i18n.js"></script> -->
     <script type="text/javascript" src="js/extensionInfo.js"></script>
+    <script src="js/i18n.js"></script>
 
 </body>
 

@@ -1,6 +1,6 @@
 {
-    "settingsHeaderTitle":{
-        "message": "AutoRename Settings",
+    "extensionName":{
+        "message": "あとーリネーム設定",
         "description": "extension name"
     },
 
@@ -15,7 +15,7 @@
     },
 
     "settingsTwitter":{
-        "message": "Twitter Settings",
+        "message": "Twitter設定",
         "description": ""
     },
 
