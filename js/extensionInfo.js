@@ -11,7 +11,8 @@ request.onload = function(e) {
       document.getElementById("extension_name").innerHTML = jsonParse.name;
       document.getElementById("extension_version").innerHTML = 'Version: ' + jsonParse.version;
       document.getElementById("extension_description").innerHTML = jsonParse.description;
-      console.log(request.statusText);
+      console.log("AND IT SHALL BE BESTOWNED UPON YOU, THE STAR WHICH YOU HAVE LONGED FOR—");
+      console.log("Status: " + request.statusText + "👍");
     }
   }
 }

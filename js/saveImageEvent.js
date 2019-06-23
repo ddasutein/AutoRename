@@ -15,10 +15,33 @@ function generateRandomString(length) {
     return random.join('');
 }
 
-let __extJPEG = ".jpg";
-let __extPNG = ".png";
+let _fileName = {
+    username: "",
+    tweetId: "",
+    randomString: "",
+    fileExtension: ".jpg"
+};
+
+function fileName() {
+    const username = _fileName.username;
+    const tweetid = _fileName.tweetId;
+    const randomString = _fileName.randomString;
+    const fileExtension = _fileName.fileExtension;
+    let finalFileName = "";
+
+    if (tweetid === "") {
+        finalFileName = username + "-" + randomString + fileExtension;
+    } else {
+        finalFileName = username + "-" + tweetid + "-" + randomString + fileExtension;
+    }
+    return finalFileName;
+}
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
+
+    let currentUrl = tab.url;
+    let currentUrlSplit = currentUrl.split('/');
+    let currentWebsite = currentUrlSplit[2];
 
     // options.html and options.js
     chrome.storage.local.get({
@@ -27,39 +50,24 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         showTweetId: true
     }, function (items) {
 
-        let _fileName = "";
-        let currentUrl = tab.url;
-        let currentUrlSplit = currentUrl.split('/');
-        let currentWebsite = currentUrlSplit[2];
-
         switch (currentWebsite) {
             case "twitter.com":
+                const twitterUsername = currentUrlSplit[3];
+                const tweetId = currentUrlSplit[5];
 
-                let twitterUsername = currentUrlSplit[3];
-                let tweetId = currentUrlSplit[5];
-
-                if (items.showTweetId === true) {
-
-                    if (items.showMentionSymbol === true) {
-                        _fileName = "@" + twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-                    } else if (items.showMentionSymbol === false) {
-                        _fileName = twitterUsername + "-" + tweetId + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-                    }
-
-                } else if (items.showTweetId === false) {
-
-                    if (items.showMentionSymbol === true) {
-                        _fileName = "@" + twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-                    } else if (items.showMentionSymbol === false) {
-                        name = twitterUsername + "-" + generateRandomString(items.fileNameStringLength) + __extJPEG;
-                    }
-
+                if (!items.showMentionSymbol) {
+                    _fileName.username = twitterUsername;
+                } else {
+                    _fileName.username = "@" + twitterUsername;
                 }
 
-                // Just generate a random string if both options are disabled (required)
-                if (!items.showTweetId && !items.showMentionSymbol) {
-                    _fileName = generateRandomString(items.fileNameStringLength) + __extJPEG;
+                if (!items.showTweetId) {
+                    _fileName.tweetId = "";
+                } else {
+                    _fileName.tweetId = tweetId;
                 }
+
+                _fileName.randomString = generateRandomString(items.fileNameStringLength);
 
                 if (tweetId == null) {
                     alert("Click on the tweet to use this extension.");
@@ -67,13 +75,13 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 } else {
                     chrome.downloads.download({
                         url: info.srcUrl,
-                        filename: _fileName,
+                        filename: fileName(),
                         saveAs: true
                     })
                 }
                 break;
             default:
-                alert("Sorry, this extension only supports Twitter at this time.");
+                alert("Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename");
         }
     });
 });
