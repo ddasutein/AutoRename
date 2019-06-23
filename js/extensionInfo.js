@@ -1,13 +1,13 @@
 // Reference: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests
-var request = new XMLHttpRequest();
+let request = new XMLHttpRequest();
 
 request.onload = function(e) {
   if (request.readyState === 4){
     if (request.readyState === 200){
       console.log(request.responseText);
     } else{
-      var jsonConfig = this.responseText;
-      var jsonParse = JSON.parse(jsonConfig);
+      let jsonConfig = this.responseText;
+      let jsonParse = JSON.parse(jsonConfig);
       document.getElementById("extension_name").innerHTML = jsonParse.name;
       document.getElementById("extension_version").innerHTML = 'Version: ' + jsonParse.version;
       document.getElementById("extension_description").innerHTML = jsonParse.description;

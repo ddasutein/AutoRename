@@ -1,8 +1,8 @@
 function save_options(){
 
-    var fileNameStringLength = document.getElementById('twitter_string_length').value;
-    var includeMentionSymbol = document.getElementById('twitter_mention').checked;
-    var includeTweetId = document.getElementById('twitter_tweet_id').checked;
+    let fileNameStringLength = document.getElementById('twitter_string_length').value;
+    let includeMentionSymbol = document.getElementById('twitter_mention').checked;
+    let includeTweetId = document.getElementById('twitter_tweet_id').checked;
 
     chrome.storage.local.set({
         fileNameStringLength: fileNameStringLength,
