@@ -1,7 +1,7 @@
 {
     "name": "AutoRename",
     "version": "1.0.0",
-    "description": "Rename files in a much cleaner way.",
+    "description": "Automatically rename downloaded images from the internet",
     "default_locale": "en",
     "manifest_version": 2,
     "icons": {
