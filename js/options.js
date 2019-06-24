@@ -20,7 +20,7 @@ function load_options(){
         fileNameStringLength: '8',
         showMentionSymbol: true,
         showTweetId: true,
-        twitterFileExtensionType : '.JPG'
+        twitterFileExtensionType : '.jpg'
     }, function(items) {
         document.getElementById('twitter_string_length').value = items.fileNameStringLength;
         document.getElementById('twitter_mention').checked = items.showMentionSymbol;
