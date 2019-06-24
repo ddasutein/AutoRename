@@ -1,16 +1,31 @@
-# AutoRename
+<h1 align="center">
+<sub>
+<img  src="https://raw.githubusercontent.com/ddasutein/AutoRename/master/assets/AutoRename-prod-logo.png"
+      height="35"
+      width="35">
+</sub>
+AutoRename for Edge and Chrome
+</h1>
 
-This Chrome extension (also supported on Chromium Edge) fixes the problem where saving images from Twitter would generate a randomized string of letters and numbers as it's file name. It uses this formula: 
+**Automatically rename downloaded images from the internet**
 
-`[Twitter username] [Tweet ID] [Random string].` 
+This Chromium extension is designed to automatically rename files using custom parameters to keep your files more organized. Normally, when you download files from the internet, file names are often scrambled with random words and numbers that don't mean anything. 
 
-Check out the screenshot below for a BEFORE and AFTER. I'll hopefully expand this extension beyond just Twitter, as well as more options to customize your file names in a neatly manner.
+At the moment, this extension only supports Twitter. The screenshots below is an example of how this extension works. 
 
 **BEFORE**
+
+Using the default "Save image as" option in Microsoft Edge.
 
 ![autorename-before](https://user-images.githubusercontent.com/24803220/55883799-893cba00-5bd9-11e9-8843-4c065939243b.png)
 
 **AFTER**
+
+Using the extension "Save image as (AutoRename)" in Microsoft Edge.
+
+`[@][Twitter username] [Tweet ID] [Random string].`
+
+These parameters can be customized in the Extension Options.
 
 ![autorename-after](https://user-images.githubusercontent.com/24803220/55883848-9d80b700-5bd9-11e9-950a-9b8ae05e9f5b.png)
 
