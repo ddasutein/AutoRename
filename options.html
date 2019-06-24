@@ -1,4 +1,3 @@
-<!-- Note: data-i18n corresponds to extension localization. Script can be found in /js/i18n -->
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -10,13 +9,15 @@
 
 <body>
     <div class="content">
-        <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p>
-        <h2 id="extension_name">-extension name-</h2>
-        <p id="extension_developer">Developed by: Dasutein</p>
-        <p id="extension_contribute">Contribute: <a
-                href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
-        <p id="extension_version">Version 1.0</p>
-        <p id="extension_description">description</p>
+        <div class="content-extension-meta">
+            <!-- <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p> -->
+            <h1 id="extension_name">-extension name-</h1>
+            <p id="extension_developer">Developed by: Dasutein</p>
+            <p id="extension_contribute">Contribute: <a
+                    href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
+            <p id="extension_version">Version 1.0</p>
+            <p id="extension_description">description</p>
+        </div>
         <hr>
         <!-- <h2 data-i18n="__MSG_settingsSetLanguage__">Set Language</h2>
         <label data-i18n="__MSG_settingsLabelLanguage__"></label>
@@ -30,12 +31,13 @@
         <br>
         <hr> -->
         <h2 data-i18n="__MSG_settingsTwitter__"><b>Twitter</b></h2>
+        <label>Customize Twitter image download parameters</label>
+        <br><br>
         <input type="checkbox" id="twitter_mention" checked>
         <label data-i18n="__MSG_settingsTwitterMentionSymbol__">Include mention symbol @</label>
         <br>
         <input type="checkbox" id="twitter_tweet_id" checked>
         <label data-i18n="__MSG_settingsTwitterUsernameID__">Include tweet username and id</label>
-        <br>
         <br>
         <select id="twitter_string_length">
             <option value="4">4</option>
@@ -54,7 +56,12 @@
         </select>
         <label data-i18n="__MSG_settingsTwitterGeneratedString__">String generator length</label>
         <br>
-        <br>
+        <select id="twitter_file_extension_type">
+                <option value=".jpg">JPG (Default)</option>
+                <option value=".png">PNG</option>
+        </select>
+        <label data-i18n="__MSG_settingsTwitterFileExtension__">File extension type</label>
+        <br><br>
         <button data-i18n="__MSG_settingsButtonSaveTwitterPref__" type="submit" id="buttonSaveTwitterPref">Save</button>
         <br>
         <p></p>

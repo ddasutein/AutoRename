@@ -4,12 +4,12 @@
     "description": "Automatically rename downloaded images from the internet",
     "default_locale": "en",
     "manifest_version": 2,
+    "homepage_url": "https://github.com/ddasutein/AutoRename",
     "icons": {
 	    "48": "/assets/AutoRename-Logo-48px.png",
         "128": "/assets/AutoRename-Logo-128px.png"
     },
     "browser_action":{
-        "default_popup": "popup.html",
         "default_title": "AutoRename"
     },
     "background": {

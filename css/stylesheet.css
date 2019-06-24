@@ -1,18 +1,28 @@
 body {
     background: #eee;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI';
+    font-size: 14px;
     margin: 5px;
     padding: 5px;
 }
 
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #f1f1f1;
+    margin: 1em 0;
+    padding: 0;
+}
+
 button {
-    padding: 10px 10px 10px 10px;
+    padding: 10px 30px 10px 30px;
     border-radius: 5px;
     border: none;
     background-color: #27ae60;
     color: white;
     cursor: pointer;
-    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .content {
@@ -21,4 +31,19 @@ button {
     color: #161616;
     margin: 5px;
     padding: 5px 20px 5px 20px;
+}
+
+.content-extension-meta {
+    line-height: 10px;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0px;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 18px;
+    font-weight: bold;
 }
