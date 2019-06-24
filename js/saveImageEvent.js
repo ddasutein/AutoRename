@@ -19,7 +19,7 @@ let _fileName = {
     username: "",
     tweetId: "",
     randomString: "",
-    fileExtension: ".jpg"
+    fileExtension: ""
 };
 
 function fileName() {
@@ -47,13 +47,16 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     chrome.storage.local.get({
         fileNameStringLength: '8',
         showMentionSymbol: true,
-        showTweetId: true
+        showTweetId: true,
+        twitterFileExtensionType : '.jpg'
     }, function (items) {
 
         switch (currentWebsite) {
             case "twitter.com":
                 const twitterUsername = currentUrlSplit[3];
                 const tweetId = currentUrlSplit[5];
+
+                _fileName.fileExtension = items.twitterFileExtensionType;
 
                 if (!items.showMentionSymbol) {
                     _fileName.username = twitterUsername;
