@@ -1,5 +1,6 @@
 {
-    "name": "AutoRename",
+    "name": "AutoRename for Chrome and Edge",
+    "short_name": "AutoRename",
     "version": "1.0.0",
     "description": "Automatically rename downloaded images from the internet",
     "default_locale": "en",
