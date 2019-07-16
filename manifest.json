@@ -1,7 +1,7 @@
 {
     "name": "AutoRename",
     "short_name": "AutoRename",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "AutoRename can automatically rename downloaded images from the internet.",
     "default_locale": "en",
     "manifest_version": 2,
