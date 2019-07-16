@@ -8,7 +8,7 @@ request.onload = function(e) {
     } else{
       let jsonConfig = this.responseText;
       let jsonParse = JSON.parse(jsonConfig);
-      document.getElementById("extension_name").innerHTML = jsonParse.name;
+      document.getElementById("extension_name").innerHTML = jsonParse.short_name;
       document.getElementById("extension_version").innerHTML = 'Version: ' + jsonParse.version;
       document.getElementById("extension_description").innerHTML = jsonParse.description;
       console.log("AND IT SHALL BE BESTOWNED UPON YOU, THE STAR WHICH YOU HAVE LONGED FOR—");

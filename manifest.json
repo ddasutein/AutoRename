@@ -1,8 +1,8 @@
 {
-    "name": "AutoRename for Chrome and Edge",
+    "name": "AutoRename",
     "short_name": "AutoRename",
     "version": "1.0.0",
-    "description": "Automatically rename downloaded images from the internet",
+    "description": "AutoRename can automatically rename downloaded images from the internet.",
     "default_locale": "en",
     "manifest_version": 2,
     "homepage_url": "https://github.com/ddasutein/AutoRename",
