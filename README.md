@@ -6,6 +6,13 @@
 </sub>
 AutoRename for Edge and Chrome
 </h1>
+<p align="center">
+Download now
+<br>
+<a href="https://chrome.google.com/webstore/detail/autorename/gjmkdopdnkblnjbadmccmjpjpjcechgm">Chrome Web Store</a>
+|
+Microsoft Store (coming soon)
+</p>
 
 **Automatically rename downloaded images from the internet**
 
