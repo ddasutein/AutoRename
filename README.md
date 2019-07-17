@@ -12,6 +12,7 @@ Download now
 <a href="https://chrome.google.com/webstore/detail/autorename/gjmkdopdnkblnjbadmccmjpjpjcechgm">Chrome Web Store</a>
 |
 Microsoft Store (coming soon)
+<h1></h1>
 </p>
 
 **Automatically rename downloaded images from the internet**
@@ -36,13 +37,29 @@ These parameters can be customized in the Extension Options.
 
 ![autorename-after](https://user-images.githubusercontent.com/24803220/55883848-9d80b700-5bd9-11e9-950a-9b8ae05e9f5b.png)
 
-## How to install?
+## Bug Report or Feature Suggestion
 
-At the moment, this extension is not yet published on the Chrome Web Store or the upcoming Microsoft Edge extension store, but you can sideload this extension by enabling developer mode in Google Chrome or Microsoft Edge (Chromium version).
+If you have a bug report or a feature that you want to see implemeneted, kindly go to Issues and submit a post there.
 
-1. On this repository, click "Clone or Download" and select "Download ZIP"
+## MIT License
 
-2. Store these files on any directory of your choice.
+Copyright (c) 2019 Dasutein
 
-3. With developer mode enabled, import the extension by clicking "Load Unpacked" and select the folder "AutoRename-master"
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
