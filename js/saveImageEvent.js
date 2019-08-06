@@ -126,7 +126,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     switch (currentWebsite) {
         case Website.Twitter:
-            SaveTwitterImageFile(info, currentUrlSplit)
+            SaveTwitterImageFile(info, currentUrlSplit);
             break;
         default:
             alert(NotSupportedNotify());
