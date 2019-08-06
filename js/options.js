@@ -1,5 +1,9 @@
 function SaveOptions() {
 
+    // General Settings
+    let showDownloadFolderCheckbox = document.getElementById("showDownloadFolderCheckbox").checked;
+
+    // Twitter Settings
     let fileNameStringLength = document.getElementById("twitter_string_length").value;
     let includeMentionSymbol = document.getElementById("twitter_mention").checked;
     let includeTweetId = document.getElementById("twitter_tweet_id").checked;
@@ -8,6 +12,10 @@ function SaveOptions() {
     let dateFormatting = document.getElementById("DateFormatTypeSelect").value;
 
     chrome.storage.local.set({
+        // General Settings
+        showDownloadFolderCheckbox: showDownloadFolderCheckbox,
+
+        // Twitter Settings
         fileNameStringLength: fileNameStringLength,
         showMentionSymbol: includeMentionSymbol,
         showTweetId: includeTweetId,
@@ -22,6 +30,10 @@ function SaveOptions() {
 
 function LoadOptions() {
     chrome.storage.local.get({
+        // General Settings
+        showDownloadFolderCheckbox: false,
+
+        // Twitter Settings
         fileNameStringLength: "8",
         showMentionSymbol: true,
         showTweetId: true,
@@ -30,6 +42,10 @@ function LoadOptions() {
         dateFormatting: "0"
 
     }, function (items) {
+        // General Settings
+        document.getElementById("showDownloadFolderCheckbox").checked = items.showDownloadFolderCheckbox;
+
+        // Twitter Settings
         document.getElementById("twitter_string_length").value = items.fileNameStringLength;
         document.getElementById("twitter_mention").checked = items.showMentionSymbol;
         document.getElementById("twitter_tweet_id").checked = items.showTweetId;

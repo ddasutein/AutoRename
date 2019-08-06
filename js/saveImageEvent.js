@@ -30,6 +30,8 @@ let MonthsInNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "
 let MonthsInLong = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "13"];
 let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "13"];
 
+
+
 /* Time & Date */
 function GetDateFormat(DateTimeFormat) {
 
@@ -76,15 +78,15 @@ function GetDateFormat(DateTimeFormat) {
 
 /* Paramaters to build file name*/
 let FileNameBuilder = {
-    username: "",
-    tweetId: "",
-    randomString: "",
-    fileExtension: "",
-    timeanddate: ""
+    username: null,
+    tweetId: null,
+    randomString: null,
+    fileExtension: null,
+    timeanddate: null
 };
 
 /* Setup file name to return final file name */
-function FileName() {
+function CreateFileName() {
     const username = FileNameBuilder.username;
     const tweetid = FileNameBuilder.tweetId;
     const randomString = FileNameBuilder.randomString;
@@ -149,11 +151,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                     alert("Click on the tweet to use this extension.");
                     return;
                 } else {
-                    chrome.downloads.download({
-                        url: info.srcUrl,
-                        filename: FileName(),
-                        saveAs: true
-                    })
+                    FileDownloadManager(info.srcUrl);
                 }
                 break;
             default:
@@ -162,3 +160,28 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         }
     });
 });
+
+/* Chrome Download API Manager */
+function FileDownloadManager(urlName){
+    AddDownloadListener();
+    chrome.downloads.download({
+        url: urlName,
+        filename: CreateFileName(),
+        saveAs: true
+    })
+}
+
+/* Do something after file download */
+function AddDownloadListener(){
+    chrome.downloads.onChanged.addListener(function(downloadDelta){
+        if (downloadDelta.state.current == "complete"){
+            chrome.storage.local.get({
+                showDownloadFolderCheckbox: false
+            }, function (items) {
+                if (items.showDownloadFolderCheckbox === true){
+                    chrome.downloads.showDefaultFolder();
+                }
+            });
+        }
+    });
+}
