@@ -4,6 +4,15 @@ chrome.contextMenus.create({
     "contexts": ["image"]
 });
 
+/* Enums of Supported sites by this extension */
+const Website = {
+    Twitter: 'twitter.com',
+    Instagram: 'instagram.com',
+    Facebook: 'facebook.com',
+    Reddit: 'reddit.com',
+    LINE_BLOG: 'lineblog.me'
+}
+
 function GenerateRandomString(length) {
     const value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const random = [];
@@ -29,8 +38,6 @@ function GenerateRandomString(length) {
 let MonthsInNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
 let MonthsInLong = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "13"];
 let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "13"];
-
-
 
 /* Time & Date */
 function GetDateFormat(DateTimeFormat) {
@@ -102,14 +109,32 @@ function CreateFileName() {
     return finalFileName;
 }
 
+function ClickTweetNotify() {
+    return "Click on the tweet to use this extension.";
+}
+
+function NotSupportedNotify() {
+    return "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename";
+}
+
 /* Execute everything when save image as is clicked. */
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
-    let currentUrl = tab.url;
-    let currentUrlSplit = currentUrl.split("/");
-    let currentWebsite = currentUrlSplit[2];
+    const currentUrl = tab.url;
+    const currentUrlSplit = currentUrl.split("/");
+    const currentWebsite = currentUrlSplit[2];
 
-    // options.html and options.js
+    switch (currentWebsite) {
+        case Website.Twitter:
+            SaveTwitterImageFile(info, currentUrlSplit)
+            break;
+        default:
+            alert(NotSupportedNotify());
+            break;
+    }
+});
+
+function SaveTwitterImageFile(info, urlSplit) {
     chrome.storage.local.get({
         fileNameStringLength: "8",
         showMentionSymbol: true,
@@ -119,66 +144,59 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         dateFormatting: "0"
     }, function (items) {
 
-        switch (currentWebsite) {
-            case "twitter.com":
+        const twitterUsername = urlSplit[3];
+        const tweetId = urlSplit[5];
+        FileNameBuilder.fileExtension = items.twitterFileExtensionType;
 
-                const twitterUsername = currentUrlSplit[3];
-                const tweetId = currentUrlSplit[5];
+        if (!items.showMentionSymbol) {
+            FileNameBuilder.username = twitterUsername;
+        } else {
+            FileNameBuilder.username = "@" + twitterUsername;
+        }
 
-                FileNameBuilder.fileExtension = items.twitterFileExtensionType;
+        if (!items.showTweetId) {
+            FileNameBuilder.tweetId = "";
+        } else {
+            FileNameBuilder.tweetId = tweetId;
+        }
 
-                if (!items.showMentionSymbol) {
-                    FileNameBuilder.username = twitterUsername;
-                } else {
-                    FileNameBuilder.username = "@" + twitterUsername;
-                }
+        if (!items.useDate) {
+            FileNameBuilder.timeanddate = "";
+        } else {
+            FileNameBuilder.timeanddate = GetDateFormat(items.dateFormatting);
+        }
 
-                if (!items.showTweetId) {
-                    FileNameBuilder.tweetId = "";
-                } else {
-                    FileNameBuilder.tweetId = tweetId;
-                }
+        FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
 
-                if (!items.useDate) {
-                    FileNameBuilder.timeanddate = "";
-                } else {
-                    FileNameBuilder.timeanddate = GetDateFormat(items.dateFormatting);
-                }
-
-                FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
-
-                if (tweetId == null) {
-                    alert("Click on the tweet to use this extension.");
-                    return;
-                } else {
-                    FileDownloadManager(info.srcUrl);
-                }
-                break;
-            default:
-                alert("Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename");
-                break;
+        if (tweetId == null) {
+            alert(ClickTweetNotify());
+            return;
+        } else {
+            FileDownloadManager(info.srcUrl);
         }
     });
-});
+}
 
 /* Chrome Download API Manager */
-function FileDownloadManager(urlName){
+function FileDownloadManager(urlName) {
+
     AddDownloadListener();
+
     chrome.downloads.download({
         url: urlName,
         filename: CreateFileName(),
         saveAs: true
-    })
+    });
 }
 
 /* Do something after file download */
-function AddDownloadListener(){
-    chrome.downloads.onChanged.addListener(function(downloadDelta){
-        if (downloadDelta.state.current == "complete"){
+function AddDownloadListener() {
+    chrome.downloads.onChanged.addListener(function (downloadDelta) {
+        if (downloadDelta.state.current == "complete") {
             chrome.storage.local.get({
                 showDownloadFolderCheckbox: false
             }, function (items) {
-                if (items.showDownloadFolderCheckbox === true){
+                if (items.showDownloadFolderCheckbox === true) {
                     chrome.downloads.showDefaultFolder();
                 }
             });
