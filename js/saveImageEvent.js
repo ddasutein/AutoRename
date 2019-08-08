@@ -123,7 +123,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     const currentUrl = tab.url;
     const currentUrlSplit = currentUrl.split("/");
     const currentWebsite = currentUrlSplit[2];
-
+    
     switch (currentWebsite) {
         case Website.Twitter:
             SaveTwitterImageFile(info, currentUrlSplit);
@@ -179,9 +179,6 @@ function SaveTwitterImageFile(info, urlSplit) {
 
 /* Chrome Download API Manager */
 function FileDownloadManager(urlName) {
-
-    AddDownloadListener();
-
     chrome.downloads.download({
         url: urlName,
         filename: CreateFileName(),
@@ -189,17 +186,15 @@ function FileDownloadManager(urlName) {
     });
 }
 
-/* Do something after file download */
-function AddDownloadListener() {
-    chrome.downloads.onChanged.addListener(function (downloadDelta) {
-        if (downloadDelta.state.current == "complete") {
-            chrome.storage.local.get({
-                showDownloadFolderCheckbox: false
-            }, function (items) {
-                if (items.showDownloadFolderCheckbox === true) {
-                    chrome.downloads.showDefaultFolder();
-                }
-            });
+chrome.downloads.onChanged.addListener(function (downloadDelta) {
+    chrome.storage.local.get({
+        showDownloadFolderCheckbox: false
+    }, function (items) {
+        if (downloadDelta.state && downloadDelta.state.current == "complete"){
+            if (items.showDownloadFolderCheckbox === true){
+                chrome.downloads.showDefaultFolder();
+            }
+            return;              
         }
     });
-}
+});
