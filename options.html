@@ -19,6 +19,12 @@
             <p id="extension_description">description</p>
         </div>
         <hr>
+        <div class="content-general-settings">
+            <h2><B>General Settings</B></h2><br>
+            <input type="checkbox" id="showDownloadFolderCheckbox">
+            <label>Show Download Folder Automatically</label>
+        </div>
+        <hr>
         <!-- <h2 data-i18n="__MSG_settingsSetLanguage__">Set Language</h2>
         <label data-i18n="__MSG_settingsLabelLanguage__"></label>
         <label>
@@ -37,7 +43,24 @@
         <label data-i18n="__MSG_settingsTwitterMentionSymbol__">Include mention symbol @</label>
         <br>
         <input type="checkbox" id="twitter_tweet_id" checked>
-        <label data-i18n="__MSG_settingsTwitterUsernameID__">Include Tweet ID</label>
+        <label data-i18n="__MSG_settingsTwitterUsernameID__">Include Tweet ID</label><br>
+        <input type="checkbox" id="IsUsingDateCheckbox">
+        <label>Include Date (Based on System Date)</label><br>
+        <select id="DateFormatTypeSelect" disabled="disabled">
+            <option disabled>Numerical</option>
+            <option value="0">MM-DD-YYYY (Numerical)</option>
+            <option value="1">DD-MM-YYYY (Numerical)</option>
+            <option value="2">YYYY-MM-DD (Numerical)</option>
+            <option disabled>Long</option>
+            <option value="3">MM-DD-YYYY (Long)</option>
+            <option value="4">DD-MM-YYYY (Long)</option>
+            <option value="5">YYYY-MM-DD (Long)</option>
+            <option disabled>Short</option>
+            <option value="6">MM-DD-YYYY (Short)</option>
+            <option value="7">DD-MM-YYYY (Short)</option>
+            <option value="8">YYYY-MM-DD (Short)</option>
+        </select><br>
+        <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
         <br>
         <select id="twitter_string_length">
             <option value="4">4</option>
@@ -57,20 +80,18 @@
         <label data-i18n="__MSG_settingsTwitterGeneratedString__">String generator length</label>
         <br>
         <select id="twitter_file_extension_type">
-                <option value=".jpg">JPG (Default)</option>
-                <option value=".png">PNG</option>
+            <option value=".jpg">JPG (Default)</option>
+            <option value=".png">PNG</option>
         </select>
         <label data-i18n="__MSG_settingsTwitterFileExtension__">File extension type</label>
         <br><br>
         <button data-i18n="__MSG_settingsButtonSaveTwitterPref__" type="submit" id="buttonSaveTwitterPref">Save</button>
         <br>
         <p></p>
-
     </div>
     <script src="js/options.js"></script>
     <!-- <script src="src/i18n.js"></script> -->
     <script type="text/javascript" src="js/extensionInfo.js"></script>
-
 
 </body>
 
