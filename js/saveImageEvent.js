@@ -1,5 +1,5 @@
 chrome.contextMenus.create({
-    "id": "saveImage,",
+    "id": "saveImage",
     "title": "Save image as (AutoRename)",
     "contexts": ["image"]
 });
@@ -123,7 +123,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     const currentUrl = tab.url;
     const currentUrlSplit = currentUrl.split("/");
     const currentWebsite = currentUrlSplit[2];
-    
+
     switch (currentWebsite) {
         case Website.Twitter:
             SaveTwitterImageFile(info, currentUrlSplit);
@@ -172,29 +172,53 @@ function SaveTwitterImageFile(info, urlSplit) {
             alert(ClickTweetNotify());
             return;
         } else {
-            FileDownloadManager(info.srcUrl);
+            FileDownloadManager(info.srcUrl, Website.Twitter);
         }
     });
 }
 
 /* Chrome Download API Manager */
-function FileDownloadManager(urlName) {
-    chrome.downloads.download({
-        url: urlName,
-        filename: CreateFileName(),
-        saveAs: true
-    });
+function FileDownloadManager(urlName, website) {
+
+    switch (website) {
+        case Website.Twitter:
+            const originalUrl = urlName;
+            const twitterLargeImage = "&name=large";
+            const getTwitterImageFormat = originalUrl.substring(0, originalUrl.lastIndexOf("&name=") + 0);
+            const updatedUrl = getTwitterImageFormat + twitterLargeImage;
+            let finalImageSource = null;
+
+            const regex_size = "&name=";
+            
+            if (originalUrl.includes(regex_size)){
+                // If the user is using the Redesign
+                finalImageSource = updatedUrl;
+            }else {
+                // If user is on the legacy design
+                finalImageSource = originalUrl;
+            }
+
+            console.log("FileDownloadManager_original_url: " + originalUrl);
+            console.log("FileDownloadManager_final_url: " + finalImageSource);
+
+            chrome.downloads.download({
+                url: finalImageSource,
+                filename: CreateFileName(),
+                saveAs: true
+            });
+            break;
+    }
 }
 
 chrome.downloads.onChanged.addListener(function (downloadDelta) {
     chrome.storage.local.get({
         showDownloadFolderCheckbox: false
     }, function (items) {
-        if (downloadDelta.state && downloadDelta.state.current == "complete"){
-            if (items.showDownloadFolderCheckbox === true){
+        if (downloadDelta.state && downloadDelta.state.current == "complete") {
+            if (items.showDownloadFolderCheckbox === true) {
                 chrome.downloads.showDefaultFolder();
             }
-            return;              
+            return;
         }
     });
 });
