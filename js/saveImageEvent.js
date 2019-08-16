@@ -4,6 +4,12 @@ chrome.contextMenus.create({
     "contexts": ["image"]
 });
 
+chrome.contextMenus.create({
+    "id": "viewOriginalImageSizeContextMenuItem",
+    "title": "View Original Image",
+    "contexts": ["image"]
+    });
+
 /* Enums of Supported sites by this extension */
 const Website = {
     Twitter: 'twitter.com',
@@ -109,10 +115,6 @@ function CreateFileName() {
     return finalFileName;
 }
 
-function ClickTweetNotify() {
-    return "Click on the tweet to use this extension.";
-}
-
 function NotSupportedNotify() {
     return "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename";
 }
@@ -126,15 +128,34 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     switch (currentWebsite) {
         case Website.Twitter:
-            SaveTwitterImageFile(info, currentUrlSplit);
+
+            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+                ParseOriginalMediaUrl(info.srcUrl);
+                ViewTwitterOriginalImageTab();
+                return;
+            } 
+            else if (info.menuItemId === "saveImage"){
+                SaveTwitterImage(info, currentUrlSplit);
+            }
             break;
         default:
             alert(NotSupportedNotify());
             break;
     }
+
 });
 
-function SaveTwitterImageFile(info, urlSplit) {
+/* ---------------------FUNCTIONS FOR TWITTER------------------------ */
+
+function ClickTweetNotify() {
+    return "Click on the tweet to use this extension.";
+}
+
+function ViewTwitterOriginalImageTab(){
+    window.open(finalUrlOutput, "_blank");
+}
+
+function SaveTwitterImage(info, urlSplit) {
     chrome.storage.local.get({
         fileNameStringLength: "8",
         showMentionSymbol: true,
@@ -172,37 +193,55 @@ function SaveTwitterImageFile(info, urlSplit) {
             alert(ClickTweetNotify());
             return;
         } else {
-            FileDownloadManager(info.srcUrl, Website.Twitter);
+            ParseOriginalMediaUrl(info.srcUrl);
+            FileDownloadManager(Website.Twitter);
         }
     });
 }
 
+let finalUrlOutput = null;
+
+function ParseOriginalMediaUrl(url){
+
+    const DEBUG_TAG = "ParseOriginalMediaUrl => ";
+
+    const originalUrl = url;
+    const twitterLargeImage = "&name=orig";
+    const getTwitterImageFormat = originalUrl.substring(0, originalUrl.lastIndexOf("&name=") + 0);
+    const updatedUrl = getTwitterImageFormat + twitterLargeImage;
+    let finalImageSource = null;
+
+    const regex_size = "&name=";
+    
+    if (originalUrl.includes(regex_size)){
+        // If the user is using the Redesign
+        finalImageSource = updatedUrl;
+    }else {
+        // If user is on the legacy design
+        finalImageSource = originalUrl;
+    }
+
+    console.log(DEBUG_TAG + "original_url: " + originalUrl);
+    console.log(DEBUG_TAG + "final_url: " + finalImageSource);
+
+    finalUrlOutput = finalImageSource;
+}
+
+/* ---------------------END OF TWITTER FUNCTIONS------------------------ */
+
 /* Chrome Download API Manager */
-function FileDownloadManager(urlName, website) {
+function FileDownloadManager(website) {
+
+    const DEBUG_TAG = "FileDownloadManager => ";
 
     switch (website) {
         case Website.Twitter:
-            const originalUrl = urlName;
-            const twitterLargeImage = "&name=large";
-            const getTwitterImageFormat = originalUrl.substring(0, originalUrl.lastIndexOf("&name=") + 0);
-            const updatedUrl = getTwitterImageFormat + twitterLargeImage;
-            let finalImageSource = null;
 
-            const regex_size = "&name=";
-            
-            if (originalUrl.includes(regex_size)){
-                // If the user is using the Redesign
-                finalImageSource = updatedUrl;
-            }else {
-                // If user is on the legacy design
-                finalImageSource = originalUrl;
-            }
-
-            console.log("FileDownloadManager_original_url: " + originalUrl);
-            console.log("FileDownloadManager_final_url: " + finalImageSource);
+            console.log(DEBUG_TAG + "url: " + finalUrlOutput);
+            console.log(DEBUG_TAG + "fileName: " + CreateFileName());
 
             chrome.downloads.download({
-                url: finalImageSource,
+                url: finalUrlOutput,
                 filename: CreateFileName(),
                 saveAs: true
             });
