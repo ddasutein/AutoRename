@@ -115,10 +115,6 @@ function CreateFileName() {
     return finalFileName;
 }
 
-function NotSupportedNotify() {
-    return chrome.i18n.getMessage("error_website_not_supported");
-}
-
 /* Execute everything when save image as is clicked. */
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
@@ -139,7 +135,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             }
             break;
         default:
-            alert(NotSupportedNotify());
+            alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
     }
 
@@ -147,9 +143,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 /* ---------------------FUNCTIONS FOR TWITTER------------------------ */
 
-function ClickTweetNotify() {
-    return chrome.i18n.getMessage("error_tweet_detail_alert_prompt");
-}
 
 function ViewTwitterOriginalImageTab(){
     window.open(finalUrlOutput, "_blank");
@@ -190,7 +183,7 @@ function SaveTwitterImage(info, urlSplit) {
         FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
 
         if (tweetId == null) {
-            alert(ClickTweetNotify());
+            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
             return;
         } else {
             ParseOriginalMediaUrl(info.srcUrl);
