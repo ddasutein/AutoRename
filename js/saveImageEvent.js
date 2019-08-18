@@ -1,14 +1,14 @@
 chrome.contextMenus.create({
     "id": "saveImage",
-    "title": "Save image as (AutoRename)",
+    "title": chrome.i18n.getMessage("context_menu_save_image_as"),
     "contexts": ["image"]
 });
 
 chrome.contextMenus.create({
     "id": "viewOriginalImageSizeContextMenuItem",
-    "title": "View Original Image",
+    "title": chrome.i18n.getMessage("context_menu_view_original_image"),
     "contexts": ["image"]
-    });
+});
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -116,7 +116,7 @@ function CreateFileName() {
 }
 
 function NotSupportedNotify() {
-    return "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename";
+    return chrome.i18n.getMessage("error_website_not_supported");
 }
 
 /* Execute everything when save image as is clicked. */
@@ -148,7 +148,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 /* ---------------------FUNCTIONS FOR TWITTER------------------------ */
 
 function ClickTweetNotify() {
-    return "Click on the tweet to use this extension.";
+    return chrome.i18n.getMessage("error_tweet_detail_alert_prompt");
 }
 
 function ViewTwitterOriginalImageTab(){

@@ -1,33 +1,19 @@
-// Code reference from: https://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension 
+function SetLocale() {
+    document.getElementById("settings_developed_by_dasutein").innerHTML = chrome.i18n.getMessage("settings_developed_by_dasutein");
+    document.getElementById("settings_github_link").innerHTML = chrome.i18n.getMessage("settings_github_link");
+    document.getElementById("settings_label_general_settings").innerHTML = chrome.i18n.getMessage("settings_label_general_settings");
+    document.getElementById("settings_general_settings_show_download_folder").innerHTML = chrome.i18n.getMessage("settings_general_settings_show_download_folder");
 
-function replace_i18n(obj, tag) {
-    var msg = tag.replace(/__MSG_(\w+)__/g, function(match, v1) {
-        return v1 ? chrome.i18n.getMessage(v1) : '';
-    });
+    document.getElementById("settings_label_twitter").innerHTML = chrome.i18n.getMessage("settings_label_twitter");
+    document.getElementById("settings_label_twitter_description").innerHTML = chrome.i18n.getMessage("settings_label_twitter_description");
+    document.getElementById("settings_twitter_include_mention_symbol").innerHTML = chrome.i18n.getMessage("settings_twitter_include_mention_symbol");
+    document.getElementById("settings_twitter_include_tweet_id").innerHTML = chrome.i18n.getMessage("settings_twitter_include_tweet_id");
+    document.getElementById("settings_twitter_include_tweet_date").innerHTML = chrome.i18n.getMessage("settings_twitter_include_tweet_date");
+    document.getElementById("settings_twitter_generate_string").innerHTML = chrome.i18n.getMessage("settings_twitter_generate_string");
+    document.getElementById("settings_twitter_file_extension_type").innerHTML = chrome.i18n.getMessage("settings_twitter_file_extension_type");
 
-    if(msg != tag) obj.innerHTML = msg;
+    document.getElementById("button_save").innerHTML = chrome.i18n.getMessage("button_save");
+
 }
 
-function localizeHtmlPage() {
-    // Localize using __MSG_***__ data tags
-    var data = document.querySelectorAll('[data-i18n]');
-
-    for (var i in data) if (data.hasOwnProperty(i)) {
-        var obj = data[i];
-        var tag = obj.getAttribute('data-i18n').toString();
-
-        replace_i18n(obj, tag);
-    }
-
-    // Localize everything else by replacing all __MSG_***__ tags
-    var page = document.getElementsByTagName('html');
-
-    for (var j = 0; j < page.length; j++) {
-        var obj = page[j];
-        var tag = obj.innerHTML.toString();
-
-        replace_i18n(obj, tag);
-    }
-}
-
-localizeHtmlPage();
+document.addEventListener("DOMContentLoaded", SetLocale);

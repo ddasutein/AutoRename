@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html>
 
 <head>
     <title data-i18n="__MSG_extensionName__">AutoRename Extension Settings</title>
@@ -12,40 +12,29 @@
         <div class="content-extension-meta">
             <!-- <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p> -->
             <h1 id="extension_name">-extension name-</h1>
-            <p id="extension_developer">Developed by: Dasutein</p>
-            <p id="extension_contribute">Contribute: <a
-                    href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
+            <p id="settings_developed_by_dasutein"></p>
+            <p id="settings_github_link"></p>
+            <p><a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
             <p id="extension_version">Version 1.0</p>
             <p id="extension_description">description</p>
         </div>
         <hr>
         <div class="content-general-settings">
-            <h2><B>General Settings</B></h2><br>
+            <h2 id="settings_label_general_settings"><B></B></h2><br>
             <input type="checkbox" id="showDownloadFolderCheckbox">
-            <label>Show Download Folder Automatically</label>
+            <label id="settings_general_settings_show_download_folder"></label>
         </div>
         <hr>
-        <!-- <h2 data-i18n="__MSG_settingsSetLanguage__">Set Language</h2>
-        <label data-i18n="__MSG_settingsLabelLanguage__"></label>
-        <label>
-            <select id="extension_language_pref">
-                <option value="english">English</option>
-                <option value="japanese">Japanese</option>
-            </select>
-        </label>
-        <br>
-        <br>
-        <hr> -->
-        <h2 data-i18n="__MSG_settingsTwitter__"><b>Twitter</b></h2>
-        <label>Customize Twitter image download parameters</label>
+        <h2 id="settings_label_twitter"><b>Twitter</b></h2>
+        <label id="settings_label_twitter_description"></label>
         <br><br>
         <input type="checkbox" id="twitter_mention" checked>
-        <label data-i18n="__MSG_settingsTwitterMentionSymbol__">Include mention symbol @</label>
+        <label id="settings_twitter_include_mention_symbol"></label>
         <br>
         <input type="checkbox" id="twitter_tweet_id" checked>
-        <label data-i18n="__MSG_settingsTwitterUsernameID__">Include Tweet ID</label><br>
+        <label id="settings_twitter_include_tweet_id"></label><br>
         <input type="checkbox" id="IsUsingDateCheckbox">
-        <label>Include Date (Based on System Date)</label><br>
+        <label id="settings_twitter_include_tweet_date"></label><br>
         <select id="DateFormatTypeSelect" disabled="disabled">
             <option disabled>Numerical</option>
             <option value="0">MM-DD-YYYY (Numerical)</option>
@@ -77,20 +66,20 @@
             <option value="15">15</option>
             <option value="16">16</option>
         </select>
-        <label data-i18n="__MSG_settingsTwitterGeneratedString__">String generator length</label>
+        <label id="settings_twitter_generate_string"></label>
         <br>
         <select id="twitter_file_extension_type">
             <option value=".jpg">JPG (Default)</option>
             <option value=".png">PNG</option>
         </select>
-        <label data-i18n="__MSG_settingsTwitterFileExtension__">File extension type</label>
+        <label id="settings_twitter_file_extension_type"></label>
         <br><br>
-        <button data-i18n="__MSG_settingsButtonSaveTwitterPref__" type="submit" id="buttonSaveTwitterPref">Save</button>
+        <button type="submit" id="button_save"></button>
         <br>
         <p></p>
     </div>
     <script src="js/options.js"></script>
-    <!-- <script src="src/i18n.js"></script> -->
+    <script src="js/i18n.js"></script>
     <script type="text/javascript" src="js/extensionInfo.js"></script>
 
 </body>
