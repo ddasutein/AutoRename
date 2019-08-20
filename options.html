@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title data-i18n="__MSG_extensionName__">AutoRename Extension Settings</title>
+    <title>AutoRename Extension Settings</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
@@ -13,28 +13,34 @@
             <!-- <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p> -->
             <h1 id="extension_name">-extension name-</h1>
             <p id="settings_developed_by_dasutein"></p>
-            <p id="settings_github_link"></p>
+            <p id="settings_github_link" data-i18n="settings_github_link"></p>
             <p><a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
             <p id="extension_version">Version 1.0</p>
             <p id="extension_description">description</p>
         </div>
         <hr>
+        <!--
+        -->
         <div class="content-general-settings">
-            <h2 id="settings_label_general_settings"><B></B></h2><br>
+            <h2 id="settings_label_general_settings" data-i18n="settings_label_general_settings"><B></B></h2><br>
             <input type="checkbox" id="showDownloadFolderCheckbox">
-            <label id="settings_general_settings_show_download_folder"></label>
+            <label id="settings_general_settings_show_download_folder" data-i18n="settings_general_settings_show_download_folder"></label>
         </div>
+        <!--          
+        -->
         <hr>
-        <h2 id="settings_label_twitter"><b>Twitter</b></h2>
-        <label id="settings_label_twitter_description"></label>
+        <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b>Twitter</b></h2>
+        <label id="settings_label_twitter_description" data-i18n="settings_label_twitter_description"></label>
         <br><br>
         <input type="checkbox" id="twitter_mention" checked>
-        <label id="settings_twitter_include_mention_symbol"></label>
+        <label id="settings_twitter_include_mention_symbol" data-i18n="settings_twitter_include_mention_symbol"></label>
         <br>
         <input type="checkbox" id="twitter_tweet_id" checked>
-        <label id="settings_twitter_include_tweet_id"></label><br>
+        <label id="settings_twitter_include_tweet_id" data-i18n="settings_twitter_include_tweet_id"></label><br>
         <input type="checkbox" id="IsUsingDateCheckbox">
-        <label id="settings_twitter_include_tweet_date"></label><br>
+        <label id="settings_twitter_include_tweet_date" data-i18n="settings_twitter_include_tweet_date"></label><br>
+        <!--      
+        -->
         <select id="DateFormatTypeSelect" disabled="disabled">
             <option disabled>Numerical</option>
             <option value="0">MM-DD-YYYY (Numerical)</option>
@@ -49,6 +55,8 @@
             <option value="7">DD-MM-YYYY (Short)</option>
             <option value="8">YYYY-MM-DD (Short)</option>
         </select><br>
+        <!--          
+        -->
         <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
         <br>
         <select id="twitter_string_length">
@@ -66,15 +74,17 @@
             <option value="15">15</option>
             <option value="16">16</option>
         </select>
-        <label id="settings_twitter_generate_string"></label>
+        <!--           
+        -->
+        <label id="settings_twitter_generate_string" data-i18n="settings_twitter_generate_string"></label>
         <br>
         <select id="twitter_file_extension_type">
             <option value=".jpg">JPG (Default)</option>
             <option value=".png">PNG</option>
         </select>
-        <label id="settings_twitter_file_extension_type"></label>
+        <label id="settings_twitter_file_extension_type" data-i18n="settings_twitter_file_extension_type"></label>
         <br><br>
-        <button type="submit" id="button_save"></button>
+        <button type="submit" id="button_save" data-i18n="button_save"></button>
         <br>
         <p></p>
     </div>
