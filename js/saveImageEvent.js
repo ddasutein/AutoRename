@@ -4,11 +4,14 @@ chrome.contextMenus.create({
     "contexts": ["image"]
 });
 
-chrome.contextMenus.create({
+// Twitter Specific Context Menu Item
+const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
     "id": "viewOriginalImageSizeContextMenuItem",
     "title": chrome.i18n.getMessage("context_menu_view_original_image"),
-    "contexts": ["image"]
+    "contexts": ["image"],
+    "visible": false
 });
+
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -113,6 +116,61 @@ function CreateFileName() {
         finalFileName = username + "-" + tweetid + "-" + randomString + _timeanddate + fileExtension;
     }
     return finalFileName;
+}
+
+/* Listens for URL from address bar when browser window is opened or entering a new URL */
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+    
+    const DEBUG_TAG = "tabsOnUpdated => ";
+    console.log(DEBUG_TAG + changeInfo.status);
+
+    chrome.tabs.query({
+        "active": true,
+        "currentWindow": true},
+
+        function (tabs){
+            if (changeInfo.status == "complete"){
+                console.log(DEBUG_TAG + tabs[0].url);
+                ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);
+            }
+
+        }
+    );
+});
+
+/* Listens for tab change by the user */
+chrome.tabs.onActiveChanged.addListener(function(){
+
+    const DEBUG_TAG = "tabsOnActiveChanged => ";
+
+    chrome.tabs.query({
+        "active": true,
+        "currentWindow": true},
+
+        function(tabs){
+            console.log(DEBUG_TAG + tabs[0].url);
+            ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);            
+        },
+    );
+});
+
+function ToggleViewOriginalImageContextMenuVisibility(url){
+    const currentUrl = url;
+    const currentUrlSplit = currentUrl.split("/");
+    const currentWebsite = currentUrlSplit[2];
+    
+    switch(currentWebsite){
+        case Website.Twitter:
+            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+                "visible": true 
+                });
+            break;
+        default:
+            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+                "visible": false 
+                });
+            break;
+    }    
 }
 
 /* Execute everything when save image as is clicked. */
