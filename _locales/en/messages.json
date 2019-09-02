@@ -19,9 +19,17 @@
         "message": "Click on the tweet to use this extension."
     },
 
+    "options_header_title":{
+        "message": "AutoRename Settings"
+    },
+
     "settings_developed_by_dasutein":{
         "message": "Developed by: Dasutein",
-        "description": "Note: Do not translate my name. For Japanese translation, Katakana is optional"
+        "description": "Do not translate my name. For Japanese translation, Katakana is optional"
+    },
+
+    "settings_github_link":{
+        "message": "GitHub"
     },
 
     "settings_extension_description":{
@@ -42,6 +50,10 @@
 
     "settings_label_twitter":{
         "message": "Twitter Settings"
+    },
+
+    "settings_label_twitter_description":{
+        "message": "Customize Twitter image download parameters"
     },
 
     "settings_twitter_include_mention_symbol":{
@@ -66,5 +78,67 @@
 
     "button_save":{
         "message": "Save"
+    },
+
+    "settings_save_success":{
+        "message": "Preferences saved"
+    },
+
+    "settings_twitter_dateformat_item_label_numerical":{
+        "message": "Numerical"
+    },
+    
+    "settings_twitter_dateformat_item_label_option_1":{
+        "message": "MM-DD-YYYY (Numerical)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_2":{
+        "message": "DD-MM-YYYY (Numerical)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_3":{
+        "message": "YYYY-MM-DD (Numerical)"
+    },
+
+    "settings_twitter_dateformat_item_label_long":{
+        "message": "Long"
+    },
+
+    "settings_twitter_dateformat_item_label_option_4":{
+        "message": "MM-DD-YYYY (Long)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_5":{
+        "message": "DD-MM-YYYY (Long)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_6":{
+        "message": "YYYY-MM-DD (Long)"
+    },
+
+    "settings_twitter_dateformat_item_label_short":{
+        "message": "Short"
+    },
+
+    "settings_twitter_dateformat_item_label_option_7":{
+        "message": "MM-DD-YYYY (Short)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_8":{
+        "message": "DD-MM-YYYY (Short)"
+    },
+
+    "settings_twitter_dateformat_item_label_option_9":{
+        "message": "YYYY-MM-DD (Short)"
+    },
+
+    "settings_twitter_file_extension_jpg":{
+        "message": "JPG (Default)",
+        "description": "Translate (Default) only"
+    },
+
+    "settings_twitter_file_extension_png":{
+        "message": "PNG",
+        "description": "Do not translate"
     }
 }
