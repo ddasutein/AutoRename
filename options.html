@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>AutoRename Extension Settings</title>
+    <title data-i18n="options_header_title"></title>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
@@ -11,12 +11,12 @@
     <div class="content">
         <div class="content-extension-meta">
             <!-- <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p> -->
-            <h1 id="extension_name">-extension name-</h1>
+            <h1 id="extension_name"></h1>
             <p id="settings_developed_by_dasutein"></p>
             <p id="settings_github_link" data-i18n="settings_github_link"></p>
             <p><a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
-            <p id="extension_version">Version 1.0</p>
-            <p id="extension_description">description</p>
+            <p id="extension_version"></p>
+            <p id="extension_description"></p>
         </div>
         <hr>
         <!--
@@ -29,7 +29,7 @@
         <!--          
         -->
         <hr>
-        <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b>Twitter</b></h2>
+        <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b></b></h2>
         <label id="settings_label_twitter_description" data-i18n="settings_label_twitter_description"></label>
         <br><br>
         <input type="checkbox" id="twitter_mention" checked>
@@ -42,18 +42,18 @@
         <!--      
         -->
         <select id="DateFormatTypeSelect" disabled="disabled">
-            <option disabled>Numerical</option>
-            <option value="0">MM-DD-YYYY (Numerical)</option>
-            <option value="1">DD-MM-YYYY (Numerical)</option>
-            <option value="2">YYYY-MM-DD (Numerical)</option>
-            <option disabled>Long</option>
-            <option value="3">MM-DD-YYYY (Long)</option>
-            <option value="4">DD-MM-YYYY (Long)</option>
-            <option value="5">YYYY-MM-DD (Long)</option>
-            <option disabled>Short</option>
-            <option value="6">MM-DD-YYYY (Short)</option>
-            <option value="7">DD-MM-YYYY (Short)</option>
-            <option value="8">YYYY-MM-DD (Short)</option>
+            <option disabled data-i18n="settings_twitter_dateformat_item_label_numerical"></option>
+            <option value="0" data-i18n="settings_twitter_dateformat_item_label_option_1"></option>
+            <option value="1" data-i18n="settings_twitter_dateformat_item_label_option_2"></option>
+            <option value="2" data-i18n="settings_twitter_dateformat_item_label_option_3"></option></option>
+            <option disabled data-i18n="settings_twitter_dateformat_item_label_long"></option>
+            <option value="3" data-i18n="settings_twitter_dateformat_item_label_option_4"></option>
+            <option value="4" data-i18n="settings_twitter_dateformat_item_label_option_5"></option>
+            <option value="5" data-i18n="settings_twitter_dateformat_item_label_option_6"></option>
+            <option disabled  data-i18n="settings_twitter_dateformat_item_label_short"></option>
+            <option value="6" data-i18n="settings_twitter_dateformat_item_label_option_7"></option>
+            <option value="7" data-i18n="settings_twitter_dateformat_item_label_option_8"></option>
+            <option value="8" data-i18n="settings_twitter_dateformat_item_label_option_9"></option>
         </select><br>
         <!--          
         -->
@@ -79,8 +79,8 @@
         <label id="settings_twitter_generate_string" data-i18n="settings_twitter_generate_string"></label>
         <br>
         <select id="twitter_file_extension_type">
-            <option value=".jpg">JPG (Default)</option>
-            <option value=".png">PNG</option>
+            <option value=".jpg" data-i18n="settings_twitter_file_extension_jpg"></option>
+            <option value=".png" data-i18n="settings_twitter_file_extension_png"></option>
         </select>
         <label id="settings_twitter_file_extension_type" data-i18n="settings_twitter_file_extension_type"></label>
         <br><br>
