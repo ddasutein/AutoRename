@@ -12,7 +12,6 @@ const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
     "visible": false
 });
 
-
 /* Enums of Supported sites by this extension */
 const Website = {
     Twitter: 'twitter.com',
@@ -119,23 +118,14 @@ function CreateFileName() {
 }
 
 /* Listens for URL from address bar when browser window is opened or entering a new URL */
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
-    
+chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
+
     const DEBUG_TAG = "tabsOnUpdated => ";
-    console.log(DEBUG_TAG + changeInfo.status);
 
-    chrome.tabs.query({
-        "active": true,
-        "currentWindow": true},
-
-        function (tabs){
-            if (changeInfo.status == "complete"){
-                console.log(DEBUG_TAG + tabs[0].url);
-                ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);
-            }
-
-        }
-    );
+    if (changeInfo.status == "complete"){
+        console.log(DEBUG_TAG + tab.url + " " + tab.title);
+        ToggleViewOriginalImageContextMenuVisibility(tab.url)
+    }
 });
 
 /* Listens for tab change by the user */
