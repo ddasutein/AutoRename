@@ -1,14 +1,16 @@
 chrome.contextMenus.create({
     "id": "saveImage",
-    "title": "Save image as (AutoRename)",
+    "title": chrome.i18n.getMessage("context_menu_save_image_as"),
     "contexts": ["image"]
 });
 
-chrome.contextMenus.create({
+// Twitter Specific Context Menu Item
+const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
     "id": "viewOriginalImageSizeContextMenuItem",
-    "title": "View Original Image",
-    "contexts": ["image"]
-    });
+    "title": chrome.i18n.getMessage("context_menu_view_original_image"),
+    "contexts": ["image"],
+    "visible": false
+});
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -115,8 +117,50 @@ function CreateFileName() {
     return finalFileName;
 }
 
-function NotSupportedNotify() {
-    return "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename";
+/* Listens for URL from address bar when browser window is opened or entering a new URL */
+chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
+
+    const DEBUG_TAG = "tabsOnUpdated => ";
+
+    if (changeInfo.status == "complete"){
+        console.log(DEBUG_TAG + tab.url + " " + tab.title);
+        ToggleViewOriginalImageContextMenuVisibility(tab.url)
+    }
+});
+
+/* Listens for tab change by the user */
+chrome.tabs.onActiveChanged.addListener(function(){
+
+    const DEBUG_TAG = "tabsOnActiveChanged => ";
+
+    chrome.tabs.query({
+        "active": true,
+        "currentWindow": true},
+
+        function(tabs){
+            console.log(DEBUG_TAG + tabs[0].url);
+            ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);            
+        },
+    );
+});
+
+function ToggleViewOriginalImageContextMenuVisibility(url){
+    const currentUrl = url;
+    const currentUrlSplit = currentUrl.split("/");
+    const currentWebsite = currentUrlSplit[2];
+    
+    switch(currentWebsite){
+        case Website.Twitter:
+            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+                "visible": true 
+                });
+            break;
+        default:
+            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+                "visible": false 
+                });
+            break;
+    }    
 }
 
 /* Execute everything when save image as is clicked. */
@@ -139,7 +183,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             }
             break;
         default:
-            alert(NotSupportedNotify());
+            alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
     }
 
@@ -147,9 +191,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 /* ---------------------FUNCTIONS FOR TWITTER------------------------ */
 
-function ClickTweetNotify() {
-    return "Click on the tweet to use this extension.";
-}
 
 function ViewTwitterOriginalImageTab(){
     window.open(finalUrlOutput, "_blank");
@@ -190,7 +231,7 @@ function SaveTwitterImage(info, urlSplit) {
         FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
 
         if (tweetId == null) {
-            alert(ClickTweetNotify());
+            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
             return;
         } else {
             ParseOriginalMediaUrl(info.srcUrl);

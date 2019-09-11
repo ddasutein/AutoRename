@@ -24,7 +24,7 @@ function SaveOptions() {
         dateFormatting: dateFormatting
 
     }, function () {
-        alert("Preferences saved");
+        alert(chrome.i18n.getMessage("settings_save_success"));
     });
 }
 
@@ -116,5 +116,5 @@ IsUsingDateChecked.onchange = function () {
 // }
 
 document.addEventListener("DOMContentLoaded", LoadOptions);
-document.getElementById("buttonSaveTwitterPref").addEventListener("click",
+document.getElementById("button_save").addEventListener("click",
     SaveOptions);
