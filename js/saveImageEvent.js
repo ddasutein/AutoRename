@@ -1,3 +1,48 @@
+
+/* ---------------------DEBUGGER FUNCTIONS------------------------ */
+console.log("Welcome to AutoRename" + "\n" +
+"GitHub: " + "https://github.com/ddasutein/AutoRename" + "\n" +
+"Enable Console Debugging by setting 'ShowDebugger' to TRUE");
+
+let ShowDebugger = false;
+
+function Debug_Settings_Value(){
+
+    if (!ShowDebugger){
+        console.log("Cannot debug this function. Set ShowDebugger to TRUE");
+    }else {
+        chrome.storage.local.get({
+            // General Settings
+            showDownloadFolderCheckbox: false,
+    
+            // Twitter Settings
+            fileNameStringLength: "8",
+            showMentionSymbol: true,
+            showTweetId: true,
+            twitterFileExtensionType: ".jpg",
+            useDate: false,
+            dateFormatting: "0"
+    
+        }, function (items) {
+            console.log("AutoRename Settings" + "\n" +
+                "ShowDownloadsFolderCheckValue: " + items.showDownloadFolderCheckbox + "\n" +
+                "TwitterFileNameStringLengthValue: " + items.fileNameStringLength + "\n" +
+                "TwitterShowMentionSymbolValue " + items.showMentionSymbol + "\n" +
+                "TwitterShowTweetIdValue: " + items.showMentionSymbol + "\n" +
+                "TwitterFileExtensionTypeValue:  " + items.twitterFileExtensionType + "\n" +
+                "TwitterIsUsingDateCheckboxValue: " + items.useDate + "\n" +
+                "TwitterDateFormatTypeSelectValue: " + items.dateFormatting + "\n"
+                );
+        });
+    }
+
+
+
+}
+
+/* -------------------END OF DEBUGGER FUNCTIONS------------------ */
+
+/* ---------------------CONTEXT MENU ITEMS----------------------- */
 chrome.contextMenus.create({
     "id": "saveImage",
     "title": chrome.i18n.getMessage("context_menu_save_image_as"),
@@ -11,6 +56,8 @@ const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
     "contexts": ["image"],
     "visible": false
 });
+
+/* ----------END OF CONTEXT MENU ITEMS FUNCTIONS------------------ */
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -50,6 +97,12 @@ let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 /* Time & Date */
 function GetDateFormat(DateTimeFormat) {
 
+    const DEBUG_TAG = "GetDateFormat => ";
+
+    if (ShowDebugger){
+        console.log(DEBUG_TAG + "DateTimeFormat: " + DateTimeFormat);
+    }
+
     const _date = new Date();
     let _finalTimeDateValue = "";
 
@@ -88,6 +141,11 @@ function GetDateFormat(DateTimeFormat) {
             _finalTimeDateValue = null;
             break;
     }
+
+    if (ShowDebugger){
+        console.log(DEBUG_TAG + "finalTimeDateValue: " + _finalTimeDateValue);
+    }
+
     return " (" + _finalTimeDateValue + ")";
 }
 
@@ -120,10 +178,11 @@ function CreateFileName() {
 /* Listens for URL from address bar when browser window is opened or entering a new URL */
 chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
 
-    const DEBUG_TAG = "tabsOnUpdated => ";
-
     if (changeInfo.status == "complete"){
-        console.log(DEBUG_TAG + tab.url + " " + tab.title);
+        if (ShowDebugger){
+            const DEBUG_TAG = "tabsOnUpdated => ";
+            console.log(DEBUG_TAG + tab.url + " " + tab.title);           
+        }
         ToggleViewOriginalImageContextMenuVisibility(tab.url)
     }
 });
@@ -131,14 +190,15 @@ chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
 /* Listens for tab change by the user */
 chrome.tabs.onActiveChanged.addListener(function(){
 
-    const DEBUG_TAG = "tabsOnActiveChanged => ";
-
     chrome.tabs.query({
         "active": true,
         "currentWindow": true},
 
         function(tabs){
-            console.log(DEBUG_TAG + tabs[0].url);
+            if (ShowDebugger){
+                const DEBUG_TAG = "tabsOnActiveChanged => ";
+                console.log(DEBUG_TAG + tabs[0].url);
+            }
             ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);            
         },
     );
@@ -244,8 +304,6 @@ let finalUrlOutput = null;
 
 function ParseOriginalMediaUrl(url){
 
-    const DEBUG_TAG = "ParseOriginalMediaUrl => ";
-
     const originalUrl = url;
     const twitterLargeImage = "&name=orig";
     const getTwitterImageFormat = originalUrl.substring(0, originalUrl.lastIndexOf("&name=") + 0);
@@ -262,8 +320,11 @@ function ParseOriginalMediaUrl(url){
         finalImageSource = originalUrl;
     }
 
-    console.log(DEBUG_TAG + "original_url: " + originalUrl);
-    console.log(DEBUG_TAG + "final_url: " + finalImageSource);
+    if (ShowDebugger){
+        const DEBUG_TAG = "ParseOriginalMediaUrl => ";
+        console.log(DEBUG_TAG + "original_url: " + originalUrl);
+        console.log(DEBUG_TAG + "final_url: " + finalImageSource);
+    }
 
     finalUrlOutput = finalImageSource;
 }
@@ -273,13 +334,14 @@ function ParseOriginalMediaUrl(url){
 /* Chrome Download API Manager */
 function FileDownloadManager(website) {
 
-    const DEBUG_TAG = "FileDownloadManager => ";
-
     switch (website) {
         case Website.Twitter:
 
-            console.log(DEBUG_TAG + "url: " + finalUrlOutput);
-            console.log(DEBUG_TAG + "fileName: " + CreateFileName());
+            if (ShowDebugger){
+                const DEBUG_TAG = "FileDownloadManager => ";
+                console.log(DEBUG_TAG + "url: " + finalUrlOutput);
+                console.log(DEBUG_TAG + "fileName: " + CreateFileName());
+            }
 
             chrome.downloads.download({
                 url: finalUrlOutput,
@@ -295,6 +357,12 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
         showDownloadFolderCheckbox: false
     }, function (items) {
         if (downloadDelta.state && downloadDelta.state.current == "complete") {
+
+            if (ShowDebugger){
+                const DEBUG_TAG = "downloadsOnChangedListener => ";
+                console.log(DEBUG_TAG + downloadDelta.state.current);
+            }
+
             if (items.showDownloadFolderCheckbox === true) {
                 chrome.downloads.showDefaultFolder();
             }
