@@ -279,7 +279,13 @@ function SaveTwitterImage(info, urlSplit) {
         if (!items.showTweetId) {
             FileNameBuilder.tweetId = "";
         } else {
-            FileNameBuilder.tweetId = tweetId;
+
+            if (tweetId.includes("?s")){
+                FileNameBuilder.tweetId = tweetId.substring(0, tweetId.lastIndexOf("?s") + 0);
+            }
+            else {
+                FileNameBuilder.tweetId = tweetId;
+            }
         }
 
         if (!items.useDate) {
