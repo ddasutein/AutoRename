@@ -3,6 +3,14 @@
         "message": "something"
     },
 
+    "extension_translate":{
+        "message": "Want to help translate?"
+    },
+
+    "context_click_here":{
+        "message": "Click Here"
+    },
+
     "context_menu_save_image_as":{
         "message": "Save image as (AutoRename)"
     },
