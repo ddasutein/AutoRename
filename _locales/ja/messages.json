@@ -3,6 +3,14 @@
         "message": "something"
     },
 
+    "extension_translate":{
+        "message": "翻訳を手伝うですか？"
+    },
+
+    "context_click_here":{
+        "message": "ここをクリック"
+    },
+
     "context_menu_save_image_as":{
         "message": "画像を保存します (AutoRename)"
     },
@@ -12,15 +20,15 @@
     },
 
     "error_website_not_supported":{
-        "message": "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+        "message": "申し訳ありません、エクステンションは現在Twitterのみサッポートしてます。GitHubのリポジトリにサッポートのWebサイトのリスト： https://github.com/ddasutein/AutoRename"
     },
 
     "error_tweet_detail_alert_prompt":{
-        "message": "Click on the tweet to use this extension."
+        "message": "エクステンションを使用するにクッリクをしてます"
     },
 
     "options_header_title":{
-        "message": "AutoRename Settings"
+        "message": "AutoRename設定"
     },
 
     "settings_developed_by_dasutein":{
@@ -45,7 +53,7 @@
     },
 
     "settings_general_settings_set_language":{
-        "message": "Set Language"
+        "message": "言語の設定"
     },
 
     "settings_label_twitter":{
@@ -85,60 +93,60 @@
     },
 
     "settings_twitter_dateformat_item_label_numerical":{
-        "message": "Numerical"
+        "message": "数値的"
     },
     
     "settings_twitter_dateformat_item_label_option_1":{
-        "message": "MM-DD-YYYY (Numerical)"
+        "message": "MM-DD-YYYY (数値的)"
     },
 
     "settings_twitter_dateformat_item_label_option_2":{
-        "message": "DD-MM-YYYY (Numerical)"
+        "message": "DD-MM-YYYY (数値的)"
     },
 
     "settings_twitter_dateformat_item_label_option_3":{
-        "message": "YYYY-MM-DD (Numerical)"
+        "message": "YYYY-MM-DD (数値的)"
     },
 
     "settings_twitter_dateformat_item_label_long":{
-        "message": "Long"
+        "message": "長い"
     },
 
     "settings_twitter_dateformat_item_label_option_4":{
-        "message": "MM-DD-YYYY (Long)"
+        "message": "MM-DD-YYYY (長い)"
     },
 
     "settings_twitter_dateformat_item_label_option_5":{
-        "message": "DD-MM-YYYY (Long)"
+        "message": "DD-MM-YYYY (長い)"
     },
 
     "settings_twitter_dateformat_item_label_option_6":{
-        "message": "YYYY-MM-DD (Long)"
+        "message": "YYYY-MM-DD (長い)"
     },
 
     "settings_twitter_dateformat_item_label_short":{
-        "message": "Short"
+        "message": "短い"
     },
 
     "settings_twitter_dateformat_item_label_option_7":{
-        "message": "MM-DD-YYYY (Short)"
+        "message": "MM-DD-YYYY (短い)"
     },
 
     "settings_twitter_dateformat_item_label_option_8":{
-        "message": "DD-MM-YYYY (Short)"
+        "message": "DD-MM-YYYY (短い)"
     },
 
     "settings_twitter_dateformat_item_label_option_9":{
-        "message": "YYYY-MM-DD (Short)"
+        "message": "YYYY-MM-DD (短い)"
     },
 
     "settings_twitter_file_extension_jpg":{
-        "message": "JPG (Default)",
+        "message": "ＪＰＧ【デフォルト】",
         "description": "Translate (Default) only"
     },
 
     "settings_twitter_file_extension_png":{
-        "message": "PNG",
+        "message": "ＰＮＧ",
         "description": "Do not translate"
     }
 }
