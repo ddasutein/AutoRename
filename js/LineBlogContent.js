@@ -21,14 +21,19 @@ let LineBlogContentJS = {
 }
 
 let lineBlogCurrentUrl = null;
+let lineBlogTabTitle = null;
+
+function LINEBLOGTitle(tab){
+    let tabTitle = tab.split("-");
+    lineBlogTabTitle = tabTitle[1];
+}
 
 function LineBlogURL(imageURL, currentUrl) {
     console.log("LineBlogURL (imageURL)", imageURL);
     console.log("LineBlogURL (currentUrl)", currentUrl);
     lineBlogCurrentUrl = currentUrl;
 
-    const currentUrlSplit = lineBlogCurrentUrl.split("/");
-    const blogId = currentUrlSplit[4];
+    const blogId = SplitURL(lineBlogCurrentUrl, 4);
 
     if (blogId == ""){
         alert("You must click on the blog post to save this image");
@@ -41,8 +46,7 @@ let finalLineBlogURL = null;
 
 function LINEBlogImageURL(url) {
     console.log("LINEBlogImageURL", url);
-    const originalUrl = url;
-    const getOriginalSize = originalUrl.substring(0, originalUrl.lastIndexOf("/") + 0);
+    const getOriginalSize = url.substring(0, url.lastIndexOf("/") + 0);
     LineBlogContentJS.FinalURL = getOriginalSize;
 
     LINEBlogFileBuilder();
@@ -50,17 +54,16 @@ function LINEBlogImageURL(url) {
 
 function LINEBlogFileBuilder(){
 
-    const currentUrlSplit = lineBlogCurrentUrl.split("/");
-    const title = currentUrlSplit[2];
-    const username = currentUrlSplit[3];
-    const blogId = currentUrlSplit[5];
+    const title = SplitURL(lineBlogCurrentUrl, 2);
+    const username = SplitURL(lineBlogCurrentUrl, 3);
+    const blogId = SplitURL(lineBlogCurrentUrl, 5);
 
     const _title = title.replace(".me", "");
     const _blogId = blogId.replace(".html", "");
 
     console.log("LINEBlogFileBuilder " + title + " " + username + " " + blogId);
 
-    LineBlogContentJS.FileName = _title + " " + username + " " + _blogId + " " + GenerateRandomString(4) + ".jpg";
+    LineBlogContentJS.FileName = _title + " " + username + " " + lineBlogTabTitle + " " + _blogId + " " + GenerateRandomString(4) + ".jpg";
     StartDownload();
 }
 
