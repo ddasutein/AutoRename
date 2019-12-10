@@ -7,7 +7,7 @@ Thank you for your interest on helping me translate the extension for people aro
 Language | Status | Notes
 :--|:--|:--
 English | ✔ | 
-Japanese | ❌ | Partially translated for testing
+Japanese | ✔ | 
 
 ## Instructions
 
