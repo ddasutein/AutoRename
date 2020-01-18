@@ -11,7 +11,7 @@ Download now
 <br>
 <a href="https://chrome.google.com/webstore/detail/autorename/gjmkdopdnkblnjbadmccmjpjpjcechgm">Chrome Web Store</a>
 |
-Microsoft Store (coming soon)
+<a href="https://microsoftedge.microsoft.com/addons/detail/pcjifgnddjaicajodgbpcgjfbebnckfe">Microsoft Edge Extension Store</a>
 <h1></h1>
 </p>
 
