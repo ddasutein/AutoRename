@@ -90,7 +90,7 @@ function LINEBlogFileBuilder(){
         finalFileName = LineBlogFileNameArray.join(", ");
         LineBlogContentJS.FileName = finalFileName.replace(/,/g, '').replace(/ /g, "-").toString() + ".jpg";
         
-        FileDownloadManager(Website.LINE_BLOG);
+        StartDownload(Website.LINE_BLOG, LineBlogContentJS.FinalURL, LineBlogContentJS.FileName);
 
         // Clear array when finished
         while (LineBlogFileNameArray.length > 0){
