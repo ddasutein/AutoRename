@@ -12,13 +12,13 @@
  * 
  */
 
-/** Load LINE BLOG Preferences */
-
 /** For reference in saveImageEvent.js */
 let LineBlogContentJS = {
     FinalURL: null,
     FileName: null
 }
+
+let LineBlogFileNameArray = [];
 
 let lineBlogCurrentUrl = null;
 let lineBlogTabTitle = null;
@@ -52,8 +52,9 @@ function LINEBlogImageURL(url) {
     LINEBlogFileBuilder();
 }
 
-function LINEBlogFileBuilder(){
 
+function LINEBlogFileBuilder(){
+    let finalFileName = '';
     const title = SplitURL(lineBlogCurrentUrl, 2);
     const username = SplitURL(lineBlogCurrentUrl, 3);
     const blogId = SplitURL(lineBlogCurrentUrl, 5);
@@ -61,12 +62,47 @@ function LINEBlogFileBuilder(){
     const _title = title.replace(".me", "");
     const _blogId = blogId.replace(".html", "");
 
-    console.log("LINEBlogFileBuilder " + title + " " + username + " " + blogId);
+    chrome.storage.local.get({
+        lbPrefIncludeWebsiteTitle: false,
+        lbPrefIncludeBlogTitle: false,
+        lbPrefUseDate: false,
+        lbPrefDateFormat: "0",
+        lbPrefStringGenerator: "4"
 
-    LineBlogContentJS.FileName = _title + " " + username + " " + lineBlogTabTitle + " " + _blogId + " " + GenerateRandomString(4) + ".jpg";
-    StartDownload();
-}
+    }, function(items){
+        prefWebsiteTitle = items.lbPrefIncludeWebsiteTitle;
+        prefBlogTitle = items.lbPrefIncludeBlogTitle;
+        prefIncludeDate = items.lbPrefUseDate;
+        prefDateFormatting = items.lbPrefDateFormat;
+        lbPrefStringGenerator = items.lbPrefStringGenerator;
 
-function StartDownload(){
-    FileDownloadManager(Website.LINE_BLOG);
+        prefWebsiteTitle ? LineBlogFileNameArray.push(_title.toUpperCase()) : '';
+        LineBlogFileNameArray.push(username);
+        prefBlogTitle ? LineBlogFileNameArray.push(lineBlogTabTitle) : '';
+        LineBlogFileNameArray.push(_blogId);
+        prefIncludeDate ? LineBlogFileNameArray.push(GetDateFormat(prefDateFormatting)) : '';
+        LineBlogFileNameArray.push(GenerateRandomString(lbPrefStringGenerator));
+
+        DevMode ? console.log("LineBlogFileNameArray") : false;
+        DevMode ? console.log(LineBlogFileNameArray) : false;
+
+        finalFileName = LineBlogFileNameArray.toString();
+        finalFileName = LineBlogFileNameArray.join(", ");
+        LineBlogContentJS.FileName = finalFileName.replace(/,/g, '').replace(/ /g, "-").toString() + ".jpg";
+        
+        FileDownloadManager(Website.LINE_BLOG);
+
+        // Clear array when finished
+        while (LineBlogFileNameArray.length > 0){
+            DevMode ? console.log("Clearing LineBlogFileNameArray... " + LineBlogFileNameArray) : false;
+            LineBlogFileNameArray.pop();
+        }
+
+        if (DevMode){
+            if (LineBlogFileNameArray.length == 0){
+                console.log("LineBlogFileNameArray Array Cleared!");
+            }
+        }
+
+    });
 }
