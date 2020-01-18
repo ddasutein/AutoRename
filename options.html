@@ -31,38 +31,94 @@
         </div>
         <!--          
         -->
+        <div class="content-twitter-settings">
+            <hr>
+            <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b></b></h2>
+            <label id="settings_label_twitter_description" data-i18n="settings_label_twitter_description"></label>
+            <br><br>
+            <input type="checkbox" id="twitter_mention" checked>
+            <label id="settings_twitter_include_mention_symbol" data-i18n="settings_twitter_include_mention_symbol"></label>
+            <br>
+            <input type="checkbox" id="twitter_tweet_id" checked>
+            <label id="settings_twitter_include_tweet_id" data-i18n="settings_twitter_include_tweet_id"></label><br>
+            <input type="checkbox" id="IsUsingDateCheckbox">
+            <label id="settings_twitter_include_tweet_date" data-i18n="settings_twitter_include_tweet_date"></label><br>
+            <!--      
+            -->
+            <select id="DateFormatTypeSelect" disabled="disabled">
+                <option disabled data-i18n="settings_dateformat_item_label_numerical"></option>
+                <option value="0" data-i18n="settings_dateformat_item_label_option_1"></option>
+                <option value="1" data-i18n="settings_dateformat_item_label_option_2"></option>
+                <option value="2" data-i18n="settings_dateformat_item_label_option_3"></option></option>
+                <option disabled data-i18n="settings_dateformat_item_label_long"></option>
+                <option value="3" data-i18n="settings_dateformat_item_label_option_4"></option>
+                <option value="4" data-i18n="settings_dateformat_item_label_option_5"></option>
+                <option value="5" data-i18n="settings_dateformat_item_label_option_6"></option>
+                <option disabled  data-i18n="settings_dateformat_item_label_short"></option>
+                <option value="6" data-i18n="settings_dateformat_item_label_option_7"></option>
+                <option value="7" data-i18n="settings_dateformat_item_label_option_8"></option>
+                <option value="8" data-i18n="settings_dateformat_item_label_option_9"></option>
+            </select><br>
+            <!--          
+            -->
+            <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
+            <br>
+            <select id="twitter_string_length">
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+            </select>
+            <!--           
+            -->
+            <label id="settings_generate_string" data-i18n="settings_generate_string"></label>
+            <br>
+            <select id="twitter_file_extension_type">
+                <option value=".jpg" data-i18n="settings_twitter_file_extension_jpg"></option>
+                <option value=".png" data-i18n="settings_twitter_file_extension_png"></option>
+            </select>
+            <label id="settings_twitter_file_extension_type" data-i18n="settings_twitter_file_extension_type"></label>
+        </div>
         <hr>
-        <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b></b></h2>
-        <label id="settings_label_twitter_description" data-i18n="settings_label_twitter_description"></label>
+        <!-- LINE BLOG -->
+        <div class="content-lineblog-settings">
+        <h2 id="settings_label_lineblog" data-i18n="settings_label_lineblog"><b></b></h2>
+        <label id="settings_label_lineblog_description" data-i18n="settings_label_lineblog_description"></label>
         <br><br>
-        <input type="checkbox" id="twitter_mention" checked>
-        <label id="settings_twitter_include_mention_symbol" data-i18n="settings_twitter_include_mention_symbol"></label>
+        <input type="checkbox" id="lineblog_web_title" checked><label data-i18n="setting_include_lineblog_web_title"></label></input>
         <br>
-        <input type="checkbox" id="twitter_tweet_id" checked>
-        <label id="settings_twitter_include_tweet_id" data-i18n="settings_twitter_include_tweet_id"></label><br>
-        <input type="checkbox" id="IsUsingDateCheckbox">
+        <input type="checkbox" id="lineblog_include_title"><label data-i18n="setting_include_lineblog_blog_title"></label></input>
+        <br>
+        <input type="checkbox" id="lineblog_IsUsingDateCheckbox">
         <label id="settings_twitter_include_tweet_date" data-i18n="settings_twitter_include_tweet_date"></label><br>
-        <!--      
-        -->
-        <select id="DateFormatTypeSelect" disabled="disabled">
-            <option disabled data-i18n="settings_twitter_dateformat_item_label_numerical"></option>
-            <option value="0" data-i18n="settings_twitter_dateformat_item_label_option_1"></option>
-            <option value="1" data-i18n="settings_twitter_dateformat_item_label_option_2"></option>
-            <option value="2" data-i18n="settings_twitter_dateformat_item_label_option_3"></option></option>
-            <option disabled data-i18n="settings_twitter_dateformat_item_label_long"></option>
-            <option value="3" data-i18n="settings_twitter_dateformat_item_label_option_4"></option>
-            <option value="4" data-i18n="settings_twitter_dateformat_item_label_option_5"></option>
-            <option value="5" data-i18n="settings_twitter_dateformat_item_label_option_6"></option>
-            <option disabled  data-i18n="settings_twitter_dateformat_item_label_short"></option>
-            <option value="6" data-i18n="settings_twitter_dateformat_item_label_option_7"></option>
-            <option value="7" data-i18n="settings_twitter_dateformat_item_label_option_8"></option>
-            <option value="8" data-i18n="settings_twitter_dateformat_item_label_option_9"></option>
+        <select id="lineblog_date_format" disabled="disabled">
+            <option disabled data-i18n="settings_dateformat_item_label_numerical"></option>
+            <option value="0" data-i18n="settings_dateformat_item_label_option_1"></option>
+            <option value="1" data-i18n="settings_dateformat_item_label_option_2"></option>
+            <option value="2" data-i18n="settings_dateformat_item_label_option_3"></option></option>
+            <option disabled data-i18n="settings_dateformat_item_label_long"></option>
+            <option value="3" data-i18n="settings_dateformat_item_label_option_4"></option>
+            <option value="4" data-i18n="settings_dateformat_item_label_option_5"></option>
+            <option value="5" data-i18n="settings_dateformat_item_label_option_6"></option>
+            <option disabled  data-i18n="settings_dateformat_item_label_short"></option>
+            <option value="6" data-i18n="settings_dateformat_item_label_option_7"></option>
+            <option value="7" data-i18n="settings_dateformat_item_label_option_8"></option>
+            <option value="8" data-i18n="settings_dateformat_item_label_option_9"></option>
         </select><br>
         <!--          
         -->
         <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
         <br>
-        <select id="twitter_string_length">
+        <select id="lineblog_string_length">
             <option value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>
@@ -77,16 +133,9 @@
             <option value="15">15</option>
             <option value="16">16</option>
         </select>
-        <!--           
-        -->
-        <label id="settings_twitter_generate_string" data-i18n="settings_twitter_generate_string"></label>
-        <br>
-        <select id="twitter_file_extension_type">
-            <option value=".jpg" data-i18n="settings_twitter_file_extension_jpg"></option>
-            <option value=".png" data-i18n="settings_twitter_file_extension_png"></option>
-        </select>
-        <label id="settings_twitter_file_extension_type" data-i18n="settings_twitter_file_extension_type"></label>
-        <br><br>
+        <label id="settings_generate_string" data-i18n="settings_generate_string"></label>
+        </div>
+        <hr>
         <button type="submit" id="button_save" data-i18n="button_save"></button>
         <br>
         <p></p>
