@@ -11,6 +11,13 @@ function SaveOptions() {
     let useDate = document.getElementById("IsUsingDateCheckbox").checked;
     let dateFormatting = document.getElementById("DateFormatTypeSelect").value;
 
+    // LINE BLOG Settings
+    let lbPrefIncludeWebsiteTitle = document.getElementById("lineblog_web_title").checked;
+    let lbPrefIncludeBlogTitle = document.getElementById("lineblog_include_title").checked;
+    let lbPrefUseDate = document.getElementById("lineblog_IsUsingDateCheckbox").checked;
+    let lbPrefDateFormatting = document.getElementById("lineblog_date_format").value;
+    let lbPrefStringGenerator = document.getElementById("lineblog_string_length").value;
+    
     chrome.storage.local.set({
         // General Settings
         showDownloadFolderCheckbox: showDownloadFolderCheckbox,
@@ -21,7 +28,14 @@ function SaveOptions() {
         showTweetId: includeTweetId,
         twitterFileExtensionType: twitterFileExtensionType,
         useDate: useDate,
-        dateFormatting: dateFormatting
+        dateFormatting: dateFormatting,
+
+        // LINE BLOG
+        lbPrefIncludeWebsiteTitle: lbPrefIncludeWebsiteTitle,
+        lbPrefIncludeBlogTitle: lbPrefIncludeBlogTitle,
+        lbPrefUseDate: lbPrefUseDate,
+        lbPrefDateFormat: lbPrefDateFormatting,
+        lbPrefStringGenerator: lbPrefStringGenerator
 
     }, function () {
         alert(chrome.i18n.getMessage("settings_save_success"));
@@ -39,7 +53,14 @@ function LoadOptions() {
         showTweetId: true,
         twitterFileExtensionType: ".jpg",
         useDate: false,
-        dateFormatting: "0"
+        dateFormatting: "0",
+
+        // LINE BLOG
+        lbPrefIncludeWebsiteTitle: false,
+        lbPrefIncludeBlogTitle: false,
+        lbPrefUseDate: false,
+        lbPrefDateFormat: "0",
+        lbPrefStringGenerator: "4"
 
     }, function (items) {
         // General Settings
@@ -52,11 +73,19 @@ function LoadOptions() {
         document.getElementById("twitter_file_extension_type").value = items.twitterFileExtensionType;
         document.getElementById("IsUsingDateCheckbox").checked = items.useDate;
         document.getElementById("DateFormatTypeSelect").value = items.dateFormatting;
-
         UseDateFormat(items.useDate);
+
+        // LINE BLOG Settings
+        document.getElementById("lineblog_web_title").checked = items.lbPrefIncludeWebsiteTitle;
+        document.getElementById("lineblog_include_title").checked = items.lbPrefIncludeBlogTitle;
+        document.getElementById("lineblog_IsUsingDateCheckbox").checked = items.lbPrefUseDate;
+        document.getElementById("lineblog_date_format").value = items.lbPrefDateFormat;
+        document.getElementById("lineblog_string_length").value = items.lbPrefStringGenerator;
+        LineBlogUseDateFormat(items.lbPrefUseDate);
     });
 }
 
+// #region Twitter
 let IsUsingDateChecked = document.getElementById("IsUsingDateCheckbox");
 let DateFormatTypeSelect = document.getElementById("DateFormatTypeSelect");
 
@@ -75,6 +104,30 @@ IsUsingDateChecked.onchange = function () {
         DateFormatTypeSelect.disabled = true;
     }
 }
+
+// #endregion
+// #region LINE BLOG
+let lineblogIsUsingDateChecked = document.getElementById("lineblog_IsUsingDateCheckbox");
+let lineblogDateFormatTypeSelect = document.getElementById("lineblog_date_format");
+
+function LineBlogUseDateFormat(IsUsingDate) {
+    if (!IsUsingDate) {
+        lineblogDateFormatTypeSelect.disabled = true;
+    } else {
+        lineblogDateFormatTypeSelect.disabled = false;
+    }
+}
+
+lineblogIsUsingDateChecked.onchange = function () {
+    if (!!this.checked) {
+        lineblogDateFormatTypeSelect.disabled = false;
+    } else {
+        lineblogDateFormatTypeSelect.disabled = true;
+    }
+}
+// #endregion
+
+
 
 // let IsUsingDateChecked = document.getElementById("IsUsingDateCheckbox");
 // let IsUsingTwitterApiDateChecked = document.getElementById("IsUsingTwitterApiDateCheckbox");
