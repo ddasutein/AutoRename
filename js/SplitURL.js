@@ -12,6 +12,11 @@
  * 
  */
 
+ /**
+  * Take the URL and choose a string by entering a number starting from 0
+  * @param {*} url 
+  * @param {*} index 
+  */
  function SplitURL(url, index){
      let split = url.split("/"); 
      return split[index];
