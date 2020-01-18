@@ -1,15 +1,14 @@
-
 /* ---------------------DEBUGGER FUNCTIONS------------------------ */
 console.log("Welcome to AutoRename" + "\n" +
 "GitHub: " + "https://github.com/ddasutein/AutoRename" + "\n" +
-"Enable Console Debugging by setting 'ShowDebugger' to TRUE");
+"Enable Console Debugging by setting 'DevMode' to TRUE");
 
-let ShowDebugger = false;
+let DevMode = true;
 
-function Debug_Settings_Value(){
+function Debug_Global_Settings(){
 
-    if (!ShowDebugger){
-        console.log("Cannot debug this function. Set ShowDebugger to TRUE");
+    if (!DevMode){
+        console.log("Cannot debug this function. Set DevMode to TRUE");
     }else {
         chrome.storage.local.get({
             // General Settings
@@ -21,17 +20,31 @@ function Debug_Settings_Value(){
             showTweetId: true,
             twitterFileExtensionType: ".jpg",
             useDate: false,
-            dateFormatting: "0"
+            dateFormatting: "0",
+
+            // LINE BLOG
+            lbPrefIncludeWebsiteTitle: false,
+            lbPrefIncludeBlogTitle: false,
+            lbPrefUseDate: false,
+            lbPrefDateFormat: "0",
+            lbPrefStringGenerator: "4"
     
         }, function (items) {
             console.log("AutoRename Settings" + "\n" +
-                "ShowDownloadsFolderCheckValue: " + items.showDownloadFolderCheckbox + "\n" +
-                "TwitterFileNameStringLengthValue: " + items.fileNameStringLength + "\n" +
-                "TwitterShowMentionSymbolValue " + items.showMentionSymbol + "\n" +
-                "TwitterShowTweetIdValue: " + items.showMentionSymbol + "\n" +
-                "TwitterFileExtensionTypeValue:  " + items.twitterFileExtensionType + "\n" +
-                "TwitterIsUsingDateCheckboxValue: " + items.useDate + "\n" +
-                "TwitterDateFormatTypeSelectValue: " + items.dateFormatting + "\n"
+                "[GENERAL] ShowDownloadsFolderCheckValue: " + items.showDownloadFolderCheckbox + "\n" +
+                "-----------------------------------------------------------------------" + "\n" +
+                "[TWITTER] String Length: " + items.fileNameStringLength + "\n" +
+                "[TWITTER] Include Mention Symbol " + items.showMentionSymbol + "\n" +
+                "[TWITTER] Include Tweet ID: " + items.showMentionSymbol + "\n" +
+                "[TWITTER] File Extension Type:  " + items.twitterFileExtensionType + "\n" +
+                "[TWITTER] Include Date: " + items.useDate + "\n" +
+                "[TWITTER] Date Format: " + items.dateFormatting + "\n" +
+                "-----------------------------------------------------------------------" + "\n" +
+                "[LINE BLOG] Include Website Title: " + items.lbPrefIncludeWebsiteTitle + "\n" +
+                "[LINE BLOG] Include log Title: " + items.lbPrefIncludeBlogTitle + "\n" +
+                "[LINE BLOG] Include Date: " + items.lbPrefUseDate + "\n" +
+                "[LINE BLOG] Date Format: " + items.lbPrefDateFormat + "\n" +
+                "[LINE BLOG] String Generator Length: " + items.lbPrefStringGenerator
                 );
         });
     }
@@ -65,7 +78,8 @@ const Website = {
     Instagram: 'instagram.com',
     Facebook: 'facebook.com',
     Reddit: 'reddit.com',
-    LINE_BLOG: 'lineblog.me'
+    LINE_BLOG: 'lineblog.me',
+    LINE_BLOG_CDN: 'obs.line-scdn.net'
 }
 
 function GenerateRandomString(length) {
@@ -75,78 +89,6 @@ function GenerateRandomString(length) {
         random.push(value[Math.floor(Math.random() * value.length)]);
     }
     return random.join("");
-}
-
-/* Vanilla JavaScript doesn"t know how to count months 🙃
-[0] - January 
-[1] - February
-[2] - March
-[3] - April
-[4] - May
-[5] - June
-[6] - July
-[7] - August
-[8] - September
-[9] - October
-[10] - November
-[11] - December */
-let MonthsInNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"];
-let MonthsInLong = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "13"];
-let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "13"];
-
-/* Time & Date */
-function GetDateFormat(DateTimeFormat) {
-
-    const DEBUG_TAG = "GetDateFormat => ";
-
-    if (ShowDebugger){
-        console.log(DEBUG_TAG + "DateTimeFormat: " + DateTimeFormat);
-    }
-
-    const _date = new Date();
-    let _finalTimeDateValue = "";
-
-    switch (DateTimeFormat) {
-        // 0-2 = Numerical Format
-        case "0":
-            _finalTimeDateValue = MonthsInNumber[_date.getMonth()] + "-" + _date.getDate() + "-" + _date.getFullYear();
-            break;
-        case "1":
-            _finalTimeDateValue = _date.getDate() + "-" + MonthsInNumber[_date.getMonth()] + "-" + _date.getFullYear();
-            break;
-        case "2":
-            _finalTimeDateValue = _date.getFullYear() + "-" + MonthsInNumber[_date.getMonth()] + "-" + _date.getDate();
-            break;
-            // 3-5 = Long Format
-        case "3":
-            _finalTimeDateValue = MonthsInLong[_date.getMonth()] + " " + _date.getDate() + ", " + _date.getFullYear();
-            break;
-        case "4":
-            _finalTimeDateValue = _date.getDate() + " " + MonthsInLong[_date.getMonth()] + " " + _date.getFullYear();
-            break;
-        case "5":
-            _finalTimeDateValue = _date.getFullYear() + " " + MonthsInLong[_date.getMonth()] + " " + _date.getDate();
-            break;
-            // 6-8 = Short Format
-        case "6":
-            _finalTimeDateValue = MonthsInShort[_date.getMonth()] + ". " + _date.getDate() + ", " + _date.getFullYear();
-            break;
-        case "7":
-            _finalTimeDateValue = _date.getDate() + " " + MonthsInShort[_date.getMonth()] + ". " + _date.getFullYear();
-            break;
-        case "8":
-            _finalTimeDateValue = _date.getFullYear() + " " + MonthsInShort[_date.getMonth()] + ". " + _date.getDate();
-            break;
-        default:
-            _finalTimeDateValue = null;
-            break;
-    }
-
-    if (ShowDebugger){
-        console.log(DEBUG_TAG + "finalTimeDateValue: " + _finalTimeDateValue);
-    }
-
-    return " (" + _finalTimeDateValue + ")";
 }
 
 /* Paramaters to build file name*/
@@ -179,10 +121,17 @@ function CreateFileName() {
 chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
 
     if (changeInfo.status == "complete"){
-        if (ShowDebugger){
+        if (DevMode){
             const DEBUG_TAG = "tabsOnUpdated => ";
             console.log(DEBUG_TAG + tab.url + " " + tab.title);           
         }
+
+        switch(SplitURL(tab.url, 2)){
+            case Website.LINE_BLOG:
+                LINEBLOGTitle(tab.title);
+                break;
+        }
+
         ToggleViewOriginalImageContextMenuVisibility(tab.url)
     }
 });
@@ -195,7 +144,7 @@ chrome.tabs.onActiveChanged.addListener(function(){
         "currentWindow": true},
 
         function(tabs){
-            if (ShowDebugger){
+            if (DevMode){
                 const DEBUG_TAG = "tabsOnActiveChanged => ";
                 console.log(DEBUG_TAG + tabs[0].url);
             }
@@ -241,6 +190,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             else if (info.menuItemId === "saveImage"){
                 SaveTwitterImage(info, currentUrlSplit);
             }
+            break;
+        case Website.LINE_BLOG:
+            LineBlogURL(info.srcUrl, tab.url);
             break;
         default:
             alert(chrome.i18n.getMessage("error_website_not_supported"));
@@ -301,7 +253,7 @@ function SaveTwitterImage(info, urlSplit) {
             return;
         } else {
             ParseOriginalMediaUrl(info.srcUrl);
-            FileDownloadManager(Website.Twitter);
+            StartDownload(Website.Twitter, finalUrlOutput, CreateFileName());
         }
     });
 }
@@ -326,7 +278,7 @@ function ParseOriginalMediaUrl(url){
         finalImageSource = originalUrl;
     }
 
-    if (ShowDebugger){
+    if (DevMode){
         const DEBUG_TAG = "ParseOriginalMediaUrl => ";
         console.log(DEBUG_TAG + "original_url: " + originalUrl);
         console.log(DEBUG_TAG + "final_url: " + finalImageSource);
@@ -336,43 +288,3 @@ function ParseOriginalMediaUrl(url){
 }
 
 /* ---------------------END OF TWITTER FUNCTIONS------------------------ */
-
-/* Chrome Download API Manager */
-function FileDownloadManager(website) {
-
-    switch (website) {
-        case Website.Twitter:
-
-            if (ShowDebugger){
-                const DEBUG_TAG = "FileDownloadManager => ";
-                console.log(DEBUG_TAG + "url: " + finalUrlOutput);
-                console.log(DEBUG_TAG + "fileName: " + CreateFileName());
-            }
-
-            chrome.downloads.download({
-                url: finalUrlOutput,
-                filename: CreateFileName(),
-                saveAs: true
-            });
-            break;
-    }
-}
-
-chrome.downloads.onChanged.addListener(function (downloadDelta) {
-    chrome.storage.local.get({
-        showDownloadFolderCheckbox: false
-    }, function (items) {
-        if (downloadDelta.state && downloadDelta.state.current == "complete") {
-
-            if (ShowDebugger){
-                const DEBUG_TAG = "downloadsOnChangedListener => ";
-                console.log(DEBUG_TAG + downloadDelta.state.current);
-            }
-
-            if (items.showDownloadFolderCheckbox === true) {
-                chrome.downloads.showDefaultFolder();
-            }
-            return;
-        }
-    });
-});
