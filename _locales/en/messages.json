@@ -27,6 +27,10 @@
         "message": "Click on the tweet to use this extension."
     },
 
+    "error_lineblog_click_blog":{
+        "message": "Click on the blog post to save this image."
+    },
+
     "options_header_title":{
         "message": "AutoRename Settings"
     },

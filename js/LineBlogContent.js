@@ -33,10 +33,10 @@ function LineBlogURL(imageURL, currentUrl) {
     console.log("LineBlogURL (currentUrl)", currentUrl);
     lineBlogCurrentUrl = currentUrl;
 
-    const blogId = SplitURL(lineBlogCurrentUrl, 4);
+    let blogId = SplitURL(lineBlogCurrentUrl, 4);
 
     if (blogId == ""){
-        alert("You must click on the blog post to save this image");
+        alert(chrome.i18n.getMessage("error_lineblog_click_blog"));
     }
 
     LINEBlogImageURL(imageURL);

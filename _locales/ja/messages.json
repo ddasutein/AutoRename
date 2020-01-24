@@ -27,6 +27,10 @@
         "message": "エクステンションを使用するにクッリクをしてます"
     },
 
+    "error_lineblog_click_blog":{
+        "message": "画像を保存するにはブログをクリックしてください"
+    },
+
     "options_header_title":{
         "message": "AutoRename設定"
     },
