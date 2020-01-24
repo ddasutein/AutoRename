@@ -27,6 +27,10 @@
         "message": "エクステンションを使用するにクッリクをしてます"
     },
 
+    "error_lineblog_click_blog":{
+        "message": "画像を保存するにはブログをクリックしてください"
+    },
+
     "options_header_title":{
         "message": "AutoRename設定"
     },
@@ -76,7 +80,7 @@
         "message": "日付を含める（システム日付に基づく）"
     },
 
-    "settings_twitter_generate_string":{
+    "settings_generate_string":{
         "message": "ストリングジェネレーターの長さ"
     },
 
@@ -92,51 +96,51 @@
         "message": "設定をセーブしました"
     },
 
-    "settings_twitter_dateformat_item_label_numerical":{
+    "settings_dateformat_item_label_numerical":{
         "message": "数値的"
     },
     
-    "settings_twitter_dateformat_item_label_option_1":{
+    "settings_dateformat_item_label_option_1":{
         "message": "MM-DD-YYYY (数値的)"
     },
 
-    "settings_twitter_dateformat_item_label_option_2":{
+    "settings_dateformat_item_label_option_2":{
         "message": "DD-MM-YYYY (数値的)"
     },
 
-    "settings_twitter_dateformat_item_label_option_3":{
+    "settings_dateformat_item_label_option_3":{
         "message": "YYYY-MM-DD (数値的)"
     },
 
-    "settings_twitter_dateformat_item_label_long":{
+    "settings_dateformat_item_label_long":{
         "message": "長い"
     },
 
-    "settings_twitter_dateformat_item_label_option_4":{
+    "settings_dateformat_item_label_option_4":{
         "message": "MM-DD-YYYY (長い)"
     },
 
-    "settings_twitter_dateformat_item_label_option_5":{
+    "settings_dateformat_item_label_option_5":{
         "message": "DD-MM-YYYY (長い)"
     },
 
-    "settings_twitter_dateformat_item_label_option_6":{
+    "settings_dateformat_item_label_option_6":{
         "message": "YYYY-MM-DD (長い)"
     },
 
-    "settings_twitter_dateformat_item_label_short":{
+    "settings_dateformat_item_label_short":{
         "message": "短い"
     },
 
-    "settings_twitter_dateformat_item_label_option_7":{
+    "settings_dateformat_item_label_option_7":{
         "message": "MM-DD-YYYY (短い)"
     },
 
-    "settings_twitter_dateformat_item_label_option_8":{
+    "settings_dateformat_item_label_option_8":{
         "message": "DD-MM-YYYY (短い)"
     },
 
-    "settings_twitter_dateformat_item_label_option_9":{
+    "settings_dateformat_item_label_option_9":{
         "message": "YYYY-MM-DD (短い)"
     },
 
@@ -148,5 +152,21 @@
     "settings_twitter_file_extension_png":{
         "message": "ＰＮＧ",
         "description": "Do not translate"
+    },
+
+    "settings_label_lineblog":{
+        "message": "LINE BLOG設定"
+    },
+
+    "settings_label_lineblog_description":{
+        "message": "LINE BLOGイメージのダウンロードパラメーターをカスタマイズする"
+    },
+
+    "setting_include_lineblog_web_title":{
+        "message": "ウェブサイトを題名含める【LINE BLOG】"
+    },
+
+    "setting_include_lineblog_blog_title":{
+        "message": "ブログを題名含める"
     }
 }

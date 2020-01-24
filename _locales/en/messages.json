@@ -27,6 +27,10 @@
         "message": "Click on the tweet to use this extension."
     },
 
+    "error_lineblog_click_blog":{
+        "message": "Click on the blog post to save this image."
+    },
+
     "options_header_title":{
         "message": "AutoRename Settings"
     },
@@ -76,7 +80,7 @@
         "message": "Include Date (Based on System Date)"
     },
 
-    "settings_twitter_generate_string":{
+    "settings_generate_string":{
         "message": "String generator length"
     },
 
@@ -92,35 +96,35 @@
         "message": "Preferences saved"
     },
 
-    "settings_twitter_dateformat_item_label_numerical":{
+    "settings_dateformat_item_label_numerical":{
         "message": "Numerical"
     },
     
-    "settings_twitter_dateformat_item_label_option_1":{
+    "settings_dateformat_item_label_option_1":{
         "message": "MM-DD-YYYY (Numerical)"
     },
 
-    "settings_twitter_dateformat_item_label_option_2":{
+    "settings_dateformat_item_label_option_2":{
         "message": "DD-MM-YYYY (Numerical)"
     },
 
-    "settings_twitter_dateformat_item_label_option_3":{
+    "settings_dateformat_item_label_option_3":{
         "message": "YYYY-MM-DD (Numerical)"
     },
 
-    "settings_twitter_dateformat_item_label_long":{
+    "settings_dateformat_item_label_long":{
         "message": "Long"
     },
 
-    "settings_twitter_dateformat_item_label_option_4":{
+    "settings_dateformat_item_label_option_4":{
         "message": "MM-DD-YYYY (Long)"
     },
 
-    "settings_twitter_dateformat_item_label_option_5":{
+    "settings_dateformat_item_label_option_5":{
         "message": "DD-MM-YYYY (Long)"
     },
 
-    "settings_twitter_dateformat_item_label_option_6":{
+    "settings_dateformat_item_label_option_6":{
         "message": "YYYY-MM-DD (Long)"
     },
 
@@ -128,15 +132,15 @@
         "message": "Short"
     },
 
-    "settings_twitter_dateformat_item_label_option_7":{
+    "settings_dateformat_item_label_option_7":{
         "message": "MM-DD-YYYY (Short)"
     },
 
-    "settings_twitter_dateformat_item_label_option_8":{
+    "settings_dateformat_item_label_option_8":{
         "message": "DD-MM-YYYY (Short)"
     },
 
-    "settings_twitter_dateformat_item_label_option_9":{
+    "settings_dateformat_item_label_option_9":{
         "message": "YYYY-MM-DD (Short)"
     },
 
@@ -148,5 +152,21 @@
     "settings_twitter_file_extension_png":{
         "message": "PNG",
         "description": "Do not translate"
+    },
+
+    "settings_label_lineblog":{
+        "message": "LINE BLOG Settings"
+    },
+
+    "settings_label_lineblog_description":{
+        "message": "Customize LINE BLOG image download parameters"
+    },
+
+    "setting_include_lineblog_web_title":{
+        "message": "Include website title [LINE BLOG]"
+    },
+
+    "setting_include_lineblog_blog_title":{
+        "message": "Include blog title"
     }
 }
