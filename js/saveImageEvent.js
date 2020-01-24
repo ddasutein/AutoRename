@@ -3,7 +3,7 @@ console.log("Welcome to AutoRename" + "\n" +
 "GitHub: " + "https://github.com/ddasutein/AutoRename" + "\n" +
 "Enable Console Debugging by setting 'DevMode' to TRUE");
 
-let DevMode = true;
+let DevMode = false;
 
 function Debug_Global_Settings(){
 
