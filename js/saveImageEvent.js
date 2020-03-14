@@ -217,43 +217,35 @@ function SaveTwitterImage(info, urlSplit) {
         useDate: false,
         dateFormatting: "0"
     }, function (items) {
+        
+        showMentionSymbol = items.showMentionSymbol;
+        showTweetId = items.showTweetId;
+        useDate = items.useDate;
 
         const twitterUsername = urlSplit[3];
         const tweetId = urlSplit[5];
         FileNameBuilder.fileExtension = items.twitterFileExtensionType;
 
-        if (!items.showMentionSymbol) {
-            FileNameBuilder.username = twitterUsername;
-        } else {
-            FileNameBuilder.username = "@" + twitterUsername;
-        }
-
-        if (!items.showTweetId) {
-            FileNameBuilder.tweetId = "";
-        } else {
-
-            if (tweetId.includes("?s")){
-                FileNameBuilder.tweetId = tweetId.substring(0, tweetId.lastIndexOf("?s") + 0);
-            }
-            else {
-                FileNameBuilder.tweetId = tweetId;
-            }
-        }
-
-        if (!items.useDate) {
-            FileNameBuilder.timeanddate = "";
-        } else {
-            FileNameBuilder.timeanddate = GetDateFormat(items.dateFormatting);
-        }
-
-        FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
-
-        if (tweetId == null) {
+        // Check if the URL has a tweet id
+        if (tweetId == null || tweetId.length == 0){
             alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
-            return;
+            return;          
         } else {
+            showMentionSymbol ? FileNameBuilder.username = "@" + twitterUsername : FileNameBuilder.username = twitterUsername;
+            showTweetId ? FileNameBuilder.tweetId = checkSpecialChars(tweetId) : FileNameBuilder.tweetId = "";
+            useDate ? FileNameBuilder.timeanddate = GetDateFormat(items.dateFormatting) : FileNameBuilder.timeanddate = "";
+            FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
+            
             ParseOriginalMediaUrl(info.srcUrl);
             StartDownload(Website.Twitter, finalUrlOutput, CreateFileName());
+        }
+
+        function checkSpecialChars(idStr){
+            if (idStr.includes("?s")){
+                return idStr.substring(0, idStr.lastIndexOf("?s") + 0);
+            } else {
+                return idStr;
+            }
         }
     });
 }
