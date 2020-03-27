@@ -1,0 +1,172 @@
+{
+    "extension_description":{
+        "message": "something"
+    },
+
+    "extension_translate":{
+        "message": "Quieres ayudar a traducir?"
+    },
+
+    "context_click_here":{
+        "message": "Haga clic aquí."
+    },
+
+    "context_menu_save_image_as":{
+        "message": "Guardar la imagen como (AutoRename)"
+    },
+
+    "context_menu_view_original_image":{
+        "message": "Ver imagen original"
+    },
+
+    "error_website_not_supported":{
+        "message": "Lo sentimos, esta extensión solamente está disponible para Twitter por ahora. Para la lista completa de paginas disponibles, visita mi repositorio en Github: https://github.com/ddasutein/AutoRename"
+    },
+
+    "error_tweet_detail_alert_prompt":{
+        "message": "Haga clic en el Tweet para usar esta extensión."
+    },
+
+    "error_lineblog_click_blog":{
+        "message": "Haga clic en el blog para guardar esta imagen."
+    },
+
+    "options_header_title":{
+        "message": "Ajustes del AutoRename"
+    },
+
+    "settings_developed_by_dasutein":{
+        "message": "Desarollado por: Dasutein",
+        "description": "Do not translate my name. For Japanese translation, Katakana is optional"
+    },
+
+    "settings_github_link":{
+        "message": "GitHub"
+    },
+
+    "settings_extension_description":{
+        "message": "AutoRename can automatically rename downloaded images from the internet."
+    },
+
+    "settings_label_general_settings":{
+        "message": "Ajustes Generales"
+    },
+
+    "settings_general_settings_show_download_folder":{
+        "message": "Abrir automáticamente la carpeta de descargas"
+    },
+
+    "settings_general_settings_set_language":{
+        "message": "Elegir idioma"
+    },
+
+    "settings_label_twitter":{
+        "message": "Ajustes de Twitter"
+    },
+
+    "settings_label_twitter_description":{
+        "message": "Perzonalizar los parámetros de las imagenes de Twitter"
+    },
+
+    "settings_twitter_include_mention_symbol":{
+        "message": "Incluir el símbolo de mención @"
+    },
+
+    "settings_twitter_include_tweet_id":{
+        "message": "Incluir el ID del Tweet"
+    },
+
+    "settings_twitter_include_tweet_date":{
+        "message": "Incluir la Fecha (Basado en la fecha del sistema operativo)"
+    },
+
+    "settings_generate_string":{
+        "message": "Longitud del generador de cadenas"
+    },
+
+    "settings_twitter_file_extension_type":{
+        "message": "Tipo de extensión del archivo"
+    },
+
+    "button_save":{
+        "message": "Guardar"
+    },
+
+    "settings_save_success":{
+        "message": "Preferencias guardadas"
+    },
+
+    "settings_dateformat_item_label_numerical":{
+        "message": "Numérico"
+    },
+    
+    "settings_dateformat_item_label_option_1":{
+        "message": "MM-DD-AAAA (Numérico)"
+    },
+
+    "settings_dateformat_item_label_option_2":{
+        "message": "DD-MM-AAAA (Numérico)"
+    },
+
+    "settings_dateformat_item_label_option_3":{
+        "message": "AAAA-MM-DD (Numérico)"
+    },
+
+    "settings_dateformat_item_label_long":{
+        "message": "Largo"
+    },
+
+    "settings_dateformat_item_label_option_4":{
+        "message": "MM-DD-AAAA (Largo)"
+    },
+
+    "settings_dateformat_item_label_option_5":{
+        "message": "DD-MM-AAAA (Largo)"
+    },
+
+    "settings_dateformat_item_label_option_6":{
+        "message": "AAAA-MM-DD (Largo)"
+    },
+
+    "settings_twitter_dateformat_item_label_short":{
+        "message": "Corto"
+    },
+
+    "settings_dateformat_item_label_option_7":{
+        "message": "MM-DD-AAAA (Corto)"
+    },
+
+    "settings_dateformat_item_label_option_8":{
+        "message": "DD-MM-AAAA (Corto)"
+    },
+
+    "settings_dateformat_item_label_option_9":{
+        "message": "AAAA-MM-DD (Corto)"
+    },
+
+    "settings_twitter_file_extension_jpg":{
+        "message": "JPG (Por Defecto)",
+        "description": "Translate (Default) only"
+    },
+
+    "settings_twitter_file_extension_png":{
+        "message": "PNG",
+        "description": "Do not translate"
+    },
+
+    "settings_label_lineblog":{
+        "message": "Ajustes de LINE BLOG"
+    },
+
+    "settings_label_lineblog_description":{
+        "message": "Personalice los parámetros de descarga de imágenes de LINE BLOG"
+    },
+
+    "setting_include_lineblog_web_title":{
+        "message": "Incluir el título de la página [LINE BLOG]"
+    },
+
+    "setting_include_lineblog_blog_title":{
+        "message": "Incluir el título del blog"
+    }
+}
