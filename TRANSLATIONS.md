@@ -4,10 +4,12 @@ Thank you for your interest on helping me translate the extension for people aro
 
 ## Supported Language
 
-Language | Status | Notes
-:--|:--|:--
-English | ✔ | 
-Japanese | ✔ | 
+Language | Status | Last Updated | Translator | Notes
+:--|:--|:--|:--|:--
+English | ✔ | Mar. 14, 2020 | ddasutein | -
+Japanese | ✔ | Mar. 14, 2020 | ddasutein | -
+French | ✔ | Mar. 27, 2020 | Azii672  | -
+Spanish | ✔ | Mar. 27, 2020 | Azii672  | -
 
 ## Instructions
 
