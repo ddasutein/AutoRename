@@ -1,59 +1,16 @@
-/* ---------------------DEBUGGER FUNCTIONS------------------------ */
-console.log("Welcome to AutoRename" + "\n" +
-"GitHub: " + "https://github.com/ddasutein/AutoRename" + "\n" +
-"Enable Console Debugging by setting 'DevMode' to TRUE");
-
-let DevMode = false;
-
-function Debug_Global_Settings(){
-
-    if (!DevMode){
-        console.log("Cannot debug this function. Set DevMode to TRUE");
-    }else {
-        chrome.storage.local.get({
-            // General Settings
-            showDownloadFolderCheckbox: false,
-    
-            // Twitter Settings
-            fileNameStringLength: "8",
-            showMentionSymbol: true,
-            showTweetId: true,
-            twitterFileExtensionType: ".jpg",
-            useDate: false,
-            dateFormatting: "0",
-
-            // LINE BLOG
-            lbPrefIncludeWebsiteTitle: false,
-            lbPrefIncludeBlogTitle: false,
-            lbPrefUseDate: false,
-            lbPrefDateFormat: "0",
-            lbPrefStringGenerator: "4"
-    
-        }, function (items) {
-            console.log("AutoRename Settings" + "\n" +
-                "[GENERAL] ShowDownloadsFolderCheckValue: " + items.showDownloadFolderCheckbox + "\n" +
-                "-----------------------------------------------------------------------" + "\n" +
-                "[TWITTER] String Length: " + items.fileNameStringLength + "\n" +
-                "[TWITTER] Include Mention Symbol " + items.showMentionSymbol + "\n" +
-                "[TWITTER] Include Tweet ID: " + items.showMentionSymbol + "\n" +
-                "[TWITTER] File Extension Type:  " + items.twitterFileExtensionType + "\n" +
-                "[TWITTER] Include Date: " + items.useDate + "\n" +
-                "[TWITTER] Date Format: " + items.dateFormatting + "\n" +
-                "-----------------------------------------------------------------------" + "\n" +
-                "[LINE BLOG] Include Website Title: " + items.lbPrefIncludeWebsiteTitle + "\n" +
-                "[LINE BLOG] Include log Title: " + items.lbPrefIncludeBlogTitle + "\n" +
-                "[LINE BLOG] Include Date: " + items.lbPrefUseDate + "\n" +
-                "[LINE BLOG] Date Format: " + items.lbPrefDateFormat + "\n" +
-                "[LINE BLOG] String Generator Length: " + items.lbPrefStringGenerator
-                );
-        });
-    }
-
-
-
-}
-
-/* -------------------END OF DEBUGGER FUNCTIONS------------------ */
+/** MIT License
+ * 
+ * Copyright (c) 2020 Dasutein
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
+ * and associated documentation files (the "Software"), to deal in the Software without restriction, 
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software 
+ * is furnished to do so, subject to the following conditions:
+ * 
+ * See more: https://github.com/ddasutein/AutoRename/blob/master/LICENSE
+ * 
+ */
 
 /* ---------------------CONTEXT MENU ITEMS----------------------- */
 chrome.contextMenus.create({
@@ -80,15 +37,6 @@ const Website = {
     Reddit: 'reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net'
-}
-
-function GenerateRandomString(length) {
-    const value = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const random = [];
-    for (let i = 0; i < length; i++) {
-        random.push(value[Math.floor(Math.random() * value.length)]);
-    }
-    return random.join("");
 }
 
 /* Paramaters to build file name*/
