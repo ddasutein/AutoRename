@@ -12,6 +12,8 @@
  * 
  */
 
+ let DownloadArray = [];
+
  /**
   * Start downloading file
   * @param {String} website
