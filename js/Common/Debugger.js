@@ -20,9 +20,13 @@ let DevMode = true;
 
 let Debug = {
 
+    GetExtensionVersion: function(){
+        return console.log(getExtensionVersion);
+    },
+
     GetPlatformInfo: function () {
         chrome.runtime.getPlatformInfo(function (info) {
-            console.log(info);
+            return console.log(info);
         });
     },
 
