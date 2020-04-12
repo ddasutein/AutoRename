@@ -7,6 +7,10 @@
         "message": "翻訳を手伝うですか？"
     },
 
+    "runtime_extension_updated":{
+        "message": "エクステンションがバージョンに更新されました"
+    },
+
     "context_click_here":{
         "message": "ここをクリック"
     },

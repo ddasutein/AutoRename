@@ -7,6 +7,10 @@
         "message": "Voulez-vous aider à traduire??"
     },
 
+    "runtime_extension_updated":{
+        "message": "Extension has been updated to version"
+    },
+
     "context_click_here":{
         "message": "Cliquez ici."
     },
