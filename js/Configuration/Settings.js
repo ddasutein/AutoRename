@@ -12,6 +12,9 @@
  * 
  */
 
+ /**
+  * Get all extension settings
+  */
 let SettingsArray = [];
 
 let CategoryEnum = {
@@ -28,7 +31,6 @@ chrome.storage.local.get({
     fileNameStringLength: "8",
     showMentionSymbol: true,
     showTweetId: true,
-    twitterFileExtensionType: ".jpg",
     useDate: false,
     dateFormatting: "0",
 
@@ -89,7 +91,7 @@ chrome.storage.local.get({
             value: items.lbPrefUseDate,
             key: "lbPrefUseDate"
         }, {
-            category: CategoryEnum.Twitter,
+            category: CategoryEnum.LINE_BLOG,
             name: "Date Format",
             value: items.lbPrefDateFormat,
             key: "lbPrefDateFormat"
@@ -102,6 +104,7 @@ chrome.storage.local.get({
     );
 });
 
+
 chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (var key in changes) {
         var storageChange = changes[key];
@@ -113,3 +116,16 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
         })
     }
 });
+
+/**
+ * Save extension settings to storage
+ * 
+ * @param {string} keyName Storage key name
+ * @param {*} value Set a value
+ */
+function SaveSettings(keyName, value) {
+    let settingsObj = {};
+    settingsObj[keyName] = value;
+    console.log(settingsObj);
+    chrome.storage.local.set(settingsObj);
+}
