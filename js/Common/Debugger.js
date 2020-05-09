@@ -31,8 +31,6 @@ let Debug = {
     },
 
     Settings: function (command) {
-    
-        LoadSettings();
 
         let arrResult;
 
