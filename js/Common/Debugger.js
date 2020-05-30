@@ -36,28 +36,28 @@ let Debug = {
 
         switch (command) {
             case "all":
-                return SettingsArray;
+                return console.table(SettingsArray);
 
             case "general":
                 arrResult = SettingsArray.filter(function (key) {
                     return key.category == CategoryEnum.General;
                 });
 
-                return arrResult;
+                return console.table(arrResult);
 
             case "twitter":
                 arrResult = SettingsArray.filter(function (key) {
                     return key.category == CategoryEnum.Twitter;
                 });
 
-                return arrResult;
+                return console.table(arrResult);
 
             case "lineblog":
                 arrResult = SettingsArray.filter(function (key) {
                     return key.category == CategoryEnum.LINE_BLOG;
                 });
 
-                return arrResult;
+                return console.table(arrResult);
         }
 
     },
