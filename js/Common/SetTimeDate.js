@@ -81,5 +81,5 @@ function GetDateFormat(DateTimeFormat) {
         console.log(DEBUG_TAG + "finalTimeDateValue: " + _finalTimeDateValue);
     }
 
-    return " (" + _finalTimeDateValue + ")";
+    return "(" + _finalTimeDateValue + ")";
 }
