@@ -39,32 +39,6 @@ const Website = {
     LINE_BLOG_CDN: 'obs.line-scdn.net'
 }
 
-/* Paramaters to build file name*/
-let FileNameBuilder = {
-    username: null,
-    tweetId: null,
-    randomString: null,
-    fileExtension: null,
-    timeanddate: null
-};
-
-/* Setup file name to return final file name */
-function CreateFileName() {
-    const username = FileNameBuilder.username;
-    const tweetid = FileNameBuilder.tweetId;
-    const randomString = FileNameBuilder.randomString;
-    const fileExtension = FileNameBuilder.fileExtension;
-    const _timeanddate = FileNameBuilder.timeanddate;
-    let finalFileName = "";
-
-    if (tweetid === "") {
-        finalFileName = username + "-" + randomString + _timeanddate + fileExtension;
-    } else {
-        finalFileName = username + "-" + tweetid + "-" + randomString + _timeanddate + fileExtension;
-    }
-    return finalFileName;
-}
-
 /* Listens for URL from address bar when browser window is opened or entering a new URL */
 chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
 
@@ -131,12 +105,12 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         case Website.Twitter:
 
             if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
-                ParseOriginalMediaUrl(info.srcUrl);
-                ViewTwitterOriginalImageTab();
+                ViewOriginalMedia(info.srcUrl);
                 return;
             } 
             else if (info.menuItemId === "saveImage"){
-                SaveTwitterImage(info, currentUrlSplit);
+                SaveTwitterMedia(tab.url, info.srcUrl);
+
             }
             break;
         case Website.LINE_BLOG:
@@ -148,83 +122,3 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     }
 
 });
-
-/* ---------------------FUNCTIONS FOR TWITTER------------------------ */
-
-
-function ViewTwitterOriginalImageTab(){
-    window.open(finalUrlOutput, "_blank");
-}
-
-function SaveTwitterImage(info, urlSplit) {
-    chrome.storage.local.get({
-        fileNameStringLength: "8",
-        showMentionSymbol: true,
-        showTweetId: true,
-        twitterFileExtensionType: ".jpg",
-        useDate: false,
-        dateFormatting: "0"
-    }, function (items) {
-        
-        showMentionSymbol = items.showMentionSymbol;
-        showTweetId = items.showTweetId;
-        useDate = items.useDate;
-
-        const twitterUsername = urlSplit[3];
-        const tweetId = urlSplit[5];
-        FileNameBuilder.fileExtension = items.twitterFileExtensionType;
-
-        // Check if the URL has a tweet id
-        if (tweetId == null || tweetId.length == 0){
-            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
-            return;          
-        } else {
-            showMentionSymbol ? FileNameBuilder.username = "@" + twitterUsername : FileNameBuilder.username = twitterUsername;
-            showTweetId ? FileNameBuilder.tweetId = checkSpecialChars(tweetId) : FileNameBuilder.tweetId = "";
-            useDate ? FileNameBuilder.timeanddate = GetDateFormat(items.dateFormatting) : FileNameBuilder.timeanddate = "";
-            FileNameBuilder.randomString = GenerateRandomString(items.fileNameStringLength);
-            
-            ParseOriginalMediaUrl(info.srcUrl);
-            StartDownload(Website.Twitter, finalUrlOutput, CreateFileName());
-        }
-
-        function checkSpecialChars(idStr){
-            if (idStr.includes("?s")){
-                return idStr.substring(0, idStr.lastIndexOf("?s") + 0);
-            } else {
-                return idStr;
-            }
-        }
-    });
-}
-
-let finalUrlOutput = null;
-
-function ParseOriginalMediaUrl(url){
-
-    const originalUrl = url;
-    const twitterLargeImage = "&name=orig";
-    const getTwitterImageFormat = originalUrl.substring(0, originalUrl.lastIndexOf("&name=") + 0);
-    const updatedUrl = getTwitterImageFormat + twitterLargeImage;
-    let finalImageSource = null;
-
-    const regex_size = "&name=";
-    
-    if (originalUrl.includes(regex_size)){
-        // If the user is using the Redesign
-        finalImageSource = updatedUrl;
-    }else {
-        // If user is on the legacy design
-        finalImageSource = originalUrl;
-    }
-
-    if (DevMode){
-        const DEBUG_TAG = "ParseOriginalMediaUrl => ";
-        console.log(DEBUG_TAG + "original_url: " + originalUrl);
-        console.log(DEBUG_TAG + "final_url: " + finalImageSource);
-    }
-
-    finalUrlOutput = finalImageSource;
-}
-
-/* ---------------------END OF TWITTER FUNCTIONS------------------------ */
