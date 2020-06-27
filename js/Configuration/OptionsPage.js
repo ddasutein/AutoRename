@@ -96,7 +96,7 @@ function SaveOptions() {
     let fileNameStringLength = document.getElementById("twitter_string_length").value;
     let includeMentionSymbol = document.getElementById("twitter_mention").checked;
     let includeTweetId = document.getElementById("twitter_tweet_id").checked;
-    let twitterFileExtensionType = document.getElementById("twitter_file_extension_type").value;
+    //let twitterFileExtensionType = document.getElementById("twitter_file_extension_type").value;
     let useDate = document.getElementById("IsUsingDateCheckbox").checked;
     let dateFormatting = document.getElementById("DateFormatTypeSelect").value;
 
@@ -118,7 +118,6 @@ function SaveOptions() {
     SaveSettings("lbPrefUseDate", lbPrefUseDate);
     SaveSettings("lbPrefDateFormat", lbPrefDateFormatting);
     SaveSettings("lbPrefStringGenerator", lbPrefStringGenerator);
-
     alert(chrome.i18n.getMessage("settings_save_success"));
 }
 
@@ -163,45 +162,3 @@ lineblogIsUsingDateChecked.onchange = function () {
     }
 }
 // #endregion
-
-
-
-// let IsUsingDateChecked = document.getElementById("IsUsingDateCheckbox");
-// let IsUsingTwitterApiDateChecked = document.getElementById("IsUsingTwitterApiDateCheckbox");
-// let DateFormatTypeSelect = document.getElementById("DateFormatTypeSelect");
-
-// IsUsingDateChecked.onchange = function(){
-//     if (!!this.checked){
-//         DateFormatTypeSelect.disabled = false;
-//     }
-//     else {
-//         DateFormatTypeSelect.disabled = true;
-//     }
-// }
-
-// IsUsingDateChecked.onchange = function() {
-//     if (!!this.checked){
-//         // Uncheck and Disable Twitter Api Checkbox
-//         IsUsingTwitterApiDateChecked.checked = false;
-//         IsUsingTwitterApiDateChecked.disabled = true;
-
-//         // Enable DateFormatTypeSelect
-//         DateFormatTypeSelect.disabled = false;
-//     }else {
-//         DateFormatTypeSelect.disabled = true;
-//         IsUsingTwitterApiDateChecked.disabled = false;
-//     }
-// };
-
-// IsUsingTwitterApiDateChecked.onchange = function(){
-//     if (!!this.checked){
-//         // Uncheck and Disable Use Date Format Checkbox and DateFormatSelect
-//         IsUsingDateChecked.checked = false;
-//         IsUsingDateChecked.disabled = true;
-//         DateFormatTypeSelect.disabled = true;
-//     }
-//     else {
-//         IsUsingDateChecked.disabled = false;
-//     }
-// }
-

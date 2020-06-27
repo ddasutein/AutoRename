@@ -16,6 +16,7 @@ console.log("Welcome to AutoRename" + "\n" +
     "GitHub: " + "https://github.com/ddasutein/AutoRename" + "\n" +
     "Enable Console Debugging by setting 'DevMode' to TRUE");
 
+// Enable developer logging mode. This must be set to FALSE when releasing to users
 let DevMode = true;
 
 let Debug = {
