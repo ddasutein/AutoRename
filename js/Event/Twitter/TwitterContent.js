@@ -83,6 +83,11 @@ function SaveTwitterMedia(tabUrl, url){
 
     twitterSettings.map((key, index) => {
 
+        /**
+         * To get index number, set DevMode to true in /js/Common/Debugger.js
+         * Then open the browser console and type >> Debug.Settings("twitter")
+         */
+
         switch (index) {
             case 0:
                 IncludeMentionSymbol(key.value);
@@ -107,5 +112,15 @@ function SaveTwitterMedia(tabUrl, url){
     let twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
 
     StartDownload(Website.Twitter, twitterMediaSrc, fileName);
-    console.log(typeof twitterMediaSrc);
+
+    // Clear array when finished
+    while (fileNameBuilderArray.length > 0){
+        DevMode ? console.log("Clearing fileNameBuilderArray... " + fileNameBuilderArray) : false;
+        fileNameBuilderArray.pop();
+        if (DevMode){
+            if (fileNameBuilderArray.length == 0){
+                console.log("Done!");
+            }
+        }
+    }
 }
