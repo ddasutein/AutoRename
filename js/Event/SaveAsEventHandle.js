@@ -32,11 +32,21 @@ const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
 /* Enums of Supported sites by this extension */
 const Website = {
     Twitter: 'twitter.com',
+    Mobile_Twitter: 'mobile.twitter.com',
     Instagram: 'instagram.com',
     Facebook: 'facebook.com',
     Reddit: 'reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net'
+}
+
+/**
+ * Global parameters to store browser tab information. This can be called
+ * on any part of the extension as needed
+ */
+var BrowserTabInfo = {
+    Title: "",
+    URL: ""
 }
 
 /* Listens for URL from address bar when browser window is opened or entering a new URL */
@@ -46,12 +56,6 @@ chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
         if (DevMode){
             const DEBUG_TAG = "tabsOnUpdated => ";
             console.log(DEBUG_TAG + tab.url + " " + tab.title);           
-        }
-
-        switch(SplitURL(tab.url, 2)){
-            case Website.LINE_BLOG:
-                LINEBLOGTitle(tab.title);
-                break;
         }
 
         ToggleViewOriginalImageContextMenuVisibility(tab.url)
@@ -70,7 +74,12 @@ chrome.tabs.onActiveChanged.addListener(function(){
                 const DEBUG_TAG = "tabsOnActiveChanged => ";
                 console.log(DEBUG_TAG + tabs[0].url);
             }
-            ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);            
+
+            ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);
+
+            BrowserTabInfo.URL = tabs[0].url;
+            BrowserTabInfo.Title = tabs[0].title;
+            
         },
     );
 });
@@ -82,6 +91,11 @@ function ToggleViewOriginalImageContextMenuVisibility(url){
     
     switch(currentWebsite){
         case Website.Twitter:
+            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+                "visible": true 
+                });
+            break;
+        case Website.Mobile_Twitter:
             chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
                 "visible": true 
                 });
@@ -113,8 +127,18 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
             }
             break;
+        case Website.Mobile_Twitter: 
+            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+                ViewOriginalMedia(info.srcUrl);
+                return;
+            } 
+            else if (info.menuItemId === "saveImage"){
+                SaveTwitterMedia(tab.url, info.srcUrl);
+
+            }
+        break;
         case Website.LINE_BLOG:
-            LineBlogURL(info.srcUrl, tab.url);
+            SaveLINEBLOGMedia(tab.url, info.srcUrl);
             break;
         default:
             alert(chrome.i18n.getMessage("error_website_not_supported"));
