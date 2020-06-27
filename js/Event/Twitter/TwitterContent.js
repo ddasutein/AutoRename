@@ -50,77 +50,86 @@ function ViewOriginalMedia(url) {
     window.open(updatedUrl, "_blank");
 }
 
-function SaveTwitterMedia(tabUrl, url){
-    
+function SaveTwitterMedia(tabUrl, url) {
+
     let fileName;
     let fileNameBuilderArray = [];
     let tweetId = SplitURL(tabUrl, 5);
 
-    if (tweetId == null || tweetId.length == 0){
-        alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
-        return;
-    }
-    const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
-    if (specialCharacters.test(tweetId)){
-        tweetId = tweetId.split(specialCharacters)[0];
-    }
-    
-    let twitterSettings = SettingsArray.filter(function(key){
-        return key.category == CategoryEnum.Twitter
-    });
+    try {
+        if (tweetId == null || tweetId.length == 0) {
+            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
+            return;
+        }
+        const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
+        if (specialCharacters.test(tweetId)) {
+            tweetId = tweetId.split(specialCharacters)[0];
+        }
 
-    IncludeMentionSymbol = ((bool) => bool ? fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3)) : fileNameBuilderArray.push(SplitURL(tabUrl, 3)));
-    IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
-    IncludeDate = ((bool, settings) =>{
-        settings.filter((x) => {
-            return x.key === "dateFormatting"
-        }).map((x) => {
-            if (bool){
-                fileNameBuilderArray.push(GetDateFormat(x.value));
+        let twitterSettings = SettingsArray.filter(function (key) {
+            return key.category == CategoryEnum.Twitter
+        });
+
+        IncludeMentionSymbol = ((bool) => bool ? fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3)) : fileNameBuilderArray.push(SplitURL(tabUrl, 3)));
+        IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
+        IncludeDate = ((bool, settings) => {
+            settings.filter((x) => {
+                return x.key === "dateFormatting"
+            }).map((x) => {
+                if (bool) {
+                    fileNameBuilderArray.push(GetDateFormat(x.value));
+                }
+            });
+        });
+
+        twitterSettings.map((key, index) => {
+
+            /**
+             * To get index number, set DevMode to true in /js/Common/Debugger.js
+             * Then open the browser console and type >> Debug.Settings("twitter")
+             */
+
+            switch (index) {
+                case 0:
+                    IncludeMentionSymbol(key.value);
+                    break;
+                case 1:
+                    IncludeTweetID(key.value);
+                    break;
+                case 2:
+                    fileNameBuilderArray.push(GenerateRandomString(key.value));
+                    break;
+                case 3:
+                    IncludeDate(key.value, twitterSettings);
+                    break;
             }
         });
-    });
 
-    twitterSettings.map((key, index) => {
+        /** Prepare download sequence */
+        fileName = fileNameBuilderArray.toString();
+        fileName = fileNameBuilderArray.join(", ");
+        fileName = fileName.replace(/, /g, "-") + "." + getImageFormat(url);
 
-        /**
-         * To get index number, set DevMode to true in /js/Common/Debugger.js
-         * Then open the browser console and type >> Debug.Settings("twitter")
-         */
+        let twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
 
-        switch (index) {
-            case 0:
-                IncludeMentionSymbol(key.value);
-                break;
-            case 1:
-                IncludeTweetID(key.value);
-                break;
-            case 2:
-                fileNameBuilderArray.push(GenerateRandomString(key.value));
-                break;
-            case 3:
-                IncludeDate(key.value, twitterSettings);
-                break;
-        }
-    });
+        StartDownload(Website.Twitter, twitterMediaSrc, fileName);
 
-    /** Prepare download sequence */
-    fileName = fileNameBuilderArray.toString();
-    fileName = fileNameBuilderArray.join(", ");
-    fileName = fileName.replace(/, /g, "-") + "." + getImageFormat(url);
-
-    let twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
-
-    StartDownload(Website.Twitter, twitterMediaSrc, fileName);
-
-    // Clear array when finished
-    while (fileNameBuilderArray.length > 0){
-        DevMode ? console.log("Clearing fileNameBuilderArray... " + fileNameBuilderArray) : false;
-        fileNameBuilderArray.pop();
-        if (DevMode){
-            if (fileNameBuilderArray.length == 0){
-                console.log("Done!");
+        // Clear array when finished
+        while (fileNameBuilderArray.length > 0) {
+            DevMode ? console.log("Clearing fileNameBuilderArray... " + fileNameBuilderArray) : false;
+            fileNameBuilderArray.pop();
+            if (DevMode) {
+                if (fileNameBuilderArray.length == 0) {
+                    console.log("Done!");
+                }
             }
         }
+    } catch (Exception) {
+        alert(`${chrome.i18n.getMessage("error_generic")} \n${Exception.toString().trim()} \n\n${chrome.i18n.getMessage("error_exception_reload")}`);
+
+        chrome.tabs.getSelected(function (tab) {
+            chrome.tabs.reload(tab.id);
+        });
     }
+
 }
