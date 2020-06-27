@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2019 Dasutein
+ * Copyright (c) 2020 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,97 +12,96 @@
  * 
  */
 
-/** For reference in saveImageEvent.js */
-let LineBlogContentJS = {
-    FinalURL: null,
-    FileName: null
-}
+function SaveLINEBLOGMedia(tabUrl, url) {
+    let fileName;
+    let fileNameBuilderArray = [];
+    let lineblogId = "";
+    let lineblogUser = SplitURL(tabUrl, 3);
+    let lineblogTitle = "";
 
-let LineBlogFileNameArray = [];
+    try {
 
-let lineBlogCurrentUrl = null;
-let lineBlogTabTitle = null;
+        //#region Run validation
 
-function LINEBLOGTitle(tab){
-    let tabTitle = tab.split("-");
-    lineBlogTabTitle = tabTitle[1];
-}
+        // Validate if the tab is LINE BLOG
+        if (BrowserTabInfo.URL.match(Website.LINE_BLOG)) {
+            lineblogTitle = BrowserTabInfo.Title.split("-")[1].trim().toString();
+        }
 
-function LineBlogURL(imageURL, currentUrl) {
-    console.log("LineBlogURL (imageURL)", imageURL);
-    console.log("LineBlogURL (currentUrl)", currentUrl);
-    lineBlogCurrentUrl = currentUrl;
+        // Validate if there is a blog id
+        if (SplitURL(tabUrl, 5) == undefined) {
+            alert(chrome.i18n.getMessage("error_lineblog_click_blog"));
+        } else {
+            lineblogId = SplitURL(tabUrl, 5).toString().replace(".html", "").trim();
+        }
 
-    let blogId = SplitURL(lineBlogCurrentUrl, 4);
+        if (lineblogTitle == undefined){
+            throw `- ${chrome.i18n.getMessage("error_lineblog_no_title")}`;
+        }
 
-    if (blogId == ""){
-        alert(chrome.i18n.getMessage("error_lineblog_click_blog"));
-    }
+        //#endregion
 
-    LINEBlogImageURL(imageURL);
-}
+        let lineblogSettings = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.LINE_BLOG;
+        });
 
-let finalLineBlogURL = null;
+        IncludeWebsitePrefix = ((bool) => bool ? fileNameBuilderArray.push(`[LINE BLOG] ${lineblogUser}`) : fileNameBuilderArray.push(lineblogUser));
+        IncludeBlogTitle = ((bool) => bool ? fileNameBuilderArray.push(lineblogTitle) : false);
+        IncludeDate = ((bool, settings) => {
+            settings.filter((x) => {
+                return x.key === "lbPrefDateFormat";
+            }).map((x) => {
+                if (bool) {
+                    fileNameBuilderArray.push(GetDateFormat(x.value));
+                }
+            });
+        });
 
-function LINEBlogImageURL(url) {
-    console.log("LINEBlogImageURL", url);
-    const getOriginalSize = url.substring(0, url.lastIndexOf("/") + 0);
-    LineBlogContentJS.FinalURL = getOriginalSize;
+        lineblogSettings.map((key, index) => {
 
-    LINEBlogFileBuilder();
-}
+            /**
+             * To get index number, set DevMode to true in /js/Common/Debugger.js
+             * Then open the browser console and type >> Debug.Settings("lineblog")
+             */
 
+            switch (index) {
+                case 0:
+                    IncludeWebsitePrefix(key.value);
+                    break;
+                case 1:
+                    IncludeBlogTitle(key.value);
+                    break;
+                case 2:
+                    IncludeDate(key.value, lineblogSettings);
+                    break;
+                case 4:
+                    fileNameBuilderArray.push((GenerateRandomString(key.value)));
+                    break;
+            }
 
-function LINEBlogFileBuilder(){
-    let finalFileName = '';
-    const title = SplitURL(lineBlogCurrentUrl, 2);
-    const username = SplitURL(lineBlogCurrentUrl, 3);
-    const blogId = SplitURL(lineBlogCurrentUrl, 5);
+        });
 
-    const _title = title.replace(".me", "");
-    const _blogId = blogId.replace(".html", "");
-
-    chrome.storage.local.get({
-        lbPrefIncludeWebsiteTitle: false,
-        lbPrefIncludeBlogTitle: false,
-        lbPrefUseDate: false,
-        lbPrefDateFormat: "0",
-        lbPrefStringGenerator: "4"
-
-    }, function(items){
-        prefWebsiteTitle = items.lbPrefIncludeWebsiteTitle;
-        prefBlogTitle = items.lbPrefIncludeBlogTitle;
-        prefIncludeDate = items.lbPrefUseDate;
-        prefDateFormatting = items.lbPrefDateFormat;
-        lbPrefStringGenerator = items.lbPrefStringGenerator;
-
-        prefWebsiteTitle ? LineBlogFileNameArray.push(_title.toUpperCase()) : '';
-        LineBlogFileNameArray.push(username);
-        prefBlogTitle ? LineBlogFileNameArray.push(lineBlogTabTitle) : '';
-        LineBlogFileNameArray.push(_blogId);
-        prefIncludeDate ? LineBlogFileNameArray.push(GetDateFormat(prefDateFormatting)) : '';
-        LineBlogFileNameArray.push(GenerateRandomString(lbPrefStringGenerator));
-
-        DevMode ? console.log("LineBlogFileNameArray") : false;
-        DevMode ? console.log(LineBlogFileNameArray) : false;
-
-        finalFileName = LineBlogFileNameArray.toString();
-        finalFileName = LineBlogFileNameArray.join(", ");
-        LineBlogContentJS.FileName = finalFileName.replace(/,/g, '').replace(/ /g, "-").toString() + ".jpg";
-        
-        StartDownload(Website.LINE_BLOG, LineBlogContentJS.FinalURL, LineBlogContentJS.FileName);
+        fileName = fileNameBuilderArray.toString();
+        fileName = fileNameBuilderArray.join(", ");
+        fileName = fileName.replace(/, /g, "-") + ".jpg";
+        StartDownload(Website.LINE_BLOG, url, fileName);
 
         // Clear array when finished
-        while (LineBlogFileNameArray.length > 0){
-            DevMode ? console.log("Clearing LineBlogFileNameArray... " + LineBlogFileNameArray) : false;
-            LineBlogFileNameArray.pop();
-        }
-
-        if (DevMode){
-            if (LineBlogFileNameArray.length == 0){
-                console.log("LineBlogFileNameArray Array Cleared!");
+        while (fileNameBuilderArray.length > 0) {
+            DevMode ? console.log("Clearing fileNameBuilderArray... " + fileNameBuilderArray) : false;
+            fileNameBuilderArray.pop();
+            if (DevMode) {
+                if (fileNameBuilderArray.length == 0) {
+                    console.log("Done!");
+                }
             }
         }
+    } catch (Exception) {
+        alert(`${chrome.i18n.getMessage("error_generic")} \n${Exception.toString().trim()} \n\n${chrome.i18n.getMessage("error_exception_reload")}`);
 
-    });
+        chrome.tabs.getSelected(function (tab) {
+            chrome.tabs.reload(tab.id);
+        });
+    }
+
 }
