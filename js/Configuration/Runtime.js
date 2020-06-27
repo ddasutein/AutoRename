@@ -13,24 +13,26 @@
  */
 
 /**
- * 
+ * Get the extension version
  */
 
 let getExtensionVersion = chrome.runtime.getManifest().version;
+
+let getExtensionName = chrome.runtime.getManifest().name;
 
 function ShowUpdateMsg(){
     chrome.notifications.create(
         "noti_1", {
             "buttons": [{
-                    title: "Change log"
+                    title: chrome.i18n.getMessage("runtime_change_log")
                 },
                 {
                     title: "OK",
                 }
             ],
-            "iconUrl": chrome.extension.getURL("assets/AutoRename-Logo-48px.png"),
+            "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
             "type": "basic",
-            "title": "AutoRename",
+            "title": getExtensionName,
             "message": chrome.i18n.getMessage("runtime_extension_updated") + " " + getExtensionVersion
         }
     );
@@ -39,10 +41,15 @@ function ShowUpdateMsg(){
 function ShowWelcomeMsg(){
     chrome.notifications.create(
         "noti_2", {
-            "iconUrl": chrome.extension.getURL("assets/AutoRename-Logo-48px.png"),
+            "buttons": [{
+                title: "GitHub Wiki"
+            }, {
+                title: "OK"
+            }],
+            "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
             "type": "basic",
-            "title": "AutoRename",
-            "message": "Welcome to AutoRename"
+            "title": `${chrome.i18n.getMessage("runtime_welcome_msg")} ${getExtensionName}`,
+            "message": `${chrome.i18n.getMessage("runtime_welcome_body")}`
         }
     );   
 }
@@ -64,10 +71,10 @@ chrome.notifications.onButtonClicked.addListener(function (notifId, index) {
 });
 
 chrome.runtime.onInstalled.addListener(function (details) {
-    console.log(details.reason);
+
     switch (details.reason){
         case "install":
-            //ShowWelcomeMsg();
+            ShowWelcomeMsg();
             break;
         case "update":
             ShowUpdateMsg();
