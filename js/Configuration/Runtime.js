@@ -24,16 +24,16 @@ function ShowUpdateMsg(){
     chrome.notifications.create(
         "noti_1", {
             "buttons": [{
-                    title: chrome.i18n.getMessage("runtime_change_log")
+                    title: chrome.i18n.getMessage("message_toast_button_whats_new")
                 },
                 {
-                    title: "OK",
+                    title: chrome.i18n.getMessage("message_toast_button_ok"),
                 }
             ],
             "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
             "type": "basic",
             "title": getExtensionName,
-            "message": chrome.i18n.getMessage("runtime_extension_updated") + " " + getExtensionVersion
+            "message": chrome.i18n.getMessage("message_toast_new_version") + " " + getExtensionVersion
         }
     );
 }
@@ -42,14 +42,14 @@ function ShowWelcomeMsg(){
     chrome.notifications.create(
         "noti_2", {
             "buttons": [{
-                title: "GitHub Wiki"
+                title: chrome.i18n.getMessage("message_toast_button_github_wiki")
             }, {
-                title: "OK"
+                title: chrome.i18n.getMessage("message_toast_button_ok")
             }],
             "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
             "type": "basic",
-            "title": `${chrome.i18n.getMessage("runtime_welcome_msg")} ${getExtensionName}`,
-            "message": `${chrome.i18n.getMessage("runtime_welcome_body")}`
+            "title": `${chrome.i18n.getMessage("message_toast_welcome_title")} ${getExtensionName}`,
+            "message": `${chrome.i18n.getMessage("message_toast_welcome_body")}`
         }
     );   
 }
@@ -70,14 +70,28 @@ chrome.notifications.onButtonClicked.addListener(function (notifId, index) {
     }
 });
 
+
+
+
 chrome.runtime.onInstalled.addListener(function (details) {
+
+    let runtimeSettings = GetSettings.General();
 
     switch (details.reason){
         case "install":
             ShowWelcomeMsg();
             break;
         case "update":
-            ShowUpdateMsg();
+
+            runtimeSettings.map((key, index) => {
+                switch (index){
+                    case 2:
+                        if (key.value){
+                            ShowUpdateMsg();
+                        }
+                }
+            });
+
             break;
     }
 });
