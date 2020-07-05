@@ -32,10 +32,27 @@ function StartDownload(website, url, filename){
     }
 
     function launchDownload(url, filename){
-        chrome.downloads.download({
-            url: url,
-            filename: filename,
-            saveAs: true
+
+        let generalSettings = GetSettings.General();
+
+        generalSettings.map((key, index) => {
+            switch (index){
+                case 1:
+                    if (key.value){
+                        chrome.downloads.download({
+                            url: url,
+                            filename: filename,
+                            saveAs: true
+                        });
+                    } else {
+                        chrome.downloads.download({
+                            url: url,
+                            filename: filename,
+                            saveAs: false
+                        });
+                    }
+                    break;
+            }
         });
     }
 }
@@ -51,9 +68,18 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
                 console.log(DEBUG_TAG + downloadDelta.state.current);
             }
 
-            if (items.showDownloadFolderCheckbox === true) {
-                chrome.downloads.showDefaultFolder();
-            }
+            let generalSettings = GetSettings.General();
+
+            generalSettings.map((key, index) => {
+                switch (index){
+                    case 0:
+                        if (key.value){
+                            chrome.downloads.showDefaultFolder();
+                        }
+                        break;
+                }
+            });
+
             return;
         }
     });
