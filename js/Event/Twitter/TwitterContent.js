@@ -74,7 +74,7 @@ function SaveTwitterMedia(tabUrl, url) {
         IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
         IncludeDate = ((bool, settings) => {
             settings.filter((x) => {
-                return x.key === "dateFormatting"
+                return x.key === "twitter_date_format"
             }).map((x) => {
                 if (bool) {
                     fileNameBuilderArray.push(GetDateFormat(x.value));
