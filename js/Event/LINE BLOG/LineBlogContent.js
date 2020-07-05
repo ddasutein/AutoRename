@@ -31,6 +31,7 @@ function SaveLINEBLOGMedia(tabUrl, url) {
         // Validate if there is a blog id
         if (SplitURL(tabUrl, 5) == undefined) {
             alert(chrome.i18n.getMessage("error_lineblog_click_blog"));
+            return;
         } else {
             lineblogId = SplitURL(tabUrl, 5).toString().replace(".html", "").trim();
         }
@@ -41,9 +42,7 @@ function SaveLINEBLOGMedia(tabUrl, url) {
 
         //#endregion
 
-        let lineblogSettings = SettingsArray.filter((key) => {
-            return key.category == CategoryEnum.LINE_BLOG;
-        });
+        let lineblogSettings = GetSettings.LINE_BLOG();
 
         IncludeWebsitePrefix = ((bool) => bool ? fileNameBuilderArray.push(`[LINE BLOG] ${lineblogUser}`) : fileNameBuilderArray.push(lineblogUser));
         IncludeBlogTitle = ((bool) => bool ? fileNameBuilderArray.push(lineblogTitle) : false);
@@ -56,7 +55,7 @@ function SaveLINEBLOGMedia(tabUrl, url) {
                 }
             });
         });
-
+        
         lineblogSettings.map((key, index) => {
 
             /**
