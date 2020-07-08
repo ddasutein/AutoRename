@@ -57,7 +57,8 @@ chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
             const DEBUG_TAG = "tabsOnUpdated => ";
             console.log(DEBUG_TAG + tab.url + " " + tab.title);           
         }
-
+        BrowserTabInfo.URL = tab.url;
+        BrowserTabInfo.Title = tab.title;
         ToggleViewOriginalImageContextMenuVisibility(tab.url)
     }
 });
