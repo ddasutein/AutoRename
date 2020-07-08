@@ -27,10 +27,7 @@ request.onload = function(e) {
       document.getElementById("main_extension_name").innerHTML = jsonParse.short_name;
 
       if (document.querySelector('meta[name="current_page"]').content == "about"){
-
         document.getElementById("main_extension_version").innerHTML = jsonParse.version;
-        document.getElementById("system_information_os").innerHTML = navigator.appVersion;
-        document.getElementById("system_information_platform").innerHTML = navigator.platform;
       }
 
       // document.getElementById("extension_description").innerHTML = jsonParse.description;
