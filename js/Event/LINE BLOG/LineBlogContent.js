@@ -45,7 +45,7 @@ function SaveLINEBLOGMedia(tabUrl, url) {
         let lineblogSettings = GetSettings.LINE_BLOG();
 
         IncludeWebsitePrefix = ((bool) => bool ? fileNameBuilderArray.push(`[LINE BLOG] ${lineblogUser}`) : fileNameBuilderArray.push(lineblogUser));
-        IncludeBlogTitle = ((bool) => bool ? fileNameBuilderArray.push(lineblogTitle) : false);
+        IncludeBlogTitle = ((bool) => bool ? fileNameBuilderArray.push(lineblogId + "-" + lineblogTitle) : fileNameBuilderArray.push(lineblogId));
         IncludeDate = ((bool, settings) => {
             settings.filter((x) => {
                 return x.key === "lbPrefDateFormat";
