@@ -1,14 +1,15 @@
 {
     "name": "AutoRename",
     "short_name": "AutoRename",
-    "version": "1.4.2",
-    "description": "AutoRename can automatically rename downloaded images from the internet.",
+    "version": "2.0.0",
+    "description": "Rename image files from the internet with a meaningful file name",
     "default_locale": "en",
     "manifest_version": 2,
     "homepage_url": "https://github.com/ddasutein/AutoRename",
     "icons": {
-	    "48": "/assets/AutoRename-Logo-48px.png",
-        "128": "/assets/AutoRename-Logo-128px.png"
+        "16": "/assets/autorename-16px.png",
+	    "48": "/assets/autorename-48px.png",
+        "128": "/assets/autorename-128px.png"
     },
     "browser_action":{
         "default_title": "AutoRename"
@@ -16,11 +17,16 @@
 
     "background": {
         "scripts": [
-            "js/SplitURL.js",
-            "js/LineBlogContent.js",
-            "js/SetTimeDate.js",
-            "js/DownloadManager.js",
-            "js/saveImageEvent.js"
+            "js/Configuration/Settings.js",
+            "js/Configuration/Runtime.js",
+            "js/Common/Debugger.js",
+            "js/Common/SplitURL.js",
+            "js/Common/StringGenerator.js",
+            "js/Common/SetTimeDate.js",
+            "js/Event/Twitter/TwitterContent.js",
+            "js/Event/LINE BLOG/LineBlogContent.js",
+            "js/Event/DownloadManager.js",
+            "js/Event/SaveAsEventHandle.js"
         ],
         "persistent": false
     },
@@ -31,6 +37,7 @@
         "storage",
         "contextMenus",
         "downloads",
+        "notifications",
         "tabs"
     ]
 }
