@@ -157,7 +157,7 @@
     },
 
     "error_website_not_supported":{
-        "message": "Sorry, this extension only supports Twitter at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+        "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
     },
 
     "error_tweet_detail_alert_prompt":{
