@@ -17,18 +17,25 @@
         <div class="sidebar-meta">
             <p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;"></p>
         </div>
-        <a href="options.html"><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text">General Settings</span></a>
-        <a href="options_twitter.html"><img class="sidebar-btn-ico" src="assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text">Twitter</span></a>
-        <a class="sidebar-active" href="options_lineblog.html"><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text">LINE BLOG</span></a>
-        <a href="options_about.html"><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text">About</span></a>
+        <a href="options.html"><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_general"></span></a>
+        <a href="options_twitter.html"><img class="sidebar-btn-ico" src="assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_twitter"></span></a>
+        <a class="sidebar-active" href="options_lineblog.html"><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_lineblog"></span></a>
+        <a href="options_about.html"><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_about"></span></a>
       </div>
 
     <div class="main">
         <div class="main-body-section-header">
-            <div class="main-body-title-button">
-                <h3><b><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text">LINE BLOG Settings</span></b></h3>
-                <button type="submit" id="button_save" data-i18n="button_save"></button>
-            </div>
+
+            <table style="width: 100%;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><h3><b><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_lineblog"></span></b></h3></td>
+                    <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save"></button></td>
+                </tr>
+            </table>
             
             <hr>
             <p data-i18n="lineblog_settings_description"></p>
@@ -36,7 +43,7 @@
         <br/>
         <div class="main-body">
             <div class="main-body-section-header">
-                <h3><img class="sidebar-btn-ico" src="assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text">File Name</span></h3>
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span></h3>
                 <hr>
                 <table class="main-body-table">
                     <tr>
@@ -100,7 +107,7 @@
             </div>
             <br/>
             <div class="main-body-section-header">
-                <h3><img class="sidebar-btn-ico" src="assets/icons8-hiragana-ma-48.png"></img><span class="sidebar-btn-ico-text">BLOG TITLE</span></h3>
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-hiragana-ma-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_lineblog_title"></span></h3>
                 <hr>
                 <table class="main-body-table">
                     <tr>
