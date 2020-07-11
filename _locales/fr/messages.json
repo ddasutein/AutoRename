@@ -5,7 +5,7 @@
     },
 
     "common_label_date_format": {
-        "message": "Date Format"
+        "message": "Format de Date"
     },
 
     "common_date_format_label_numerical": {
@@ -65,51 +65,51 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Twitter Settings"
+        "message": "Paramètres de Twitter"
     },
 
     "common_section_header_lineblog": {
-        "message": "LINE BLOG Settings"
+        "message": "Paramètres de LINE BLOG"
     },
 
     "common_section_header_reddit": {
-        "message": "Reddit Settings"
+        "message": "Paramètres de Reddit"
     },
 
     "common_section_header_about": {
-        "message": "About"
+        "message": "A Propos"
     },
 
     "common_section_file_name": {
-        "message": "File Name"
+        "message": "Nom du Fichier"
     },
 
     "common_section_file_system": {
-        "message": "File System"
+        "message": "Système de Classement"
     },
 
     "common_section_system_notifications": {
-        "message": "System Notifications"
+        "message": "Notifications du Système"
     },
 
     "common_section_lineblog_title": {
-        "message": "Blog Title"
+        "message": "Titre du Blog"
     },
 
     "common_section_system_information": {
-        "message": "System Information"
+        "message": "Information du Système"
     },
 
     "common_section_credits": {
-        "message": "Credits"
+        "message": "Crédits"
     },
 
     "common_section_privacy_policy_links" : {
-        "message": "Privacy Policy and Other Links"
+        "message": "Politique de confidentialité et autres liens"
     },
 
     "common_navigation_general" : {
-        "message": "General"
+        "message": "Général"
     },
 
     "common_navigation_twitter" : {
@@ -125,7 +125,7 @@
     },
 
     "common_navigation_about" : {
-        "message": "About"
+        "message": "A Propos"
     },
 
     "context_click_here":{
@@ -145,63 +145,63 @@
     },
 
     "credits_icons":{
-        "message": "Icons"
+        "message": "Icônes"
     },
 
     "credits_localization":{
-        "message": "Localization"
+        "message": "Localisation"
     },
 
     "credits_list_of_translators":{
-        "message": "List of Translators"
+        "message": "Liste des traducteurs"
     },
 
     "error_website_not_supported":{
-        "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+        "message": "Désolé, cette extension ne prend en charge que Twitter et LINE BLOG pour l'instant. Pour une liste des sites Web pris en charge, visitez mon référentiel Github: https://github.com/ddasutein/AutoRename"
     },
 
     "error_tweet_detail_alert_prompt":{
-        "message": "Click on the tweet to use this extension."
+        "message": "Cliquez sur le tweet pour utiliser cette extension."
     },
 
     "error_lineblog_click_blog":{
-        "message": "Click on the blog post to save this image."
+        "message": "Cliquez sur le blog pour enregistrer cette image."
     },
 
     "error_title": {
-        "message": "Error"
+        "message": "Erreur"
     },
 
     "error_generic": {
-        "message": "An error has occured"
+        "message": "Une erreur est survenue"
     },
 
     "error_send_report": {
-        "message": "Extension is unable to resolve this error. Please file a report on GitHub."
+        "message": "L'extension ne peut pas résoudre cette erreur. Pensez à déposer un rapport sur GitHub."
     },
 
     "error_exception_reload": {
-        "message": "This tab will now reload."
+        "message": "Cet onglet se rechargera."
     },
 
     "error_lineblog_no_title": {
-        "message": "Unable to retrieve blog title"
+        "message": "Impossible de récupérer le titre du blog"
     },
 
     "message_toast_welcome_title":{
-        "message": "Welcome to"
+        "message": "Bienvenue à"
     },
 
     "message_toast_welcome_body":{
-        "message": "Thank you for installing. You may visit the GitHub Wiki for more information."
+        "message": "Merci d'avoir installé l'extension. Visitez le Wiki GitHub pour plus d'informations."
     },
 
     "message_toast_new_version":{
-        "message": "Extension has been updated to version"
+        "message": "L'extension a été mise à jour vers la version."
     },
 
     "message_toast_button_whats_new":{
-        "message": "What's new?"
+        "message": "Quoi de neuf?"
     },
 
     "message_toast_button_github_wiki":{
@@ -213,7 +213,7 @@
     },
 
     "privacy_policy_and_other_links_terms" : {
-        "message": "Privacy Policy"
+        "message": "Politique de confidentialité"
     },
 
     "privacy_policy_and_other_links_github_wiki" : {
@@ -221,11 +221,11 @@
     },
 
     "privacy_policy_and_other_links_translate_assist" : {
-        "message": "Voulez-vous aider à traduire?"
+        "message": "Voudrez-vous aider à traduire?"
     },
 
     "privacy_policy_and_other_links_feedback" : {
-        "message": "Submit an Issue or Feature Request"
+        "message": "Déposer un problème ou une demande de fonctionnalité"
     },
 
     "privacy_policy_and_other_links_github" : {
@@ -234,15 +234,15 @@
     },
 
     "system_information_os" : {
-        "message": "Operating System"
+        "message": "Système d'Exploitation"
     },
 
     "system_information_platform" : {
-        "message": "Platform"
+        "message": "Plateforme"
     },
 
     "general_settings_description":{
-        "message": "Configure Extension Global Settings"
+        "message": "Configurer les paramètres generaux de l'extension"
     },
 
     "general_settings_show_download_folder":{
@@ -250,15 +250,15 @@
     },
 
     "general_settings_enable_save_as_dialog":{
-        "message": "Enable 'Save As' dialog window"
+        "message": "Habiliter la fenêtre de dialogue «Enregistrer sous»"
     },
 
     "general_settings_enable_notifications_on_update":{
-        "message": "Enable notification when extension is updated"
+        "message": "Habiliter les notifications lorsque l'extension est mise à jour"
     },
 
     "twitter_settings_desciption":{
-        "message": "Customize File Name Format for Twitter"
+        "message": "Personnaliser le format de nom de fichier pour Twitter"
     },
 
     "twitter_settings_include_mention_symbol":{
@@ -274,7 +274,7 @@
     },
 
     "lineblog_settings_description": {
-        "message": "Customize File Name Format for LINE BLOG"
+        "message": "Personnaliser le format de nom de fichier pour LINE BLOG"
     },
 
     "lineblog_settings_site_title":{
@@ -290,6 +290,6 @@
     },
 
     "lineblog_settings_convert_blog_title_romaji": {
-        "message": "Convert Blog Title to Romaji"
+        "message": "Convertir le titre du blog en Romaji"
     }
 }
