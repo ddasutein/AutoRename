@@ -34,11 +34,11 @@ chrome.storage.local.get({
     twitter_include_tweet_id: true,
     twitter_include_date: false,
     twitter_date_format: "0",
-    twitter_random_string_length: "8",
+    twitter_random_string_length: "4",
 
     // LINE BLOG
-    lbPrefIncludeWebsiteTitle: false,
-    lbPrefIncludeBlogTitle: false,
+    lbPrefIncludeWebsiteTitle: true,
+    lbPrefIncludeBlogTitle: true,
     lbPrefUseDate: false,
     lbPrefDateFormat: "0",
     lbPrefStringGenerator: "4",
