@@ -5,7 +5,7 @@
     },
 
     "common_label_date_format": {
-        "message": "Date Format"
+        "message": "Formato de Fecha"
     },
 
     "common_date_format_label_numerical": {
@@ -65,47 +65,47 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Twitter Settings"
+        "message": "Ajustes de Twitter"
     },
 
     "common_section_header_lineblog": {
-        "message": "LINE BLOG Settings"
+        "message": "Ajustes de LINE BLOG"
     },
 
     "common_section_header_reddit": {
-        "message": "Reddit Settings"
+        "message": "Ajustes de Reddit"
     },
 
     "common_section_header_about": {
-        "message": "About"
+        "message": "Acerca de"
     },
 
     "common_section_file_name": {
-        "message": "File Name"
+        "message": "Nombre del archivo"
     },
 
     "common_section_file_system": {
-        "message": "File System"
+        "message": "Sistema de archivos"
     },
 
     "common_section_system_notifications": {
-        "message": "System Notifications"
+        "message": "Notificaciones del sistema"
     },
 
     "common_section_lineblog_title": {
-        "message": "Blog Title"
+        "message": "Título del Blog"
     },
 
     "common_section_system_information": {
-        "message": "System Information"
+        "message": "Información del sistema"
     },
 
     "common_section_credits": {
-        "message": "Credits"
+        "message": "Créditos"
     },
 
     "common_section_privacy_policy_links" : {
-        "message": "Privacy Policy and Other Links"
+        "message": "Política de privacidad y otros enlaces"
     },
 
     "common_navigation_general" : {
@@ -125,11 +125,11 @@
     },
 
     "common_navigation_about" : {
-        "message": "About"
+        "message": "Acerca de"
     },
 
     "context_click_here":{
-        "message": "Click Here"
+        "message": "Haga clic aquí"
     },
 
     "context_save_success": {
@@ -145,15 +145,15 @@
     },
 
     "credits_icons":{
-        "message": "Icons"
+        "message": "Íconos"
     },
 
     "credits_localization":{
-        "message": "Localization"
+        "message": "Localización"
     },
 
     "credits_list_of_translators":{
-        "message": "List of Translators"
+        "message": "Lista de traductores"
     },
 
     "error_website_not_supported":{
@@ -173,35 +173,35 @@
     },
 
     "error_generic": {
-        "message": "An error has occured"
+        "message": "Se ha producido un error."
     },
 
     "error_send_report": {
-        "message": "Extension is unable to resolve this error. Please file a report on GitHub."
+        "message": "La extensión no puede resolver este error. Por favor envíe un informe por GitHub."
     },
 
     "error_exception_reload": {
-        "message": "This tab will now reload."
+        "message": "Esta pestaña ahora se volverá a cargar."
     },
 
     "error_lineblog_no_title": {
-        "message": "Unable to retrieve blog title"
+        "message": "No se pudo recuperar el título del blog"
     },
 
     "message_toast_welcome_title":{
-        "message": "Welcome to"
+        "message": "Bienvenido a"
     },
 
     "message_toast_welcome_body":{
-        "message": "Thank you for installing. You may visit the GitHub Wiki for more information."
+        "message": "Gracias por instalar. Puede visitar la Wiki de GitHub para obtener más información.."
     },
 
     "message_toast_new_version":{
-        "message": "Extension has been updated to version"
+        "message": "La extensión ha sido actualizada a la versión"
     },
 
     "message_toast_button_whats_new":{
-        "message": "What's new?"
+        "message": "¿Qué hay de nuevo?"
     },
 
     "message_toast_button_github_wiki":{
@@ -213,7 +213,7 @@
     },
 
     "privacy_policy_and_other_links_terms" : {
-        "message": "Privacy Policy"
+        "message": "Política de privacidad"
     },
 
     "privacy_policy_and_other_links_github_wiki" : {
@@ -221,11 +221,11 @@
     },
 
     "privacy_policy_and_other_links_translate_assist" : {
-        "message": "Quieres ayudar a traducir?"
+        "message": "Quieres ayudar con la traducción?"
     },
 
     "privacy_policy_and_other_links_feedback" : {
-        "message": "Submit an Issue or Feature Request"
+        "message": "Enviar un informe de problema o solicitar una función"
     },
 
     "privacy_policy_and_other_links_github" : {
@@ -234,15 +234,15 @@
     },
 
     "system_information_os" : {
-        "message": "Operating System"
+        "message": "Sistema operativo"
     },
 
     "system_information_platform" : {
-        "message": "Platform"
+        "message": "Plataforma"
     },
 
     "general_settings_description":{
-        "message": "Configure Extension Global Settings"
+        "message": "Configurar ajustes globales de la extensión"
     },
 
     "general_settings_show_download_folder":{
@@ -250,15 +250,15 @@
     },
 
     "general_settings_enable_save_as_dialog":{
-        "message": "Enable 'Save As' dialog window"
+        "message": "Habilitar la ventana de diálogo 'Guardar como'"
     },
 
     "general_settings_enable_notifications_on_update":{
-        "message": "Enable notification when extension is updated"
+        "message": "Habilitar notificaciones al actualizar la extensión"
     },
 
     "twitter_settings_desciption":{
-        "message": "Customize File Name Format for Twitter"
+        "message": "Personalizar el formato de nombre de archivo para Twitter"
     },
 
     "twitter_settings_include_mention_symbol":{
@@ -290,6 +290,6 @@
     },
 
     "lineblog_settings_convert_blog_title_romaji": {
-        "message": "Convert Blog Title to Romaji"
+        "message": "Convertir el título del blog a Romaji"
     }
 }
