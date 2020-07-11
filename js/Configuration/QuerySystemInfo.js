@@ -34,12 +34,12 @@ function GetOperatingSystem(){
         os = appVersion;
     }
 
-    document.getElementById("system_information_os").innerHTML = os;
+    document.getElementById("system_information_os_value").innerHTML = os;
 }
 
 function GetPlatform(){
     const platform = navigator.platform;
-    document.getElementById("system_information_platform").innerHTML = platform;
+    document.getElementById("system_information_platform_value").innerHTML = platform;
 }
 
 function GetCurrentLanguage(){
