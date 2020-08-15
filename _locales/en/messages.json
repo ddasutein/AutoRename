@@ -1,5 +1,15 @@
 {
 
+    "announce_banner_title":{
+        "message": "Announcement",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
+    "announce_banner_content":{
+        "message": "Welcome to AutoRename Version 2.0.0. Your settings may have reset in this version. ",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
     "button_save":{
         "message": "Save"
     },

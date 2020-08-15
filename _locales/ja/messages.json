@@ -1,5 +1,15 @@
 {
 
+    "announce_banner_title":{
+        "message": "発表",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
+    "announce_banner_content":{
+        "message": "AutoRenameバージョン2.0.0へようこそ。 このバージョンでは設定がリセットされている可能性があります。",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
     "button_save":{
         "message": "セーブ"
     },
@@ -255,7 +265,7 @@
     },
 
     "general_settings_enable_notifications_on_update":{
-        "message": "拡張機能が更新されたときに通知を有効にする"
+        "message": "エクステンションが更新されたときに通知を有効にする"
     },
 
     "twitter_settings_desciption":{
