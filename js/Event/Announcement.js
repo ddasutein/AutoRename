@@ -12,4 +12,4 @@
  * 
  */
 
-document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
+document.getElementsByClassName('main-body-section-announcement')[1].style.display ='none';
