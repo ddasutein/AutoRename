@@ -17,7 +17,7 @@ console.log("Welcome to AutoRename" + "\n" +
     "Enable Console Debugging by setting 'DevMode' to TRUE");
 
 // Enable developer logging mode. This must be set to FALSE when releasing to users
-let DevMode = true;
+let DevMode = false;
 
 let Debug = {
 
