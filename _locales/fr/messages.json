@@ -1,14 +1,149 @@
 {
-    "extension_description":{
-        "message": "something"
+
+    "announce_banner_title":{
+        "message": "Annonce",
+        "description": "This is only temporary for the release of v2.0.0"
     },
 
-    "extension_translate":{
-        "message": "Voulez-vous aider à traduire??"
+    "announce_banner_content":{
+        "message": "Bienvenue dans AutoRename version 2.0.0. Vos paramètres peuvent avoir été réinitialisés dans cette version. ",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
+    "button_save":{
+        "message": "Enregistrer"
+    },
+
+    "common_label_date_format": {
+        "message": "Format de Date"
+    },
+
+    "common_date_format_label_numerical": {
+        "message": "Numérique"
+    },
+
+    "common_date_format_item_label_option_1":{
+        "message": "MM-JJ-AAAA (Numérique)"
+    },
+
+    "common_date_format_item_label_option_2":{
+        "message": "JJ-MM-AAAA (Numérique)"
+    },
+
+    "common_date_format_item_label_option_3":{
+        "message": "AAAA-MM-JJ (Numérique)"
+    },
+
+    "common_date_format_label_long":{
+        "message": "Long"
+    },
+
+    "common_date_format_item_label_option_4":{
+        "message": "MM-JJ-AAAA (Long)"
+    },
+
+    "common_date_format_item_label_option_5":{
+        "message": "JJ-MM-AAAA (Long)"
+    },
+
+    "common_date_format_item_label_option_6":{
+        "message": "AAAA-MM-JJ (Long)"
+    },
+
+    "common_date_format_label_short":{
+        "message": "Court"
+    },
+
+    "common_date_format_item_label_option_7":{
+        "message": "MM-JJ-AAAA (Court)"
+    },
+
+    "common_date_format_item_label_option_8":{
+        "message": "JJ-MM-AAAA (Court)"
+    },
+
+    "common_date_format_item_label_option_9":{
+        "message": "AAAA-MM-JJ (Court)"
+    },
+
+    "common_label_generator_length":{
+        "message": "Longueur du générateur de chaine de caractères"
+    },
+
+    "common_section_header_general": {
+        "message": "Paramètres generaux"
+    },
+
+    "common_section_header_twitter": {
+        "message": "Paramètres de Twitter"
+    },
+
+    "common_section_header_lineblog": {
+        "message": "Paramètres de LINE BLOG"
+    },
+
+    "common_section_header_reddit": {
+        "message": "Paramètres de Reddit"
+    },
+
+    "common_section_header_about": {
+        "message": "A Propos"
+    },
+
+    "common_section_file_name": {
+        "message": "Nom du Fichier"
+    },
+
+    "common_section_file_system": {
+        "message": "Système de Classement"
+    },
+
+    "common_section_system_notifications": {
+        "message": "Notifications du Système"
+    },
+
+    "common_section_lineblog_title": {
+        "message": "Titre du Blog"
+    },
+
+    "common_section_system_information": {
+        "message": "Information du Système"
+    },
+
+    "common_section_credits": {
+        "message": "Crédits"
+    },
+
+    "common_section_privacy_policy_links" : {
+        "message": "Politique de confidentialité et autres liens"
+    },
+
+    "common_navigation_general" : {
+        "message": "Général"
+    },
+
+    "common_navigation_twitter" : {
+        "message": "Twitter"
+    },
+
+    "common_navigation_lineblog" : {
+        "message": "LINE BLOG"
+    },
+
+    "common_navigation_reddit" : {
+        "message": "Reddit"
+    },
+
+    "common_navigation_about" : {
+        "message": "A Propos"
     },
 
     "context_click_here":{
         "message": "Cliquez ici."
+    },
+
+    "context_save_success": {
+        "message": "Préférences enregistrées"
     },
 
     "context_menu_save_image_as":{
@@ -19,8 +154,20 @@
         "message": "Voir l'image originale"
     },
 
+    "credits_icons":{
+        "message": "Icônes"
+    },
+
+    "credits_localization":{
+        "message": "Localisation"
+    },
+
+    "credits_list_of_translators":{
+        "message": "Liste des traducteurs"
+    },
+
     "error_website_not_supported":{
-        "message": "Désolé, cette extension ne prend en charge que Twitter pour le moment. Pour une liste des sites Web pris en charge, visitez mon référentiel Github: https://github.com/ddasutein/AutoRename"
+        "message": "Désolé, cette extension ne prend en charge que Twitter et LINE BLOG pour l'instant. Pour une liste des sites Web pris en charge, visitez mon référentiel Github: https://github.com/ddasutein/AutoRename"
     },
 
     "error_tweet_detail_alert_prompt":{
@@ -31,142 +178,128 @@
         "message": "Cliquez sur le blog pour enregistrer cette image."
     },
 
-    "options_header_title":{
-        "message": "Paramètres du AutoRename"
+    "error_title": {
+        "message": "Erreur"
     },
 
-    "settings_developed_by_dasutein":{
-        "message": "Développé par: Dasutein",
-        "description": "Do not translate my name. For Japanese translation, Katakana is optional"
+    "error_generic": {
+        "message": "Une erreur est survenue"
     },
 
-    "settings_github_link":{
-        "message": "GitHub"
+    "error_send_report": {
+        "message": "L'extension ne peut pas résoudre cette erreur. Pensez à déposer un rapport sur GitHub."
     },
 
-    "settings_extension_description":{
-        "message": "AutoRename can automatically rename downloaded images from the internet."
+    "error_exception_reload": {
+        "message": "Cet onglet se rechargera."
     },
 
-    "settings_label_general_settings":{
-        "message": "Paramètres generaux"
+    "error_lineblog_no_title": {
+        "message": "Impossible de récupérer le titre du blog"
     },
 
-    "settings_general_settings_show_download_folder":{
+    "message_toast_welcome_title":{
+        "message": "Bienvenue à"
+    },
+
+    "message_toast_welcome_body":{
+        "message": "Merci d'avoir installé l'extension. Visitez le Wiki GitHub pour plus d'informations."
+    },
+
+    "message_toast_new_version":{
+        "message": "L'extension a été mise à jour vers la version."
+    },
+
+    "message_toast_button_whats_new":{
+        "message": "Quoi de neuf?"
+    },
+
+    "message_toast_button_github_wiki":{
+        "message": "GitHub Wiki"
+    },
+
+    "message_toast_button_ok":{
+        "message": "OK"
+    },
+
+    "privacy_policy_and_other_links_terms" : {
+        "message": "Politique de confidentialité"
+    },
+
+    "privacy_policy_and_other_links_github_wiki" : {
+        "message": "GitHub Wiki"
+    },
+
+    "privacy_policy_and_other_links_translate_assist" : {
+        "message": "Voudrez-vous aider à traduire?"
+    },
+
+    "privacy_policy_and_other_links_feedback" : {
+        "message": "Déposer un problème ou une demande de fonctionnalité"
+    },
+
+    "privacy_policy_and_other_links_github" : {
+        "message": "GitHub",
+        "description": "Does not need to be translated"
+    },
+
+    "system_information_os" : {
+        "message": "Système d'Exploitation"
+    },
+
+    "system_information_platform" : {
+        "message": "Plateforme"
+    },
+
+    "general_settings_description":{
+        "message": "Configurer les paramètres generaux de l'extension"
+    },
+
+    "general_settings_show_download_folder":{
         "message": "Ouvrir automatiquement le dossier de téléchargement"
     },
 
-    "settings_general_settings_set_language":{
-        "message": "Paramètres du langage"
+    "general_settings_enable_save_as_dialog":{
+        "message": "Habiliter la fenêtre de dialogue «Enregistrer sous»"
     },
 
-    "settings_label_twitter":{
-        "message": "Paramètres de Twitter"
+    "general_settings_enable_notifications_on_update":{
+        "message": "Habiliter les notifications lorsque l'extension est mise à jour"
     },
 
-    "settings_label_twitter_description":{
-        "message": "Personnaliser les paramètres de téléchargement d'images Twitter"
+    "twitter_settings_desciption":{
+        "message": "Personnaliser le format de nom de fichier pour Twitter"
     },
 
-    "settings_twitter_include_mention_symbol":{
+    "twitter_settings_include_mention_symbol":{
         "message": "Inclure le symbole de mention @"
     },
 
-    "settings_twitter_include_tweet_id":{
+    "twitter_settings_include_tweet_id":{
         "message": "Inclure l'identifiant (ID) du Tweet"
     },
 
-    "settings_twitter_include_tweet_date":{
+    "twitter_settings_include_date":{
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     },
 
-    "settings_generate_string":{
-        "message": "Longueur du générateur de chaine de caractères"
+    "lineblog_settings_description": {
+        "message": "Personnaliser le format de nom de fichier pour LINE BLOG"
     },
 
-    "settings_twitter_file_extension_type":{
-        "message": "Type d'extension de fichier"
-    },
-
-    "button_save":{
-        "message": "Enregistrer"
-    },
-
-    "settings_save_success":{
-        "message": "Préférences enregistrées"
-    },
-
-    "settings_dateformat_item_label_numerical":{
-        "message": "Numérique"
-    },
-    
-    "settings_dateformat_item_label_option_1":{
-        "message": "MM-JJ-AAAA (Numérique)"
-    },
-
-    "settings_dateformat_item_label_option_2":{
-        "message": "JJ-MM-AAAA (Numérique)"
-    },
-
-    "settings_dateformat_item_label_option_3":{
-        "message": "AAAA-MM-JJ (Numérique)"
-    },
-
-    "settings_dateformat_item_label_long":{
-        "message": "Long"
-    },
-
-    "settings_dateformat_item_label_option_4":{
-        "message": "MM-JJ-AAAA (Long)"
-    },
-
-    "settings_dateformat_item_label_option_5":{
-        "message": "JJ-MM-AAAA (Long)"
-    },
-
-    "settings_dateformat_item_label_option_6":{
-        "message": "AAAA-MM-JJ (Long)"
-    },
-
-    "settings_twitter_dateformat_item_label_short":{
-        "message": "Court"
-    },
-
-    "settings_dateformat_item_label_option_7":{
-        "message": "MM-JJ-AAAA (Court)"
-    },
-
-    "settings_dateformat_item_label_option_8":{
-        "message": "JJ-MM-AAAA (Court)"
-    },
-
-    "settings_dateformat_item_label_option_9":{
-        "message": "AAAA-MM-JJ (Court)"
-    },
-
-    "settings_twitter_file_extension_jpg":{
-        "message": "JPG (Par Défaut)",
-        "description": "Translate (Default) only"
-    },
-
-    "settings_twitter_file_extension_png":{
-        "message": "PNG",
-        "description": "Do not translate"
-    },
-
-    "settings_label_lineblog":{
-        "message": "Paramètres de LINE BLOG"
-    },
-
-    "settings_label_lineblog_description":{
-        "message": "Personnaliser les paramètres de téléchargement des images de LINE BLOG"
-    },
-
-    "setting_include_lineblog_web_title":{
+    "lineblog_settings_site_title":{
         "message": "Inclure le titre du site Web [LINE BLOG]"
     },
 
-    "setting_include_lineblog_blog_title":{
+    "lineblog_settings_blog_title":{
         "message": "Inclure le titre du blog"
+    },
+
+    "lineblog_settings_include_date":{
+        "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
+    },
+
+    "lineblog_settings_convert_blog_title_romaji": {
+        "message": "Convertir le titre du blog en Romaji"
     }
 }

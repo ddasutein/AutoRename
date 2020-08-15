@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title data-i18n="options_header_title"></title>
+    <meta charset="UTF-8">
+    <meta name="current_page" content="about">
+    <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+    <script src="js/Configuration/Settings.js"></script>
+    
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-meta">
+            <p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;"></p>
+        </div>
+        <a href="options.html"><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_general"></span></a>
+        <a href="options_twitter.html"><img class="sidebar-btn-ico" src="assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_twitter"></span></a>
+        <a href="options_lineblog.html"><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_lineblog"></span></a>
+        <a class="sidebar-active" href="options_about.html"><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_about"></span></a>
+      </div>
+
+    <div class="main">
+        <div class="main-body-section-header">
+
+            <table style="width: 100%;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td> <h3><b><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_about"></span></b></h3></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <hr>
+            <table class="main-body-table">
+                <tr>
+                  <th></th>
+                  <th></th>
+                </tr>
+                <tr>
+                    <td>AutoRename</td>
+                </tr>
+                <tr>
+                    <td>Copyright © 2020 Dasutein</td>
+                    <td><a href="https://github.com/ddasutein/AutoRename#mit-license">MIT License</a></td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td><span id="main_extension_version"></span></td>
+                </tr>
+                <tr>
+                    <td>If you like the extension, please consider giving it a rating 😄</td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <div class="main-body">
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information"></span></h3>
+                <hr>
+                <!-- <p>Configure general settings of the extension</p> -->
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="system_information_os"></label></td>
+                        <td><label id="system_information_os_value"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="system_information_platform"></td>
+                        <td><label id="system_information_platform_value"></label></td>
+                    </tr>
+                </table>
+            </div>      
+        </div>
+        <br/>
+        <div class="main-body">
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-crowd-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_credits"></span></h3>
+                <hr>
+                <!-- <p>Configure general settings of the extension</p> -->
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="credits_icons"></label></td>
+                        <td><a href="https://icons8.com">icons8.com</a></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="credits_localization"></label></td>
+                        <td><a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="credits_list_of_translators"></label></a></td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td>WanaKana (JS Library)</td>
+                        <td>https://github.com/WaniKani/WanaKana</td>
+                    </tr>
+                    <tr>
+                        <td>SweetAlert</td>
+                        <td><a href="https://github.com/t4t5/sweetalert">https://github.com/t4t5/sweetalert</a></td>
+                    </tr>
+                </table>
+            </div>      
+        </div>
+        <br/>
+        <div class="main-body">
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-internet-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_privacy_policy_links"></span></h3>
+                <hr>
+                <!-- <p>Configure general settings of the extension</p> -->
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><a id="button_privacy_policy" href="#"><label data-i18n="privacy_policy_and_other_links_terms"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/wiki"><label data-i18n="privacy_policy_and_other_links_github_wiki"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename"><label data-i18n="privacy_policy_and_other_links_github"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="privacy_policy_and_other_links_translate_assist"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/issues/new/choose"><label data-i18n="privacy_policy_and_other_links_feedback"></label></a></td>
+                    </tr>
+                </table>
+            </div>      
+        </div>  
+    </div>
+
+    <!-- Modal -->
+    <div id="privacypolicymodal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <iframe class="privacypolicy" src="https://ddasutein.github.io/autorename-privacy-policy/"></iframe>
+        </div>
+        
+        </div>
+    </div>
+
+    <script src="js/Configuration/OptionsPage.js"></script>
+    <script src="js/Configuration/QuerySystemInfo.js"></script>
+    <script src="js/Localization/i18n.js"></script>
+    <script type="text/javascript" src="js/Configuration/ExtensionInfo.js"></script>
+    <script src="js/Event/ModalManager.js"></script>
+
+</body>
+
+</html>

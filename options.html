@@ -4,147 +4,89 @@
 <head>
     <title data-i18n="options_header_title"></title>
     <meta charset="UTF-8">
+    <meta name="current_page" content="general">
     <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
+
+    <script src="js/Configuration/Settings.js"></script>
+    <script src="libs/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script> 
+    
 </head>
 
 <body>
-    <div class="content">
-        <div class="content-extension-meta">
-            <!-- <p style="float: left"><img src="/assets/AutoRename-prod-logo.png" width="128px" height="128px"></p> -->
-            <h1 id="extension_name"></h1>
-            <p id="settings_developed_by_dasutein"></p>
-            <p id="settings_github_link" data-i18n="settings_github_link"></p>
-            <p><a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
-            <p id="extension_version"></p>
-            <p id="extension_description"></p>
-            <hr>
-            <p id="extension_translate" data-i18n="extension_translate"></p>
-            <a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="context_click_here"></label></a>
-        </div>
-        <hr>
-        <!--
-        -->
-        <div class="content-general-settings">
-            <h2 id="settings_label_general_settings" data-i18n="settings_label_general_settings"><B></B></h2><br>
-            <input type="checkbox" id="showDownloadFolderCheckbox">
-            <label id="settings_general_settings_show_download_folder" data-i18n="settings_general_settings_show_download_folder"></label>
-        </div>
-        <!--          
-        -->
-        <div class="content-twitter-settings">
-            <hr>
-            <h2 id="settings_label_twitter" data-i18n="settings_label_twitter"><b></b></h2>
-            <label id="settings_label_twitter_description" data-i18n="settings_label_twitter_description"></label>
-            <br><br>
-            <input type="checkbox" id="twitter_mention" checked>
-            <label id="settings_twitter_include_mention_symbol" data-i18n="settings_twitter_include_mention_symbol"></label>
-            <br>
-            <input type="checkbox" id="twitter_tweet_id" checked>
-            <label id="settings_twitter_include_tweet_id" data-i18n="settings_twitter_include_tweet_id"></label><br>
-            <input type="checkbox" id="IsUsingDateCheckbox">
-            <label id="settings_twitter_include_tweet_date" data-i18n="settings_twitter_include_tweet_date"></label><br>
-            <!--      
-            -->
-            <select id="DateFormatTypeSelect" disabled="disabled">
-                <option disabled data-i18n="settings_dateformat_item_label_numerical"></option>
-                <option value="0" data-i18n="settings_dateformat_item_label_option_1"></option>
-                <option value="1" data-i18n="settings_dateformat_item_label_option_2"></option>
-                <option value="2" data-i18n="settings_dateformat_item_label_option_3"></option></option>
-                <option disabled data-i18n="settings_dateformat_item_label_long"></option>
-                <option value="3" data-i18n="settings_dateformat_item_label_option_4"></option>
-                <option value="4" data-i18n="settings_dateformat_item_label_option_5"></option>
-                <option value="5" data-i18n="settings_dateformat_item_label_option_6"></option>
-                <option disabled  data-i18n="settings_dateformat_item_label_short"></option>
-                <option value="6" data-i18n="settings_dateformat_item_label_option_7"></option>
-                <option value="7" data-i18n="settings_dateformat_item_label_option_8"></option>
-                <option value="8" data-i18n="settings_dateformat_item_label_option_9"></option>
-            </select><br>
-            <!--          
-            -->
-            <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
-            <br>
-            <select id="twitter_string_length">
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-            </select>
-            <!--           
-            -->
-            <label id="settings_generate_string" data-i18n="settings_generate_string"></label>
-            <br>
-            <select id="twitter_file_extension_type">
-                <option value=".jpg" data-i18n="settings_twitter_file_extension_jpg"></option>
-                <option value=".png" data-i18n="settings_twitter_file_extension_png"></option>
-            </select>
-            <label id="settings_twitter_file_extension_type" data-i18n="settings_twitter_file_extension_type"></label>
-            <label style="color: red;">(To be removed in the next release. <a href="https://github.com/ddasutein/AutoRename/issues/9">Details</a>)</label>
-        </div>
-        <hr>
-        <!-- LINE BLOG -->
-        <div class="content-lineblog-settings">
-        <h2 id="settings_label_lineblog" data-i18n="settings_label_lineblog"><b></b></h2>
-        <label id="settings_label_lineblog_description" data-i18n="settings_label_lineblog_description"></label>
-        <br><br>
-        <input type="checkbox" id="lineblog_web_title" checked><label data-i18n="setting_include_lineblog_web_title"></label></input>
-        <br>
-        <input type="checkbox" id="lineblog_include_title"><label data-i18n="setting_include_lineblog_blog_title"></label></input>
-        <br>
-        <input type="checkbox" id="lineblog_IsUsingDateCheckbox">
-        <label id="settings_twitter_include_tweet_date" data-i18n="settings_twitter_include_tweet_date"></label><br>
-        <select id="lineblog_date_format" disabled="disabled">
-            <option disabled data-i18n="settings_dateformat_item_label_numerical"></option>
-            <option value="0" data-i18n="settings_dateformat_item_label_option_1"></option>
-            <option value="1" data-i18n="settings_dateformat_item_label_option_2"></option>
-            <option value="2" data-i18n="settings_dateformat_item_label_option_3"></option></option>
-            <option disabled data-i18n="settings_dateformat_item_label_long"></option>
-            <option value="3" data-i18n="settings_dateformat_item_label_option_4"></option>
-            <option value="4" data-i18n="settings_dateformat_item_label_option_5"></option>
-            <option value="5" data-i18n="settings_dateformat_item_label_option_6"></option>
-            <option disabled  data-i18n="settings_dateformat_item_label_short"></option>
-            <option value="6" data-i18n="settings_dateformat_item_label_option_7"></option>
-            <option value="7" data-i18n="settings_dateformat_item_label_option_8"></option>
-            <option value="8" data-i18n="settings_dateformat_item_label_option_9"></option>
-        </select><br>
-        <!--          
-        -->
-        <!-- <input type="checkbox" id="IsUsingTwitterApiDateCheckbox"><label>Use Twitter API Date & Time</label><br> -->
-        <br>
-        <select id="lineblog_string_length">
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-        </select>
-        <label id="settings_generate_string" data-i18n="settings_generate_string"></label>
-        </div>
-        <hr>
-        <button type="submit" id="button_save" data-i18n="button_save"></button>
-        <br>
-        <p></p>
-    </div>
-    <script src="js/options.js"></script>
-    <script src="js/i18n.js"></script>
-    <script type="text/javascript" src="js/extensionInfo.js"></script>
 
+    <div class="sidebar">
+        <div class="sidebar-meta">
+            <p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;"></p>
+        </div>
+
+        <a class="sidebar-active" href="options.html"><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_general"></span></a>
+        <a href="options_twitter.html"><img class="sidebar-btn-ico" src="assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_twitter"></span></a>
+        <a href="options_lineblog.html"><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_lineblog"></span></a>
+        <a href="options_about.html"><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_about"></span></a>
+      </div>
+
+    <div class="main">
+
+        <div class="main-body-section-announcement">
+            <label data-i18n="announce_banner_title"></label>
+            <span data-i18n="announce_banner_content"></span><span><a href="https://github.com/ddasutein/AutoRename/releases">Click here for more details</a></span>
+        </div>
+
+        <div class="main-body-section-header">
+            <table style="width: 100%;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><h3><b><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general"></span></b></h3></td>
+                    <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save"></button></td>
+                </tr>
+            </table>
+            <hr>
+            <p data-i18n="general_settings_description"></p>
+        </div>
+        <br/>
+        <div class="main-body">
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span></h3>
+                <hr>
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="general_settings_show_download_folder"></label></td>
+                        <td><input type="checkbox" id="general_settings_auto_show_download_folder"></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="general_settings_enable_save_as_dialog"></label></td>
+                        <td><input type="checkbox" id="general_settings_enable_save_as_window"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications">System Notifications</span></h3>
+                <hr>
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td><label data-i18n="general_settings_enable_notifications_on_update"></label></td>
+                      <td><input type="checkbox" id="general_settings_notification_updated"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/Configuration/OptionsPage.js"></script>
+    <script src="js/Localization/i18n.js"></script>
+    <script type="text/javascript" src="js/Configuration/ExtensionInfo.js"></script>
+    <script src="js/Event/Announcement.js"></script>
 </body>
 
 </html>
