@@ -1,10 +1,10 @@
 <h1 align="center">
 <sub>
-<img  src="https://raw.githubusercontent.com/ddasutein/AutoRename/master/assets/AutoRename-prod-logo.png"
+<img  src="https://raw.githubusercontent.com/ddasutein/AutoRename/master/assets/autorename-logo.png"
       height="35"
       width="35">
 </sub>
-AutoRename for Edge and Chrome
+AutoRename for Microsoft Edge and Google Chrome
 </h1>
 <p align="center">
 Download now
