@@ -28,7 +28,11 @@ function StartDownload(website, url, filename){
             break;
         case Website.LINE_BLOG:
             launchDownload(url, filename);
-            break;            
+            break;
+            
+        case Website.Reddit:
+            launchDownload(url, filename);
+            break;
     }
 
     function launchDownload(url, filename){
