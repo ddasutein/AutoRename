@@ -17,32 +17,47 @@
   */
 let SettingsArray = [];
 
-let CategoryEnum = {
+const CategoryEnum = {
     General: "General",
     LINE_BLOG: "LINE BLOG",
-    Twitter: "Twitter"
+    Twitter: "Twitter",
+    Reddit: "Reddit"
 }
 
 chrome.storage.local.get({
-    // General Settings
+
+    //#region Global Setings
     global_show_download_folder: false,
     global_enable_save_as_window: true,
     global_notifications_updated: true,
+    //#endregion
 
-    // Twitter Settings 
+    //#region Twitter Settings
     twitter_include_mention_symbol: false,
     twitter_include_tweet_id: true,
     twitter_include_date: false,
     twitter_date_format: "0",
     twitter_random_string_length: "4",
+    //#endregion
 
-    // LINE BLOG
+    //#region LINE BLOG Settings
     lbPrefIncludeWebsiteTitle: true,
     lbPrefIncludeBlogTitle: true,
     lbPrefUseDate: false,
     lbPrefDateFormat: "0",
     lbPrefStringGenerator: "4",
     lineblog_convert_title_romaji: false,
+    //#endregion
+
+    //#region Reddit Settings
+    redditIncludeWebsite: true,
+    redditIncludePostTitle: true,
+    redditIncludeSubredditName: true,
+    redditIncludePostFlair: false,
+    redditStringGenerator: "4"
+    //#endregion
+
+
 
 }, function (items) {
 
@@ -126,6 +141,31 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
             value: items.lineblog_convert_title_romaji,
             key: "lineblog_convert_title_romaji"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "Reddit Prefix",
+            value: items.redditIncludeWebsite,
+            key: "redditIncludeWebsite"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "reddit-post title",
+            value: items.redditIncludePostTitle,
+            key: "redditIncludePostTitle"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "reddit-sub name",
+            value: items.redditIncludeSubredditName,
+            key: "redditIncludeSubredditName"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "reddit-post flair",
+            value: items.redditIncludePostFlair,
+            key: "redditIncludePostFlair"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "Reddit String Generator",
+            value: items.redditStringGenerator,
+            key: "redditStringGenerator"
         }
     );
 });
@@ -179,6 +219,14 @@ let GetSettings = {
         });
 
         return _lineblogSettings;
+    },
+
+    Reddit : () => {
+        let _redditSettings = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.Reddit
+        });
+
+        return _redditSettings;
     }
 
 }
