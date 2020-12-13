@@ -50,11 +50,17 @@ function ViewOriginalMedia(url) {
     window.open(updatedUrl, "_blank");
 }
 
-function SaveTwitterMedia(tabUrl, url) {
+function SaveTwitterMedia(tabUrl, url, linkUrl) {
 
     let fileName;
     let fileNameBuilderArray = [];
     let tweetId = SplitURL(tabUrl, 5);
+
+    if (tweetId == null || tweetId.length == 0){
+        if (!!linkUrl){
+            tweetId = SplitURL(linkUrl, 5);
+        }
+    }
 
     try {
         if (tweetId == null || tweetId.length == 0) {
