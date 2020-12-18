@@ -55,10 +55,12 @@ function SaveTwitterMedia(tabUrl, url, linkUrl) {
     let fileName;
     let fileNameBuilderArray = [];
     let tweetId = SplitURL(tabUrl, 5);
+    let save_image_not_full_view = false;
 
     if (tweetId == null || tweetId.length == 0){
         if (!!linkUrl){
             tweetId = SplitURL(linkUrl, 5);
+            save_image_not_full_view = true;
         }
     }
 
@@ -76,7 +78,26 @@ function SaveTwitterMedia(tabUrl, url, linkUrl) {
             return key.category == CategoryEnum.Twitter
         });
 
-        IncludeMentionSymbol = ((bool) => bool ? fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3)) : fileNameBuilderArray.push(SplitURL(tabUrl, 3)));
+        IncludeMentionSymbol = ((bool) => {
+            if (bool == true){
+
+                if (save_image_not_full_view == true){
+                    fileNameBuilderArray.push("@" + SplitURL(linkUrl, 3));
+                } else {
+                    fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3));
+                }
+                
+            } else {
+
+                if (save_image_not_full_view == true){
+                    fileNameBuilderArray.push(SplitURL(linkUrl, 3));
+                } else {
+                    fileNameBuilderArray.push(SplitURL(tabUrl, 3));
+                }
+
+            }
+        })
+
         IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
         IncludeDate = ((bool, settings) => {
             settings.filter((x) => {
