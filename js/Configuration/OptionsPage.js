@@ -108,6 +108,42 @@ let loadHTMLSettings = () => {
             });
             break;
 
+        case "reddit":
+
+            let redditPref = SettingsArray.filter((key) => {
+                return key.category == CategoryEnum.Reddit;
+            });
+
+            redditPref.map((x) => {
+                switch (x.key){
+
+                    case "redditIncludeWebsite":
+                        document.getElementById("reddit_settings_site_title").checked = x.value;
+                        break;
+
+                    case "redditIncludePostTitle":
+                        document.getElementById("reddit_settings_include_post_title").checked = x.value;
+                        break;
+
+                    case "redditUseDate":
+                        document.getElementById("reddit_settings_include_date").checked = x.value;
+                        RedditUseDateFormat(x.value);
+                        break;
+
+                    case "redditDateFormat":
+                        document.getElementById("reddit_settings_select_date_format").value = x.value;
+                        
+                        break;
+
+                    case "redditStringGenerator":
+                        document.getElementById("reddit_settings_string_length").value = x.value;
+                        break;
+
+                }
+            });
+
+            break;
+
         case "about":
             break;
     }
@@ -157,6 +193,20 @@ function SaveOptions() {
             SaveSettings("lbPrefDateFormat", lineblogDateFormat);
             SaveSettings("lbPrefStringGenerator", lineblogRandomStringLength);
             SaveSettings("lineblog_convert_title_romaji", lineblogConvertTitleRomaji);
+            break;
+
+        case "reddit":
+            let redditIncludeWebTitle = document.getElementById("reddit_settings_site_title").checked;
+            let redditIncludePostName = document.getElementById("reddit_settings_include_post_title").checked;
+            let redditIncludeDate = document.getElementById("reddit_settings_include_date").checked;
+            let redditDateFormat = document.getElementById("reddit_settings_select_date_format").value;
+            let redditRandomStringLength = document.getElementById("reddit_settings_string_length").value;
+
+            SaveSettings("redditIncludeWebsite", redditIncludeWebTitle);
+            SaveSettings("redditIncludePostTitle", redditIncludePostName);
+            SaveSettings("redditUseDate", redditIncludeDate);
+            SaveSettings("redditDateFormat", redditDateFormat);
+            SaveSettings("redditStringGenerator", redditRandomStringLength);
             break;
     }
     
@@ -211,6 +261,29 @@ switch (htmlPageMeta) {
                 lineblogDateFormatTypeSelect.disabled = true;
             }
         }
+        break;
+
+    case "reddit":
+        let redditIsUsingDateChecked = document.getElementById("reddit_settings_include_date");
+        let redditDateFormatTypeSelect = document.getElementById("reddit_settings_select_date_format");
+
+        function RedditUseDateFormat(IsUsingDate){
+            if (!IsUsingDate){
+                redditDateFormatTypeSelect.disabled = true;
+            } else {
+                redditDateFormatTypeSelect.disabled = false;
+            }
+        }
+
+        redditIsUsingDateChecked.onchange = function () {
+            if (!!this.checked){
+                redditDateFormatTypeSelect.disabled = false;
+            } else {
+                redditDateFormatTypeSelect.disabled = true;
+            }
+        }
+
+
         break;
 
     case "about":
