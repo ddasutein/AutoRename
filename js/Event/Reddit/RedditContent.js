@@ -71,6 +71,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl, mode) {
                   break;
                case 1:
                   fileNameBuilderArray.push(subredditName);
+                  fileNameBuilderArray.push(redditThreadId);
                   IncludeSubredditPostTitle(key.value);
                   break;
 
@@ -117,6 +118,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl, mode) {
                      break;
                   case 1:
                      fileNameBuilderArray.push(subredditName);
+                     fileNameBuilderArray.push(redditThreadId);
                      IncludeSubredditPostTitle(key.value);
                      break;
 
