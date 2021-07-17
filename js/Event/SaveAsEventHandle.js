@@ -124,7 +124,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 return;
             } 
             else if (info.menuItemId === "saveImage"){
-                SaveTwitterMedia(tab.url, info.srcUrl);
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
 
             }
             break;
