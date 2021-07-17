@@ -16,7 +16,7 @@
  * Twitter supports various image sizes. When using `original`,
  * the extension can save images up to 4096x4096 resolution
  */
-const size = {
+ const size = {
     small: "&name=small",
     medium: "&name=medium",
     large: "&name=large",
@@ -50,11 +50,19 @@ function ViewOriginalMedia(url) {
     window.open(updatedUrl, "_blank");
 }
 
-function SaveTwitterMedia(tabUrl, url) {
+function SaveTwitterMedia(tabUrl, url, linkUrl) {
 
     let fileName;
     let fileNameBuilderArray = [];
     let tweetId = SplitURL(tabUrl, 5);
+    let save_image_not_full_view = false;
+
+    if (tweetId == null || tweetId.length == 0){
+        if (!!linkUrl){
+            tweetId = SplitURL(linkUrl, 5);
+            save_image_not_full_view = true;
+        }
+    }
 
     try {
         if (tweetId == null || tweetId.length == 0) {
@@ -70,7 +78,26 @@ function SaveTwitterMedia(tabUrl, url) {
             return key.category == CategoryEnum.Twitter
         });
 
-        IncludeMentionSymbol = ((bool) => bool ? fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3)) : fileNameBuilderArray.push(SplitURL(tabUrl, 3)));
+        IncludeMentionSymbol = ((bool) => {
+            if (bool == true){
+
+                if (save_image_not_full_view == true){
+                    fileNameBuilderArray.push("@" + SplitURL(linkUrl, 3));
+                } else {
+                    fileNameBuilderArray.push("@" + SplitURL(tabUrl, 3));
+                }
+                
+            } else {
+
+                if (save_image_not_full_view == true){
+                    fileNameBuilderArray.push(SplitURL(linkUrl, 3));
+                } else {
+                    fileNameBuilderArray.push(SplitURL(tabUrl, 3));
+                }
+
+            }
+        })
+
         IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
         IncludeDate = ((bool, settings) => {
             settings.filter((x) => {
