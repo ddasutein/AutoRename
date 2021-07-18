@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -14,17 +14,16 @@
 
 /* ---------------------CONTEXT MENU ITEMS----------------------- */
 chrome.contextMenus.create({
-    "id": "saveImage",
-    "title": chrome.i18n.getMessage("context_menu_save_image_as"),
-    "contexts": ["image"]
+    id: "saveImage",
+    title: chrome.i18n.getMessage("context_menu_save_image_as"),
+    contexts: ["image"]
 });
 
 // Twitter Specific Context Menu Item
-const viewOriginalImageSizeContextMenuItem = chrome.contextMenus.create({
-    "id": "viewOriginalImageSizeContextMenuItem",
-    "title": chrome.i18n.getMessage("context_menu_view_original_image"),
-    "contexts": ["image"],
-    "visible": false
+chrome.contextMenus.create({
+    id: "viewOriginalImageSizeContextMenuItem",
+    title: chrome.i18n.getMessage("context_menu_view_original_image"),
+    contexts: ["image"]
 });
 
 /* ----------END OF CONTEXT MENU ITEMS FUNCTIONS------------------ */
@@ -44,79 +43,134 @@ const Website = {
  * Global parameters to store browser tab information. This can be called
  * on any part of the extension as needed
  */
-var BrowserTabInfo = {
+let BrowserTabInfo = {
     Title: "",
     URL: ""
 }
 
-/* Listens for URL from address bar when browser window is opened or entering a new URL */
-chrome.tabs.onUpdated.addListener(function(tabID, changeInfo, tab){
+/**
+ * When the user changes tabs, the extension should be able to grab
+ * the URL and Title
+ */
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    
+    DevMode ? console.log("tabs onActivated") : "";
+    QueryTab();
 
-    if (changeInfo.status == "complete"){
-        if (DevMode){
-            const DEBUG_TAG = "tabsOnUpdated => ";
-            console.log(DEBUG_TAG + tab.url + " " + tab.title);           
-        }
-        BrowserTabInfo.URL = tab.url;
-        BrowserTabInfo.Title = tab.title;
-        ToggleViewOriginalImageContextMenuVisibility(tab.url)
-    }
 });
 
-/* Listens for tab change by the user */
-chrome.tabs.onActiveChanged.addListener(function(){
+/**
+ * When the user clicks a link on the same tab, the extension should be able to
+ * get the updated data.
+ */
+chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
+    DevMode ? console.log("-- on update --") : ""
 
-    chrome.tabs.query({
-        "active": true,
-        "currentWindow": true},
+    if (selectInfo.status == "complete"){
+        QueryTab();
+    }
 
-        function(tabs){
-            if (DevMode){
-                const DEBUG_TAG = "tabsOnActiveChanged => ";
-                console.log(DEBUG_TAG + tabs[0].url);
+});
+
+function QueryTab() {
+
+    setTimeout(() => {
+
+        chrome.tabs.query({
+            active: true,
+            currentWindow: true
+        }, ((tabs)=>{
+
+            let url;
+            let title;  
+
+            if (tabs[0] != undefined){
+                DevMode ? console.log(BrowserTabInfo) : "";
+                url = tabs[0].url;
+                title = tabs[0].title;
             }
 
-            ToggleViewOriginalImageContextMenuVisibility(tabs[0].url);
+            url = url.split("/");
+            url = url[2];
+            console.log(url);
+            UpdateContextMenus(url);
 
-            BrowserTabInfo.URL = tabs[0].url;
-            BrowserTabInfo.Title = tabs[0].title;
-            
-        },
-    );
-});
+            BrowserTabInfo.Title = title;
+            BrowserTabInfo.URL = url;
+            console.log(BrowserTabInfo)
+        }));
 
-function ToggleViewOriginalImageContextMenuVisibility(url){
-    const currentUrl = url;
-    const currentUrlSplit = currentUrl.split("/");
-    const currentWebsite = currentUrlSplit[2];
-    
-    switch(currentWebsite){
+    }, 500);
+
+};
+
+function UpdateContextMenus(url) {
+
+    switch(url){
         case Website.Twitter:
-            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
                 "visible": true 
                 });
             break;
+            
         case Website.Mobile_Twitter:
-            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
                 "visible": true 
                 });
             break;
-        default:
-            chrome.contextMenus.update(viewOriginalImageSizeContextMenuItem, {
+
+        case Website.LINE_BLOG:
+
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
                 "visible": false 
+            });
+            break;
+
+        default:
+            
+            if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
+                DevMode ? console.log("website not supported. removing context menu items") : "";
+
+                chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                    "visible": false 
                 });
+
+                chrome.contextMenus.update("saveImage", {
+                    visible: false
+                });
+                
+            } else {
+                DevMode ? console.log("add saveImage context menu item") : "";
+                chrome.contextMenus.update("saveImage", {
+                    visible: true
+                });
+            }
             break;
     }    
-}
+};
 
 /* Execute everything when save image as is clicked. */
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
-    const currentUrl = tab.url;
-    const currentUrlSplit = currentUrl.split("/");
-    const currentWebsite = currentUrlSplit[2];
+    let currentUrl = tab.url;
+    currentUrl = currentUrl.split("/");
+    currentUrl = currentUrl[2];
 
-    switch (currentWebsite) {
+    switch (currentUrl) {
         case Website.Twitter:
 
             if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
@@ -128,6 +182,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
             }
             break;
+
         case Website.Mobile_Twitter: 
             if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
                 ViewOriginalMedia(info.srcUrl);
@@ -137,7 +192,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 SaveTwitterMedia(tab.url, info.srcUrl);
 
             }
-        break;
+            break;
+
         case Website.LINE_BLOG:
             SaveLINEBLOGMedia(tab.url, info.srcUrl);
             break;
