@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -17,7 +17,7 @@ console.log("Welcome to AutoRename" + "\n" +
     "Enable Console Debugging by setting 'DevMode' to TRUE");
 
 // Enable developer logging mode. This must be set to FALSE when releasing to users
-let DevMode = false;
+let DevMode = true;
 
 let Debug = {
 
@@ -33,32 +33,21 @@ let Debug = {
 
     Settings: function (command) {
 
-        let arrResult;
-
         switch (command) {
             case "all":
                 return console.table(SettingsArray);
 
             case "general":
-                arrResult = SettingsArray.filter(function (key) {
-                    return key.category == CategoryEnum.General;
-                });
-
-                return console.table(arrResult);
+                return console.table(SettingsArray.filter((key) => key.category == CategoryEnum.General));
 
             case "twitter":
-                arrResult = SettingsArray.filter(function (key) {
-                    return key.category == CategoryEnum.Twitter;
-                });
-
-                return console.table(arrResult);
+                return console.table(SettingsArray.filter((key) => key.category == CategoryEnum.Twitter));
 
             case "lineblog":
-                arrResult = SettingsArray.filter(function (key) {
-                    return key.category == CategoryEnum.LINE_BLOG;
-                });
+                return console.table(SettingsArray.filter((key) => key.category == CategoryEnum.LINE_BLOG));
 
-                return console.table(arrResult);
+            case "reddit":
+                return console.table(SettingsArray.filter((key) => key.category == CategoryEnum.Reddit));
         }
 
     },
