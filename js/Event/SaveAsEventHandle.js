@@ -211,7 +211,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
         case Website.Reddit:
 
-            if (currentUrl.includes("comments")){
+            if (tab.url.includes("comments")){
                 SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Full_View);
             } else {
 
