@@ -16,7 +16,7 @@
  * Twitter supports various image sizes. When using `original`,
  * the extension can save images up to 4096x4096 resolution
  */
-const size = {
+ const size = {
     small: "&name=small",
     medium: "&name=medium",
     large: "&name=large",
