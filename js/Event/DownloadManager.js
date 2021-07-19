@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -59,6 +59,35 @@ function StartDownload(website, url, filename){
             }
         });
     }
+}
+
+function StartDownloadV2(downloadQueue){
+
+    Object.values(GetSettings.General().map((key, index)=>{
+        switch (index){
+            
+            // global_enable_save_as_window
+            case 1:
+                if (key.value == true){
+                    downloadQueue.forEach((dq)=>{
+                        chrome.downloads.download({
+                            url: dq.url,
+                            filename: dq.filename,
+                            saveAs: true
+                        });
+                    });
+                } else {
+                    downloadQueue.forEach((dq)=>{
+                        chrome.downloads.download({
+                            url: dq.url,
+                            filename: dq.filename,
+                            saveAs: false
+                        });
+                    });
+                }
+                break;
+        }
+    }));
 }
 
 chrome.downloads.onChanged.addListener(function (downloadDelta) {
