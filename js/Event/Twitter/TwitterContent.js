@@ -28,7 +28,7 @@
  * 
  * @param {string} url 
  */
-let getImageFormat = ((url) => url.split("?format=")[1].substring(0, 3));
+let getImageFormat = ((url) => "." + url.split("?format=")[1].substring(0, 3));
 
 /**
  * View the Twitter image in it's original size
@@ -48,6 +48,118 @@ function ViewOriginalMedia(url) {
     }
 
     window.open(updatedUrl, "_blank");
+}
+
+function SaveTwitterMediaV2(tabUrl, url, linkUrl){
+
+    if (SplitURL(tabUrl, 5) == null || SplitURL(tabUrl, 5).length == 0){
+
+        if (!linkUrl){
+            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
+            return;
+        }
+        
+    }
+
+    function buildFileName(fileNameObj){
+        let temp;
+        let isUsingDateFormat;
+        temp = `Twitter-{username}-${fileNameObj.tweetId}-{date}-{string}`;
+        temp = temp.split("-");
+        console.log(temp);
+        Object.values(SettingsArray.filter((key)=>{
+            return key.category == CategoryEnum.Twitter
+        }).map((key, index)=>{
+            switch (index) {
+
+                // twitter_include_mention_symbol
+                case 0:
+                    if (!key.value){
+                        temp[temp.indexOf("{username}")] = fileNameObj.username;
+                    } else {
+                        temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
+                    }
+                    break;
+
+                // twitter_include_tweet_id
+                case 1:
+                    if (!key.value){
+                        idx = temp.indexOf(fileNameObj.tweetId);
+                        if (idx > -1){
+                            temp.splice(idx, 1)
+                        }
+                    }
+                    break;
+
+                // twitter_random_string_length
+                case 2:
+                    temp[temp.indexOf("{string}")] = GenerateRandomString(key.value)
+                    break;
+
+                // twitter_include_date
+                case 3:
+                    if (!key.value){
+                        isUsingDateFormat = false;
+                        idx = temp.indexOf("{date}");
+                        if (idx > -1){
+                            temp.splice(idx, 1);
+                        }
+                    } else {
+                        isUsingDateFormat = true
+                    }
+                    break;
+                    
+                // twitter_date_format
+                case 4:
+                    console.log(isUsingDateFormat)
+                    if (isUsingDateFormat){
+                        temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
+                    }
+                    break;
+            }
+        }));
+        console.log(temp)
+        return temp.toString().replace(/,/g, "-");
+    }
+
+    let twitterImageFile = [];
+    let fileNameObj = {};
+    let twitterMediaSrc;
+    let tweetId;
+    const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
+
+    // Rule 1: When full tweet is clicked then it should be prioritized first
+    if (!!tabUrl){
+        console.log('tab url ' + tabUrl);
+        if (specialCharacters.test(SplitURL(tabUrl, 5))){
+            tweetId = SplitURL(tabUrl, 5).split(specialCharacters)[0];
+        } else {
+            tweetId = SplitURL(tabUrl, 5);
+        }
+    } 
+    
+    // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
+    if (tweetId == "" || tweetId == undefined || tweetId == null){
+        if (!!linkUrl){
+            console.log("link url " + linkUrl);
+            if (specialCharacters.test(SplitURL(linkUrl, 5))){
+                tweetId = SplitURL(linkUrl, 5).split(specialCharacters)[0];
+            } else {
+                tweetId = SplitURL(linkUrl, 5);
+            }
+        }
+    }
+
+    fileNameObj["username"] = SplitURL(linkUrl, 3);
+    fileNameObj["tweetId"] = tweetId;
+    twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
+    twitterImageFile.push({
+        filename: buildFileName(fileNameObj) + getImageFormat(url),
+        url: twitterMediaSrc
+    });
+    console.log(twitterImageFile)
+    StartDownloadV2(twitterImageFile);
+
 }
 
 function SaveTwitterMedia(tabUrl, url, linkUrl) {
