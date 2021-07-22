@@ -18,11 +18,11 @@ function SaveLINEBlogMediaV2(tabUrl, url){
         lineblogTitle = BrowserTabInfo.Title.split("-")[1].trim().toString();
     }
 
-    if (SplitURL(tabUrl, 5) == undefined){
+    if (Utility.SplitURL(tabUrl, 5) == undefined){
         alert(chrome.i18n.getMessage("error_lineblog_click_blog"));
         return;
     } else {
-        lineblogId = SplitURL(tabUrl, 5).toString().replace(".html", "").trim();
+        lineblogId = Utility.SplitURL(tabUrl, 5).toString().replace(".html", "").trim();
     }
 
     function buildFileName(fileNameObj){
@@ -75,7 +75,7 @@ function SaveLINEBlogMediaV2(tabUrl, url){
                     break;
 
                 case 4:
-                    temp[temp.indexOf("{string}")] = GenerateRandomString(key.value);
+                    temp[temp.indexOf("{string}")] = Utility.GenerateRandomStringerateRandomString(key.value);
                     break;
                 
 
@@ -89,7 +89,7 @@ function SaveLINEBlogMediaV2(tabUrl, url){
     let lineBlogImageFile = [];
     let fileNameObj = {};
 
-    fileNameObj["username"]= SplitURL(tabUrl, 3);
+    fileNameObj["username"]= Utility.SplitURL(tabUrl, 3);
     fileNameObj["blogtitle"] = lineblogTitle;
     lineBlogImageFile.push({
         filename: buildFileName(fileNameObj) + ".jpg",
