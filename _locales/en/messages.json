@@ -301,7 +301,17 @@
 
     "lineblog_settings_convert_blog_title_romaji": {
         "message": "Convert Blog Title to Romaji"
+    },
+
+    "reddit_settings_description": {
+        "message": "Customize File Name Format for Reddit"
+    },
+
+    "reddit_settings_site_title": {
+        "message": "Include Website Title [Reddit]"
+    },
+
+    "reddit_settings_subreddit_name":{
+        "message": "Include Subreddit Name"
     }
-
-
 }
