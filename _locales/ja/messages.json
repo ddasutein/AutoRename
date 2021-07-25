@@ -198,6 +198,10 @@
         "message": "ブログのタイトルを取得できません"
     },
 
+    "error_reddit_old_half_view": {
+        "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
+    },
+
     "message_toast_welcome_title": {
         "message": "ようこそ"
     },
