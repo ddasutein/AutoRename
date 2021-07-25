@@ -88,7 +88,6 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
    console.log(debugObj)
 
    if (tabUrl.includes("comments")) {
-      console.log("Pcom")
       fileNameObj["subredditName"] = Utility.SplitURL(tabUrl, 4);
       fileNameObj["redditPostId"] = Utility.SplitURL(tabUrl, 6);
       fileNameObj["redditPostTitle"] = Utility.SplitURL(tabUrl, 7);
@@ -105,7 +104,14 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
          return;
       }
 
+      // New Reddit card view
       if (url.includes("preview.redd.it")) {
+
+         // If this is empty then it is a gallery image post
+         if (linkUrl == undefined){
+            alert(chrome.i18n.getMessage("error_reddit_gallery_post"));
+            return;
+         }
          
          // If user is on classic reddit then show message
          if (linkUrl.includes("i.redd.it")){
