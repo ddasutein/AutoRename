@@ -130,6 +130,6 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
 
    }
 
-   StartDownloadV2(redditImageFile)
+   StartDownload(redditImageFile)
 
 }

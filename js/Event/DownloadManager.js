@@ -12,56 +12,12 @@
  * 
  */
 
- let DownloadArray = [];
-
- /**
-  * Start downloading file
-  * @param {String} website
-  * @param {String} url 
-  * @param {String} filename 
-  */
-function StartDownload(website, url, filename){
-    switch (website){
-
-        case Website.Twitter:
-            launchDownload(url, filename);
-            break;
-        case Website.LINE_BLOG:
-            launchDownload(url, filename);
-            break;
-            
-        case Website.Reddit:
-            launchDownload(url, filename);
-            break;
-    }
-
-    function launchDownload(url, filename){
-
-        let generalSettings = GetSettings.General();
-
-        generalSettings.map((key, index) => {
-            switch (index){
-                case 1:
-                    if (key.value){
-                        chrome.downloads.download({
-                            url: url,
-                            filename: filename,
-                            saveAs: true
-                        });
-                    } else {
-                        chrome.downloads.download({
-                            url: url,
-                            filename: filename,
-                            saveAs: false
-                        });
-                    }
-                    break;
-            }
-        });
-    }
-}
-
-function StartDownloadV2(downloadQueue){
+/**
+ * Start downloading files
+ * 
+ * @param {object} downloadQueue Images that are in queue to download
+ */
+function StartDownload(downloadQueue){
 
     Object.values(GetSettings.General().map((key, index)=>{
         switch (index){

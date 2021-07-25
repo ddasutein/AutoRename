@@ -227,7 +227,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.LINE_BLOG:
-            SaveLINEBLOGMedia(tab.url, info.srcUrl);
+            SaveLINEBlogMedia(tab.url, info.srcUrl);
             break;
 
         case Website.Reddit:

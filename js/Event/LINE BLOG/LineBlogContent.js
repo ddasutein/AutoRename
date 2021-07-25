@@ -12,7 +12,7 @@
  * 
  */
 
-function SaveLINEBlogMediaV2(tabUrl, url){
+function SaveLINEBlogMedia(tabUrl, url){
 
     if (BrowserTabInfo.URL.match(Website.LINE_BLOG)){
         lineblogTitle = BrowserTabInfo.Title.split("-")[1].trim().toString();
@@ -75,7 +75,7 @@ function SaveLINEBlogMediaV2(tabUrl, url){
                     break;
 
                 case 4:
-                    temp[temp.indexOf("{string}")] = Utility.GenerateRandomStringerateRandomString(key.value);
+                    temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
                     break;
                 
 
@@ -96,6 +96,6 @@ function SaveLINEBlogMediaV2(tabUrl, url){
         url: url
     });
 
-    StartDownloadV2(lineBlogImageFile);
+    StartDownload(lineBlogImageFile);
 
 }

@@ -50,7 +50,7 @@ function ViewOriginalMedia(url) {
     window.open(updatedUrl, "_blank");
 }
 
-function SaveTwitterMediaV2(tabUrl, url, linkUrl){
+function SaveTwitterMedia(tabUrl, url, linkUrl){
 
     if (Utility.SplitURL(tabUrl, 5) == null || Utility.SplitURL(tabUrl, 5).length == 0){
 
@@ -158,117 +158,6 @@ function SaveTwitterMediaV2(tabUrl, url, linkUrl){
         url: twitterMediaSrc
     });
     console.log(twitterImageFile)
-    StartDownloadV2(twitterImageFile);
-
-}
-
-function SaveTwitterMedia(tabUrl, url, linkUrl) {
-
-    let fileName;
-    let fileNameBuilderArray = [];
-    let tweetId = Utility.SplitURL(tabUrl, 5);
-    let save_image_not_full_view = false;
-
-    if (tweetId == null || tweetId.length == 0){
-        if (!!linkUrl){
-            tweetId = Utility.SplitURL(linkUrl, 5);
-            save_image_not_full_view = true;
-        }
-    }
-
-    try {
-        if (tweetId == null || tweetId.length == 0) {
-            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
-            return;
-        }
-        const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
-        if (specialCharacters.test(tweetId)) {
-            tweetId = tweetId.split(specialCharacters)[0];
-        }
-
-        let twitterSettings = SettingsArray.filter(function (key) {
-            return key.category == CategoryEnum.Twitter
-        });
-
-        IncludeMentionSymbol = ((bool) => {
-            if (bool == true){
-
-                if (save_image_not_full_view == true){
-                    fileNameBuilderArray.push("@" + Utility.SplitURL(linkUrl, 3));
-                } else {
-                    fileNameBuilderArray.push("@" + Utility.SplitURL(tabUrl, 3));
-                }
-                
-            } else {
-
-                if (save_image_not_full_view == true){
-                    fileNameBuilderArray.push(Utility.SplitURL(linkUrl, 3));
-                } else {
-                    fileNameBuilderArray.push(Utility.SplitURL(tabUrl, 3));
-                }
-
-            }
-        })
-
-        IncludeTweetID = ((bool) => bool ? fileNameBuilderArray.push(tweetId) : false);
-        IncludeDate = ((bool, settings) => {
-            settings.filter((x) => {
-                return x.key === "twitter_date_format"
-            }).map((x) => {
-                if (bool) {
-                    fileNameBuilderArray.push(GetDateFormat(x.value));
-                }
-            });
-        });
-
-        twitterSettings.map((key, index) => {
-
-            /**
-             * To get index number, set DevMode to true in /js/Common/Debugger.js
-             * Then open the browser console and type >> Debug.Settings("twitter")
-             */
-
-            switch (index) {
-                case 0:
-                    IncludeMentionSymbol(key.value);
-                    break;
-                case 1:
-                    IncludeTweetID(key.value);
-                    break;
-                case 2:
-                    fileNameBuilderArray.push(Utility.GenerateRandomString(key.value));
-                    break;
-                case 3:
-                    IncludeDate(key.value, twitterSettings);
-                    break;
-            }
-        });
-
-        /** Prepare download sequence */
-        fileName = fileNameBuilderArray.toString();
-        fileName = fileNameBuilderArray.join(", ");
-        fileName = fileName.replace(/, /g, "-") + "." + getImageFormat(url);
-
-        let twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
-
-        StartDownload(Website.Twitter, twitterMediaSrc, fileName);
-
-        // Clear array when finished
-        while (fileNameBuilderArray.length > 0) {
-            DevMode ? console.log("Clearing fileNameBuilderArray... " + fileNameBuilderArray) : false;
-            fileNameBuilderArray.pop();
-            if (DevMode) {
-                if (fileNameBuilderArray.length == 0) {
-                    console.log("Done!");
-                }
-            }
-        }
-    } catch (Exception) {
-        alert(`${chrome.i18n.getMessage("error_generic")} \n${Exception.toString().trim()} \n\n${chrome.i18n.getMessage("error_exception_reload")}`);
-
-        chrome.tabs.getSelected(function (tab) {
-            chrome.tabs.reload(tab.id);
-        });
-    }
+    StartDownload(twitterImageFile);
 
 }
