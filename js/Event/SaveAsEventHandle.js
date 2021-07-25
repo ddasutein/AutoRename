@@ -12,15 +12,6 @@
  * 
  */
 
- /* --------------------------GLOBAL----------------------------- */
- /**
-  * Determines if the user is viewing the post by itself or not
-  */
-var RedditMode = {
-    Full_View: "full_view",
-    Half_View: "half_view",
-    Old_UI: "old_ui"
-}
 /* ---------------------CONTEXT MENU ITEMS----------------------- */
 chrome.contextMenus.create({
     id: "saveImage",
@@ -151,6 +142,36 @@ function UpdateContextMenus(url) {
             });
             break;
 
+        case Website.Reddit:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
+        case Website.Reddit_Old:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
+        case Website.Reddit_New:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
         default:
             
             if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
@@ -210,40 +231,13 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.Reddit:
-
-            if (tab.url.includes("comments")){
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Full_View);
-            } else {
-
-                /**
-                 * When the user has not opt in for the new Reddit design
-                 * the linkUrl does not return the full post URL.
-                 * So by doing this simple check, it can determine if the user is on
-                 * old or new Reddit
-                 */
-
-                if (info.linkUrl.includes("comments")){
-                    SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Half_View);
-                }
-            }
-            
-            break;
-
-        case Website.Reddit_New:
-
-            if (currentUrl.includes("comments")){
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Full_View);
-            } else {
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Half_View);
-            }
+            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+   
             break;
 
         case Website.Reddit_Old:
-            
-            if (currentUrl.includes("comments")){
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, RedditMode.Full_View);
-            }
-            
+            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+
             break;
         default:
             alert(chrome.i18n.getMessage("error_website_not_supported"));
