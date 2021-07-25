@@ -12,15 +12,25 @@
  * 
  */
 
-function SaveRedditMedia(tabUrl, url, linkUrl, mode) {
+function SaveRedditMedia(tabUrl, url, linkUrl) {
 
    function getRedditImageFormat(mediaLink) {
       console.log("url test", mediaLink)
-      if (mediaLink.includes("i.redd.it")){
+      if (mediaLink.includes("i.redd.it")) {
          return "." + mediaLink.split(".")[3]
       }
    }
-   
+
+   function convertToFullMediaLink(url) {
+      let temp = !!url ? url : "";
+      if (temp.includes("preview.redd.it") || temp) {
+         temp = temp.replace("preview.redd.it", "i.redd.it")
+         temp = temp.substring(0, temp.indexOf("?width"));
+      }
+
+      return temp;
+   }
+
    function buildFileName(filenameObj) {
       let temp;
       temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{string}`;
@@ -68,23 +78,46 @@ function SaveRedditMedia(tabUrl, url, linkUrl, mode) {
 
    let redditImageFile = [];
    let fileNameObj = {};
+   let debugObj = {}
+   debugObj["tab"] = tabUrl;
+   debugObj["url"] = url;
+   debugObj["linkUrl"] = linkUrl;
+   console.log(debugObj)
 
-   switch (mode) {
+   if (tabUrl.includes("comments")) {
+      console.log("Pcom")
+      fileNameObj["subredditName"] = Utility.SplitURL(tabUrl, 4);
+      fileNameObj["redditPostId"] = Utility.SplitURL(tabUrl, 6);
+      fileNameObj["redditPostTitle"] = Utility.SplitURL(tabUrl, 7);
+      redditPostSrc = linkUrl;
+      redditImageFile.push({
+         filename: buildFileName(fileNameObj) + getRedditImageFormat(linkUrl),
+         url: redditPostSrc
+      });
+   } else {
 
-      case RedditMode.Full_View:
+      // Classic reddit does not return original url for media so this is not supported
+      if (url.includes("b.thumbs.redditmedia.com")) {
+         alert(chrome.i18n.getMessage("error_reddit_old_half_view"))
+         return;
+      }
 
-         fileNameObj["subredditName"] = Utility.SplitURL(tabUrl, 4);
-         fileNameObj["redditPostId"] = Utility.SplitURL(tabUrl, 6);
-         fileNameObj["redditPostTitle"] = Utility.SplitURL(tabUrl, 7);
-         redditPostSrc = linkUrl;
+      if (url.includes("preview.redd.it")) {
+         
+         // If user is on classic reddit then show message
+         if (linkUrl.includes("i.redd.it")){
+            alert(chrome.i18n.getMessage("error_reddit_old_half_view"))
+            return;
+         }
+         fileNameObj["subredditName"] = Utility.SplitURL(linkUrl, 4);
+         fileNameObj["redditPostId"] = Utility.SplitURL(linkUrl, 6);
+         fileNameObj["redditPostTitle"] = Utility.SplitURL(linkUrl, 7);
+         redditPostSrc = convertToFullMediaLink(url);
          redditImageFile.push({
-            filename: buildFileName(fileNameObj) + getRedditImageFormat(linkUrl),
+            filename: buildFileName(fileNameObj) + getRedditImageFormat(redditPostSrc),
             url: redditPostSrc
          });
-         break;
-
-      case RedditMode.Half_View:
-         break;
+      }
 
    }
 
