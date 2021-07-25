@@ -18,6 +18,9 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
       console.log("url test", mediaLink)
       if (mediaLink.includes("i.redd.it")) {
          return "." + mediaLink.split(".")[3]
+      } else if (mediaLink.includes("preview.redd.it")){
+         mediaLink = mediaLink.substring(0, mediaLink.indexOf("?width"));
+         return "." + mediaLink.split(".")[3];
       }
    }
 
@@ -31,7 +34,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
       return temp;
    }
 
-   function buildFileName(filenameObj) {
+   function buildFileName(fileNameObj) {
       let temp;
       temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{string}`;
       temp = temp.split("-");
