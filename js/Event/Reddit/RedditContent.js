@@ -18,7 +18,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
       console.log("url test", mediaLink)
       if (mediaLink.includes("i.redd.it")) {
          return "." + mediaLink.split(".")[3]
-      } else if (mediaLink.includes("preview.redd.it")){
+      } else if (mediaLink.includes("preview.redd.it")) {
          mediaLink = mediaLink.substring(0, mediaLink.indexOf("?width"));
          return "." + mediaLink.split(".")[3];
       }
@@ -36,13 +36,16 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
 
    function buildFileName(fileNameObj) {
       let temp;
-      temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{string}`;
+      let isUsingDateFormat;
+      temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{date}-{string}`;
       temp = temp.split("-");
 
       Object.values(SettingsArray.filter((key) => {
          return key.category == CategoryEnum.Reddit;
       }).map((key, index) => {
          switch (index) {
+
+            // redditIncludeWebsite
             case 0:
                if (!key.value) {
                   idx = temp.indexOf("Reddit");
@@ -51,26 +54,40 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
                   }
                }
                break;
+
+               // redditIncludePostID
             case 1:
                if (!key.value) {
-                  idx = temp.indexOf(fileNameObj.redditPostTitle);
+                  idx = temp.indexOf(fileNameObj.redditPostId);
                   if (idx > -1) {
                      temp.splice(idx, 1);
                   }
                }
                break;
+
+               // redditStringGenerator
             case 2:
+               temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
+               break;
+
+               // redditIncludeDate
+            case 3:
                if (!key.value) {
-                  idx = temp.indexOf(fileNameObj.subredditName);
+                  isUsingDateFormat = false;
+                  idx = temp.indexOf("{date}");
                   if (idx > -1) {
                      temp.splice(idx, 1);
                   }
+               } else {
+                  isUsingDateFormat = true
                }
                break;
-            case 3:
-               break;
+
+               // redditDateFormat
             case 4:
-               temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
+               if (isUsingDateFormat) {
+                  temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
+               }
                break;
          }
       }));
@@ -108,13 +125,13 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
       if (url.includes("preview.redd.it")) {
 
          // If this is empty then it is a gallery image post
-         if (linkUrl == undefined){
+         if (linkUrl == undefined) {
             alert(chrome.i18n.getMessage("error_reddit_gallery_post"));
             return;
          }
-         
+
          // If user is on classic reddit then show message
-         if (linkUrl.includes("i.redd.it")){
+         if (linkUrl.includes("i.redd.it")) {
             alert(chrome.i18n.getMessage("error_reddit_old_half_view"))
             return;
          }
