@@ -18,275 +18,252 @@
  * visible while on the page. Example, Twitter elements do not exist in the LINE BLOG HTML
  * file and vice versa.
  */
- let htmlPageMeta = document.querySelector('meta[name="current_page"]').content;
+let htmlPageMeta = document.querySelector('meta[name="current_page"]').content;
 
- document.onreadystatechange = () => {
-     if (document.readyState == "complete") {
-         document.getElementById("button_save").addEventListener("click", SaveOptions);
-         loadHTMLSettings();
-     }
- }
- 
- let loadHTMLSettings = () => {
- 
-     switch (htmlPageMeta) {
- 
-         case "general":
-             let generalPref = SettingsArray.filter((key) => {
-                 return key.category == CategoryEnum.General;
-             });
- 
-             generalPref.forEach(function (x) {
-                 switch (x.key) {
-                     case "global_show_download_folder":
-                         document.getElementById("general_settings_auto_show_download_folder").checked = x.value
-                         break;
-                     case "global_enable_save_as_window":
-                         document.getElementById("general_settings_enable_save_as_window").checked = x.value
-                         break;
-                     case "global_notifications_updated":
-                         document.getElementById("general_settings_notification_updated").checked = x.value
-                         break;
-                 }
-             });
-             break;
- 
-         case "twitter":
-             let twitterPref = SettingsArray.filter((key) => {
-                 return key.category == CategoryEnum.Twitter
-             });
- 
-             twitterPref.map(function (x) {
-                 switch (x.key) {
-                     case "twitter_include_mention_symbol":
-                         document.getElementById("twitter_settings_include_mention_symbol").checked = x.value;
-                         break;
-                     case "twitter_include_tweet_id":
-                         document.getElementById("twitter_settings_include_tweet_id").checked = x.value;
-                         break;
-                     case "twitter_include_date":
-                         document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
-                         UseDateFormat(x.value);
-                         break;
-                     case "twitter_date_format":
-                         document.getElementById("twitter_settings_select_date_format").value = x.value;
-                         break;
-                     case "twitter_random_string_length":
-                         document.getElementById("twitter_settings_string_length").value = x.value;
-                         break;
-                 }
-             });
-             break;
- 
-         case "lineblog":
-             let lineblogPref = SettingsArray.filter((key) => {
-                 return key.category == CategoryEnum.LINE_BLOG
-             });
- 
-             lineblogPref.map(function (x) {
-                 switch (x.key) {
-                     case "lbPrefIncludeWebsiteTitle":
-                         document.getElementById("lineblog_settings_include_site_title").checked = x.value;
-                         break;
-                     case "lbPrefIncludeBlogTitle":
-                         document.getElementById("lineblog_include_blog_title").checked = x.value;
-                         break;
-                     case "lbPrefUseDate":
-                         document.getElementById("lineblog_settings_include_date").checked = x.value;
-                         LineBlogUseDateFormat(x.value);
-                         break;
-                     case "lbPrefDateFormat":
-                         document.getElementById("lineblog_settings_select_date_format").value = x.value;
-                         break;
-                     case "lbPrefStringGenerator":
-                         document.getElementById("lineblog_string_length").value = x.value;
-                         break;
-                     case "lineblog_convert_title_romaji":
-                         document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
-                         break;
-                 }
-             });
-             break;
- 
-         case "reddit":
- 
-             let redditPref = SettingsArray.filter((key) => {
-                 return key.category == CategoryEnum.Reddit;
-             });
- 
-             redditPref.map((x) => {
-                 switch (x.key){
- 
-                     case "redditIncludeWebsite":
-                         document.getElementById("reddit_settings_site_title").checked = x.value;
-                         break;
- 
-                     case "redditIncludePostTitle":
-                         document.getElementById("reddit_settings_include_post_title").checked = x.value;
-                         break;
- 
-                     case "redditUseDate":
-                         document.getElementById("reddit_settings_include_date").checked = x.value;
-                         RedditUseDateFormat(x.value);
-                         break;
- 
-                     case "redditDateFormat":
-                         document.getElementById("reddit_settings_select_date_format").value = x.value;
-                         
-                         break;
- 
-                     case "redditStringGenerator":
-                         document.getElementById("reddit_settings_string_length").value = x.value;
-                         break;
- 
-                 }
-             });
- 
-             break;
- 
-         case "about":
-             break;
-     }
- 
- 
- }
- 
- function SaveOptions() {
- 
-     switch (htmlPageMeta) {
- 
-         case "general":
-             let showDownloadFolderCheckbox = document.getElementById("general_settings_auto_show_download_folder").checked;
-             let enableSaveAsDialogCheckbox = document.getElementById("general_settings_enable_save_as_window").checked;
-             let notificationOnExtUpdated = document.getElementById("general_settings_notification_updated").checked;
-             SaveSettings("global_show_download_folder", showDownloadFolderCheckbox);
-             SaveSettings("global_enable_save_as_window", enableSaveAsDialogCheckbox);
-             SaveSettings("global_enable_save_as_window", enableSaveAsDialogCheckbox);
-             SaveSettings("global_notifications_updated", notificationOnExtUpdated);
-             break;
- 
-         case "twitter":
-             let twitterIncludeAtSymbol = document.getElementById("twitter_settings_include_mention_symbol").checked;
-             let twitterIncludeTweetId = document.getElementById("twitter_settings_include_tweet_id").checked;
-             let twitterIncludeDate = document.getElementById("twitter_settings_include_date_checkbox").checked;
-             let twitterDateFormat = document.getElementById("twitter_settings_select_date_format").value;
-             let twitterRandomStringLength = document.getElementById("twitter_settings_string_length").value;
- 
-             SaveSettings("twitter_include_mention_symbol", twitterIncludeAtSymbol);
-             SaveSettings("twitter_include_tweet_id", twitterIncludeTweetId);
-             SaveSettings("twitter_include_date", twitterIncludeDate);
-             SaveSettings("twitter_date_format", twitterDateFormat);
-             SaveSettings("twitter_random_string_length", twitterRandomStringLength);
-             break;
- 
-         case "lineblog":
-             let lineblogIncludeWebTitle = document.getElementById("lineblog_settings_include_site_title").checked;
-             let lineblogIncludeBlogTitle = document.getElementById("lineblog_include_blog_title").checked;
-             let lineblogIncludeDate = document.getElementById("lineblog_settings_include_date").checked;
-             let lineblogDateFormat = document.getElementById("lineblog_settings_select_date_format").value;
-             let lineblogRandomStringLength = document.getElementById("lineblog_settings_string_length").value;
-             let lineblogConvertTitleRomaji = document.getElementById("lineblog_settings_convert_title_romaji").checked;
- 
-             SaveSettings("lbPrefIncludeWebsiteTitle", lineblogIncludeWebTitle);
-             SaveSettings("lbPrefIncludeBlogTitle", lineblogIncludeBlogTitle);
-             SaveSettings("lbPrefUseDate", lineblogIncludeDate);
-             SaveSettings("lbPrefDateFormat", lineblogDateFormat);
-             SaveSettings("lbPrefStringGenerator", lineblogRandomStringLength);
-             SaveSettings("lineblog_convert_title_romaji", lineblogConvertTitleRomaji);
-             break;
- 
-         case "reddit":
-             let redditIncludeWebTitle = document.getElementById("reddit_settings_site_title").checked;
-             let redditIncludePostName = document.getElementById("reddit_settings_include_post_title").checked;
-             let redditIncludeDate = document.getElementById("reddit_settings_include_date").checked;
-             let redditDateFormat = document.getElementById("reddit_settings_select_date_format").value;
-             let redditRandomStringLength = document.getElementById("reddit_settings_string_length").value;
- 
-             SaveSettings("redditIncludeWebsite", redditIncludeWebTitle);
-             SaveSettings("redditIncludePostTitle", redditIncludePostName);
-             SaveSettings("redditUseDate", redditIncludeDate);
-             SaveSettings("redditDateFormat", redditDateFormat);
-             SaveSettings("redditStringGenerator", redditRandomStringLength);
-             break;
-     }
-     
-     swal("", chrome.i18n.getMessage("context_save_success"), "success", {
-         buttons: false,
-         timer: 1500
-     });
- }
- 
- switch (htmlPageMeta) {
- 
-     case "general":
-         break;
- 
-     case "twitter":
-         let twitterUseDateCheckBox = document.getElementById("twitter_settings_include_date_checkbox");
-         let twitterSelectDateFormat = document.getElementById("twitter_settings_select_date_format");
- 
-         function UseDateFormat(IsUsingDate) {
-             if (!IsUsingDate) {
-                 twitterSelectDateFormat.disabled = true;
-             } else {
-                 twitterSelectDateFormat.disabled = false;
-             }
-         }
- 
-         twitterUseDateCheckBox.onchange = function () {
-             if (!!this.checked) {
-                 twitterSelectDateFormat.disabled = false;
-             } else {
-                 twitterSelectDateFormat.disabled = true;
-             }
-         }
-         break;
- 
-     case "lineblog":
-         let lineblogIsUsingDateChecked = document.getElementById("lineblog_settings_include_date");
-         let lineblogDateFormatTypeSelect = document.getElementById("lineblog_settings_select_date_format");
- 
-         function LineBlogUseDateFormat(IsUsingDate) {
-             if (!IsUsingDate) {
-                 lineblogDateFormatTypeSelect.disabled = true;
-             } else {
-                 lineblogDateFormatTypeSelect.disabled = false;
-             }
-         }
- 
-         lineblogIsUsingDateChecked.onchange = function () {
-             if (!!this.checked) {
-                 lineblogDateFormatTypeSelect.disabled = false;
-             } else {
-                 lineblogDateFormatTypeSelect.disabled = true;
-             }
-         }
-         break;
- 
-     case "reddit":
-         let redditIsUsingDateChecked = document.getElementById("reddit_settings_include_date");
-         let redditDateFormatTypeSelect = document.getElementById("reddit_settings_select_date_format");
- 
-         function RedditUseDateFormat(IsUsingDate){
-             if (!IsUsingDate){
-                 redditDateFormatTypeSelect.disabled = true;
-             } else {
-                 redditDateFormatTypeSelect.disabled = false;
-             }
-         }
- 
-         redditIsUsingDateChecked.onchange = function () {
-             if (!!this.checked){
-                 redditDateFormatTypeSelect.disabled = false;
-             } else {
-                 redditDateFormatTypeSelect.disabled = true;
-             }
-         }
- 
- 
-         break;
- 
-     case "about":
-         break;
- 
- }
+document.onreadystatechange = () => {
+    if (document.readyState == "complete") {
+        document.getElementById("button_save").addEventListener("click", SaveOptions);
+        loadHTMLSettings();
+    }
+}
+
+let loadHTMLSettings = () => {
+
+    switch (htmlPageMeta) {
+
+        case "general":
+            let generalPref = SettingsArray.filter((key) => {
+                return key.category == CategoryEnum.General;
+            });
+
+            generalPref.forEach(function (x) {
+                switch (x.key) {
+                    case "global_show_download_folder":
+                        document.getElementById("general_settings_auto_show_download_folder").checked = x.value
+                        break;
+                    case "global_enable_save_as_window":
+                        document.getElementById("general_settings_enable_save_as_window").checked = x.value
+                        break;
+                    case "global_notifications_updated":
+                        document.getElementById("general_settings_notification_updated").checked = x.value
+                        break;
+                }
+            });
+            break;
+
+        case "twitter":
+            let twitterPref = SettingsArray.filter((key) => {
+                return key.category == CategoryEnum.Twitter
+            });
+
+            twitterPref.map(function (x) {
+                switch (x.key) {
+                    case "twitter_include_mention_symbol":
+                        document.getElementById("twitter_settings_include_mention_symbol").checked = x.value;
+                        break;
+                    case "twitter_include_tweet_id":
+                        document.getElementById("twitter_settings_include_tweet_id").checked = x.value;
+                        break;
+                    case "twitter_include_date":
+                        document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
+                        UseDateFormat(x.value);
+                        break;
+                    case "twitter_date_format":
+                        document.getElementById("twitter_settings_select_date_format").value = x.value;
+                        break;
+                    case "twitter_random_string_length":
+                        document.getElementById("twitter_settings_string_length").value = x.value;
+                        break;
+                }
+            });
+            break;
+
+        case "lineblog":
+            let lineblogPref = SettingsArray.filter((key) => {
+                return key.category == CategoryEnum.LINE_BLOG
+            });
+
+            lineblogPref.map(function (x) {
+                switch (x.key) {
+                    case "lbPrefIncludeWebsiteTitle":
+                        document.getElementById("lineblog_settings_include_site_title").checked = x.value;
+                        break;
+                    case "lbPrefIncludeBlogTitle":
+                        document.getElementById("lineblog_include_blog_title").checked = x.value;
+                        break;
+                    case "lbPrefUseDate":
+                        document.getElementById("lineblog_settings_include_date").checked = x.value;
+                        LineBlogUseDateFormat(x.value);
+                        break;
+                    case "lbPrefDateFormat":
+                        document.getElementById("lineblog_settings_select_date_format").value = x.value;
+                        break;
+                    case "lbPrefStringGenerator":
+                        document.getElementById("lineblog_string_length").value = x.value;
+                        break;
+                    case "lineblog_convert_title_romaji":
+                        document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
+                        break;
+                }
+            });
+            break;
+
+        case "reddit":
+
+            let redditPref = SettingsArray.filter((key) => {
+                return key.category == CategoryEnum.Reddit;
+            });
+
+            redditPref.map((x) => {
+                switch (x.key) {
+
+                    case "redditIncludeWebsite":
+                        document.getElementById("reddit_settings_site_title").checked = x.value;
+                        break;
+
+                    case "redditIncludePostID":
+                        document.getElementById("reddit_settings_subreddit_post_id").checked = x.value;
+                        break;
+
+                    case "redditIncludeDate":
+                        document.getElementById("reddit_settings_include_date").checked = x.value;
+                        RedditUseDateFormat(x.value);
+                        break;
+
+                    case "redditStringGenerator":
+                        document.getElementById("reddit_settings_string_length").value = x.value;
+                        break;
+
+                    case "redditDateFormat":
+                        document.getElementById("reddit_settings_select_date_format").value = x.value;
+                        break;
+
+
+                }
+            });
+
+            break;
+
+        case "about":
+            break;
+    }
+
+
+}
+
+function SaveOptions() {
+
+    switch (htmlPageMeta) {
+
+        case "general":
+            SaveSettings("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
+            SaveSettings("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
+            SaveSettings("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
+            break;
+
+        case "twitter":
+            SaveSettings("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
+            SaveSettings("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
+            SaveSettings("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
+            SaveSettings("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
+            SaveSettings("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
+            break;
+
+        case "lineblog":
+            SaveSettings("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
+            SaveSettings("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
+            SaveSettings("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
+            SaveSettings("lbPrefDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
+            SaveSettings("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
+            SaveSettings("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
+            break;
+
+        case "reddit":
+            SaveSettings("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
+            SaveSettings("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
+            SaveSettings("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
+            SaveSettings("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
+            SaveSettings("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
+            break;
+    }
+
+    swal("", chrome.i18n.getMessage("context_save_success"), "success", {
+        buttons: false,
+        timer: 1500
+    });
+}
+
+switch (htmlPageMeta) {
+
+    case "general":
+        break;
+
+    case "twitter":
+        let twitterUseDateCheckBox = document.getElementById("twitter_settings_include_date_checkbox");
+        let twitterSelectDateFormat = document.getElementById("twitter_settings_select_date_format");
+
+        function UseDateFormat(IsUsingDate) {
+            if (!IsUsingDate) {
+                twitterSelectDateFormat.disabled = true;
+            } else {
+                twitterSelectDateFormat.disabled = false;
+            }
+        }
+
+        twitterUseDateCheckBox.onchange = function () {
+            if (!!this.checked) {
+                twitterSelectDateFormat.disabled = false;
+            } else {
+                twitterSelectDateFormat.disabled = true;
+            }
+        }
+        break;
+
+    case "lineblog":
+        let lineblogIsUsingDateChecked = document.getElementById("lineblog_settings_include_date");
+        let lineblogDateFormatTypeSelect = document.getElementById("lineblog_settings_select_date_format");
+
+        function LineBlogUseDateFormat(IsUsingDate) {
+            if (!IsUsingDate) {
+                lineblogDateFormatTypeSelect.disabled = true;
+            } else {
+                lineblogDateFormatTypeSelect.disabled = false;
+            }
+        }
+
+        lineblogIsUsingDateChecked.onchange = function () {
+            if (!!this.checked) {
+                lineblogDateFormatTypeSelect.disabled = false;
+            } else {
+                lineblogDateFormatTypeSelect.disabled = true;
+            }
+        }
+        break;
+
+    case "reddit":
+        let redditIsUsingDateChecked = document.getElementById("reddit_settings_include_date");
+        let redditDateFormatTypeSelect = document.getElementById("reddit_settings_select_date_format");
+
+        function RedditUseDateFormat(IsUsingDate) {
+            if (!IsUsingDate) {
+                redditDateFormatTypeSelect.disabled = true;
+            } else {
+                redditDateFormatTypeSelect.disabled = false;
+            }
+        }
+
+        redditIsUsingDateChecked.onchange = function () {
+            if (!!this.checked) {
+                redditDateFormatTypeSelect.disabled = false;
+            } else {
+                redditDateFormatTypeSelect.disabled = true;
+            }
+        }
+
+
+        break;
+
+    case "about":
+        break;
+
+}
