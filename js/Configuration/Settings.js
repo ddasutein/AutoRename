@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -25,6 +25,14 @@ const CategoryEnum = {
 }
 
 chrome.storage.local.get({
+
+    /**
+     * When adding new options, you must declare them here with a default value.
+     * Note: Beware that changing the name will cause settings to reset when the extension is updated.
+     * 
+     * Naming convention doesn't matter as long as the first prefix is referring to the website. Use the global_ prefix
+     * when the setting doesn't apply to any specific website.  
+     */
 
     //#region Global Setings
     global_show_download_folder: false,
@@ -159,7 +167,7 @@ chrome.storage.local.get({
             key: "redditIncludePostID"
         }, {
             category: CategoryEnum.Reddit,
-            name: chrome.i18n.getMessage("settings_generate_string"),
+            name: chrome.i18n.getMessage("common_label_generator_length"),
             value: items.redditStringGenerator,
             key: "redditStringGenerator"
         }, {
