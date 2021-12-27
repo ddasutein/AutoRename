@@ -312,10 +312,18 @@
     },
 
     "reddit_settings_site_title": {
-        "message": "Include Website Title [Reddit]"
+        "message": "Inclure le titre du site Web [Reddit]"
     },
 
     "reddit_settings_subreddit_name": {
         "message": "Include Subreddit Name"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "Include Subreddit Post ID"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     }
 }

@@ -288,7 +288,7 @@
     },
 
     "lineblog_settings_description": {
-        "message": "Personalizar el formato de nombre de archivo para LINE Blog"
+        "message": "Personalizar el formato de nombre de archivo para LINE BLOG"
     },
 
     "lineblog_settings_site_title": {
@@ -317,5 +317,13 @@
 
     "reddit_settings_subreddit_name": {
         "message": "Include Subreddit Name"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "Include Subreddit Post ID"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "Incluir la Fecha (Basado en la fecha del sistema operativo)"
     }
 }

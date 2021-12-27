@@ -1,5 +1,4 @@
 {
-
     "announce_banner_title": {
         "message": "発表",
         "description": "This is only temporary for the release of v2.0.0"
@@ -317,6 +316,14 @@
     },
 
     "reddit_settings_subreddit_name": {
-        "message": "Include Subreddit Name"
+        "message": "サブレディット名前含める"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "サブレディットの投稿ID含める"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "日付を含める【システム日付に基づく】"
     }
 }
