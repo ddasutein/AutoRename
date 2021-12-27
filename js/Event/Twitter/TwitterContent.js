@@ -116,6 +116,16 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
                         temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
                     }
                     break;
+
+                case 5:
+                    if (!key.value){
+                        idx = temp.indexOf("Twitter");
+                        if (idx > -1){
+                            temp.splice(idx, 1)
+                        }
+                    }
+
+                    break;
             }
         }));
         console.log(temp)

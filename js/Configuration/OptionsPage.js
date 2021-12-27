@@ -74,6 +74,9 @@ let loadHTMLSettings = () => {
                     case "twitter_random_string_length":
                         document.getElementById("twitter_settings_string_length").value = x.value;
                         break;
+                    case "twitter_include_website_title":
+                        document.getElementById("twitter_settings_site_title").checked = x.value;
+                        break;
                 }
             });
             break;
@@ -153,6 +156,7 @@ let loadHTMLSettings = () => {
 
 function SaveOptions() {
 
+
     switch (htmlPageMeta) {
 
         case "general":
@@ -162,11 +166,16 @@ function SaveOptions() {
             break;
 
         case "twitter":
+            console.log("TEST")
+            
             SaveSettings("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
             SaveSettings("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
             SaveSettings("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
             SaveSettings("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
             SaveSettings("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
+            console.log(document.getElementById("twitter_settings_site_title").checked)
+            SaveSettings("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
+
             break;
 
         case "lineblog":

@@ -46,6 +46,7 @@ chrome.storage.local.get({
     twitter_include_date: false,
     twitter_date_format: "0",
     twitter_random_string_length: "4",
+    twitter_include_website_title: false,
     //#endregion
 
     //#region LINE BLOG Settings
@@ -120,8 +121,8 @@ chrome.storage.local.get({
         
         {
             category: CategoryEnum.Twitter,
-            name: chrome.i18n.getMessage("twitter_settings_include_website_name"),
-            value: items.twitter_include_date,
+            name: chrome.i18n.getMessage("twitter_settings_site_title"),
+            value: items.twitter_include_website_title,
             key: "twitter_include_website_title"
         },
         
