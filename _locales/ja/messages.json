@@ -287,6 +287,10 @@
         "message": "日付を含める【システム日付に基づく】"
     },
 
+    "twitter_settings_site_title": {
+        "message": "ウェブサイトを題名含める 【Twitter】"
+    },
+
     "lineblog_settings_description": {
         "message": "LINE BLOGのファイル名形式をカスタマイズする"
     },

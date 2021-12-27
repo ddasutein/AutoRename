@@ -287,6 +287,10 @@
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     },
 
+    "twitter_settings_site_title": {
+        "message": "Inclure le titre du site Web [Twitter]"
+    },
+
     "lineblog_settings_description": {
         "message": "Personnaliser le format de nom de fichier pour LINE BLOG"
     },
