@@ -317,5 +317,13 @@
 
     "reddit_settings_subreddit_name": {
         "message": "Include Subreddit Name"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "Include Subreddit Post ID"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "Include Date (Based on System Date)"
     }
 }
