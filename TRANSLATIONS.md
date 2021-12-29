@@ -4,12 +4,16 @@ Thank you for your interest on helping me translate the extension for people aro
 
 ## Supported Language
 
-Language | Status | Last Updated | Translator | Notes
+Language | Supported | Last Updated | Translator | Notes
 :--|:--|:--|:--|:--
-English | ✔ | Mar. 14, 2020 | ddasutein | -
-Japanese | ✔ | Mar. 14, 2020 | ddasutein | -
-French | ✔ | Mar. 27, 2020 | Azii672  | -
-Spanish | ✔ | Mar. 27, 2020 | Azii672  | -
+English | ✔ | Dec. 27, 2021 | ddasutein | -
+Japanese | ✔ | Dec. 27, 2021 | ddasutein | Partially translated. Reddit strings require update. You may submit a Pull Request to update these strings. Follow instructions below
+French | ✔ | Dec. 27, 2021 | Azii672  | Partially translated. Reddit strings require update. You may submit a Pull Request to update these strings. Follow instructions below
+Spanish | ✔ | Dec. 27, 2021 | Azii672  | Partially translated. Reddit strings require update. You may submit a Pull Request to update these strings. Follow instructions below
+Chinese | ❌ | TBD | - | Looking for translator
+Korean | ❌ | TBD | - | Looking for translator
+Filipino | ❌ | TBD | - | Planned
+
 
 ## Instructions
 

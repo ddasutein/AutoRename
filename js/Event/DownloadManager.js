@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,49 +12,38 @@
  * 
  */
 
- let DownloadArray = [];
+/**
+ * Start downloading files
+ * 
+ * @param {object} downloadQueue Images that are in queue to download
+ */
+function StartDownload(downloadQueue){
 
- /**
-  * Start downloading file
-  * @param {String} website
-  * @param {String} url 
-  * @param {String} filename 
-  */
-function StartDownload(website, url, filename){
-    switch (website){
-
-        case Website.Twitter:
-            launchDownload(url, filename);
-            break;
-        case Website.LINE_BLOG:
-            launchDownload(url, filename);
-            break;            
-    }
-
-    function launchDownload(url, filename){
-
-        let generalSettings = GetSettings.General();
-
-        generalSettings.map((key, index) => {
-            switch (index){
-                case 1:
-                    if (key.value){
+    Object.values(GetSettings.General().map((key, index)=>{
+        switch (index){
+            
+            // global_enable_save_as_window
+            case 1:
+                if (key.value == true){
+                    downloadQueue.forEach((dq)=>{
                         chrome.downloads.download({
-                            url: url,
-                            filename: filename,
+                            url: dq.url,
+                            filename: dq.filename,
                             saveAs: true
                         });
-                    } else {
+                    });
+                } else {
+                    downloadQueue.forEach((dq)=>{
                         chrome.downloads.download({
-                            url: url,
-                            filename: filename,
+                            url: dq.url,
+                            filename: dq.filename,
                             saveAs: false
                         });
-                    }
-                    break;
-            }
-        });
-    }
+                    });
+                }
+                break;
+        }
+    }));
 }
 
 chrome.downloads.onChanged.addListener(function (downloadDelta) {

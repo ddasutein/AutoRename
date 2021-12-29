@@ -34,7 +34,9 @@ const Website = {
     Mobile_Twitter: 'mobile.twitter.com',
     Instagram: 'instagram.com',
     Facebook: 'facebook.com',
-    Reddit: 'reddit.com',
+    Reddit: 'www.reddit.com',
+    Reddit_New: 'new.reddit.com',
+    Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net'
 }
@@ -140,6 +142,36 @@ function UpdateContextMenus(url) {
             });
             break;
 
+        case Website.Reddit:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
+        case Website.Reddit_Old:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
+        case Website.Reddit_New:
+            chrome.contextMenus.update("saveImage", {
+                visible: true
+            });
+
+            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
+                "visible": false 
+            });
+            break;
+
         default:
             
             if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
@@ -189,13 +221,23 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 return;
             } 
             else if (info.menuItemId === "saveImage"){
-                SaveTwitterMedia(tab.url, info.srcUrl);
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
 
             }
             break;
 
         case Website.LINE_BLOG:
-            SaveLINEBLOGMedia(tab.url, info.srcUrl);
+            SaveLINEBlogMedia(tab.url, info.srcUrl);
+            break;
+
+        case Website.Reddit:
+            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+   
+            break;
+
+        case Website.Reddit_Old:
+            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+
             break;
         default:
             alert(chrome.i18n.getMessage("error_website_not_supported"));

@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2021 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,37 +12,61 @@
  * 
  */
 
- /**
-  * Get all extension settings
-  */
+/**
+ * Get all extension settings
+ */
 let SettingsArray = [];
 
-let CategoryEnum = {
+const CategoryEnum = {
     General: "General",
     LINE_BLOG: "LINE BLOG",
-    Twitter: "Twitter"
+    Twitter: "Twitter",
+    Reddit: "Reddit"
 }
 
 chrome.storage.local.get({
-    // General Settings
+
+    /**
+     * When adding new options, you must declare them here with a default value.
+     * Note: Beware that changing the name will cause settings to reset when the extension is updated.
+     * 
+     * Naming convention doesn't matter as long as the first prefix is referring to the website. Use the global_ prefix
+     * when the setting doesn't apply to any specific website.  
+     */
+
+    //#region Global Setings
     global_show_download_folder: false,
     global_enable_save_as_window: true,
     global_notifications_updated: true,
+    //#endregion
 
-    // Twitter Settings 
+    //#region Twitter Settings
     twitter_include_mention_symbol: false,
     twitter_include_tweet_id: true,
     twitter_include_date: false,
     twitter_date_format: "0",
     twitter_random_string_length: "4",
+    twitter_include_website_title: false,
+    //#endregion
 
-    // LINE BLOG
-    lbPrefIncludeWebsiteTitle: true,
+    //#region LINE BLOG Settings
+    lbPrefIncludeWebsiteTitle: false,
     lbPrefIncludeBlogTitle: true,
     lbPrefUseDate: false,
     lbPrefDateFormat: "0",
     lbPrefStringGenerator: "4",
     lineblog_convert_title_romaji: false,
+    //#endregion
+
+    //#region Reddit Settings
+    redditIncludeWebsite: false,
+    redditIncludePostID: true,
+    redditStringGenerator: "4",
+    redditIncludeDate: false,
+    redditDateFormat: "0"
+    //#endregion
+
+
 
 }, function (items) {
 
@@ -53,20 +77,17 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
             value: items.global_show_download_folder,
             key: "global_show_download_folder"
-        }, 
-        {
+        }, {
             category: CategoryEnum.General,
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
             value: items.global_enable_save_as_window,
             key: "global_enable_save_as_window"
-        },
-        {
+        }, {
             category: CategoryEnum.General,
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
             value: items.global_notifications_updated,
             key: "global_notifications_updated"
-        },
-        {
+        }, {
             category: CategoryEnum.General,
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
             value: items.global_enable_save_as_window,
@@ -96,7 +117,16 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("common_label_date_format"),
             value: items.twitter_date_format,
             key: "twitter_date_format"
-        }, {
+        }, 
+        
+        {
+            category: CategoryEnum.Twitter,
+            name: chrome.i18n.getMessage("twitter_settings_site_title"),
+            value: items.twitter_include_website_title,
+            key: "twitter_include_website_title"
+        },
+        
+        {
             category: CategoryEnum.LINE_BLOG,
             name: chrome.i18n.getMessage("setting_include_lineblog_web_title"),
             value: items.lbPrefIncludeWebsiteTitle,
@@ -126,6 +156,31 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
             value: items.lineblog_convert_title_romaji,
             key: "lineblog_convert_title_romaji"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_site_title"),
+            value: items.redditIncludeWebsite,
+            key: "redditIncludeWebsite"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_subreddit_post_id"),
+            value: items.redditIncludePostID,
+            key: "redditIncludePostID"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("common_label_generator_length"),
+            value: items.redditStringGenerator,
+            key: "redditStringGenerator"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_include_date"),
+            value: items.redditIncludeDate,
+            key: "redditIncludeDate"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: "Date Format",
+            value: items.redditDateFormat,
+            key: "redditDateFormat"
         }
     );
 });
@@ -158,14 +213,14 @@ function SaveSettings(keyName, value) {
 
 let GetSettings = {
 
-    General : () => {
+    General: () => {
         let _generalSettings = SettingsArray.filter((key) => {
             return key.category == CategoryEnum.General
         });
         return _generalSettings;
     },
 
-    Twitter : () => {
+    Twitter: () => {
         let _twitterSettings = SettingsArray.filter((key) => {
             return key.category == CategoryEnum.Twitter
         });
@@ -173,15 +228,20 @@ let GetSettings = {
         return _twitterSettings;
     },
 
-    LINE_BLOG : () => {
+    LINE_BLOG: () => {
         let _lineblogSettings = SettingsArray.filter((key) => {
             return key.category == CategoryEnum.LINE_BLOG
         });
 
         return _lineblogSettings;
+    },
+
+    Reddit: () => {
+        let _redditSettings = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.Reddit
+        });
+
+        return _redditSettings;
     }
 
 }
-
-
-

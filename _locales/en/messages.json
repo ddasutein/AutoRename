@@ -1,16 +1,16 @@
 {
 
-    "announce_banner_title":{
+    "announce_banner_title": {
         "message": "Announcement",
         "description": "This is only temporary for the release of v2.0.0"
     },
 
-    "announce_banner_content":{
+    "announce_banner_content": {
         "message": "Welcome to AutoRename Version 2.0.0. Your settings may have reset in this version. ",
         "description": "This is only temporary for the release of v2.0.0"
     },
 
-    "button_save":{
+    "button_save": {
         "message": "Save"
     },
 
@@ -22,51 +22,51 @@
         "message": "Numerical"
     },
 
-    "common_date_format_item_label_option_1":{
+    "common_date_format_item_label_option_1": {
         "message": "MM-DD-YYYY (Numerical)"
     },
 
-    "common_date_format_item_label_option_2":{
+    "common_date_format_item_label_option_2": {
         "message": "DD-MM-YYYY (Numerical)"
     },
 
-    "common_date_format_item_label_option_3":{
+    "common_date_format_item_label_option_3": {
         "message": "YYYY-MM-DD (Numerical)"
     },
 
-    "common_date_format_label_long":{
+    "common_date_format_label_long": {
         "message": "Long"
     },
 
-    "common_date_format_item_label_option_4":{
+    "common_date_format_item_label_option_4": {
         "message": "MM-DD-YYYY (Long)"
     },
 
-    "common_date_format_item_label_option_5":{
+    "common_date_format_item_label_option_5": {
         "message": "DD-MM-YYYY (Long)"
     },
 
-    "common_date_format_item_label_option_6":{
+    "common_date_format_item_label_option_6": {
         "message": "YYYY-MM-DD (Long)"
     },
 
-    "common_date_format_label_short":{
+    "common_date_format_label_short": {
         "message": "Short"
     },
 
-    "common_date_format_item_label_option_7":{
+    "common_date_format_item_label_option_7": {
         "message": "MM-DD-YYYY (Short)"
     },
 
-    "common_date_format_item_label_option_8":{
+    "common_date_format_item_label_option_8": {
         "message": "DD-MM-YYYY (Short)"
     },
 
-    "common_date_format_item_label_option_9":{
+    "common_date_format_item_label_option_9": {
         "message": "YYYY-MM-DD (Short)"
     },
 
-    "common_label_generator_length":{
+    "common_label_generator_length": {
         "message": "String generator length"
     },
 
@@ -114,31 +114,31 @@
         "message": "Credits"
     },
 
-    "common_section_privacy_policy_links" : {
+    "common_section_privacy_policy_links": {
         "message": "Privacy Policy and Other Links"
     },
 
-    "common_navigation_general" : {
+    "common_navigation_general": {
         "message": "General"
     },
 
-    "common_navigation_twitter" : {
+    "common_navigation_twitter": {
         "message": "Twitter"
     },
 
-    "common_navigation_lineblog" : {
+    "common_navigation_lineblog": {
         "message": "LINE BLOG"
     },
 
-    "common_navigation_reddit" : {
+    "common_navigation_reddit": {
         "message": "Reddit"
     },
 
-    "common_navigation_about" : {
+    "common_navigation_about": {
         "message": "About"
     },
 
-    "context_click_here":{
+    "context_click_here": {
         "message": "Click Here"
     },
 
@@ -146,35 +146,35 @@
         "message": "Preferences saved"
     },
 
-    "context_menu_save_image_as":{
+    "context_menu_save_image_as": {
         "message": "Save image as (AutoRename)"
     },
 
-    "context_menu_view_original_image":{
+    "context_menu_view_original_image": {
         "message": "View Original Image"
     },
 
-    "credits_icons":{
+    "credits_icons": {
         "message": "Icons"
     },
 
-    "credits_localization":{
+    "credits_localization": {
         "message": "Localization"
     },
 
-    "credits_list_of_translators":{
+    "credits_list_of_translators": {
         "message": "List of Translators"
     },
 
-    "error_website_not_supported":{
+    "error_website_not_supported": {
         "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
     },
 
-    "error_tweet_detail_alert_prompt":{
+    "error_tweet_detail_alert_prompt": {
         "message": "Click on the tweet to use this extension."
     },
 
-    "error_lineblog_click_blog":{
+    "error_lineblog_click_blog": {
         "message": "Click on the blog post to save this image."
     },
 
@@ -198,110 +198,136 @@
         "message": "Unable to retrieve blog title"
     },
 
-    "message_toast_welcome_title":{
+    "error_reddit_old_half_view": {
+        "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
+    },
+
+    "message_toast_welcome_title": {
         "message": "Welcome to"
     },
 
-    "message_toast_welcome_body":{
+    "message_toast_welcome_body": {
         "message": "Thank you for installing. You may visit the GitHub Wiki for more information."
     },
 
-    "message_toast_new_version":{
+    "message_toast_new_version": {
         "message": "Extension has been updated to version"
     },
 
-    "message_toast_button_whats_new":{
+    "message_toast_button_whats_new": {
         "message": "What's new?"
     },
 
-    "message_toast_button_github_wiki":{
+    "message_toast_button_github_wiki": {
         "message": "GitHub Wiki"
     },
 
-    "message_toast_button_ok":{
+    "message_toast_button_ok": {
         "message": "OK"
     },
 
-    "privacy_policy_and_other_links_terms" : {
+    "privacy_policy_and_other_links_terms": {
         "message": "Privacy Policy"
     },
 
-    "privacy_policy_and_other_links_github_wiki" : {
+    "privacy_policy_and_other_links_github_wiki": {
         "message": "GitHub Wiki"
     },
 
-    "privacy_policy_and_other_links_translate_assist" : {
+    "privacy_policy_and_other_links_translate_assist": {
         "message": "Want to help translate?"
     },
 
-    "privacy_policy_and_other_links_feedback" : {
+    "privacy_policy_and_other_links_feedback": {
         "message": "Submit an Issue or Feature Request"
     },
 
-    "privacy_policy_and_other_links_github" : {
+    "privacy_policy_and_other_links_github": {
         "message": "GitHub",
         "description": "Does not need to be translated"
     },
 
-    "system_information_os" : {
+    "system_information_os": {
         "message": "Operating System"
     },
 
-    "system_information_platform" : {
+    "system_information_platform": {
         "message": "Platform"
     },
 
-    "general_settings_description":{
+    "general_settings_description": {
         "message": "Configure Extension Global Settings"
     },
 
-    "general_settings_show_download_folder":{
+    "general_settings_show_download_folder": {
         "message": "Show Download Folder Automatically"
     },
 
-    "general_settings_enable_save_as_dialog":{
+    "general_settings_enable_save_as_dialog": {
         "message": "Enable 'Save As' dialog window"
     },
 
-    "general_settings_enable_notifications_on_update":{
+    "general_settings_enable_notifications_on_update": {
         "message": "Enable notification when extension is updated"
     },
 
-    "twitter_settings_desciption":{
+    "twitter_settings_desciption": {
         "message": "Customize File Name Format for Twitter"
     },
 
-    "twitter_settings_include_mention_symbol":{
+    "twitter_settings_include_mention_symbol": {
         "message": "Include mention symbol @"
     },
 
-    "twitter_settings_include_tweet_id":{
+    "twitter_settings_include_tweet_id": {
         "message": "Include Tweet ID"
     },
 
-    "twitter_settings_include_date":{
+    "twitter_settings_include_date": {
         "message": "Include Date (Based on System Date)"
+    },
+
+    "twitter_settings_site_title": {
+        "message": "Include Website Title [Twitter]"
     },
 
     "lineblog_settings_description": {
         "message": "Customize File Name Format for LINE BLOG"
     },
 
-    "lineblog_settings_site_title":{
+    "lineblog_settings_site_title": {
         "message": "Include Website Title [LINE BLOG]"
     },
 
-    "lineblog_settings_blog_title":{
+    "lineblog_settings_blog_title": {
         "message": "Include Blog Title"
     },
 
-    "lineblog_settings_include_date":{
+    "lineblog_settings_include_date": {
         "message": "Include Date (Based on System Date)"
     },
 
     "lineblog_settings_convert_blog_title_romaji": {
         "message": "Convert Blog Title to Romaji"
+    },
+
+    "reddit_settings_description": {
+        "message": "Customize File Name Format for Reddit"
+    },
+
+    "reddit_settings_site_title": {
+        "message": "Include Website Title [Reddit]"
+    },
+
+    "reddit_settings_subreddit_name": {
+        "message": "Include Subreddit Name"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "Include Subreddit Post ID"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "Include Date (Based on System Date)"
     }
-
-
 }
