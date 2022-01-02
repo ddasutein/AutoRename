@@ -1,0 +1,333 @@
+{
+
+    "announce_banner_title": {
+        "message": "Announcement",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
+    "announce_banner_content": {
+        "message": "Welcome to AutoRename Version 2.0.0. Your settings may have reset in this version. ",
+        "description": "This is only temporary for the release of v2.0.0"
+    },
+
+    "button_save": {
+        "message": "I-save"
+    },
+
+    "common_label_date_format": {
+        "message": "Format ng Petsa"
+    },
+
+    "common_date_format_label_numerical": {
+        "message": "Numerical"
+    },
+
+    "common_date_format_item_label_option_1": {
+        "message": "MM-DD-YYYY (Numerical)"
+    },
+
+    "common_date_format_item_label_option_2": {
+        "message": "DD-MM-YYYY (Numerical)"
+    },
+
+    "common_date_format_item_label_option_3": {
+        "message": "YYYY-MM-DD (Numerical)"
+    },
+
+    "common_date_format_label_long": {
+        "message": "Mahaba"
+    },
+
+    "common_date_format_item_label_option_4": {
+        "message": "MM-DD-YYYY (Mahaba)"
+    },
+
+    "common_date_format_item_label_option_5": {
+        "message": "DD-MM-YYYY (Mahaba)"
+    },
+
+    "common_date_format_item_label_option_6": {
+        "message": "YYYY-MM-DD (Mahaba)"
+    },
+
+    "common_date_format_label_short": {
+        "message": "Maikli"
+    },
+
+    "common_date_format_item_label_option_7": {
+        "message": "MM-DD-YYYY (Maikli)"
+    },
+
+    "common_date_format_item_label_option_8": {
+        "message": "DD-MM-YYYY (Maikli)"
+    },
+
+    "common_date_format_item_label_option_9": {
+        "message": "YYYY-MM-DD (Maikli)"
+    },
+
+    "common_label_generator_length": {
+        "message": "String generator length"
+    },
+
+    "common_section_header_general": {
+        "message": "General Settings"
+    },
+
+    "common_section_header_twitter": {
+        "message": "Settings ng Twitter"
+    },
+
+    "common_section_header_lineblog": {
+        "message": "Settings ng LINE BLOG "
+    },
+
+    "common_section_header_reddit": {
+        "message": "Settings ng Reddit"
+    },
+
+    "common_section_header_about": {
+        "message": "About"
+    },
+
+    "common_section_file_name": {
+        "message": "Pangalan ng File"
+    },
+
+    "common_section_file_system": {
+        "message": "File System"
+    },
+
+    "common_section_system_notifications": {
+        "message": "System Notifications"
+    },
+
+    "common_section_lineblog_title": {
+        "message": "Blog Title"
+    },
+
+    "common_section_system_information": {
+        "message": "System Information"
+    },
+
+    "common_section_credits": {
+        "message": "Mga kredito"
+    },
+
+    "common_section_privacy_policy_links": {
+        "message": "Privacy Policy and Other Links"
+    },
+
+    "common_navigation_general": {
+        "message": "General"
+    },
+
+    "common_navigation_twitter": {
+        "message": "Twitter"
+    },
+
+    "common_navigation_lineblog": {
+        "message": "LINE BLOG"
+    },
+
+    "common_navigation_reddit": {
+        "message": "Reddit"
+    },
+
+    "common_navigation_about": {
+        "message": "About"
+    },
+
+    "context_click_here": {
+        "message": "Click Here"
+    },
+
+    "context_save_success": {
+        "message": "Nai-save ang preferences"
+    },
+
+    "context_menu_save_image_as": {
+        "message": "I-save ang image as (AutoRename)"
+    },
+
+    "context_menu_view_original_image": {
+        "message": "Tingnan ang orihinal image"
+    },
+
+    "credits_icons": {
+        "message": "Icons"
+    },
+
+    "credits_localization": {
+        "message": "Lokalisasyon"
+    },
+
+    "credits_list_of_translators": {
+        "message": "Listahan ng mga Tagasalin"
+    },
+
+    "error_website_not_supported": {
+        "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+    },
+
+    "error_tweet_detail_alert_prompt": {
+        "message": "Paki-click sa tweet para gamitin ang extension"
+    },
+
+    "error_lineblog_click_blog": {
+        "message": "Paki-click sa blog post para i-save ang image"
+    },
+
+    "error_title": {
+        "message": "Error"
+    },
+
+    "error_generic": {
+        "message": "An error has occured"
+    },
+
+    "error_send_report": {
+        "message": "Extension is unable to resolve this error. Please file a report on GitHub."
+    },
+
+    "error_exception_reload": {
+        "message": "This tab will now reload."
+    },
+
+    "error_lineblog_no_title": {
+        "message": "Unable to retrieve blog title"
+    },
+
+    "error_reddit_old_half_view": {
+        "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
+    },
+
+    "message_toast_welcome_title": {
+        "message": "Maligayang pagdating sa"
+    },
+
+    "message_toast_welcome_body": {
+        "message": "Salamat sa pag-install. Pwede i-visit ang GitHub Wiki para higit ang impormasyon"
+    },
+
+    "message_toast_new_version": {
+        "message": "Ang extension ay na-update sa version"
+    },
+
+    "message_toast_button_whats_new": {
+        "message": "Anong bago?"
+    },
+
+    "message_toast_button_github_wiki": {
+        "message": "GitHub Wiki"
+    },
+
+    "message_toast_button_ok": {
+        "message": "OK"
+    },
+
+    "privacy_policy_and_other_links_terms": {
+        "message": "Privacy Policy"
+    },
+
+    "privacy_policy_and_other_links_github_wiki": {
+        "message": "GitHub Wiki"
+    },
+
+    "privacy_policy_and_other_links_translate_assist": {
+        "message": "Gusto tumulong sa pagsasalin?"
+    },
+
+    "privacy_policy_and_other_links_feedback": {
+        "message": "Submit ng isyu o Feature Request"
+    },
+
+    "privacy_policy_and_other_links_github": {
+        "message": "GitHub",
+        "description": "Does not need to be translated"
+    },
+
+    "system_information_os": {
+        "message": "Operating System"
+    },
+
+    "system_information_platform": {
+        "message": "Platform"
+    },
+
+    "general_settings_description": {
+        "message": "I-configure ang Extension Global Settings"
+    },
+
+    "general_settings_show_download_folder": {
+        "message": "I-pakita ang Download Folder automatically"
+    },
+
+    "general_settings_enable_save_as_dialog": {
+        "message": "I-enable ang 'Save As' dialog window"
+    },
+
+    "general_settings_enable_notifications_on_update": {
+        "message": "I-enable ang notification kapag na-update ang extension"
+    },
+
+    "twitter_settings_desciption": {
+        "message": "I-customize ang File Name Format para sa Twitter"
+    },
+
+    "twitter_settings_include_mention_symbol": {
+        "message": "Isama ang mention simbolo @"
+    },
+
+    "twitter_settings_include_tweet_id": {
+        "message": "Isama ang Tweet ID"
+    },
+
+    "twitter_settings_include_date": {
+        "message": "Isama ang Petsa (Based sa petsta ng system)"
+    },
+
+    "twitter_settings_site_title": {
+        "message": "Isama ang titlo ng website [Twitter]"
+    },
+
+    "lineblog_settings_description": {
+        "message": "I-customize ang File Name Format para sa LINE BLOG"
+    },
+
+    "lineblog_settings_site_title": {
+        "message": "Isama ang titlo ng website [LINE BLOG]"
+    },
+
+    "lineblog_settings_blog_title": {
+        "message": "Isama ang titlo ng blog"
+    },
+
+    "lineblog_settings_include_date": {
+        "message": "Isama ang Petsa (Based sa petsta ng system)"
+    },
+
+    "lineblog_settings_convert_blog_title_romaji": {
+        "message": "I-convert ang titlo ng blog sa romaji"
+    },
+
+    "reddit_settings_description": {
+        "message": "I-customize ang File Name Format para sa Reddit"
+    },
+
+    "reddit_settings_site_title": {
+        "message": "Isama ang titlo ng website [Reddit]"
+    },
+
+    "reddit_settings_subreddit_name": {
+        "message": "Isama ang subreddit"
+    },
+
+    "reddit_settings_subreddit_post_id": {
+        "message": "Isama ang Subreddit Post ID"
+    },
+
+    "reddit_settings_include_date": {
+        "message": "Isama ang Petsa (Based sa petsta ng system)"
+    }
+}
