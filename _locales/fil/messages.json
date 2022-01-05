@@ -103,7 +103,7 @@
     },
 
     "common_section_lineblog_title": {
-        "message": "Blog Title"
+        "message": "Titlo ng Blog"
     },
 
     "common_section_system_information": {
@@ -139,7 +139,7 @@
     },
 
     "context_click_here": {
-        "message": "Click Here"
+        "message": "Pindutin dito"
     },
 
     "context_save_success": {
@@ -155,7 +155,7 @@
     },
 
     "credits_icons": {
-        "message": "Icons"
+        "message": "Mga icon"
     },
 
     "credits_localization": {
@@ -167,7 +167,7 @@
     },
 
     "error_website_not_supported": {
-        "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+        "message": "Sorry, supported ang extension sa Twitter and LINE BLOG. Para sa isang listahan ng mga sinusuportahang website, paki visit sa GitHub Repository: https://github.com/ddasutein/AutoRename"
     },
 
     "error_tweet_detail_alert_prompt": {
@@ -187,19 +187,19 @@
     },
 
     "error_send_report": {
-        "message": "Extension is unable to resolve this error. Please file a report on GitHub."
+        "message": "Hindi malutas ng extension error na ito. Paki submit ang report sa GitHub"
     },
 
     "error_exception_reload": {
-        "message": "This tab will now reload."
+        "message": "Magre-reload nagayon ang tab na ito"
     },
 
     "error_lineblog_no_title": {
-        "message": "Unable to retrieve blog title"
+        "message": "Hindi makuha ang titlo ng blog"
     },
 
     "error_reddit_old_half_view": {
-        "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
+        "message": "Ang pag-save direkta sa subreddit ay hindi suportado sa old Reddit. Pa-click sa post at i-save yung image."
     },
 
     "message_toast_welcome_title": {
