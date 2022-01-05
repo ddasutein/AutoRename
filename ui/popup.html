@@ -1,15 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Auto Renamer</title>
-</head>
-<body>
-    <h2>AutoRename Extension</h2>
-    <p id="extension_version">Version 1.0</p>
-    <p>Developed by: <b>Dasutein</b></p>
-    <p>Github: <a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, inital-scale=1.0">
+        <meta http-equiv="X-UA Compatible" content="ie=edge">
+        <title>AutoRename</title>
 
-    <script type="text/javascript" src="js/extensionInfo.js"></script>
-</body>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+        <script src="script.js" defer></script>
+
+    </head>
+
+    <body>
+        <div class="main">
+            <ul class="tabs">
+                <li data-tab-target="#tab" class="active tab"><span><img src="/assets/icons8-folder-48.png" class="tab-btn-icon"></span> Tab</li>
+                <li data-tab-target="#parse" class="tab"><span><img src="/assets/icons8-cv-48.png" class="tab-btn-icon"></span> Parse</li>
+                <li data-tab-target="#downloadqueue" class="tab"><span><img src="/assets/icons8-download-48.png" class="tab-btn-icon"></span>Download Queue</li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tab" data-tab-content class="active">
+                    <h1>Tab page</h1>
+                    <p>Test1</p>
+                </div>
+                <div id="parse" data-tab-content>
+                    <label>Paste file name to be redirected to the source</label>
+                    <span><input type="text" style="width: 250px; padding: 5px;"></span><span> <input type="button" value="Go" style="padding: 5px;"> </span>
+                    <br></br>
+                    <p>
+                        <span style="font-weight: bold">Website</span><br/>
+                        Twitter<br/><br/>
+
+                        <span style="font-weight: bold">Link to Post</span><br/>
+                        <a href="">https://google.com</a><br/></br>
+
+                    </p>
+                </div>
+                <div id="downloadqueue" data-tab-content>
+                    <h1>Download page</h1>
+                    <p>Test3</p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
