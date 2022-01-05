@@ -28,7 +28,7 @@ function SaveLINEBlogMedia(tabUrl, url){
     function buildFileName(fileNameObj){
         let temp;
         let isUsingDateFormat;
-        temp = `LINE BLOG-${fileNameObj.username}-${fileNameObj.blogtitle}-{date}-{string}`;
+        temp = `LINE BLOG-${fileNameObj.username}-${lineblogId}-${fileNameObj.blogtitle}-{date}-{string}`;
         temp = temp.split("-");
         console.log(temp);
 
