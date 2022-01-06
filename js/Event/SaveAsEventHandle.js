@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -13,18 +13,34 @@
  */
 
 /* ---------------------CONTEXT MENU ITEMS----------------------- */
-chrome.contextMenus.create({
-    id: "saveImage",
-    title: chrome.i18n.getMessage("context_menu_save_image_as"),
-    contexts: ["image"]
+
+chrome.runtime.onInstalled.addListener(()=>{
+    chrome.contextMenus.create({
+        id: "saveImage",
+        title: chrome.i18n.getMessage("context_menu_save_image_as"),
+        contexts: ["image"]
+    });
+    
+    chrome.contextMenus.create({
+        id: "saveImageWithCustomPrefix",
+        title: "Save image as (AutoRename) with custom tag",
+        contexts: ["image"]
+    });
+    
+    chrome.contextMenus.create({
+        id: "saveImageWithCustomPrefix2",
+        title: "Save image as (AutoRename) with predefined tag",
+        contexts: ["image"]
+    });
+    
+    // Twitter Specific Context Menu Item
+    chrome.contextMenus.create({
+        id: "viewOriginalImageSizeContextMenuItem",
+        title: chrome.i18n.getMessage("context_menu_view_original_image"),
+        contexts: ["image"]
+    });
 });
 
-// Twitter Specific Context Menu Item
-chrome.contextMenus.create({
-    id: "viewOriginalImageSizeContextMenuItem",
-    title: chrome.i18n.getMessage("context_menu_view_original_image"),
-    contexts: ["image"]
-});
 
 /* ----------END OF CONTEXT MENU ITEMS FUNCTIONS------------------ */
 
