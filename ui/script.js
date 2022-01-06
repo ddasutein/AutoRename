@@ -1,3 +1,5 @@
+console.log("POPUP HTML")
+
 const tabs = document.querySelectorAll("[data-tab-target]");
 const tabContents = document.querySelectorAll("[data-tab-content]");
 
@@ -9,4 +11,8 @@ tabs.forEach((tab) => {
         tab.classList.add("active");
         target.classList.add("active");
     });
-})
+});
+
+chrome.tabs.query({active: true, currentWindow: true}, ((tabs)=>{
+    console.log(tabs);
+}));
