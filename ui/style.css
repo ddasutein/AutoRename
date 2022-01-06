@@ -7,6 +7,15 @@ body {
     height: 500px;
 }
 
+hr {
+    display: block;
+    height: 0.5px;
+    border: 0;
+    border-top: 1px solid #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
 
 [data-tab-content] {
     display: none;
