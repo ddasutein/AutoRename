@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -15,19 +15,24 @@
 // Reference: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Synchronous_and_Asynchronous_Requests
 let request = new XMLHttpRequest();
 
-
-
-request.onload = function(e) {
-  if (request.readyState === 4){
-    if (request.readyState === 200){
+request.onload = function (e) {
+  if (request.readyState === 4) {
+    if (request.readyState === 200) {
       console.log(request.responseText);
-    } else{
+    } else {
       let jsonConfig = this.responseText;
       let jsonParse = JSON.parse(jsonConfig);
       document.getElementById("main_extension_name").innerHTML = jsonParse.short_name;
 
-      if (document.querySelector('meta[name="current_page"]').content == "about"){
-        document.getElementById("main_extension_version").innerHTML = jsonParse.version;
+      if (document.querySelector('meta[name="current_page"]').content == "about") {
+
+        if ((jsonParse.version).split(".")[3] >= 1000) {
+          document.getElementById("main_extension_version").innerHTML = `${jsonParse.version} (dev-build)`;
+
+        } else if ((jsonParse.version).split(".")[3] == undefined) {
+          document.getElementById("main_extension_version").innerHTML = `${jsonParse.version}`;
+        }
+
       }
 
       // document.getElementById("extension_description").innerHTML = jsonParse.description;
@@ -42,4 +47,3 @@ request.onerror = function (e) {
 };
 
 request.send(null);
-
