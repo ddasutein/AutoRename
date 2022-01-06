@@ -160,7 +160,7 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
         }
     }
 
-    fileNameObj["username"] = Utility.SplitURL(linkUrl, 3);
+    fileNameObj["username"] = linkUrl != undefined ? Utility.SplitURL(linkUrl, 3) : Utility.SplitURL(tabUrl, 3);
     fileNameObj["tweetId"] = tweetId;
     twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
     twitterImageFile.push({

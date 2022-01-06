@@ -15,7 +15,7 @@
 function SaveLINEBlogMedia(tabUrl, url){
 
     if (BrowserTabInfo.URL.match(Website.LINE_BLOG)){
-        lineblogTitle = BrowserTabInfo.Title.split("-")[1].trim().toString();
+        lineblogTitle = BrowserTabInfo.Title.split("-")[1] != undefined ? BrowserTabInfo.Title.split("-")[1].trim().toString() : "";
     }
 
     if (Utility.SplitURL(tabUrl, 5) == undefined){
@@ -28,7 +28,7 @@ function SaveLINEBlogMedia(tabUrl, url){
     function buildFileName(fileNameObj){
         let temp;
         let isUsingDateFormat;
-        temp = `LINE BLOG-${fileNameObj.username}-${fileNameObj.blogtitle}-{date}-{string}`;
+        temp = `LINE BLOG-${fileNameObj.username}-${lineblogId}-${fileNameObj.blogtitle}-{date}-{string}`;
         temp = temp.split("-");
         console.log(temp);
 
