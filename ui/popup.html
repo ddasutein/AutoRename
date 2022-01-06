@@ -21,10 +21,76 @@
             </ul>
 
             <div class="tab-content">
+
                 <div id="tab" data-tab-content class="active">
-                    <h1>Tab page</h1>
-                    <p>Test1</p>
+
+                    <div class="tab-content-card">
+                        <table style="width: 100%; table-layout: fixed; vertical-align: middle;">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>Twitter Settings</td>
+                                <td><input type="button" value="Save" style="float: right;"/></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="tab-content-card">
+                        <table style="width: 100%; table-layout: fixed;">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>File name</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <hr/>
+                        <table style="width: 100%; table-layout: fixed;">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td>Test1</td>
+                                <td><input type="checkbox" id="twitter_settings_site_title"></td>
+                            </tr>
+                            <tr>
+                                <td>Test2</td>
+                                <td><input type="checkbox" id="twitter_settings_site_title"></td>
+                            </tr>
+                            <tr>
+                                <td>Test3</td>
+                                <td><input type="checkbox" id="twitter_settings_site_title"></td>
+                            </tr>
+                            <tr>
+                                <td>Test4</td>
+                                <td>
+                                    <select id="twitter_settings_select_date_format">
+                                        <option disabled data-i18n="common_date_format_label_numerical"></option>
+                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
+                                        <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
+                                        <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
+                                        <option disabled data-i18n="common_date_format_label_long"></option>
+                                        <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
+                                        <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
+                                        <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
+                                        <option disabled  data-i18n="common_date_format_label_short"></option>
+                                        <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
+                                        <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
+                                        <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
                 </div>
+
                 <div id="parse" data-tab-content>
                     <label>Paste file name to be redirected to the source</label>
                     <span><input type="text" style="width: 250px; padding: 5px;"></span><span> <input type="button" value="Go" style="padding: 5px;"> </span>
@@ -38,11 +104,15 @@
 
                     </p>
                 </div>
+
                 <div id="downloadqueue" data-tab-content>
                     <h1>Download page</h1>
                     <p>Test3</p>
                 </div>
+
             </div>
         </div>
+
+        <script src="/js/Localization/i18n.js"></script>
     </body>
 </html>
