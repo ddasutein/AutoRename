@@ -74,6 +74,9 @@ chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
 
 });
 
+/**
+ * Queries tab data
+ */
 function QueryTab() {
 
     setTimeout(() => {
@@ -106,69 +109,76 @@ function QueryTab() {
 
 };
 
+/**
+ * Here you can dynamically set which websites can use a specific context menu item.
+ * It is important that the user should not see a context menu for the extension if
+ * the website is not supported.
+ * 
+ * @param {string} url URL of the website
+ */
 function UpdateContextMenus(url) {
 
     switch(url){
         case Website.Twitter:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": true 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: true 
                 });
             break;
             
         case Website.Mobile_Twitter:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": true 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: true 
                 });
             break;
 
         case Website.LINE_BLOG:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
             });
             break;
 
         case Website.Reddit:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
             });
             break;
 
         case Website.Reddit_Old:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
             });
             break;
 
         case Website.Reddit_New:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
             });
             break;
 
@@ -177,17 +187,17 @@ function UpdateContextMenus(url) {
             if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
                 DevMode ? console.log("website not supported. removing context menu items") : "";
 
-                chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                    "visible": false 
+                chrome.contextMenus.update("viewOriginalImage", {
+                    visible: false 
                 });
 
-                chrome.contextMenus.update("saveImage", {
+                chrome.contextMenus.update(contextMenuId.saveImage, {
                     visible: false
                 });
                 
             } else {
                 DevMode ? console.log("add saveImage context menu item") : "";
-                chrome.contextMenus.update("saveImage", {
+                chrome.contextMenus.update(contextMenuId.saveImage, {
                     visible: true
                 });
             }
@@ -195,7 +205,12 @@ function UpdateContextMenus(url) {
     }    
 };
 
-/* Execute everything when save image as is clicked. */
+/**
+ * This is the ENTRY point to trigger saving images or to execute specific
+ * context menu items. If you need to add new websites, add a new case
+ * statement. Then you should also create a specific JavaScript file for that
+ * website you are trying to support
+ */
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
@@ -205,22 +220,22 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     switch (currentUrl) {
         case Website.Twitter:
 
-            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+            if (info.menuItemId === contextMenuId.viewOriginalImage){
                 ViewOriginalMedia(info.srcUrl);
                 return;
             } 
-            else if (info.menuItemId === "saveImage"){
+            else if (info.menuItemId === contextMenuId.saveImage){
                 SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
 
             }
             break;
 
         case Website.Mobile_Twitter: 
-            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+            if (info.menuItemId === contextMenuId.viewOriginalImage){
                 ViewOriginalMedia(info.srcUrl);
                 return;
             } 
-            else if (info.menuItemId === "saveImage"){
+            else if (info.menuItemId === contextMenuId.saveImage){
                 SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
 
             }
