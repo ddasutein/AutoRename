@@ -22,15 +22,15 @@ request.onload = function (e) {
     } else {
       let jsonConfig = this.responseText;
       let jsonParse = JSON.parse(jsonConfig);
-      document.getElementById("main_extension_name").innerHTML = jsonParse.short_name;
+      document.getElementById("main_extension_name").textContent = jsonParse.short_name;
 
       if (document.querySelector('meta[name="current_page"]').content == "about") {
 
         if ((jsonParse.version).split(".")[3] >= 1000) {
-          document.getElementById("main_extension_version").innerHTML = `${jsonParse.version} (dev-build)`;
+          document.getElementById("main_extension_version").textContent = `${jsonParse.version} (dev-build)`;
 
         } else if ((jsonParse.version).split(".")[3] == undefined) {
-          document.getElementById("main_extension_version").innerHTML = `${jsonParse.version}`;
+          document.getElementById("main_extension_version").textContent = `${jsonParse.version}`;
         }
 
       }
