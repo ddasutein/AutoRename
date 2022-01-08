@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <title data-i18n="options_header_title"></title> -->
+    <title>OPTIONS BETA</title>
+    <meta charset="UTF-8">
+    <meta name="current_page" content="general">
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+
+    <!-- <script src="/js/Configuration/Settings.js"></script> -->
+    <!-- <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script>  -->
+    <script src="testscript.js" defer></script>
+    
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span>
+        <ul class="tabs">
+            <li data-tab-target="#general">General</li>
+            <li data-tab-target="#twitter">Twitter</li>
+            <li data-tab-target="#lineblog">LINE BLOG</li>
+            <li data-tab-target="#reddit">Reddit</li>
+            <li data-tab-target="#about">About</li>
+
+        </ul>
+    </nav>
+<!-- 
+    <div class="tab-content">
+        <div id="tab" data-tab-content="active">
+            <h1>General</h1>
+        </div>
+    </div> -->
+
+    <div class="tab-content">
+
+        <div id="general" data-tab-content class="active">
+            <div class="tab-content-main"> 
+                <table style="width: 95%; table-layout: fixed;" border="0">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><b><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general">General</span></b></td>
+                        <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button></td>
+                    </tr>
+                </table>
+                <p data-i18n="general_settings_description"></p>
+                <br/>
+
+                <!-- SECTION: APPEARANCE -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <table class="main-body-table">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                        <tr>
+                            <td><label>Theme</label></td>
+                            <td>
+                                <select id="twitter_settings_string_length">
+                                    <option value="auto">Auto</option>
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+
+                                </select>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <br/>
+
+                <!-- SECTION: FILE SYSTEM -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <table class="main-body-table">
+                        <tr>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                        <tr>
+                            <td><label data-i18n="general_settings_show_download_folder"></label></td>
+                            <td ><input type="checkbox" id="general_settings_auto_show_download_folder"></td>
+                        </tr>
+                        <tr>
+                            <td><label data-i18n="general_settings_enable_save_as_dialog"></label></td>
+                            <td><input type="checkbox" id="general_settings_enable_save_as_window"></td>
+                        </tr>
+                    </table>
+                </div>
+                <br/>
+
+                <!-- SECTION: SYSTEM NOTIFICATIONS -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications">System Notifications</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td><label data-i18n="general_settings_enable_notifications_on_update"></label></td>
+                      <td><input type="checkbox" id="general_settings_notification_updated"></td>
+                    </tr>
+                </table>
+
+                
+            </div>
+        </div>
+
+        <div id="twitter" data-tab-content>
+            <div class="tab-content-main">
+                <label>Twitter</label>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="sidebar">
+        <div class="sidebar-meta">
+            <p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;"></p>
+        </div>
+
+        <a class="sidebar-active" href="options.html"><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_general"></span></a>
+        <a href="options_twitter.html"><img class="sidebar-btn-ico" src="assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_twitter"></span></a>
+        <a href="options_lineblog.html"><img class="sidebar-btn-ico" src="assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_lineblog"></span></a>
+        <a href="options_reddit.html"><img class="sidebar-btn-ico" src="assets/reddit_logo.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_reddit"></span></a>
+        <a href="options_about.html"><img class="sidebar-btn-ico" src="assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_navigation_about"></span></a>
+      </div>
+
+    <div class="main">
+
+        <div class="main-body-section-announcement">
+            <label data-i18n="announce_banner_title"></label>
+            <span data-i18n="announce_banner_content"></span><span><a href="https://github.com/ddasutein/AutoRename/releases">Click here for more details</a></span>
+        </div>
+
+        <div class="main-body-section-header">
+            <table style="width: 100%;">
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td><h3><b><img class="sidebar-btn-ico" src="assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general"></span></b></h3></td>
+                    <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save"></button></td>
+                </tr>
+            </table>
+            <hr>
+            <p data-i18n="general_settings_description"></p>
+        </div>
+        <br/>
+        <div class="main-body">
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span></h3>
+                <hr>
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="general_settings_show_download_folder"></label></td>
+                        <td><input type="checkbox" id="general_settings_auto_show_download_folder"></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="general_settings_enable_save_as_dialog"></label></td>
+                        <td><input type="checkbox" id="general_settings_enable_save_as_window"></td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <div class="main-body-section-header">
+                <h3><img class="sidebar-btn-ico" src="assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications">System Notifications</span></h3>
+                <hr>
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <td><label data-i18n="general_settings_enable_notifications_on_update"></label></td>
+                      <td><input type="checkbox" id="general_settings_notification_updated"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div> -->
+    <!-- <script src="/js/Configuration/OptionsPage.js"></script> -->
+    <script src="/js/Localization/i18n.js"></script>
+    <!-- <script type="text/javascript" src="/js/Configuration/ExtensionInfo.js"></script> -->
+    <!-- <script src="/js/Event/Announcement.js"></script> -->
+</body>
+
+</html>

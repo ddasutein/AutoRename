@@ -32,7 +32,7 @@
         "persistent": false
     },
 
-    "options_page": "options.html",
+    "options_page": "/ui/options.html",
 
     "permissions":[
         "storage",
