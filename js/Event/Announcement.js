@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -14,8 +14,7 @@
 
 
 function loadRestAPI(){
-
-    function testCallback(){
+    function onReadyStateChange(){
         if (xhr_.readyState === XMLHttpRequest.DONE){
             if (xhr_.status == 200){
                 result = xhr_.responseText;
@@ -23,8 +22,12 @@ function loadRestAPI(){
                 console.log(JSON.parse(result));
                 result = JSON.parse(result);
                 console.log(result.locked)
-                if (result.locked == true){
+                if (result.locked == false){
                     document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
+                } else {
+                    document.getElementById("announcement_title").textContent = result.title;
+                    document.getElementById("announcement_body").textContent = result.body;
+
                 }
             }
         }
@@ -33,12 +36,9 @@ function loadRestAPI(){
 
     let xhr_ = new XMLHttpRequest();
     xhr_.open("GET", "https://api.github.com/repos/ddasutein/AutoRename/issues/24")
-    xhr_.onreadystatechange = testCallback;
+    xhr_.onreadystatechange = onReadyStateChange;
     xhr_.send();
 }
 
-document.addEventListener("load", loadRestAPI());
-
-console.log(document.location)
-
+window.addEventListener("load", loadRestAPI());
 
