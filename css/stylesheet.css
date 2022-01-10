@@ -169,14 +169,17 @@ h2 {
     }
 
 .main-body-section-announcement {
+  background-color: #eee;
   border: 1px solid #e3e3e3;
   border-radius: 5px;
-  padding: 3px 10px 3px 0px;
+  margin-bottom: 15px;
+  padding: 2px;
+  width: 95%;
 }
 
 .main-body-section-announcement label {
-  background-color: #e3e3e3;
-  padding: 3px 10px 3px 10px;
+  /* background-color: #e3e3e3; */
+  /* padding: 3px 10px 3px 10px; */
   font-weight: bold;
 }
 
