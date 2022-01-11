@@ -11,7 +11,8 @@
     <!-- <script src="/js/Configuration/Settings.js"></script> -->
     <!-- <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script>  -->
     <script src="testscript.js" defer></script>
-    
+    <script src="/js/Event/Announcement.js"></script>
+
 </head>
 
 <body>
@@ -19,11 +20,11 @@
     <nav class="navbar">
         <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span>
         <ul class="tabs">
-            <li data-tab-target="#general">General</li>
-            <li data-tab-target="#twitter">Twitter</li>
-            <li data-tab-target="#lineblog">LINE BLOG</li>
-            <li data-tab-target="#reddit">Reddit</li>
-            <li data-tab-target="#about">About</li>
+            <li data-tab-target="#general" class="active tab">General</li>
+            <li data-tab-target="#twitter" class="tab">Twitter</li>
+            <li data-tab-target="#lineblog" class="tab">LINE BLOG</li>
+            <li data-tab-target="#reddit" class="tab">Reddit</li>
+            <li data-tab-target="#about" class="tab">About</li>
 
         </ul>
     </nav>
@@ -35,9 +36,17 @@
     </div> -->
 
     <div class="tab-content">
+        
 
         <div id="general" data-tab-content class="active">
             <div class="tab-content-main"> 
+
+                <!-- ANNOUNCEMENT BANNER -->
+                <div class="main-body-section-announcement">
+                    <span id="announcement_title" style="font-weight: bold;"></span><br/>
+                    <span id="announcement_body" data-i18n="announce_banner_content"></span></span>
+                </div>
+
                 <table style="width: 95%; table-layout: fixed;" border="0">
                     <tr>
                         <th></th>
@@ -215,7 +224,6 @@
     <!-- <script src="/js/Configuration/OptionsPage.js"></script> -->
     <script src="/js/Localization/i18n.js"></script>
     <!-- <script type="text/javascript" src="/js/Configuration/ExtensionInfo.js"></script> -->
-    <!-- <script src="/js/Event/Announcement.js"></script> -->
 </body>
 
 </html>

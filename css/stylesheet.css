@@ -187,6 +187,7 @@ h2 {
 
 [data-tab-content] {
   display: none;
+  
 }
 
 .active[data-tab-content] {
@@ -196,6 +197,7 @@ h2 {
   position: absolute;
   margin-left: 300px;
   top: 33px;
+
 }
 
 .navbar {
@@ -206,21 +208,28 @@ h2 {
   color: #121212;
   /* margin-top: -25px; */
   border-right: 1px solid #eee;
+  
 }
 
 .tab { 
   /* background-color: #fff; */
   cursor: pointer;
   padding: 10px;
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
+}
+
+.tab.active {
+  display: block;
+  /* border-left: 5px solid black; */
+  background-color: #eee;
 }
 
 .tabs {
   display: block;
   justify-content: space-around;
   list-style-type: none;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   padding: 0;
 }
 
