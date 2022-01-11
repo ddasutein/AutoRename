@@ -47,7 +47,7 @@
                     <span id="announcement_body" data-i18n="announce_banner_content"></span></span>
                 </div>
 
-                <table style="width: 95%; table-layout: fixed;" border="0">
+                <table class="main-body-table">
                     <tr>
                         <th></th>
                         <th></th>
@@ -56,39 +56,38 @@
                         <td><b><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general">General</span></b></td>
                         <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button></td>
                     </tr>
+                    <tr>
+                        <td><p data-i18n="general_settings_description"></p></td>
+                    </tr>
                 </table>
-                <p data-i18n="general_settings_description"></p>
+                
                 <br/>
 
                 <!-- SECTION: APPEARANCE -->
-                <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
-                        <tr>
-                            <td><img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span></td>
-                        </tr>
-                    </table>
+                <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                    <div style="display: inline-flex;">
+                        <img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span>
+                    </div>
                 </div>
 
-                <div>
-                    <table class="main-body-table">
-                        <tr>
-                          <th></th>
-                          <th></th>
-                        </tr>
-                        <tr>
-                            <td><label>Theme</label></td>
-                            <td>
-                                <select id="twitter_settings_string_length">
-                                    <option value="auto">Auto</option>
-                                    <option value="light">Light</option>
-                                    <option value="dark">Dark</option>
+                <table class="main-body-table">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><label>Theme</label></td>
+                        <td>
+                            <select id="twitter_settings_string_length">
+                                <option value="auto">Auto</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
 
-                                </select>
+                            </select>
 
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                        </td>
+                    </tr>
+                </table>
 
                 <br/>
 

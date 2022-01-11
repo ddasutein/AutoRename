@@ -117,8 +117,8 @@ h2 {
   } */
 
   .main-body-table {
-      width: 95%;
       table-layout: fixed;
+      width: 165vh;
   }
 
   /* The Modal (background) */
@@ -174,7 +174,6 @@ h2 {
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 2px;
-  width: 95%;
 }
 
 .main-body-section-announcement label {
@@ -193,7 +192,7 @@ h2 {
 .active[data-tab-content] {
   display: block;
   /* padding: 10px; */
-  font-size: 1.2em;
+  font-size: 1.0em;
   position: absolute;
   margin-left: 300px;
   top: 33px;
@@ -237,6 +236,7 @@ h2 {
   margin-left: 375px;
 } */
 
-/* .tab-content-main {
-  margin-left: 375px;
-} */
+.tab-content-main {
+  /* margin-left: 375px; */
+  width: 95%;
+}
