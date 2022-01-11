@@ -14,30 +14,29 @@
 
 
 function loadRestAPI(){
-    function onReadyStateChange(){
-        if (xhr_.readyState === XMLHttpRequest.DONE){
-            if (xhr_.status == 200){
-                result = xhr_.responseText;
-                console.log("REST RESPONSE");
-                console.log(JSON.parse(result));
+    
+    onReadyStateChange = (() => {
+
+        if (xhr.readyState === XMLHttpRequest.DONE){
+
+            if (xhr.status == 200){
+                result = xhr.responseText;
                 result = JSON.parse(result);
-                console.log(result.locked)
+
                 if (result.locked == false){
                     document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
                 } else {
                     document.getElementById("announcement_title").textContent = result.title;
                     document.getElementById("announcement_body").textContent = result.body;
-
                 }
             }
         }
-    }
+    });
     
-
-    let xhr_ = new XMLHttpRequest();
-    xhr_.open("GET", "https://api.github.com/repos/ddasutein/AutoRename/issues/24")
-    xhr_.onreadystatechange = onReadyStateChange;
-    xhr_.send();
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.github.com/repos/ddasutein/AutoRename/issues/24")
+    xhr.onreadystatechange = onReadyStateChange;
+    xhr.send();
 }
 
 window.addEventListener("load", loadRestAPI());
