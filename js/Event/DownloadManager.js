@@ -30,7 +30,9 @@ function StartDownload(downloadQueue){
                             url: dq.url,
                             filename: dq.filename,
                             saveAs: true
-                        });
+                        },((id)=>{
+                            console.log(`download id : ${id}`)
+                        }));
                     });
                 } else {
                     downloadQueue.forEach((dq)=>{
@@ -38,8 +40,12 @@ function StartDownload(downloadQueue){
                             url: dq.url,
                             filename: dq.filename,
                             saveAs: false
+                        }, function(dl){
+                            console.log("bytes: " + dl.by)
                         });
                     });
+
+                    chrome.Download
                 }
                 break;
         }
@@ -73,3 +79,28 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
         }
     });
 });
+
+chrome.downloads.onCreated.addListener((item)=>{
+    console.log("downloads listener oncreate")
+    chrome.downloads.search({}, ((items)=>{
+
+        items.forEach((item)=>{
+            // console.log(item);
+            // console.log(item.state)
+            let totalBytes = item.totalBytes;
+            let receivedByes = item.bytesReceived;
+            console.log(`Item state: ${item.state}`)
+            if (item.state == "in_progress"){
+
+                console.log(`FILE SIZE [IN PROG] [${item.id}]: ${totalBytes} of ${receivedByes}`);    
+            }
+
+            if (item.state == "complete"){
+                console.log(`FILE SIZE [COMPLETE] [${item.id}]: ${totalBytes} of ${receivedByes}`);    
+
+            }
+        });
+    
+    }));
+})
+
