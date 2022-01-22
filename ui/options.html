@@ -7,6 +7,8 @@
     <meta charset="UTF-8">
     <meta name="current_page" content="general">
     <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="/css/controls.css" />
+
 
     <!-- <script src="/js/Configuration/Settings.js"></script> -->
     <!-- <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script>  -->
@@ -54,13 +56,12 @@
                     </tr>
                     <tr>
                         <td><b><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general">General</span></b></td>
-                        <td><button type="submit" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button></td>
+                        <td><button type="submit" class="button_save" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button></td>
                     </tr>
                     <tr>
                         <td><p data-i18n="general_settings_description"></p></td>
                     </tr>
                 </table>
-                
                 <br/>
 
                 <!-- SECTION: APPEARANCE -->
@@ -137,14 +138,168 @@
                       <td><input type="checkbox" id="general_settings_notification_updated"></td>
                     </tr>
                 </table>
+                <br/>
+
+                <!-- SECTION: ADVANCED SETTINGS -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text">Advanced Settings</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="main-body-table">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><label>[Global] Custom Date Format</label></td>
+                        <td><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td><label>[Global] Custom Button Test</label></td>
+                        <td><input type="button" value="This is a button!"></td>
+                    </tr>
+                </table>
 
                 
             </div>
         </div>
 
+        <!-- TAB : TWITTER -->
         <div id="twitter" data-tab-content>
             <div class="tab-content-main">
                 <label>Twitter</label>
+
+            </div>
+        </div>
+
+        <!-- TAB : ABOUT -->
+        <div id="about" data-tab-content>
+            <div class="tab-content-main">
+                <table class="main-body-table">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td><b><img class="sidebar-btn-ico" src="/assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_about"></span></b></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <br/>
+
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td>AutoRename</td>
+                    </tr>
+                    <tr>
+                        <td>Copyright © 2022 Dasutein</td>
+                        <td><a href="https://github.com/ddasutein/AutoRename#mit-license">MIT License</a></td>
+                    </tr>
+                    <tr>
+                        <td>Version</td>
+                        <td><label id="main_extension_version"></label></td>
+                    </tr>
+                    <tr>
+                        <td>If you like the extension, please consider giving it a rating 😄</td>
+                    </tr>
+                </table>
+                <br/>
+
+                <!-- SECTION: SYSTEM INFORMATION -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information">System Notifications</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="main-body-table">
+                    <tr>
+                        <td><label data-i18n="system_information_os"></label></td>
+                        <td><label id="system_information_os_value"></label></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="system_information_platform"></td>
+                        <td><label id="system_information_platform_value"></label></td>
+                    </tr>
+                </table>
+                <br/>
+
+                <!-- SECTION: CREDITS -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-crowd-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_credits"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="credits_icons"></label></td>
+                        <td><a href="https://icons8.com">icons8.com</a></td>
+                    </tr>
+                    <tr>
+                        <td><label data-i18n="credits_localization"></label></td>
+                        <td><a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="credits_list_of_translators"></label></a></td>
+                    </tr>
+                    <tr style="display: none;">
+                        <td>WanaKana (JS Library)</td>
+                        <td>https://github.com/WaniKani/WanaKana</td>
+                    </tr>
+                    <tr>
+                        <td>SweetAlert</td>
+                        <td><a href="https://github.com/t4t5/sweetalert">https://github.com/t4t5/sweetalert</a></td>
+                    </tr>
+                    <tr>
+                        <td>Moment (version 2.29.0)</td>
+                        <td><a href="https://momentjs.com">https://momentjs.com</a></td>
+                    </tr>
+                </table>
+                <br/>
+
+                <!-- SECTION: PRIVACY & OTHER LINKS -->
+                <div class="main-body-section-header">
+                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                        <tr>
+                            <td><img class="sidebar-btn-ico" src="/assets/icons8-internet-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_privacy_policy_links"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="main-body-table">
+                    <tr>
+                      <th></th>
+                    </tr>
+                    <tr>
+                        <td><a id="button_privacy_policy" href="#"><label data-i18n="privacy_policy_and_other_links_terms"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/wiki"><label data-i18n="privacy_policy_and_other_links_github_wiki"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename"><label data-i18n="privacy_policy_and_other_links_github"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="privacy_policy_and_other_links_translate_assist"></label></a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="https://github.com/ddasutein/AutoRename/issues/new/choose"><label data-i18n="privacy_policy_and_other_links_feedback"></label></a></td>
+                    </tr>
+                </table>
 
             </div>
         </div>
