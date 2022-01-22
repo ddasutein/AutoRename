@@ -29,6 +29,29 @@ let MonthsInNumber = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "
 let MonthsInLong = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "13"];
 let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "13"];
 
+function getTimeDate(pref = {}){
+
+    console.log(pref);
+
+    // wip settings
+    const preferLocaleFormat = true;        // force only locale date format
+    const overrideLocaleSetting = true;     // If true then prefer local format should be false then user can set their own format
+
+
+    // based on browser language setting
+    let uiLanguage = chrome.i18n.getUILanguage();
+
+    console.log( moment().locale("ja").format("LL"))
+
+    if (overrideLocaleSetting == false){
+        return moment().locale(uiLanguage).format("LL");
+    } else {
+        return moment().locale("ja").format("LL");
+
+    }
+
+}
+
 /* Time & Date */
 function GetDateFormat(DateTimeFormat) {
 
