@@ -34,7 +34,7 @@ function loadRestAPI(){
     });
     
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.github.com/repos/ddasutein/AutoRename/issues/24")
+    xhr.open("GET", "https://api.github.com/repos/ddasutein/autorename-privacy-policy/issues/1")
     xhr.onreadystatechange = onReadyStateChange;
     xhr.send();
 }
