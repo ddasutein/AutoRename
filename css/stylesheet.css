@@ -230,3 +230,8 @@ h2 {
   /* margin-left: 375px; */
   width: 95%;
 }
+
+.button-container {
+  display: inline;
+  float: right;
+}
