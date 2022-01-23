@@ -20,26 +20,66 @@
 <body>
 
     <nav class="navbar">
-        <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span>
-        <ul class="tabs">
-            <li data-tab-target="#general" class="active tab">General</li>
-            <li data-tab-target="#twitter" class="tab">Twitter</li>
-            <li data-tab-target="#lineblog" class="tab">LINE BLOG</li>
-            <li data-tab-target="#reddit" class="tab">Reddit</li>
-            <li data-tab-target="#about" class="tab">About</li>
-
-        </ul>
-    </nav>
-<!-- 
-    <div class="tab-content">
-        <div id="tab" data-tab-content="active">
-            <h1>General</h1>
+        <div class="navbar-title">
+            <table style="table-layout: fixed; width: 100%;" border="0">
+                <tr>
+                    <td style="width: 30%;"><img class="sidebar-btn-ico" src="/assets/autorename-48px.png" style="float: right; margin-right: 10px;"></img></td>
+                    <td
+                        ><p>AutoRename <span class="navbar-version-string">2.2.0</span></p>
+                    </td>
+                </tr>
+            </table>
         </div>
-    </div> -->
+        <hr>
+        <!-- <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span> -->
+        <label class="navbar-label">Settings</label>
+        <ul class="tabs">
+            <li data-tab-target="#general" class="active tab">
+                <div class="navbar-tab-label">
+                    General
+                </div>
+            </li>
+            <li data-tab-target="#twitter" class="tab">
+                <div class="navbar-tab-label">
+                    Twitter
+                </div>
+            </li>
+            <li data-tab-target="#lineblog" class="tab">
+                <div class="navbar-tab-label">
+                    LINE BLOG
+                </div>
+            </li>
+            <li data-tab-target="#reddit" class="tab">
+                <div class="navbar-tab-label">
+                    Reddit
+                </div>
+            </li>
+            <li data-tab-target="#about" class="tab">
+                <div class="navbar-tab-label">
+                    About
+                </div>
+            </li>
+        </ul>
+        <hr>
+        <!-- <label class="navbar-label">Utilities</label>
+        <ul class="tabs">
+            <li data-tab-target="#general" class="tab">
+                <div class="navbar-tab-label">
+                    Parse
+                </div>
+            </li>
+            <li data-tab-target="#general" class="tab">
+                <div class="navbar-tab-label">
+                    Downloads
+                </div>
+            </li>
+
+        </ul> -->
+
+    </nav>
 
     <div class="tab-content">
         
-
         <!-- TAB : GENERAL SETTINGS -->
         <div id="general" data-tab-content class="active">
             <div class="tab-content-main"> 

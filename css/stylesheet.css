@@ -203,23 +203,61 @@ h2 {
 .tab { 
   /* background-color: #fff; */
   cursor: pointer;
-  padding: 10px;
+  padding: 5px;
   /* width: 100%; */
-  text-align: center;
+  /* text-align: center; */
+}
+
+.tab.active::before {
+  width: 0;
+    content: '';
+    display: block;
+    flex-shrink: 0;
+}
+
+.tab.active::after {
+  width: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 7px;
+    height: 21px;
+    background: #59c3d8;
+    left: 2px;
+    right: unset;
+    border-radius: 2px;
 }
 
 .tab.active {
-  display: block;
+  /* display: block; */
   /* border-left: 5px solid black; */
-  background-color: #eee;
+  /* background-color: #eee; */
+
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 32px;
+  border: 2px solid transparent;
+  border-radius: 2px;
+
 }
 
 .tabs {
   display: block;
   justify-content: space-around;
   list-style-type: none;
-  /* margin-left: 20px; */
+  margin: 0;
   padding: 0;
+  margin-left: 25px;
+}
+
+.tabs-navtable {
+  table-layout: fixed; 
+  width: 100%;
+}
+
+.navbar-tab-label {
+  margin-left: 5px;
 }
 
 /* .tab-content {
@@ -234,4 +272,28 @@ h2 {
 .button-container {
   display: inline;
   float: right;
+}
+
+.navbar-title { 
+  /* background-color: #262626; */
+  padding: 5px;
+  /* text-align: center; */
+  /* color: white; */
+}
+
+.navbar-version-string {
+  font-size: 0.7em;
+  display: block;
+  background-color: #065c6c;
+  border-radius: 5px;
+  width: 45%;
+  text-align: center;
+  color: white;
+}
+
+.navbar-label {
+  font-weight: bold; 
+  text-transform: uppercase; 
+  font-size: 0.8em;
+  margin-left: 10px
 }
