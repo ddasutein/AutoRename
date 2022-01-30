@@ -12,3 +12,12 @@ tabs.forEach((tab) => {
         target.classList.add("active");
     });
 });
+
+const prefColorScheme = window.matchMedia("(prefers-color-scheme: dark)");
+console.log(prefColorScheme)
+
+if (prefColorScheme.matches) {
+    document.body.classList.toggle("light");
+  } else {
+    document.body.classList.toggle("dark");
+  }
