@@ -4,6 +4,7 @@ body {
     font-size: 1em;
     margin: 0;
     padding: 0;
+    transition: background-color 0.5s;
 }
 
 hr {
@@ -66,13 +67,13 @@ h2 {
     margin-right: 7px;
     text-decoration: none;
     font-size: 14px;
-    color: #818181;
+    /* color: #818181; */
     display: flex;
     align-items:center;
   }
   
   .sidebar a:hover {
-    color: #161616;
+    /* color: #161616; */
   }
 
   .sidebar-active {
@@ -100,13 +101,12 @@ h2 {
   .main-body-title-button h3 {
     width: 100%;
 }
-  /* .main-body-section-header h3 {
-      font-weight: normal;
-      
-      text-transform: uppercase;
-  } */
+  .main-body-section-header {
+    border-bottom: 1px solid #f1f1f1;
+  }
 
   .main-body-table {
+      border-spacing: 0px 10px;
       table-layout: fixed;
       width: 100%;
   }
@@ -194,10 +194,11 @@ h2 {
   height: 100vh;
   position: fixed;
   background-color: #fff;
-  color: #121212;
+  /* color: #121212; */
   /* margin-top: -25px; */
   border-right: 1px solid #eee;
-  
+  transition: background-color 0.5s;
+
 }
 
 .tab { 
@@ -222,7 +223,7 @@ h2 {
     position: absolute;
     top: 7px;
     height: 21px;
-    background: #59c3d8;
+    background: #036273;
     left: 2px;
     right: unset;
     border-radius: 2px;
@@ -284,7 +285,7 @@ h2 {
 .navbar-version-string {
   font-size: 0.7em;
   display: block;
-  background-color: #065c6c;
+  background-color: #036273;
   border-radius: 5px;
   width: 45%;
   text-align: center;
@@ -296,4 +297,55 @@ h2 {
   text-transform: uppercase; 
   font-size: 0.8em;
   margin-left: 10px
+}
+
+.help-text {
+  font-size: 0.8em;
+  /* color: #858585; */
+}
+
+a:-webkit-any-link {
+  color: #036273;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/** EVERYTHING BELOW IS FOR DARK MODE ONLY **/ 
+
+@media (prefers-color-scheme: dark) {
+
+  body {
+    background-color: #121212;
+  }
+
+  hr {
+    border-top: 1px solid #1f1f1f;
+  }
+
+  .navbar {
+    background-color: #121212;
+    border-right: 1px solid #1f1f1f;
+    color: #fff;
+  }
+
+  .main-body-table {
+    color: #fff;
+  }
+
+  .main-body-table {
+    color: #B0B0B0;
+  }
+
+  .sidebar-btn-ico-text {
+    color: #fff;
+  }
+  .main-body-section-header {
+    border-bottom: 1px solid #1f1f1f;
+  }
+
+  a:-webkit-any-link {
+    color: #03B4D3;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
