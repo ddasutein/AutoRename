@@ -106,7 +106,7 @@
                 <br/>
 
                 <!-- SECTION: APPEARANCE -->
-                <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                <div class="main-body-section-header">
                     <div style="display: inline-flex;">
                         <img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span>
                     </div>
@@ -135,7 +135,7 @@
 
                 <!-- SECTION: FILE SYSTEM -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span></td>
                         </tr>
@@ -162,7 +162,7 @@
 
                 <!-- SECTION: SYSTEM NOTIFICATIONS -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications">System Notifications</span></td>
                         </tr>
@@ -183,7 +183,7 @@
 
                 <!-- SECTION: ADVANCED SETTINGS -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text">Advanced Settings</span></td>
                         </tr>
@@ -235,7 +235,7 @@
                 <br/>
 
                 <!-- SECTION: FILE NAME -->
-                <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                <div class="main-body-section-header">
                     <div style="display: inline-flex;">
                         <img class="sidebar-btn-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
                     </div>
@@ -296,7 +296,7 @@
                 <br/>
 
                 <!-- SECTION: TIME & DATE -->
-                <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                <div class="main-body-section-header">
                     <div style="display: inline-flex;">
                         <img class="sidebar-btn-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text">Time and Date</span>
                     </div>
@@ -316,8 +316,10 @@
                             <label data-i18n="common_label_date_format"></label>
                         </td>
                         <td>
-                            <select id="twitter_settings_select_date_format" disabled="disabled">
+                            <select id="twitter_settings_select_date_format">
                                 <option disabled data-i18n="common_date_format_label_numerical"></option>
+                                <option value="custom">Custom</option>
+                                <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                 <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                 <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
                                 <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
@@ -333,15 +335,18 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Custom Format</label></td>
-                        <td style="vertical-align: middle;"><span><input type="text"></span></td>
+                        <td style="vertical-align: top;"><label>Custom Format</label></td>
+                        <td style="vertical-align: middle;">
+                            <span><input type="text" style="width: 100%;"></span>
+                            <br/>
+                            <span class="help-text">Refer to GitHub Wiki for details on what date format can be used</span>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><p>Refer to GitHub Wiki for details on what date format can be used</p></td>
+                        <td></p></td>
                     </tr>
                 </table>
-
             </div>
         </div>
 
@@ -370,7 +375,7 @@
                     <br/>
 
                     <!-- SECTION : FILE NAME -->
-                    <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                    <div class="main-body-section-header">
                         <div style="display: inline-flex;">
                             <img class="sidebar-btn-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
                         </div>
@@ -437,7 +442,7 @@
                     <br/>
 
                     <!-- SECTION : BLOG TITLE -->
-                    <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                    <div class="main-body-section-header">
                         <div style="display: inline-flex;">
                             <img class="sidebar-btn-ico" src="/assets/icons8-hiragana-ma-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_lineblog_title"></span>
                         </div>
@@ -481,7 +486,7 @@
                 <br/>
 
                 <!-- SECTION : FILE NAME -->
-                <div class="main-body-section-header" style="border-bottom: 1px solid #f1f1f1;">
+                <div class="main-body-section-header">
                     <div style="display: inline-flex;">
                         <img class="sidebar-btn-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>                    </div>
                 </div>
@@ -592,7 +597,7 @@
 
                 <!-- SECTION: SYSTEM INFORMATION -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information">System Notifications</span></td>
                         </tr>
@@ -613,7 +618,7 @@
 
                 <!-- SECTION: CREDITS -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-crowd-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_credits"></span></td>
                         </tr>
@@ -650,7 +655,7 @@
 
                 <!-- SECTION: PRIVACY & OTHER LINKS -->
                 <div class="main-body-section-header">
-                    <table style="width: 95%; table-layout: fixed; border-bottom: 1px solid #f1f1f1;" border="0">
+                    <table  border="0">
                         <tr>
                             <td><img class="sidebar-btn-ico" src="/assets/icons8-internet-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_privacy_policy_links"></span></td>
                         </tr>
