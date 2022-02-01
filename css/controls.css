@@ -56,6 +56,12 @@ input[type="text" i] {
     /* text-transform: uppercase; */
 }
 
+.button_banner_link {
+    background: none;
+    color: #03B4D3;
+    padding: 0;
+}
+
 @media (prefers-color-scheme: dark) {
 
     select {
