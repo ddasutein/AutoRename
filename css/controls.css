@@ -1,0 +1,74 @@
+button {
+    /* padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #27ae60;
+    color: white;
+    cursor: pointer;
+    /* text-transform: uppercase; */
+    /* box-shadow: -1px 2px 10px #bebebe; */
+    /* font-weight: bold; */
+
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+
+}
+
+select {
+    padding: 5px;
+    border-radius: 10px;
+    padding-right: 20px;
+}
+
+input[type="checkbox" i] {
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: 10px;
+    border: initial;
+}
+
+input[type="button" i] {
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+}
+
+input[type="text" i] {
+    padding: 5px;
+}
+
+.button_save {
+    padding: 10px 30px 10px 30px;
+    border-radius: 5px;
+    border: none;
+    /* background-color: #0c0c0c; */
+    background-color: #036273;
+    color: white;
+    cursor: pointer;
+    /* text-transform: uppercase; */
+}
+
+@media (prefers-color-scheme: dark) {
+
+    select {
+        background-color: #242424;
+        color: #fff;
+    }
+
+    input[type="text" i] {
+        border: none;
+        background-color: #242424;
+        color: #fff;
+        padding: 5px;
+    }
+    
+
+}
