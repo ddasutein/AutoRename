@@ -182,11 +182,11 @@ h2 {
 .active[data-tab-content] {
   display: block;
   /* padding: 10px; */
-  font-size: 1.0em;
+  font-size: 0.9em;
   position: absolute;
   margin-left: 300px;
   top: 33px;
-
+  animation: transitionIn 250ms;
 }
 
 .navbar {
@@ -348,4 +348,20 @@ a:-webkit-any-link {
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+/** ANIMATION **/
+
+@keyframes transitionIn {
+
+  from {
+    opacity: 0;
+    transform: translateX(-15px)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0)
+  }
+  
 }
