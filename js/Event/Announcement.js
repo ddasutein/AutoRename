@@ -14,7 +14,7 @@
 
 
 function loadRestAPI(){
-    
+
     onReadyStateChange = (() => {
 
         try {
@@ -29,7 +29,39 @@ function loadRestAPI(){
                         document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
                     } else {
                         document.getElementById("announcement_title").textContent = result.title;
-                        document.getElementById("announcement_body").textContent = result.body;
+
+                        let resultBody = result.body;
+                        bodyContent = resultBody.substring("[0]", resultBody.indexOf("[1]"));
+                        bodyContent = bodyContent.replace("[0]", "");
+                        
+                        bannerUrl = resultBody.substring(resultBody.indexOf("[1]"));
+                        bannerUrl = bannerUrl.replace("[1]", "");
+
+                        document.getElementById("announcement_body").textContent = bodyContent;
+
+                        document.querySelectorAll("button").forEach((buttons)=>{
+                            console.log(buttons.id)
+                            switch (buttons.id){
+                                case "button_banner_link":
+                                    buttons.addEventListener("click", (()=>{
+
+                                        swal({
+                                            title: "Announcement",
+                                            text: `Clicking this link will redirect to you ${bannerUrl} \n\nWould you like to continue?`,
+                                            icon: "info",
+                                            buttons: true,
+                                            dangerMode: true
+                                        }).then((redirect)=>{
+                                            if (redirect){
+                                                chrome.tabs.create({url: bannerUrl});
+                                            }
+                                        })
+
+                                    }));
+                                    break;
+                            }
+                    
+                        });
                     }
                 }
             }
