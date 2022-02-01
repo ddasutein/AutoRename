@@ -17,20 +17,27 @@ function loadRestAPI(){
     
     onReadyStateChange = (() => {
 
-        if (xhr.readyState === XMLHttpRequest.DONE){
+        try {
 
-            if (xhr.status == 200){
-                result = xhr.responseText;
-                result = JSON.parse(result);
+            if (xhr.readyState === XMLHttpRequest.DONE){
+                console.info(xhr.status);
+                if (xhr.status == 200){
+                    result = xhr.responseText;
+                    result = JSON.parse(result);
 
-                if (result.locked == false){
-                    document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
-                } else {
-                    document.getElementById("announcement_title").textContent = result.title;
-                    document.getElementById("announcement_body").textContent = result.body;
+                    if (result.locked == false){
+                        document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
+                    } else {
+                        document.getElementById("announcement_title").textContent = result.title;
+                        document.getElementById("announcement_body").textContent = result.body;
+                    }
                 }
             }
+        } catch(exception){
+            console.error(exception);
+            document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
         }
+
     });
     
     let xhr = new XMLHttpRequest();
