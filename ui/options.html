@@ -11,7 +11,7 @@
 
 
     <!-- <script src="/js/Configuration/Settings.js"></script> -->
-    <!-- <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script>  -->
+    <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script> 
     <script src="testscript.js" defer></script>
     <script src="/js/Event/Announcement.js"></script>
 
@@ -87,7 +87,9 @@
                 <!-- ANNOUNCEMENT BANNER -->
                 <div class="main-body-section-announcement">
                     <span id="announcement_title" style="font-weight: bold;"></span><br/>
-                    <span id="announcement_body" data-i18n="announce_banner_content"></span></span>
+                    <section id="announcement_body"></section>
+                    <button type="button" class="button_banner_link" id="button_banner_link">More Details</button>
+
                 </div>
 
                 <table class="main-body-table">
@@ -97,7 +99,12 @@
                     </tr>
                     <tr>
                         <td><b><img class="sidebar-btn-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general">General</span></b></td>
-                        <td><button type="submit" class="button_save" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button></td>
+                        <td>
+                            <div class="button-container">
+                                <button type="button" id="button_help_general">Help</button>
+                                <button type="submit" class="button_save" id="button_save_general" style="float: right;" data-i18n="button_save" value="save"></button>
+                            </div>    
+                        </td>
                     </tr>
                     <tr>
                         <td><p data-i18n="general_settings_description"></p></td>
@@ -220,11 +227,10 @@
                     <tr>
                         <td><b><img class="sidebar-btn-ico" src="/assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_twitter"></span></b></td>
                         <td>
-                            <!-- <button type="button" value="Help" style="float: right;">Help</button> <button type="submit" class="button_save" id="button_save" style="float: right;" data-i18n="button_save" value="save"></button> -->
                             <div class="button-container">
 
                                 <button type="button" id="button_help_twitter">Help</button>
-                                <button type="submit" class="button_save" id="button_save" data-i18n="button_save" value="save"></button>
+                                <button type="submit" class="button_save" id="button_save_twitter" data-i18n="button_save" value="save"></button>
                             </div>
                         </td>
                     </tr>
@@ -363,8 +369,8 @@
                             <td><b><img class="sidebar-btn-ico" src="/assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_lineblog"></span></b></td>
                             <td>
                                 <div class="button-container">
-                                    <button type="button" id="button_help_twitter">Help</button>
-                                    <button type="submit" class="button_save" id="button_save" data-i18n="button_save" value="save"></button>
+                                    <button type="button" id="button_help_lineblog">Help</button>
+                                    <button type="submit" class="button_save" id="button_save_lineblog" data-i18n="button_save" value="save"></button>
                                 </div>
                             </td>
                         </tr>
@@ -477,7 +483,13 @@
                     </tr>
                     <tr>
                         <td><b><img class="sidebar-btn-ico" src="/assets/reddit_logo.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_reddit"></span></b></td>
-                        <td></td>
+                        <td>
+                            <div class="button-container">
+
+                                <button type="button" id="button_help_reddit">Help</button>
+                                <button type="submit" class="button_save" id="button_save_reddit" data-i18n="button_save" value="save"></button>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td><p data-i18n="reddit_settings_description"></p></td>
