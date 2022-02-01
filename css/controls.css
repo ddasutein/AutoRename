@@ -45,7 +45,7 @@ input[type="text" i] {
     padding: 5px;
 }
 
-#button_save {
+.button_save {
     padding: 10px 30px 10px 30px;
     border-radius: 5px;
     border: none;
@@ -54,4 +54,21 @@ input[type="text" i] {
     color: white;
     cursor: pointer;
     /* text-transform: uppercase; */
+}
+
+@media (prefers-color-scheme: dark) {
+
+    select {
+        background-color: #242424;
+        color: #fff;
+    }
+
+    input[type="text" i] {
+        border: none;
+        background-color: #242424;
+        color: #fff;
+        padding: 5px;
+    }
+    
+
 }
