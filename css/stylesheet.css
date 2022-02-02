@@ -39,8 +39,12 @@ h2 {
     font-weight: bold;
 }
 
+.section-ico {
+  width: 28px;
+  vertical-align: middle;
+}
+
 .sidebar-btn-ico {
-    width: 28px;
     vertical-align: middle;
 }
 
@@ -277,10 +281,8 @@ h2 {
 }
 
 .navbar-title { 
-  /* background-color: #262626; */
-  padding: 5px;
-  /* text-align: center; */
-  /* color: white; */
+  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .navbar-version-string {
@@ -288,7 +290,7 @@ h2 {
   display: block;
   background-color: #036273;
   border-radius: 5px;
-  width: 45%;
+  width: 32%;
   text-align: center;
   color: white;
 }
