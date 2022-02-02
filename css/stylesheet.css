@@ -163,7 +163,8 @@ h2 {
   border: 1px solid #e3e3e3;
   border-radius: 5px;
   margin-bottom: 15px;
-  padding: 2px;
+  padding: 5px;
+  transition: background-color 0.5s;
 }
 
 .main-body-section-announcement label {
@@ -347,6 +348,12 @@ a:-webkit-any-link {
     color: #03B4D3;
     cursor: pointer;
     text-decoration: underline;
+  }
+
+  .main-body-section-announcement {
+    background-color: #242424;
+    border: 1px solid #1f1f1f;
+    color: #fff;
   }
 }
 
