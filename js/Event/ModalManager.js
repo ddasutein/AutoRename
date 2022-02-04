@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,20 +12,17 @@
  * 
  */
 
-let modal = document.getElementById("privacypolicymodal");
-let btn = document.getElementById("button_privacy_policy");
-let span = document.getElementsByClassName("close")[0];
+const modal = document.querySelector(".modal");
+const openModalBtn = document.getElementById("button_privacy_policy");
+const closeModalBtn = document.getElementById("closeModalBtn")
+const blurFilter = document.getElementById("blur")
 
-btn.onclick = () => {
-  modal.style.display = "block";
+openModalBtn.onclick = () => {
+  modal.id = "show";
+  blurFilter.classList.toggle("active");
 }
 
-span.onclick = () => {
-  modal.style.display = "none";
+closeModalBtn.onclick = () => {
+  modal.id = 'hide';
+  blurFilter.classList.remove("active");
 }
-
-window.onclick = ((event) => {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-});

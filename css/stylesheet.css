@@ -1,42 +1,52 @@
 body {
-    background: #fff;
-    font-family: 'Segoe UI', 'Roboto','-apple-system', 'BlinkMacSystemFont', 'Arial', sans-serif !important;
-    font-size: 1em;
-    margin: 0;
-    padding: 0;
-    transition: background-color 0.5s;
+  background: #fff;
+  font-family: 'Segoe UI', 'Roboto', '-apple-system', 'BlinkMacSystemFont', 'Arial', sans-serif !important;
+  font-size: 1.1em;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.5s;
+}
+
+.container {
+  filter: none;
+}
+
+.container#blur.active {
+  filter: blur(10px);
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
 }
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #f1f1f1;
-    margin: 1em 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #f1f1f1;
+  margin: 1em 0;
+  padding: 0;
 }
 
 .content {
-    background: #fff !important;
-    box-shadow: 1px 1px 0.2em rgb(199, 199, 199);
-    color: #161616;
-    margin: 5px;
-    padding: 5px 20px 5px 20px;
+  background: #fff !important;
+  box-shadow: 1px 1px 0.2em rgb(199, 199, 199);
+  color: #161616;
+  margin: 5px;
+  padding: 5px 20px 5px 20px;
 }
 
 .content-extension-meta {
-    line-height: 10px;
+  line-height: 10px;
 }
 
 h2 {
-    display: block;
-    font-size: 1.5em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0px;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-size: 18px;
-    font-weight: bold;
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .section-ico {
@@ -45,122 +55,156 @@ h2 {
 }
 
 .sidebar-btn-ico {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .sidebar-btn-ico-text {
-    font-weight: bold;
-    margin-left: 15px;
-    text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 15px;
+  text-transform: uppercase;
 }
 
 .sidebar {
-    height: 100%;
-    width: 220px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    overflow-x: hidden;
-    box-shadow: -2px 0px 10px #d0d0d0;
-  }
-  
-  .sidebar a {
-    padding: 6px 8px 6px 16px;
-    margin-right: 7px;
-    text-decoration: none;
-    font-size: 14px;
-    /* color: #818181; */
-    display: flex;
-    align-items:center;
-  }
-  
-  .sidebar a:hover {
-    /* color: #161616; */
-  }
-
-  .sidebar-active {
-      border-left: 5px solid #036273;
-      font-weight: bold;
-  }
-  
-  .main {
-    margin-left: 220px; /* Same as the width of the sidenav */
-    padding: 6px 15px;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 18px;}
-  }
-
-  .main-body-title-button {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      vertical-align: middle;
-  }
-
-  .main-body-title-button h3 {
-    width: 100%;
+  height: 100%;
+  width: 220px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  box-shadow: -2px 0px 10px #d0d0d0;
 }
-  .main-body-section-header {
-    border-bottom: 1px solid #f1f1f1;
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  margin-right: 7px;
+  text-decoration: none;
+  font-size: 14px;
+  /* color: #818181; */
+  display: flex;
+  align-items: center;
+}
+
+.sidebar a:hover {
+  /* color: #161616; */
+}
+
+.sidebar-active {
+  border-left: 5px solid #036273;
+  font-weight: bold;
+}
+
+.main {
+  margin-left: 220px;
+  /* Same as the width of the sidenav */
+  padding: 6px 15px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
   }
 
-  .main-body-table {
-      border-spacing: 0px 10px;
-      table-layout: fixed;
-      width: 100%;
+  .sidebar a {
+    font-size: 18px;
   }
+}
 
-  /* The Modal (background) */
+.main-body-title-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.main-body-title-button h3 {
+  width: 100%;
+}
+
+.main-body-section-header {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.main-body-table {
+  border-spacing: 0px 10px;
+  table-layout: fixed;
+  width: 100%;
+}
+
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100; /* Sit on top */
-    padding-top: 50px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 1px 1px 10px rgba(7, 7, 7, 0.247);
-  }
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 28px #00000030;  
+  transition: .2s;
 
-  
+  width: 80%;
+  height: 80%;
+  margin: 0px auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10%;
+
+}
+
+.modal .modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px 18px;
+}
+
+.modal .modal-header button {
+  cursor: pointer;
+  font-size: 22px;
+  color: #21202c;
+  background: transparent;
+}
+
+
+.modal#hide {
+  opacity: 0;
+  transform: scale(.6);
+  pointer-events: none;
+}
+
+.modal#show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: visible;
+}
+
+#showButton {
+  cursor: pointer;
+  position: absolute;
+  background: #21202c;
+  color: #ffffff;
+  padding: 14px 22px;
+  font-size: 18px;
+  border-radius: 8px;
+  letter-spacing: .5px;
+}
+
 /* The Close Button */
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
-    
-    .privacypolicy {
-      border: none;
-      width: 100%;
-      height: 550px;
-    }
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.privacypolicy {
+  border: none;
+  width: 100%;
+  height: 550px;
+}
 
 .main-body-section-announcement {
   background-color: #eee;
@@ -181,7 +225,7 @@ h2 {
 
 [data-tab-content] {
   display: none;
-  
+
 }
 
 .active[data-tab-content] {
@@ -206,7 +250,7 @@ h2 {
 
 }
 
-.tab { 
+.tab {
   /* background-color: #fff; */
   cursor: pointer;
   padding: 5px;
@@ -216,22 +260,22 @@ h2 {
 
 .tab.active::before {
   width: 0;
-    content: '';
-    display: block;
-    flex-shrink: 0;
+  content: '';
+  display: block;
+  flex-shrink: 0;
 }
 
 .tab.active::after {
   width: 3px;
-    content: '';
-    display: block;
-    position: absolute;
-    top: 7px;
-    height: 21px;
-    background: #036273;
-    left: 2px;
-    right: unset;
-    border-radius: 2px;
+  content: '';
+  display: block;
+  position: absolute;
+  top: 7px;
+  height: 21px;
+  background: #036273;
+  left: 2px;
+  right: unset;
+  border-radius: 2px;
 }
 
 .tab.active {
@@ -258,7 +302,7 @@ h2 {
 }
 
 .tabs-navtable {
-  table-layout: fixed; 
+  table-layout: fixed;
   width: 100%;
 }
 
@@ -280,7 +324,7 @@ h2 {
   float: right;
 }
 
-.navbar-title { 
+.navbar-title {
   padding: 15px;
   margin-bottom: 10px;
 }
@@ -296,8 +340,8 @@ h2 {
 }
 
 .navbar-label {
-  font-weight: bold; 
-  text-transform: uppercase; 
+  font-weight: bold;
+  text-transform: uppercase;
   font-size: 0.8em;
   margin-left: 10px
 }
@@ -313,7 +357,7 @@ a:-webkit-any-link {
   text-decoration: underline;
 }
 
-/** EVERYTHING BELOW IS FOR DARK MODE ONLY **/ 
+/** EVERYTHING BELOW IS FOR DARK MODE ONLY **/
 
 @media (prefers-color-scheme: dark) {
 
@@ -342,6 +386,7 @@ a:-webkit-any-link {
   .sidebar-btn-ico-text {
     color: #fff;
   }
+
   .main-body-section-header {
     border-bottom: 1px solid #1f1f1f;
   }
@@ -356,6 +401,11 @@ a:-webkit-any-link {
     background-color: #242424;
     border: 1px solid #1f1f1f;
     color: #fff;
+  }
+
+  .modal {
+    background: #242424;
+    box-shadow: 0 0 28px #00000059;
   }
 }
 
@@ -372,5 +422,5 @@ a:-webkit-any-link {
     opacity: 1;
     transform: translateX(0)
   }
-  
+
 }
