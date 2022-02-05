@@ -67,7 +67,15 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
 
                // redditStringGenerator
             case 2:
-               temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
+               if (key.value == "0"){
+                  idx = temp.indexOf("{string}");
+                  if (idx > -1){
+                      temp.splice(idx, 1);
+                  }
+              } else {
+                  temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
+              }
+               
                break;
 
                // redditIncludeDate
