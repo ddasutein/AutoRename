@@ -47,7 +47,9 @@ function ViewOriginalMedia(url) {
         updatedUrl = url;
     }
 
-    window.open(updatedUrl, "_blank");
+    chrome.tabs.create({
+        url: updatedUrl
+    });
 }
 
 function SaveTwitterMedia(tabUrl, url, linkUrl){
@@ -63,79 +65,93 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
 
     function buildFileName(fileNameObj){
         let temp;
-        let isUsingDateFormat;
-        temp = `Twitter-{username}-${fileNameObj.tweetId}-{date}-{string}`;
+        temp = `{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
-        console.log(temp);
-        Object.values(SettingsArray.filter((key)=>{
+
+        const twitterConfig = SettingsArray.filter((key)=>{
             return key.category == CategoryEnum.Twitter
-        }).map((key, index)=>{
-            switch (index) {
-
-                // twitter_include_mention_symbol
-                case 0:
-                    if (!key.value){
-                        temp[temp.indexOf("{username}")] = fileNameObj.username;
-                    } else {
-                        temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
-                    }
-                    break;
-
-                // twitter_include_tweet_id
-                case 1:
-                    if (!key.value){
-                        idx = temp.indexOf(fileNameObj.tweetId);
-                        if (idx > -1){
-                            temp.splice(idx, 1)
-                        }
-                    }
-                    break;
-
-                // twitter_random_string_length
-                case 2:
-                    if (key.value == "0"){
-                        idx = temp.indexOf("{string}");
-                        if (idx > -1){
-                            temp.splice(idx, 1);
-                        }
-                    } else {
-                        temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value)
-                    }
-                    break;
-
-                // twitter_include_date
-                case 3:
-                    if (!key.value){
-                        isUsingDateFormat = false;
-                        idx = temp.indexOf("{date}");
-                        if (idx > -1){
-                            temp.splice(idx, 1);
-                        }
-                    } else {
-                        isUsingDateFormat = true
-                    }
-                    break;
-                    
-                // twitter_date_format
-                case 4:
-                    console.log(isUsingDateFormat)
-                    if (isUsingDateFormat){
-                        temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
-                    }
-                    break;
-
-                case 5:
-                    if (!key.value){
-                        idx = temp.indexOf("Twitter");
-                        if (idx > -1){
-                            temp.splice(idx, 1)
-                        }
-                    }
-
-                    break;
+        }).map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
             }
-        }));
-        console.log(temp)
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        
+        if (!twitterConfig["twitter_include_mention_symbol"].value){
+            temp[temp.indexOf("{username}")] = fileNameObj.username;
+        } else {
+            temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
+        }
+
+        if (!twitterConfig["twitter_include_tweet_id"].value){
+            idx = temp.indexOf("{tweetId}");
+            if (idx > -1){
+                temp.splice(idx, 1);
+            }
+        } else {
+            temp[temp.indexOf("{tweetId}")] = fileNameObj.tweetId;
+        }
+
+        if (!twitterConfig["twitter_random_string_length"].value == "0"){
+            idx = temp.indexOf("{string}");
+            if (idx > -1){
+                temp.splice(idx, 1);
+            }
+        } else {
+            temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
+        }
+
+        if (!twitterConfig["twitter_include_website_title"].value){
+            idx = temp.indexOf("{website_title}");
+            if (idx > -1){
+                temp.splice(idx, 1);
+            }
+        } else {
+            temp[temp.indexOf("{website_title}")] = "Twitter";
+        }
+
+        if (!twitterConfig["twitter_include_date"].value){
+            idx = temp.indexOf("{date}");
+            if (idx > -1){
+                temp.splice(idx, 1);
+            }
+        } else {
+            let prefObj = {};
+
+            if (twitterConfig["twitter_prefer_locale_format"].value == true){
+                prefObj["prefer_locale_format"] = true;
+                const timedateValue = getTimeDate(prefObj);
+                temp[temp.indexOf("{date}")] = timedateValue;
+            } else {
+
+                prefObj["prefer_locale_format"] = false;
+
+                if (twitterConfig["twitter_date_format"].value == "custom"){
+                    prefObj["date_format"] = twitterConfig["twitter_settings_custom_date_format"].value;
+                } else {
+                    prefObj["date_format"] = GetDateFormat(twitterConfig["twitter_date_format"].value);
+                }
+
+                const timedateValue = getTimeDate(prefObj)
+                temp[temp.indexOf("{date}")] = timedateValue;
+
+            }
+
+        }
+
+        if (twitterConfig["twitter_random_string_length"].value == "0"){
+            idx = temp.indexOf("{randomstring}");
+            if (idx > -1){
+                temp.splice(idx, 1);
+            }
+        } else {
+            temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
+        }
+
         return temp.toString().replace(/,/g, "-");
     }
 
