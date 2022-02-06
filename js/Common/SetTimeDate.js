@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -31,25 +31,14 @@ let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 
 function getTimeDate(pref = {}){
 
-    console.log(pref);
-
-    // wip settings
-    const preferLocaleFormat = true;        // force only locale date format
-    const overrideLocaleSetting = true;     // If true then prefer local format should be false then user can set their own format
-
-
     // based on browser language setting
     let uiLanguage = chrome.i18n.getUILanguage();
 
-    console.log( moment().locale("ja").format("LL"))
-
-    if (overrideLocaleSetting == false){
+    if (pref.prefer_locale_format == true){
         return moment().locale(uiLanguage).format("LL");
     } else {
-        return moment().locale("ja").format("LL");
-
+        return moment().format(pref.date_format);
     }
-
 }
 
 /* Time & Date */
@@ -67,41 +56,28 @@ function GetDateFormat(DateTimeFormat) {
     switch (DateTimeFormat) {
         // 0-2 = Numerical Format
         case "0":
-            _finalTimeDateValue = MonthsInNumber[_date.getMonth()] + "-" + _date.getDate() + "-" + _date.getFullYear();
-            break;
+            return "MM-DD-YYYY";
         case "1":
-            _finalTimeDateValue = _date.getDate() + "-" + MonthsInNumber[_date.getMonth()] + "-" + _date.getFullYear();
-            break;
+            return "DD-MM-YYYY";
         case "2":
-            _finalTimeDateValue = _date.getFullYear() + "-" + MonthsInNumber[_date.getMonth()] + "-" + _date.getDate();
-            break;
+            return "YYYY-MM-DD";
             // 3-5 = Long Format
         case "3":
-            _finalTimeDateValue = MonthsInLong[_date.getMonth()] + " " + _date.getDate() + ", " + _date.getFullYear();
-            break;
+            return "MMMM DD, YYYY";
         case "4":
-            _finalTimeDateValue = _date.getDate() + " " + MonthsInLong[_date.getMonth()] + " " + _date.getFullYear();
-            break;
+            return "DD MMMM YYYY";
         case "5":
-            _finalTimeDateValue = _date.getFullYear() + " " + MonthsInLong[_date.getMonth()] + " " + _date.getDate();
-            break;
+            return "YYYY MMMM DD";
             // 6-8 = Short Format
         case "6":
-            _finalTimeDateValue = MonthsInShort[_date.getMonth()] + ". " + _date.getDate() + ", " + _date.getFullYear();
-            break;
+            return "MMM DD, YYYY";
         case "7":
-            _finalTimeDateValue = _date.getDate() + " " + MonthsInShort[_date.getMonth()] + ". " + _date.getFullYear();
-            break;
+            return "DD MMM YYYY";
         case "8":
-            _finalTimeDateValue = _date.getFullYear() + " " + MonthsInShort[_date.getMonth()] + ". " + _date.getDate();
-            break;
+            return "YYYY MMM DD";
         default:
             _finalTimeDateValue = null;
             break;
-    }
-
-    if (DevMode){
-        console.log(DEBUG_TAG + "finalTimeDateValue: " + _finalTimeDateValue);
     }
 
     return "(" + _finalTimeDateValue + ")";
