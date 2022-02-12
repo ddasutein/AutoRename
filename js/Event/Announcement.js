@@ -26,7 +26,7 @@ function loadRestAPI(){
                     result = JSON.parse(result);
 
                     if (result.locked == false){
-                        document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
+                        document.getElementById('main-body-section-announcement').style.display ='none';
                     } else {
                         document.getElementById("announcement_title").textContent = result.title;
 
@@ -78,5 +78,5 @@ function loadRestAPI(){
     xhr.send();
 }
 
-window.addEventListener("load", loadRestAPI());
+document.addEventListener("DOMContentLoaded", function(e) { loadRestAPI() })
 
