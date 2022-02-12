@@ -45,7 +45,7 @@ If you have a bug report or a feature that you want to see implemeneted, kindly 
 
 ## MIT License
 
-Copyright (c) 2020 Dasutein
+Copyright (c) 2022 Dasutein
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
