@@ -4,15 +4,14 @@
 <head>
     <!-- <title data-i18n="options_header_title"></title> -->
     <meta charset="UTF-8">
-    <meta name="current_page" content="general">
     <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
     <link rel="stylesheet" type="text/css" href="/css/controls.css" />
 
-
-    <!-- <script src="/js/Configuration/Settings.js"></script> -->
+    <script src="/js/Configuration/Settings.js"></script>
     <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script> 
-    <script src="testscript.js" defer></script>
+    <script src="/lib/Moment/moment.js"></script> 
 
+    
 </head>
 
 <body>
@@ -69,10 +68,10 @@
                 <div class="tab-content-main"> 
 
                     <!-- ANNOUNCEMENT BANNER -->
-                    <div class="main-body-section-announcement">
+                    <div id="main-body-section-announcement" class="main-body-section-announcement">
                         <span id="announcement_title" style="font-weight: bold;"></span><br/>
                         <section id="announcement_body"></section>
-                        <button type="button" class="button_banner_link" id="button_banner_link">More Details</button>
+                        <button type="button" class="button_banner_link" id="button_banner_link" data-i18n="common_banner_more_detail"></button>
                     </div>
 
                     <table class="main-body-table">
@@ -84,7 +83,7 @@
                             <td><b><img class="section-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general"></span></b></td>
                             <td>
                                 <div class="button-container">
-                                    <button type="button" id="button_help_general">Help</button>
+                                    <button type="button" id="button_help_general" data-i18n="button_help"></button>
                                     <button type="submit" class="button_save" id="button_save_general" data-i18n="button_save" value="save"></button>
                                 </div>    
                             </td>
@@ -96,13 +95,13 @@
                     <br/>
 
                     <!-- SECTION: APPEARANCE -->
-                    <div class="main-body-section-header">
+                    <!-- <div class="main-body-section-header">
                         <div style="display: inline-flex;">
                             <img class="section-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span>
                         </div>
-                    </div>
+                    </div> -->
 
-                    <table class="main-body-table">
+                    <!-- <table class="main-body-table">
                         <tr>
                             <th></th>
                             <th></th>
@@ -117,9 +116,7 @@
                                 </select>
                             </td>
                         </tr>
-                    </table>
-
-                    <br/>
+                    </table> -->
 
                     <!-- SECTION: FILE SYSTEM -->
                     <div class="main-body-section-header">
@@ -152,7 +149,7 @@
                     <div class="main-body-section-header">
                         <table  border="0">
                             <tr>
-                                <td><img class="section-ico" src="/assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications">System Notifications</span></td>
+                                <td><img class="section-ico" src="/assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications"></span></td>
                             </tr>
                         </table>
                     </div>
@@ -183,7 +180,7 @@
                             <td>
                                 <div class="button-container">
 
-                                    <button type="button" id="button_help_twitter">Help</button>
+                                    <button type="button" id="button_help_twitter" data-i18n="button_help"></button>
                                     <button type="submit" class="button_save" id="button_save_twitter" data-i18n="button_save" value="save"></button>
                                 </div>
                             </td>
@@ -235,6 +232,7 @@
                             </td>
                             <td>
                                 <select id="twitter_settings_string_length">
+                                    <option value="0">0</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
                                     <option value="6">6</option>
@@ -258,7 +256,7 @@
                     <!-- SECTION: TIME & DATE -->
                     <div class="main-body-section-header">
                         <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text">Time and Date</span>
+                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
                         </div>
                     </div>
 
@@ -268,8 +266,8 @@
                         <th></th>
                         </tr>
                         <tr>
-                            <td>Prefer Locale Format</td>
-                            <td><input type="checkbox" id="twitter_settings_site_title"></td>
+                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
+                            <td><input type="checkbox" id="twitter_settings_prefer_locale_format"></td>
                         </tr>
                         <tr>
                             <td>
@@ -277,9 +275,8 @@
                             </td>
                             <td>
                                 <select id="twitter_settings_select_date_format">
+                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
                                     <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                    <option value="custom">Custom</option>
-                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                     <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                     <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
                                     <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
@@ -295,11 +292,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td style="vertical-align: top;"><label>Custom Format</label></td>
+                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
                             <td style="vertical-align: middle;">
-                                <span><input type="text" style="width: 100%;"></span>
+                                <span><input type="text" id="twitter_settings_custom_date_format" style="width: 100%;"></span>
                                 <br/>
-                                <div class="help-text">Refer to GitHub Wiki for details on what date format can be used</div>
+                                <div class="help-text" data-i18n="help_text_date_format"></div>
                             </td>
                         </tr>
                         <tr>
@@ -307,6 +304,27 @@
                             <td></p></td>
                         </tr>
                     </table>
+
+                    <!-- SECTION : PREFIX -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text">Custom Prefix</span>
+                        </div>
+                    </div>
+
+                    <table class="main-body-table">
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><label>Prefix</label></td>
+                            <td style="vertical-align: middle;">
+                                <span><input type="text" id="twitter_settings_custom_prefix" style="width: 100%;"></span>
+                            </td>
+                        </tr>
+                    </table>
+
                 </div>
             </div>
 
@@ -323,7 +341,7 @@
                                 <td><b><img class="section-ico" src="/assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_lineblog"></span></b></td>
                                 <td>
                                     <div class="button-container">
-                                        <button type="button" id="button_help_lineblog">Help</button>
+                                        <button type="button" id="button_help_lineblog" data-i18n="button_help"></button>
                                         <button type="submit" class="button_save" id="button_save_lineblog" data-i18n="button_save" value="save"></button>
                                     </div>
                                 </td>
@@ -357,31 +375,11 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <label data-i18n="common_label_date_format"></label>
-                                </td>
-                                <td>
-                                    <select id="lineblog_settings_select_date_format" disabled="disabled">
-                                        <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                        <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                        <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                        <option disabled data-i18n="common_date_format_label_long"></option>
-                                        <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                        <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                        <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                        <option disabled  data-i18n="common_date_format_label_short"></option>
-                                        <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                        <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                        <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <label data-i18n="common_label_generator_length"></label>
                                 </td>
                                 <td>
                                     <select id="lineblog_settings_string_length">
+                                        <option value="0">0</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                         <option value="6">6</option>
@@ -407,7 +405,6 @@
                                 <img class="section-ico" src="/assets/icons8-hiragana-ma-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_lineblog_title"></span>
                             </div>
                         </div>
-                        <br/>
                         <table class="main-body-table">
                             <tr>
                             <th></th>
@@ -420,6 +417,80 @@
                             <tr style="display: none;">
                                 <td><label data-i18n="lineblog_settings_convert_blog_title_romaji"></label></td>
                                 <td><input type="checkbox" id="lineblog_settings_convert_title_romaji"></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <!-- SECTION: TIME & DATE -->
+                        <div class="main-body-section-header">
+                            <div style="display: inline-flex;">
+                                <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
+                            </div>
+                        </div>
+
+                        <table class="main-body-table">
+                            <tr>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                            <tr>
+                                <td><label data-i18n="common_label_prefer_locale_format"></label></td>
+                                <td><input type="checkbox" id="lineblog_settings_prefer_locale_format"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label data-i18n="common_label_date_format"></label>
+                                </td>
+                                <td>
+                                    <select id="lineblog_settings_select_date_format">
+                                        <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
+                                        <option disabled data-i18n="common_date_format_label_numerical"></option>
+                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
+                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
+                                        <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
+                                        <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
+                                        <option disabled data-i18n="common_date_format_label_long"></option>
+                                        <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
+                                        <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
+                                        <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
+                                        <option disabled  data-i18n="common_date_format_label_short"></option>
+                                        <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
+                                        <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
+                                        <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
+                                <td style="vertical-align: middle;">
+                                    <span><input id="lineblog_settings_custom_date_format" type="text" style="width: 100%;"></span>
+                                    <br/>
+                                    <div class="help-text" data-i18n="help_text_date_format"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+
+                        <!-- SECTION : PREFIX -->
+                        <div class="main-body-section-header">
+                            <div style="display: inline-flex;">
+                                <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text">Custom Prefix</span>
+                            </div>
+                        </div>
+
+                        <table class="main-body-table">
+                            <tr>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;"><label>Prefix</label></td>
+                                <td style="vertical-align: middle;">
+                                    <span><input type="text" id="lineblog_settings_custom_prefix" style="width: 100%;"></span>
+                                </td>
                             </tr>
                         </table>
 
@@ -440,7 +511,7 @@
                             <td>
                                 <div class="button-container">
 
-                                    <button type="button" id="button_help_reddit">Help</button>
+                                    <button type="button" id="button_help_reddit" data-i18n="button_help"></button>
                                     <button type="submit" class="button_save" id="button_save_reddit" data-i18n="button_save" value="save"></button>
                                 </div>
                             </td>
@@ -454,7 +525,8 @@
                     <!-- SECTION : FILE NAME -->
                     <div class="main-body-section-header">
                         <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>                    </div>
+                            <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
+                        </div>
                     </div>
                     <table class="main-body-table">
                         <tr>
@@ -479,11 +551,55 @@
                         </tr>
                         <tr>
                             <td>
+                                <label data-i18n="common_label_generator_length"></label>
+                            </td>
+                            <td>
+                                <select id="reddit_settings_string_length">
+                                    <option value="0">0</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+
+                    <!-- SECTION: TIME & DATE -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
+                        </div>
+                    </div>
+
+                    <table class="main-body-table">
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
+                            <td><input type="checkbox" id="reddit_settings_prefer_locale_format"></td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <label data-i18n="common_label_date_format"></label>
                             </td>
                             <td>
-                                <select id="reddit_settings_select_date_format" disabled="disabled">
+                                <select id="reddit_settings_select_date_format">
+                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
                                     <option disabled data-i18n="common_date_format_label_numerical"></option>
+                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                     <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
                                     <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
                                     <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
@@ -499,25 +615,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <label data-i18n="common_label_generator_length"></label>
+                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
+                            <td style="vertical-align: middle;">
+                                <span><input type="text" id="reddit_settings_custom_date_format" style="width: 100%;"></span>
+                                <br/>
+                                <div class="help-text" data-i18n="help_text_date_format"></div>
                             </td>
-                            <td>
-                                <select id="reddit_settings_string_length">
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                </select>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></p></td>
+                        </tr>
+                    </table>
+
+                    <!-- SECTION : PREFIX -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text">Custom Prefix</span>
+                        </div>
+                    </div>
+
+                    <table class="main-body-table">
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><label>Prefix</label></td>
+                            <td style="vertical-align: middle;">
+                                <span><input type="text" id="reddit_settings_custom_prefix" style="width: 100%;"></span>
                             </td>
                         </tr>
                     </table>
@@ -565,14 +691,14 @@
                     <div class="main-body-section-header">
                         <table  border="0">
                             <tr>
-                                <td><img class="section-ico" src="/assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information">System Notifications</span></td>
+                                <td><img class="section-ico" src="/assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information"></span></td>
                             </tr>
                         </table>
                     </div>
 
                     <table class="main-body-table">
                         <tr>
-                            <td><label>Browser</td>
+                            <td><label data-i18n="system_information_browser"></td>
                             <td><label id="system_information_browser_value"></label></td>
                         </tr>
                         <tr>
@@ -613,12 +739,12 @@
                             <td>https://github.com/WaniKani/WanaKana</td>
                         </tr>
                         <tr>
-                            <td>SweetAlert</td>
-                            <td><a href="https://github.com/t4t5/sweetalert">https://github.com/t4t5/sweetalert</a></td>
-                        </tr>
-                        <tr>
                             <td>Moment (version 2.29.0)</td>
                             <td><a href="https://momentjs.com">https://momentjs.com</a></td>
+                        </tr>
+                        <tr>
+                            <td>SweetAlert (version 2.1.3)</td>
+                            <td><a href="https://github.com/t4t5/sweetalert">https://github.com/t4t5/sweetalert</a></td>
                         </tr>
                     </table>
                     <br/>
@@ -674,9 +800,8 @@
     </div>
 
 
-    <!-- <script src="/js/Configuration/OptionsPage.js"></script> -->
+    <script src="/js/Configuration/OptionsPage.js" defer></script>
     <script src="/js/Localization/i18n.js"></script>
-    <script src="/js/Event/OptionsUIButtonListeners.js"></script>
     <script src="/js/Configuration/ExtensionInfo.js"></script>
     <script src="/js/Event/ModalManager.js"></script>
     <script src="/js/Event/Announcement.js"></script>

@@ -52,6 +52,7 @@ h2 {
 .section-ico {
   width: 28px;
   vertical-align: middle;
+  margin-top: -3px;
 }
 
 .sidebar-btn-ico {
@@ -357,6 +358,11 @@ a:-webkit-any-link {
   text-decoration: underline;
 }
 
+.grid-container {
+  display: grid; 
+  grid-template-columns: auto auto;
+  margin-top: 20px;
+}
 /** EVERYTHING BELOW IS FOR DARK MODE ONLY **/
 
 @media (prefers-color-scheme: dark) {
