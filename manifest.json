@@ -1,7 +1,7 @@
 {
     "name": "AutoRename",
     "short_name": "AutoRename",
-    "version": "3.0.0.1000",
+    "version": "3.0.0",
     "description": "Rename image files from the internet with a meaningful file name",
     "default_locale": "en",
     "manifest_version": 2,
