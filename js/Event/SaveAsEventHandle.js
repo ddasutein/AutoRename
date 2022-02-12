@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,21 +12,44 @@
  * 
  */
 
-/* ---------------------CONTEXT MENU ITEMS----------------------- */
-chrome.contextMenus.create({
-    id: "saveImage",
-    title: chrome.i18n.getMessage("context_menu_save_image_as"),
-    contexts: ["image"]
+//#region CONTEXT MENU ITEMS
+
+/**
+ * Context menu items. When adding new context menu items, declare them here first
+ */
+const contextMenuId = {
+    saveImage: "saveImage",
+    saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
+    viewOriginalImage: "viewOriginalImage"
+}
+
+chrome.runtime.onInstalled.addListener(()=>{
+
+    //#region Common context menu items
+    chrome.contextMenus.create({
+        id: contextMenuId.saveImage,
+        title: chrome.i18n.getMessage("context_menu_save_image_as"),
+        contexts: ["image"]
+    });
+    
+    chrome.contextMenus.create({
+        id: contextMenuId.saveImageWithCustomPrefix,
+        title: "Save image as (AutoRename) with Prefix",
+        contexts: ["image"]
+    });
+    
+    //#endregion
+    
+    //#region Twitter specific context menu
+    chrome.contextMenus.create({
+        id: contextMenuId.viewOriginalImage,
+        title: chrome.i18n.getMessage("context_menu_view_original_image"),
+        contexts: ["image"]
+    });
+    //#endregion
 });
 
-// Twitter Specific Context Menu Item
-chrome.contextMenus.create({
-    id: "viewOriginalImageSizeContextMenuItem",
-    title: chrome.i18n.getMessage("context_menu_view_original_image"),
-    contexts: ["image"]
-});
-
-/* ----------END OF CONTEXT MENU ITEMS FUNCTIONS------------------ */
+//#endregion
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -214,6 +237,7 @@ function UpdateContextMenus(url) {
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
+    let temp = {};
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
@@ -225,8 +249,12 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 return;
             } 
             else if (info.menuItemId === contextMenuId.saveImage){
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
+                temp["use_prefix"] = false;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
 
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
             }
             break;
 
@@ -242,16 +270,35 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.LINE_BLOG:
-            SaveLINEBlogMedia(tab.url, info.srcUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            }
             break;
 
         case Website.Reddit:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
    
             break;
 
         case Website.Reddit_Old:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
 
             break;
         default:
