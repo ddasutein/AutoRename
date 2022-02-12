@@ -20,7 +20,6 @@
 const contextMenuId = {
     saveImage: "saveImage",
     saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
-    saveImageWithCustomPrefix2: "saveImageWithCustomPrefix2",
     viewOriginalImage: "viewOriginalImage"
 }
 
@@ -34,16 +33,11 @@ chrome.runtime.onInstalled.addListener(()=>{
     });
     
     chrome.contextMenus.create({
-        id: "saveImageWithCustomPrefix",
-        title: "Save image as (AutoRename) with custom tag",
+        id: contextMenuId.saveImageWithCustomPrefix,
+        title: "Save image as (AutoRename) with Prefix",
         contexts: ["image"]
     });
     
-    chrome.contextMenus.create({
-        id: "saveImageWithCustomPrefix2",
-        title: "Save image as (AutoRename) with predefined tag",
-        contexts: ["image"]
-    });
     //#endregion
     
     //#region Twitter specific context menu
@@ -243,6 +237,7 @@ function UpdateContextMenus(url) {
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
+    let temp = {};
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
@@ -254,8 +249,12 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 return;
             } 
             else if (info.menuItemId === contextMenuId.saveImage){
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
+                temp["use_prefix"] = false;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
 
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
             }
             break;
 
@@ -271,16 +270,35 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.LINE_BLOG:
-            SaveLINEBlogMedia(tab.url, info.srcUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            }
             break;
 
         case Website.Reddit:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
    
             break;
 
         case Website.Reddit_Old:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
 
             break;
         default:
