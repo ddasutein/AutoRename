@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -13,266 +13,455 @@
  */
 
 /**
- * This is important to declare in the HTML to determine what page the user is currently on.
- * Because this script is shared across all HTML files, there are elements that may not be
- * visible while on the page. Example, Twitter elements do not exist in the LINE BLOG HTML
- * file and vice versa.
+ * Reusable dialog boxes for swal library
  */
-let htmlPageMeta = document.querySelector('meta[name="current_page"]').content;
+const messageBox = {
+
+    autoCloseTimer: 1500,
+
+    Save: (() => {
+
+        return swal ({
+            title: "",
+            text: chrome.i18n.getMessage("context_save_success"),
+            icon: "success",
+            buttons: false,
+            dangerMode: false,
+            timer: messageBox.autoCloseTimer
+        });
+    }),
+
+    Warning : ((title, message)=>{
+        return swal({
+            title: title,
+            text: message,
+            icon: "warning",
+            buttons: false,
+            dangerMode: false
+        });
+    })
+}
+
+const specialCharacters = new RegExp(/[?!@#$%^&*(),';\:*"<>|/]/g);
+
+
+/**
+ * Validates the customized date/time format in the text field before processing it
+ * to Moment JS. This is also checks for special characters that are not permitted by
+ * the operating system
+ * 
+ * @param {*} settingsKey The corresponding key in settings
+ * @param {*} dateString  Date string
+ * @returns 
+ */
+function ValidateDateTimeFormat(settingsKey, dateString){
+
+    let output = {};
+
+    if (dateString == "" || dateString == null || dateString == undefined){
+        output["title"] = "Invalid";
+        output["message"] = "Date format is either empty or invalid"
+        output["is_error"] = true;
+    } else {
+
+        // Check for special characters that are not allowed by the operating system
+        if (dateString.match(specialCharacters)){
+            isValidDateFormat = false;
+
+            output["title"] = "Invalid";
+            output["message"] = "Date format is either empty or invalid"
+            output["is_error"] = true;
+
+        } else {
+            output["is_error"] = false;
+        }
+
+    } 
+
+    if (output.is_error){
+        return output;
+    } else {
+        SaveSettings(settingsKey, dateString);
+        return output;
+    }
+}
+
+/**
+ * Checks prefix for illegal or disallowed characters by the operating system
+ * 
+ * @param {*} settingsKey The corresponding key in settings
+ * @param {*} prefixString 
+ * @returns 
+ */
+function ValidatePrefix(settingsKey, prefixString){
+
+    let output = {};
+    console.log(prefixString);
+    console.log(specialCharacters.test(prefixString))
+    if (prefixString.match(specialCharacters)){
+        output["title"] = "Invalid Prefix";
+        output["message"] = "Prefix contains special characters. Please remove them";
+        output["is_error"] = true;
+    } else {
+        output["is_error"] = false;
+    }
+
+    if (output.is_error){
+        return output;
+    } else {
+        SaveSettings(settingsKey, prefixString);
+        return output;
+    }
+}
+
+
 
 document.onreadystatechange = () => {
-    if (document.readyState == "complete") {
-        document.getElementById("button_save").addEventListener("click", SaveOptions);
-        loadHTMLSettings();
+
+    if (document.readyState == "interactive" || document.readyState == "complete") {
+        const generalPref = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.General;
+        });
+
+        generalPref.forEach(function (x) {
+            switch (x.key) {
+                case "global_show_download_folder":
+                    document.getElementById("general_settings_auto_show_download_folder").checked = x.value
+                    break;
+                case "global_enable_save_as_window":
+                    document.getElementById("general_settings_enable_save_as_window").checked = x.value
+                    break;
+                case "global_notifications_updated":
+                    document.getElementById("general_settings_notification_updated").checked = x.value
+                    break;
+            }
+        });
+
+        const twitterPref = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.Twitter
+        });
+
+        twitterPref.map(function (x) {
+            switch (x.key) {
+                case "twitter_include_mention_symbol":
+                    document.getElementById("twitter_settings_include_mention_symbol").checked = x.value;
+                    break;
+                case "twitter_include_tweet_id":
+                    document.getElementById("twitter_settings_include_tweet_id").checked = x.value;
+                    break;
+                case "twitter_include_date":
+                    document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
+                    break;
+                case "twitter_date_format":
+                    document.getElementById("twitter_settings_select_date_format").value = x.value;
+                    break;
+                case "twitter_random_string_length":
+                    document.getElementById("twitter_settings_string_length").value = x.value;
+                    break;
+                case "twitter_include_website_title":
+                    document.getElementById("twitter_settings_site_title").checked = x.value;
+                    break;
+                case "twitter_settings_custom_date_format":
+                    document.getElementById("twitter_settings_custom_date_format").value = x.value;
+                    break;
+                case "twitter_settings_custom_prefix":
+                    document.getElementById("twitter_settings_custom_prefix").value = x.value;
+                    break;
+            }
+        });
+
+        const lineblogPref = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.LINE_BLOG
+        });
+
+        lineblogPref.map(function (x) {
+            switch (x.key) {
+                case "lbPrefIncludeWebsiteTitle":
+                    document.getElementById("lineblog_settings_include_site_title").checked = x.value;
+                    break;
+                case "lbPrefIncludeBlogTitle":
+                    document.getElementById("lineblog_include_blog_title").checked = x.value;
+                    break;
+                case "lbPrefUseDate":
+                    document.getElementById("lineblog_settings_include_date").checked = x.value;
+                    break;
+                case "lbPrefDateFormat":
+                    document.getElementById("lineblog_settings_select_date_format").value = x.value;
+                    break;
+                case "lbPrefStringGenerator":
+                    document.getElementById("lineblog_settings_string_length").value = x.value;
+                    break;
+                case "lineblog_convert_title_romaji":
+                    document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
+                    break;
+                case "lineblogPreferLocaleFormat":
+                    document.getElementById("lineblog_settings_prefer_locale_format").checked = x.value;
+                    break;
+                case "lineblogCustomDateFormat":
+                    document.getElementById("lineblog_settings_custom_date_format").value = x.value;
+                    break;
+                case "lineblogCustomPrefix":
+                    document.getElementById("lineblog_settings_custom_prefix").value = x.value;
+                    break;
+            }
+        });
+
+        const redditPref = SettingsArray.filter((key) => {
+            return key.category == CategoryEnum.Reddit;
+        });
+
+        redditPref.map((x) => {
+            switch (x.key) {
+
+                case "redditIncludeWebsite":
+                    document.getElementById("reddit_settings_site_title").checked = x.value;
+                    break;
+
+                case "redditIncludePostID":
+                    document.getElementById("reddit_settings_subreddit_post_id").checked = x.value;
+                    break;
+
+                case "redditIncludeDate":
+                    document.getElementById("reddit_settings_include_date").checked = x.value;
+                    break;
+
+                case "redditStringGenerator":
+                    document.getElementById("reddit_settings_string_length").value = x.value;
+                    break;
+
+                case "redditDateFormat":
+                    document.getElementById("reddit_settings_select_date_format").value = x.value;
+                    break;
+
+                case "redditPreferLocaleFormat":
+                    document.getElementById("reddit_settings_prefer_locale_format").checked = x.value;
+                    break;
+
+                case "redditCustomDateFormat":
+                    document.getElementById("reddit_settings_custom_date_format").value = x.value;
+                    break;
+
+                case "redditCustomPrefix":
+                    document.getElementById("reddit_settings_custom_prefix").value = x.value;
+                    break;
+
+
+            }
+        });       
+
     }
 }
 
-let loadHTMLSettings = () => {
+/**
+ * Perform execution after page has loaded
+ * 
+ */
+document.addEventListener("DOMContentLoaded", (()=>{
 
-    switch (htmlPageMeta) {
+    //#region Tab Switching Logic
+    const tabs = document.querySelectorAll("[data-tab-target]");
+    const tabContents = document.querySelectorAll("[data-tab-content]");
+    tabs.forEach((tab) => {
 
-        case "general":
-            let generalPref = SettingsArray.filter((key) => {
-                return key.category == CategoryEnum.General;
-            });
+    tab.addEventListener("click", () => {
+        const target = document.querySelector(tab.dataset.tabTarget);
+        tabContents.forEach(tabContent => tabContent.classList.remove("active"));
+        tabs.forEach(tabContent => tabContent.classList.remove("active"));
+        tab.classList.add("active");
+        target.classList.add("active");
 
-            generalPref.forEach(function (x) {
-                switch (x.key) {
-                    case "global_show_download_folder":
-                        document.getElementById("general_settings_auto_show_download_folder").checked = x.value
-                        break;
-                    case "global_enable_save_as_window":
-                        document.getElementById("general_settings_enable_save_as_window").checked = x.value
-                        break;
-                    case "global_notifications_updated":
-                        document.getElementById("general_settings_notification_updated").checked = x.value
-                        break;
-                }
-            });
-            break;
-
-        case "twitter":
-            let twitterPref = SettingsArray.filter((key) => {
-                return key.category == CategoryEnum.Twitter
-            });
-
-            twitterPref.map(function (x) {
-                switch (x.key) {
-                    case "twitter_include_mention_symbol":
-                        document.getElementById("twitter_settings_include_mention_symbol").checked = x.value;
-                        break;
-                    case "twitter_include_tweet_id":
-                        document.getElementById("twitter_settings_include_tweet_id").checked = x.value;
-                        break;
-                    case "twitter_include_date":
-                        document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
-                        UseDateFormat(x.value);
-                        break;
-                    case "twitter_date_format":
-                        document.getElementById("twitter_settings_select_date_format").value = x.value;
-                        break;
-                    case "twitter_random_string_length":
-                        document.getElementById("twitter_settings_string_length").value = x.value;
-                        break;
-                    case "twitter_include_website_title":
-                        document.getElementById("twitter_settings_site_title").checked = x.value;
-                        break;
-                }
-            });
-            break;
-
-        case "lineblog":
-            let lineblogPref = SettingsArray.filter((key) => {
-                return key.category == CategoryEnum.LINE_BLOG
-            });
-
-            lineblogPref.map(function (x) {
-                switch (x.key) {
-                    case "lbPrefIncludeWebsiteTitle":
-                        document.getElementById("lineblog_settings_include_site_title").checked = x.value;
-                        break;
-                    case "lbPrefIncludeBlogTitle":
-                        document.getElementById("lineblog_include_blog_title").checked = x.value;
-                        break;
-                    case "lbPrefUseDate":
-                        document.getElementById("lineblog_settings_include_date").checked = x.value;
-                        LineBlogUseDateFormat(x.value);
-                        break;
-                    case "lbPrefDateFormat":
-                        document.getElementById("lineblog_settings_select_date_format").value = x.value;
-                        break;
-                    case "lbPrefStringGenerator":
-                        document.getElementById("lineblog_string_length").value = x.value;
-                        break;
-                    case "lineblog_convert_title_romaji":
-                        document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
-                        break;
-                }
-            });
-            break;
-
-        case "reddit":
-
-            let redditPref = SettingsArray.filter((key) => {
-                return key.category == CategoryEnum.Reddit;
-            });
-
-            redditPref.map((x) => {
-                switch (x.key) {
-
-                    case "redditIncludeWebsite":
-                        document.getElementById("reddit_settings_site_title").checked = x.value;
-                        break;
-
-                    case "redditIncludePostID":
-                        document.getElementById("reddit_settings_subreddit_post_id").checked = x.value;
-                        break;
-
-                    case "redditIncludeDate":
-                        document.getElementById("reddit_settings_include_date").checked = x.value;
-                        RedditUseDateFormat(x.value);
-                        break;
-
-                    case "redditStringGenerator":
-                        document.getElementById("reddit_settings_string_length").value = x.value;
-                        break;
-
-                    case "redditDateFormat":
-                        document.getElementById("reddit_settings_select_date_format").value = x.value;
-                        break;
-
-
-                }
-            });
-
-            break;
-
-        case "about":
-            break;
-    }
-
-
-}
-
-function SaveOptions() {
-
-
-    switch (htmlPageMeta) {
-
-        case "general":
-            SaveSettings("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
-            SaveSettings("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
-            SaveSettings("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
-            break;
-
-        case "twitter":
-            console.log("TEST")
-            
-            SaveSettings("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
-            SaveSettings("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
-            SaveSettings("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
-            SaveSettings("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
-            SaveSettings("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
-            console.log(document.getElementById("twitter_settings_site_title").checked)
-            SaveSettings("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
-
-            break;
-
-        case "lineblog":
-            SaveSettings("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
-            SaveSettings("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
-            SaveSettings("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
-            SaveSettings("lbPrefDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
-            SaveSettings("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
-            SaveSettings("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
-            break;
-
-        case "reddit":
-            SaveSettings("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
-            SaveSettings("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
-            SaveSettings("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
-            SaveSettings("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
-            SaveSettings("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
-            break;
-    }
-
-    swal("", chrome.i18n.getMessage("context_save_success"), "success", {
-        buttons: false,
-        timer: 1500
+        });
     });
-}
+    //#endregion
 
-switch (htmlPageMeta) {
+    let temp = [];
+    let errorCode = {};
 
-    case "general":
-        break;
+    /**
+     * RULES FOR SAVING CONFIGURATION
+     * 
+     * 1. Add them in try-block. You need to perform text field validation
+     * 2. Any validation error in #1 should not save all configuration until condition is met
+     * 3. Remember to reset the temp and errorCode variables on every button click
+     * 4. Text field validation should take priority over checkbox or select controls
+     * 
+     */
+    document.querySelectorAll("button").forEach((buttons) => {
 
-    case "twitter":
-        let twitterUseDateCheckBox = document.getElementById("twitter_settings_include_date_checkbox");
-        let twitterSelectDateFormat = document.getElementById("twitter_settings_select_date_format");
+        switch (buttons.id) {
+    
+            case "button_help_twitter":
+                buttons.addEventListener("click", (()=>{
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#twitter"
+                    })
+                }));
+                break;
+    
+            case "button_help_lineblog":
+                buttons.addEventListener("click", (()=>{
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#line-blog"
+                    })
+                }));
+                break;
+    
+            case "button_help_reddit":
+                buttons.addEventListener("click", (()=>{
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#reddit"
+                    })
+                }));
+                break;
+    
+            case "button_save_general":
+                buttons.addEventListener("click", (() => {
+                    SaveSettings("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
+                    SaveSettings("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
+                    SaveSettings("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
+                    messageBox.Save();
+                }));
+    
+                break;
+    
+            case "button_save_twitter":
+    
+                buttons.addEventListener("click", (() => {
 
-        function UseDateFormat(IsUsingDate) {
-            if (!IsUsingDate) {
-                twitterSelectDateFormat.disabled = true;
-            } else {
-                twitterSelectDateFormat.disabled = false;
-            }
+                    try {
+                        
+                        if (temp.length > 0){
+                            temp = [];
+                            errorCode = {};
+                        }
+
+                        temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value));
+                        temp.push(ValidatePrefix("twitter_settings_custom_prefix", document.getElementById("twitter_settings_custom_prefix").value));
+                        temp.forEach((x)=>{
+                            if (x.is_error == true){
+                                errorCode["title"] = x.title;
+                                errorCode["message"] = x.message;
+                                throw errorCode;
+
+                            } 
+                        });
+                        
+                        SaveSettings("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
+                        SaveSettings("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
+                        SaveSettings("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
+                        SaveSettings("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
+                        SaveSettings("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
+                        SaveSettings("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
+                        SaveSettings("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
+                        messageBox.Save();
+        
+                    } catch(e){
+                        console.log(e);
+                        messageBox.Warning(e.title, e.message);
+                    }
+       
+                }));
+    
+                break;
+    
+            case "button_save_lineblog":
+                buttons.addEventListener("click", (() => {
+                    
+                    try {
+
+                        if (temp.length > 0){
+                            temp = [];
+                            errorCode = {};
+                        }
+
+                        temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
+                        temp.push(ValidatePrefix("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value));
+                        temp.forEach((x)=>{
+                            if (x.is_error == true){
+                                errorCode["title"] = x.title;
+                                errorCode["message"] = x.message;
+                                throw errorCode;
+
+                            } 
+                        });
+         
+                        SaveSettings("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
+                        SaveSettings("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
+                        SaveSettings("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
+                        SaveSettings("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
+                        SaveSettings("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
+                        SaveSettings("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
+                        SaveSettings("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
+    
+                        messageBox.Save();
+                        
+                    } catch(e){
+                        console.error(e)
+                        messageBox.Warning(e.title, e.message);
+                    }
+
+    
+                }));
+    
+                break;
+    
+            case "button_save_reddit":
+                buttons.addEventListener("click", (() => {
+
+                    try {
+                        ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
+                        ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value);
+
+                        SaveSettings("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
+                        SaveSettings("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
+                        SaveSettings("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
+                        SaveSettings("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
+                        SaveSettings("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
+                        SaveSettings("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked)
+
+                        messageBox.Save();
+                    } catch(e){
+                        console.log(e);
+                        messageBox.Warning(e.title, e.message);
+                    }
+
+                }));
+    
+                break;
+    
+            case "button_help_general":
+                buttons.addEventListener("click", (() => {
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#general"
+                    });
+                }));
+                break;
+    
+            case "button_help_twitter":
+                buttons.addEventListener("click", (() => {
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#twitter"
+                    });
+                }));
+                break;
+    
+            case "button_help_lineblog":
+                buttons.addEventListener("click", (() => {
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#line-blog"
+                    });
+                }));
+                break;
+    
+            case "button_help_reddit":
+                buttons.addEventListener("click", (() => {
+                    chrome.tabs.create({
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#reddit"
+                    });
+                }));
+                break;
+    
+    
         }
-
-        twitterUseDateCheckBox.onchange = function () {
-            if (!!this.checked) {
-                twitterSelectDateFormat.disabled = false;
-            } else {
-                twitterSelectDateFormat.disabled = true;
-            }
-        }
-        break;
-
-    case "lineblog":
-        let lineblogIsUsingDateChecked = document.getElementById("lineblog_settings_include_date");
-        let lineblogDateFormatTypeSelect = document.getElementById("lineblog_settings_select_date_format");
-
-        function LineBlogUseDateFormat(IsUsingDate) {
-            if (!IsUsingDate) {
-                lineblogDateFormatTypeSelect.disabled = true;
-            } else {
-                lineblogDateFormatTypeSelect.disabled = false;
-            }
-        }
-
-        lineblogIsUsingDateChecked.onchange = function () {
-            if (!!this.checked) {
-                lineblogDateFormatTypeSelect.disabled = false;
-            } else {
-                lineblogDateFormatTypeSelect.disabled = true;
-            }
-        }
-        break;
-
-    case "reddit":
-        let redditIsUsingDateChecked = document.getElementById("reddit_settings_include_date");
-        let redditDateFormatTypeSelect = document.getElementById("reddit_settings_select_date_format");
-
-        function RedditUseDateFormat(IsUsingDate) {
-            if (!IsUsingDate) {
-                redditDateFormatTypeSelect.disabled = true;
-            } else {
-                redditDateFormatTypeSelect.disabled = false;
-            }
-        }
-
-        redditIsUsingDateChecked.onchange = function () {
-            if (!!this.checked) {
-                redditDateFormatTypeSelect.disabled = false;
-            } else {
-                redditDateFormatTypeSelect.disabled = true;
-            }
-        }
-
-
-        break;
-
-    case "about":
-        break;
-
-}
+    });
+}));
