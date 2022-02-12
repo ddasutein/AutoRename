@@ -44,18 +44,24 @@ chrome.storage.local.get({
     twitter_include_mention_symbol: false,
     twitter_include_tweet_id: true,
     twitter_include_date: false,
-    twitter_date_format: "0",
     twitter_random_string_length: "4",
     twitter_include_website_title: false,
+    twitter_prefer_locale_format: true,
+    twitter_date_format: "custom",
+    twitter_settings_custom_date_format: "",
+    twitter_settings_custom_prefix: "",
     //#endregion
 
     //#region LINE BLOG Settings
     lbPrefIncludeWebsiteTitle: false,
     lbPrefIncludeBlogTitle: true,
     lbPrefUseDate: false,
-    lbPrefDateFormat: "0",
     lbPrefStringGenerator: "4",
     lineblog_convert_title_romaji: false,
+    lineblogPreferLocaleFormat: true,
+    lineblogDateFormat: "custom",
+    lineblogCustomDateFormat: "",
+    lineblogCustomPrefix: "",
     //#endregion
 
     //#region Reddit Settings
@@ -63,7 +69,11 @@ chrome.storage.local.get({
     redditIncludePostID: true,
     redditStringGenerator: "4",
     redditIncludeDate: false,
-    redditDateFormat: "0"
+    redditPreferLocaleFormat: true,
+    redditDateFormat: "custom",
+    redditCustomDateFormat: "",
+    redditCustomPrefix: "",
+
     //#endregion
 
 
@@ -72,6 +82,7 @@ chrome.storage.local.get({
 
     SettingsArray.push(
 
+        //#region General Settings
         {
             category: CategoryEnum.General,
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
@@ -92,7 +103,12 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
             value: items.global_enable_save_as_window,
             key: "general_settings_enable_save_as_window"
-        }, {
+        }, 
+        
+        //#endregion
+
+        //#region Twitter Settings
+        {
             category: CategoryEnum.Twitter,
             name: chrome.i18n.getMessage("twitter_settings_include_mention_symbol"),
             value: items.twitter_include_mention_symbol,
@@ -114,18 +130,33 @@ chrome.storage.local.get({
             key: "twitter_include_date"
         }, {
             category: CategoryEnum.Twitter,
-            name: chrome.i18n.getMessage("common_label_date_format"),
-            value: items.twitter_date_format,
-            key: "twitter_date_format"
-        }, 
-        
-        {
-            category: CategoryEnum.Twitter,
             name: chrome.i18n.getMessage("twitter_settings_site_title"),
             value: items.twitter_include_website_title,
             key: "twitter_include_website_title"
+        }, {
+            category: CategoryEnum.Twitter,
+            name: chrome.i18n.getMessage("common_label_prefer_locale_format"),
+            value: items.twitter_prefer_locale_format,
+            key: "twitter_prefer_locale_format"
+        }, {
+            category: CategoryEnum.Twitter,
+            name: "Date Format",
+            value: items.twitter_date_format,
+            key: "twitter_date_format"
+        }, {
+            category: CategoryEnum.Twitter,
+            name: "Twitter Custom Date Format",
+            value: items.twitter_settings_custom_date_format,
+            key: "twitter_settings_custom_date_format"
+        }, {
+            category: CategoryEnum.Twitter,
+            name: "Custom Prefix",
+            value: items.twitter_settings_custom_prefix,
+            key: "twitter_settings_custom_prefix"
         },
-        
+        //#endregion
+
+        //#region LINE BLOG Settings
         {
             category: CategoryEnum.LINE_BLOG,
             name: chrome.i18n.getMessage("setting_include_lineblog_web_title"),
@@ -143,11 +174,6 @@ chrome.storage.local.get({
             key: "lbPrefUseDate"
         }, {
             category: CategoryEnum.LINE_BLOG,
-            name: "Date Format",
-            value: items.lbPrefDateFormat,
-            key: "lbPrefDateFormat"
-        }, {
-            category: CategoryEnum.LINE_BLOG,
             name: chrome.i18n.getMessage("settings_generate_string"),
             value: items.lbPrefStringGenerator,
             key: "lbPrefStringGenerator"
@@ -156,7 +182,31 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
             value: items.lineblog_convert_title_romaji,
             key: "lineblog_convert_title_romaji"
+        },  {
+            category: CategoryEnum.LINE_BLOG,
+            name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+            value: items.lineblogPreferLocaleFormat,
+            key: "lineblogPreferLocaleFormat"
+        },  {
+            category: CategoryEnum.LINE_BLOG,
+            name: "Date Format",
+            value: items.lineblogDateFormat,
+            key: "lineblogDateFormat"
         }, {
+            category: CategoryEnum.LINE_BLOG,
+            name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+            value: items.lineblogCustomDateFormat,
+            key: "lineblogCustomDateFormat"
+        },  {
+            category: CategoryEnum.LINE_BLOG,
+            name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+            value: items.lineblogCustomPrefix,
+            key: "lineblogCustomPrefix"
+        }, 
+        //#endregion
+
+        //#region Reddit Settings
+        {
             category: CategoryEnum.Reddit,
             name: chrome.i18n.getMessage("reddit_settings_site_title"),
             value: items.redditIncludeWebsite,
@@ -176,12 +226,28 @@ chrome.storage.local.get({
             name: chrome.i18n.getMessage("reddit_settings_include_date"),
             value: items.redditIncludeDate,
             key: "redditIncludeDate"
-        }, {
+        },  {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_include_date"),
+            value: items.redditPreferLocaleFormat,
+            key: "redditPreferLocaleFormat"
+        },  {
             category: CategoryEnum.Reddit,
             name: "Date Format",
             value: items.redditDateFormat,
             key: "redditDateFormat"
-        }
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_include_date"),
+            value: items.redditCustomDateFormat,
+            key: "redditCustomDateFormat"
+        }, {
+            category: CategoryEnum.Reddit,
+            name: chrome.i18n.getMessage("reddit_settings_include_date"),
+            value: items.redditCustomPrefix,
+            key: "redditCustomPrefix"
+        },
+        //#endregion
     );
 });
 
@@ -207,7 +273,7 @@ chrome.storage.onChanged.addListener(function (changes, namespace) {
 function SaveSettings(keyName, value) {
     let settingsObj = {};
     settingsObj[keyName] = value;
-    console.log(settingsObj);
+    // console.log(settingsObj);
     chrome.storage.local.set(settingsObj);
 }
 
