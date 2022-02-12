@@ -12,7 +12,7 @@
  * 
  */
 
-function SaveLINEBlogMedia(tabUrl, url){
+function SaveLINEBlogMedia(tabUrl, url, customObj){
 
     if (BrowserTabInfo.URL.match(Website.LINE_BLOG)){
         lineblogTitle = BrowserTabInfo.Title.split("-")[1] != undefined ? BrowserTabInfo.Title.split("-")[1].trim().toString() : "";
@@ -28,61 +28,83 @@ function SaveLINEBlogMedia(tabUrl, url){
     function buildFileName(fileNameObj){
         let temp;
         let isUsingDateFormat;
-        temp = `LINE BLOG-${fileNameObj.username}-${lineblogId}-${fileNameObj.blogtitle}-{date}-{string}`;
+        // temp = `LINE BLOG-${fileNameObj.username}-${lineblogId}-${fileNameObj.blogtitle}-{date}-{string}`;
+        temp = `{prefix}-{website_title}-{username}-{lineblogId}-{lineblogtitle}-{date}-{string}`;
         temp = temp.split("-");
-        console.log(temp);
 
-        Object.values(SettingsArray.filter((key)=>{
+        const lineBlogConfig = SettingsArray.filter((key)=>{
             return key.category == CategoryEnum.LINE_BLOG
-        }).map((key, index)=>{
-            switch (index) {
+        }).map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
 
-                // lbPrefIncludeWebsiteTitle
-                case 0:
-                    if (!key.value){
-                        idx = temp.indexOf("LINE BLOG");
-                        if (idx > -1){
-                            temp.splice(idx, 1)
-                        }
-                    }
-                    break;
+        if (!lineBlogConfig["lbPrefIncludeWebsiteTitle"].value){
+            Utility.RemoveUnusedParameter(temp, "{website_title}");
+        } else {
+            temp[temp.indexOf("{website_title}")] = `LINE BLOG`;
+        }
 
-                case 1:
-                    if (!key.value){
-                        idx = temp.indexOf(fileNameObj.blogtitle);
-                        if (idx > -1){
-                            temp.splice(idx, 1);
-                        }
-                    }
-                    break;
+        if (!lineBlogConfig["lbPrefIncludeBlogTitle"].value){
+            Utility.RemoveUnusedParameter(temp, "{lineblogtitle}");
+        } else {
+            temp[temp.indexOf("{lineblogtitle}")] = fileNameObj.blogtitle;
+        }
 
-                case 2: 
-                    if (!key.value){
-                        isUsingDateFormat = false;
-                        idx = temp.indexOf("{date}");
-                        if (idx > -1){
-                            temp.splice(idx, 1);
-                        }
-                    } else {
-                        isUsingDateFormat = true;
-                    }
-                    break;
+        if (lineBlogConfig["lbPrefStringGenerator"].value == "0"){
+            Utility.RemoveUnusedParameter(temp, "{string}");
+        } else {
+            temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(lineBlogConfig["lbPrefStringGenerator"].value);
+        }
 
-                case 3:
-                    if (isUsingDateFormat){
-                        temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
-                    }
-                    break;
+        if (!lineBlogConfig["lbPrefUseDate"].value){
+            Utility.RemoveUnusedParameter(temp, "{date}");
+        } else {
 
-                case 4:
-                    temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
-                    break;
-                
+            let prefObj = {};
+
+            if (lineBlogConfig["lineblogPreferLocaleFormat"].value == true){
+                prefObj["prefer_locale_format"] = true;
+                const timedateValue = getTimeDate(prefObj);
+                temp[temp.indexOf("{date}")] = timedateValue;
+            } else {
+
+                prefObj["prefer_locale_format"] = false;
+
+                if (lineBlogConfig["lineblogDateFormat"].value == "custom"){
+                    prefObj["date_format"] = lineBlogConfig["lineblogCustomDateFormat"].value;
+                } else {
+                    prefObj["date_format"] = GetDateFormat(lineBlogConfig["lineblogDateFormat"].value)
+                }
+
+                const timedateValue = getTimeDate(prefObj);
+                console.log(timedateValue)
+                temp[temp.indexOf("{date}")] = timedateValue;
 
             }
 
-        }));
-        console.log(temp)
+        }
+
+        if (customObj.use_prefix == true){
+
+            if (lineBlogConfig["lineblogCustomPrefix"].value == ""){
+                Utility.RemoveUnusedParameter(temp, "{prefix}");
+            } else {
+                temp[temp.indexOf("{prefix}")] = lineBlogConfig["lineblogCustomPrefix"].value;
+            }
+
+        } else {
+            Utility.RemoveUnusedParameter(temp, "{prefix}");
+        }
+
+        temp[temp.indexOf("{username}")] = fileNameObj.username;
+        temp[temp.indexOf("{lineblogId}")] = lineblogId;
+
         return temp.toString().replace(/,/g, "-");
     }
 

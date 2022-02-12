@@ -12,7 +12,7 @@
  * 
  */
 
-function SaveRedditMedia(tabUrl, url, linkUrl) {
+function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
 
    function getRedditImageFormat(mediaLink) {
       console.log("url test", mediaLink)
@@ -37,60 +37,81 @@ function SaveRedditMedia(tabUrl, url, linkUrl) {
    function buildFileName(fileNameObj) {
       let temp;
       let isUsingDateFormat;
-      temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{date}-{string}`;
+      // temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{date}-{string}`;
+
+      temp = `{prefix}-{website_title}-{subreddit_name}-{subreddit_post_id}-{post_title}-{date}-{string}`;
       temp = temp.split("-");
 
-      Object.values(SettingsArray.filter((key) => {
+      const redditConfig = SettingsArray.filter((key) => {
          return key.category == CategoryEnum.Reddit;
-      }).map((key, index) => {
-         switch (index) {
-
-            // redditIncludeWebsite
-            case 0:
-               if (!key.value) {
-                  idx = temp.indexOf("Reddit");
-                  if (idx > -1) {
-                     temp.splice(idx, 1);
-                  }
-               }
-               break;
-
-               // redditIncludePostID
-            case 1:
-               if (!key.value) {
-                  idx = temp.indexOf(fileNameObj.redditPostId);
-                  if (idx > -1) {
-                     temp.splice(idx, 1);
-                  }
-               }
-               break;
-
-               // redditStringGenerator
-            case 2:
-               temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value);
-               break;
-
-               // redditIncludeDate
-            case 3:
-               if (!key.value) {
-                  isUsingDateFormat = false;
-                  idx = temp.indexOf("{date}");
-                  if (idx > -1) {
-                     temp.splice(idx, 1);
-                  }
-               } else {
-                  isUsingDateFormat = true
-               }
-               break;
-
-               // redditDateFormat
-            case 4:
-               if (isUsingDateFormat) {
-                  temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
-               }
-               break;
+      }).map((data) => {
+         return {
+            "key": data.key,
+            "value": data.value
          }
-      }));
+      }).reduce((obj, data) => {
+         obj[data.key] = data;
+         return obj;
+      }, {});
+
+      if (!redditConfig["redditIncludeWebsite"].value) {
+         Utility.RemoveUnusedParameter(temp, "{website_title}");
+      } else {
+         temp[temp.indexOf("{website_title}")] = "Reddit";
+      }
+
+      if (!redditConfig["redditIncludePostID"].value) {
+         Utility.RemoveUnusedParameter(temp, "{subreddit_post_id}");
+      } else {
+         temp[temp.indexOf("{subreddit_post_id}")] = fileNameObj.redditPostId;
+      }
+
+      if (!redditConfig["redditStringGenerator"].value == "0") {
+         Utility.RemoveUnusedParameter(temp, "{string}");
+      } else {
+         temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(redditConfig["redditStringGenerator"].value);
+      }
+
+      if (!redditConfig["redditIncludeDate"].value) {
+         Utility.RemoveUnusedParameter(temp, "{date}");
+      } else {
+         let prefObj = {};
+
+         if (redditConfig["redditPreferLocaleFormat"].value == true) {
+            prefObj["prefer_locale_format"] = true;
+            const timedateValue = getTimeDate(prefObj);
+            temp[temp.indexOf("{date}")] = timedateValue;
+         } else {
+
+            prefObj["prefer_locale_format"] = false;
+
+            if (redditConfig["redditDateFormat"].value == "custom") {
+               prefObj["date_format"] = redditConfig["twitter_settings_custom_date_format"].value;
+            } else {
+               prefObj["date_format"] = GetDateFormat(redditConfig["redditDateFormat"].value);
+            }
+
+            const timedateValue = getTimeDate(prefObj)
+            temp[temp.indexOf("{date}")] = timedateValue;
+
+         }
+
+      }
+
+      if (customObj.use_prefix == true) {
+
+         if (redditConfig["redditCustomPrefix"].value == "") {
+            Utility.RemoveUnusedParameter(temp, "{prefix}");
+         } else {
+            temp[temp.indexOf("{prefix}")] = redditConfig["redditCustomPrefix"].value;
+         }
+      } else {
+         Utility.RemoveUnusedParameter(temp, "{prefix}");
+      }
+
+      temp[temp.indexOf("{subreddit_name}")] = fileNameObj.subredditName;
+      temp[temp.indexOf("{post_title}")] = fileNameObj.redditPostTitle.replace(/-/g, "_");
+
 
       return temp.toString().replace(/,/g, "-");
 
