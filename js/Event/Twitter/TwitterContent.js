@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -52,7 +52,7 @@ function ViewOriginalMedia(url) {
     });
 }
 
-function SaveTwitterMedia(tabUrl, url, linkUrl){
+function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
 
     if (Utility.SplitURL(tabUrl, 5) == null || Utility.SplitURL(tabUrl, 5).length == 0){
 
@@ -65,7 +65,7 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
 
     function buildFileName(fileNameObj){
         let temp;
-        temp = `{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
+        temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
 
         const twitterConfig = SettingsArray.filter((key)=>{
@@ -88,37 +88,19 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
         }
 
         if (!twitterConfig["twitter_include_tweet_id"].value){
-            idx = temp.indexOf("{tweetId}");
-            if (idx > -1){
-                temp.splice(idx, 1);
-            }
+            Utility.RemoveUnusedParameter(temp, "{tweetId}");
         } else {
             temp[temp.indexOf("{tweetId}")] = fileNameObj.tweetId;
         }
 
-        if (!twitterConfig["twitter_random_string_length"].value == "0"){
-            idx = temp.indexOf("{string}");
-            if (idx > -1){
-                temp.splice(idx, 1);
-            }
-        } else {
-            temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
-        }
-
         if (!twitterConfig["twitter_include_website_title"].value){
-            idx = temp.indexOf("{website_title}");
-            if (idx > -1){
-                temp.splice(idx, 1);
-            }
+            Utility.RemoveUnusedParameter(temp, "{website_title}");
         } else {
             temp[temp.indexOf("{website_title}")] = "Twitter";
         }
 
         if (!twitterConfig["twitter_include_date"].value){
-            idx = temp.indexOf("{date}");
-            if (idx > -1){
-                temp.splice(idx, 1);
-            }
+            Utility.RemoveUnusedParameter(temp, "{date}");
         } else {
             let prefObj = {};
 
@@ -144,12 +126,21 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
         }
 
         if (twitterConfig["twitter_random_string_length"].value == "0"){
-            idx = temp.indexOf("{randomstring}");
-            if (idx > -1){
-                temp.splice(idx, 1);
-            }
+            Utility.RemoveUnusedParameter(temp, "{randomstring}");
         } else {
             temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
+        }
+
+        if (customObj.use_prefix == true){
+
+            if (twitterConfig["twitter_settings_custom_prefix"].value == ""){
+                Utility.RemoveUnusedParameter(temp, "{prefix}");
+            } else {
+                temp[temp.indexOf("{prefix}")] = twitterConfig["twitter_settings_custom_prefix"].value;
+            }
+
+        } else {
+            Utility.RemoveUnusedParameter(temp, "{prefix}");
         }
 
         return temp.toString().replace(/,/g, "-");
@@ -189,7 +180,8 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
         filename: buildFileName(fileNameObj) + getImageFormat(url),
         url: twitterMediaSrc
     });
-    console.log(twitterImageFile)
+    
+    DevMode ? console.log(twitterImageFile) : "";
     StartDownload(twitterImageFile);
 
 }
