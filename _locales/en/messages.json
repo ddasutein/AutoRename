@@ -329,5 +329,39 @@
 
     "reddit_settings_include_date": {
         "message": "Include Date (Based on System Date)"
+    },
+
+    "button_help": {
+        "message": "Help"
+    },
+
+    "common_banner_more_detail": {
+        "message": "More details"
+    },
+
+    "help_text_date_format": {
+        "message": "Visit the GitHub Wiki or click the Help button on how to configure date format"
+    },
+
+    "common_section_time_and_date": {
+        "message": "Time and Date"
+    },
+
+    "common_label_prefer_locale_format": {
+        "message": "Prefer Locale Format"
+    },
+
+    "common_label_custom_date_format": {
+        "message": "Custom Date/Time Format"
+    },
+
+    "system_information_browser": {
+        "message": "Browser"
+    }, 
+
+    "common_date_format_item_label_option_custom": {
+        "message": "Custom"
     }
+    
+    
 }
