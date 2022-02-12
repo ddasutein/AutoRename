@@ -36,13 +36,6 @@ let Utility = {
     SplitURL : ((url, index) => {
         let split = url.split("/"); 
         return split[index];
-    }),
-
-    RemoveUnusedParameter : ((arr, keyName)=>{
-        idx = arr.indexOf(keyName);
-        if (idx > -1){
-            return arr.splice(idx, 1);
-        }
     })
 
 }
