@@ -409,8 +409,24 @@ document.addEventListener("DOMContentLoaded", (()=>{
                 buttons.addEventListener("click", (() => {
 
                     try {
-                        ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
-                        ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value);
+
+                        if (temp.length > 0){
+                            temp = [];
+                            errorCode = {};
+                        }
+
+                        temp.push(ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value));
+                        temp.push(ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value));
+
+                        temp.forEach((x)=>{
+                            if (x.is_error == true){
+                                errorCode["title"] = x.title;
+                                errorCode["message"] = x.message;
+                                throw errorCode;
+
+                            } 
+                        });
+         
 
                         SaveSettings("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
                         SaveSettings("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);

@@ -13,6 +13,10 @@
         "message": "セーブ"
     },
 
+    "button_help": {
+        "message": "ヘルプ"
+    },
+
     "common_label_date_format": {
         "message": "日付形式"
     },
@@ -137,6 +141,42 @@
         "message": "訳"
     },
 
+    "common_banner_more_detail": {
+        "message": "詳細"
+    },
+
+    "common_section_time_and_date": {
+        "message": "日時"
+    },
+
+    "common_label_prefer_locale_format": {
+        "message": "ロケール形式を優先する"
+    },
+
+    "common_label_custom_date_format": {
+        "message": "カスタムの日付/時刻形式"
+    },
+
+    "system_information_browser": {
+        "message": "ブラウザ"
+    }, 
+
+    "common_date_format_item_label_option_custom": {
+        "message": "カスタム"
+    },
+
+    "common_section_custom_prefix": {
+        "message": "カスタムプレフィックス"
+    },
+    
+    "common_label_prefix": {
+        "message": "プレフィックス"
+    },
+
+    "common_label_settings": {
+        "message": "設定"
+    },
+
     "context_click_here": {
         "message": "ここをクリック"
     },
@@ -199,6 +239,10 @@
 
     "error_reddit_old_half_view": {
         "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
+    },
+
+    "help_text_date_format": {
+        "message": "GitHub Wikiにアクセスするか、このフィールドの構成方法について[ヘルプ]ボタンをクリックしてください。」"
     },
 
     "message_toast_welcome_title": {
