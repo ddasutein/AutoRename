@@ -15,8 +15,6 @@ Download now
 <h1></h1>
 </p>
 
-**Automatically rename downloaded images from the internet**
-
 This Chromium extension is designed to automatically rename files using custom parameters to keep your files more organized. Normally, when you download files from the internet, file names are often scrambled with random words and numbers that don't mean anything.  
 
 **BEFORE**
@@ -35,17 +33,28 @@ These parameters can be customized in the Extension Options.
 
 ![autorename-after](https://user-images.githubusercontent.com/24803220/55883848-9d80b700-5bd9-11e9-950a-9b8ae05e9f5b.png)
 
+## Getting Started
+
+Check out the Wiki tab for instructions on how to use the extension. 
+
+## Donation
+
+Developing this extension is not my full time job and I do it mostly on my free time. If you want to support my work, you are more than welcome to donate. Please don't spend anything beyond your means. I'm already financially stable with my actual job!
+
+[Donatation Link](paypal.me/dustinlirio)
+
+
 ## Compatibility
 
 This extension primarily targets the Microsoft Edge (Chromium) and Google Chrome browsers only. I cannot guarantee support for other Chromium based browsers. 
 
 ## Bug Report or Feature Suggestion
 
-If you have a bug report or a feature that you want to see implemeneted, kindly go to Issues and submit a post there.
+For bug reports, go to the issues tab. If you want to discuss new features or if you have any questions, go to the discussion tab.
 
 ## MIT License
 
-Copyright (c) 2020 Dasutein
+Copyright (c) 2022 Dasutein
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
