@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -20,7 +20,7 @@
 const elements = document.querySelectorAll('[data-i18n]');
 
 function SetLocale() {
-    elements.forEach(el => el.innerHTML = chrome.i18n.getMessage(el.dataset.i18n));
+    elements.forEach(el => el.textContent = chrome.i18n.getMessage(el.dataset.i18n));
 }
 
 document.addEventListener("DOMContentLoaded", SetLocale);
