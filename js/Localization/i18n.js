@@ -20,7 +20,7 @@
 const elements = document.querySelectorAll('[data-i18n]');
 
 function SetLocale() {
-    elements.forEach(el => el.innerHTML = chrome.i18n.getMessage(el.dataset.i18n));
+    elements.forEach(el => el.textContent = chrome.i18n.getMessage(el.dataset.i18n));
 }
 
 document.addEventListener("DOMContentLoaded", SetLocale);
