@@ -59,8 +59,8 @@ function ValidateDateTimeFormat(settingsKey, dateString){
     let output = {};
 
     if (dateString == "" || dateString == null || dateString == undefined){
-        output["title"] = "Invalid";
-        output["message"] = "Date format is either empty or invalid"
+        output["title"] = chrome.i18n.getMessage("error_title_invalid");
+        output["message"] = chrome.i18n.getMessage("error_validation_date_time_format");
         output["is_error"] = true;
     } else {
 
@@ -68,8 +68,8 @@ function ValidateDateTimeFormat(settingsKey, dateString){
         if (dateString.match(specialCharacters)){
             isValidDateFormat = false;
 
-            output["title"] = "Invalid";
-            output["message"] = "Date format is either empty or invalid"
+            output["title"] = chrome.i18n.getMessage("error_title_invalid");
+            output["message"] = chrome.i18n.getMessage("error_validation_date_time_format");
             output["is_error"] = true;
 
         } else {
@@ -99,8 +99,8 @@ function ValidatePrefix(settingsKey, prefixString){
     console.log(prefixString);
     console.log(specialCharacters.test(prefixString))
     if (prefixString.match(specialCharacters)){
-        output["title"] = "Invalid Prefix";
-        output["message"] = "Prefix contains special characters. Please remove them";
+        output["title"] = chrome.i18n.getMessage("error_title_invalid");
+        output["message"] = chrome.i18n.getMessage("error_validation_prefix");
         output["is_error"] = true;
     } else {
         output["is_error"] = false;
