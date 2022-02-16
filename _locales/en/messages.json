@@ -258,6 +258,14 @@
         "message": "Visit the GitHub Wiki or click the Help button on how to configure this field"
     },
 
+    "info_message_announcement_label": {
+        "message": "Announcement"
+    },
+
+    "info_click_announcement_link": {
+        "message": "Clicking this link will redirect to you"
+    },
+
     "message_toast_welcome_title": {
         "message": "Welcome to"
     },
@@ -280,6 +288,10 @@
 
     "message_toast_button_ok": {
         "message": "OK"
+    },
+
+    "message_prompt_user_continue": {
+        "message": "Would you like to continue?"
     },
 
     "privacy_policy_and_other_links_terms": {

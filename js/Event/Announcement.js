@@ -46,8 +46,8 @@ function loadRestAPI(){
                                     buttons.addEventListener("click", (()=>{
 
                                         swal({
-                                            title: "Announcement",
-                                            text: `Clicking this link will redirect to you ${bannerUrl} \n\nWould you like to continue?`,
+                                            title: chrome.i18n.getMessage("info_message_announcement_label"),
+                                            text: `${chrome.i18n.getMessage("info_click_announcement_link")} ${bannerUrl} \n\n${chrome.i18n.getMessage("message_prompt_user_continue")}`,
                                             icon: "info",
                                             buttons: true,
                                             dangerMode: true
