@@ -12,8 +12,7 @@
         "128": "/assets/autorename-128px.png"
     },
     "browser_action":{
-        "default_title": "AutoRename",
-        "default_popup": "popup.html"
+        "default_title": "AutoRename"
     },
 
     "background": {
