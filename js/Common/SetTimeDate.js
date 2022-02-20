@@ -31,13 +31,20 @@ let MonthsInShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Se
 
 function getTimeDate(pref = {}){
 
+    const specialCharacters = new RegExp(/[:/]/g)
+
     // based on browser language setting
     let uiLanguage = chrome.i18n.getUILanguage();
 
     if (pref.prefer_locale_format == true){
         return moment().locale(uiLanguage).format("LL");
     } else {
-        return moment().format(pref.date_format);
+        timedate = moment().format(pref.date_format);
+        if (timedate.match(specialCharacters)){
+            timedate = timedate.replace(specialCharacters, "_");
+        }
+
+        return timedate;
     }
 }
 
