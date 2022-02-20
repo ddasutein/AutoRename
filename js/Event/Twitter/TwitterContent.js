@@ -68,9 +68,7 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
 
-        const twitterConfig = SettingsArray.filter((key)=>{
-            return key.category == CategoryEnum.Twitter
-        }).map((data)=>{
+        const twitterConfig = Settings.Load().Twitter.map((data)=>{
             return {
                 "key": data.key,
                 "value": data.value

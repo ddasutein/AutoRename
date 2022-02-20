@@ -32,9 +32,7 @@ function SaveLINEBlogMedia(tabUrl, url, customObj){
         temp = `{prefix}-{website_title}-{username}-{lineblogId}-{lineblogtitle}-{date}-{string}`;
         temp = temp.split("-");
 
-        const lineBlogConfig = SettingsArray.filter((key)=>{
-            return key.category == CategoryEnum.LINE_BLOG
-        }).map((data)=>{
+        const lineBlogConfig = Settings.Load().LINE_BLOG.map((data)=>{
             return {
                 "key": data.key,
                 "value": data.value

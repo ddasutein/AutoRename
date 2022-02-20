@@ -81,7 +81,7 @@ function ValidateDateTimeFormat(settingsKey, dateString){
     if (output.is_error){
         return output;
     } else {
-        SaveSettings(settingsKey, dateString);
+        Settings.Save(settingsKey, dateString);
         return output;
     }
 }
@@ -109,7 +109,7 @@ function ValidatePrefix(settingsKey, prefixString){
     if (output.is_error){
         return output;
     } else {
-        SaveSettings(settingsKey, prefixString);
+        Settings.Save(settingsKey, prefixString);
         return output;
     }
 }
@@ -119,9 +119,7 @@ function ValidatePrefix(settingsKey, prefixString){
 document.onreadystatechange = () => {
 
     if (document.readyState == "interactive" || document.readyState == "complete") {
-        const generalPref = SettingsArray.filter((key) => {
-            return key.category == CategoryEnum.General;
-        });
+        const generalPref = Settings.Load().General;
 
         generalPref.forEach(function (x) {
             switch (x.key) {
@@ -137,9 +135,7 @@ document.onreadystatechange = () => {
             }
         });
 
-        const twitterPref = SettingsArray.filter((key) => {
-            return key.category == CategoryEnum.Twitter
-        });
+        const twitterPref = Settings.Load().Twitter;
 
         twitterPref.map(function (x) {
             switch (x.key) {
@@ -170,9 +166,7 @@ document.onreadystatechange = () => {
             }
         });
 
-        const lineblogPref = SettingsArray.filter((key) => {
-            return key.category == CategoryEnum.LINE_BLOG
-        });
+        const lineblogPref = Settings.Load().LINE_BLOG;
 
         lineblogPref.map(function (x) {
             switch (x.key) {
@@ -206,9 +200,7 @@ document.onreadystatechange = () => {
             }
         });
 
-        const redditPref = SettingsArray.filter((key) => {
-            return key.category == CategoryEnum.Reddit;
-        });
+        const redditPref = Settings.Load().Reddit;
 
         redditPref.map((x) => {
             switch (x.key) {
@@ -316,9 +308,9 @@ document.addEventListener("DOMContentLoaded", (()=>{
     
             case "button_save_general":
                 buttons.addEventListener("click", (() => {
-                    SaveSettings("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
-                    SaveSettings("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
-                    SaveSettings("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
+                    Settings.Save("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
+                    Settings.Save("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
+                    Settings.Save("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
                     messageBox.Save();
                 }));
     
@@ -346,13 +338,13 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             } 
                         });
                         
-                        SaveSettings("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
-                        SaveSettings("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
-                        SaveSettings("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
-                        SaveSettings("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
-                        SaveSettings("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
-                        SaveSettings("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
-                        SaveSettings("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
+                        Settings.Save("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
+                        Settings.Save("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
+                        Settings.Save("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
+                        Settings.Save("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
+                        Settings.Save("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
+                        Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
+                        Settings.Save("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
                         messageBox.Save();
         
                     } catch(e){
@@ -385,13 +377,13 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             } 
                         });
          
-                        SaveSettings("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
-                        SaveSettings("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
-                        SaveSettings("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
-                        SaveSettings("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
-                        SaveSettings("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
-                        SaveSettings("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
-                        SaveSettings("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
+                        Settings.Save("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
+                        Settings.Save("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
+                        Settings.Save("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
+                        Settings.Save("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
+                        Settings.Save("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
+                        Settings.Save("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
+                        Settings.Save("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
     
                         messageBox.Save();
                         
@@ -428,12 +420,12 @@ document.addEventListener("DOMContentLoaded", (()=>{
                         });
          
 
-                        SaveSettings("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
-                        SaveSettings("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
-                        SaveSettings("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
-                        SaveSettings("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
-                        SaveSettings("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
-                        SaveSettings("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked)
+                        Settings.Save("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
+                        Settings.Save("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
+                        Settings.Save("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
+                        Settings.Save("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
+                        Settings.Save("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
+                        Settings.Save("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked)
 
                         messageBox.Save();
                     } catch(e){
