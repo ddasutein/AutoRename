@@ -152,7 +152,6 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
 
     // Rule 1: When full tweet is clicked then it should be prioritized first
     if (!!tabUrl){
-        console.log('tab url ' + tabUrl);
         if (specialCharacters.test(Utility.SplitURL(tabUrl, 5))){
             tweetId = Utility.SplitURL(tabUrl, 5).split(specialCharacters)[0];
         } else {
@@ -163,7 +162,6 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
     // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
     if (tweetId == "" || tweetId == undefined || tweetId == null){
         if (!!linkUrl){
-            console.log("link url " + linkUrl);
             if (specialCharacters.test(Utility.SplitURL(linkUrl, 5))){
                 tweetId = Utility.SplitURL(linkUrl, 5).split(specialCharacters)[0];
             } else {

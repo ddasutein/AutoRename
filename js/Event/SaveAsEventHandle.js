@@ -120,12 +120,12 @@ function QueryTab() {
 
             url = url.split("/");
             url = url[2];
-            console.log(url);
+            DevMode ? console.log(url) : "";
             UpdateContextMenus(url);
 
             BrowserTabInfo.Title = title;
             BrowserTabInfo.URL = url;
-            console.log(BrowserTabInfo)
+            DevMode ? console.log(BrowserTabInfo) : "";
         }));
 
     }, 500);

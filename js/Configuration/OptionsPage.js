@@ -96,8 +96,6 @@ function ValidateDateTimeFormat(settingsKey, dateString){
 function ValidatePrefix(settingsKey, prefixString){
 
     let output = {};
-    console.log(prefixString);
-    console.log(specialCharacters.test(prefixString))
     if (prefixString.match(specialCharacters)){
         output["title"] = chrome.i18n.getMessage("error_title_invalid");
         output["message"] = chrome.i18n.getMessage("error_validation_prefix");
@@ -348,7 +346,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
                         messageBox.Save();
         
                     } catch(e){
-                        console.log(e);
+                        console.error(e);
                         messageBox.Warning(e.title, e.message);
                     }
        
@@ -429,7 +427,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
 
                         messageBox.Save();
                     } catch(e){
-                        console.log(e);
+                        console.error(e);
                         messageBox.Warning(e.title, e.message);
                     }
 

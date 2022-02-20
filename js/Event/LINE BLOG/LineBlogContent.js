@@ -81,7 +81,6 @@ function SaveLINEBlogMedia(tabUrl, url, customObj){
                 }
 
                 const timedateValue = getTimeDate(prefObj);
-                console.log(timedateValue)
                 temp[temp.indexOf("{date}")] = timedateValue;
 
             }
