@@ -150,7 +150,11 @@ function UpdateContextMenus(url) {
 
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: true 
-                });
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
             
         case Website.Mobile_Twitter:
@@ -161,7 +165,11 @@ function UpdateContextMenus(url) {
 
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: true 
-                });
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
 
         case Website.LINE_BLOG:
@@ -173,6 +181,10 @@ function UpdateContextMenus(url) {
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: false 
             });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
 
         case Website.Reddit:
@@ -182,6 +194,10 @@ function UpdateContextMenus(url) {
 
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: false 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
@@ -193,6 +209,10 @@ function UpdateContextMenus(url) {
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: false 
             });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
 
         case Website.Reddit_New:
@@ -202,6 +222,11 @@ function UpdateContextMenus(url) {
 
             chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
                 visible: false 
+            });
+
+            
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
@@ -215,6 +240,10 @@ function UpdateContextMenus(url) {
                 });
 
                 chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
                     visible: false
                 });
                 
