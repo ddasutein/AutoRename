@@ -40,7 +40,6 @@ function loadRestAPI(){
                         document.getElementById("announcement_body").textContent = bodyContent;
 
                         document.querySelectorAll("button").forEach((buttons)=>{
-                            console.log(buttons.id)
                             switch (buttons.id){
                                 case "button_banner_link":
                                     buttons.addEventListener("click", (()=>{

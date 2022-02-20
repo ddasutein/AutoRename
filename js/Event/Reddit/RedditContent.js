@@ -15,7 +15,6 @@
 function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
 
    function getRedditImageFormat(mediaLink) {
-      console.log("url test", mediaLink)
       if (mediaLink.includes("i.redd.it")) {
          return "." + mediaLink.split(".")[3]
       } else if (mediaLink.includes("preview.redd.it")) {
@@ -121,7 +120,6 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
    debugObj["tab"] = tabUrl;
    debugObj["url"] = url;
    debugObj["linkUrl"] = linkUrl;
-   console.log(debugObj)
 
    if (tabUrl.includes("comments")) {
       fileNameObj["subredditName"] = Utility.SplitURL(tabUrl, 4);
