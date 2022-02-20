@@ -42,9 +42,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
       temp = `{prefix}-{website_title}-{subreddit_name}-{subreddit_post_id}-{post_title}-{date}-{string}`;
       temp = temp.split("-");
 
-      const redditConfig = SettingsArray.filter((key) => {
-         return key.category == CategoryEnum.Reddit;
-      }).map((data) => {
+      const redditConfig = Settings.Load().Reddit.map((data) => {
          return {
             "key": data.key,
             "value": data.value

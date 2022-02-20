@@ -19,7 +19,7 @@
  */
 function StartDownload(downloadQueue){
 
-    Object.values(GetSettings.General().map((key, index)=>{
+    Object.values(Settings.Load().General.map((key, index)=>{
         switch (index){
             
             // global_enable_save_as_window
@@ -63,7 +63,7 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
                 console.log(DEBUG_TAG + downloadDelta.state.current);
             }
 
-            let generalSettings = GetSettings.General();
+            let generalSettings = Settings.Load().General;
 
             generalSettings.map((key, index) => {
                 switch (index){

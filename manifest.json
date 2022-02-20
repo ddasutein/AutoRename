@@ -30,6 +30,7 @@
             "js/Event/Reddit/RedditContent.js",
             "js/Event/DownloadManager.js",
             "js/Event/SaveAsEventHandle.js"
+
         ],
         "persistent": false
     },
