@@ -112,8 +112,6 @@ function ValidatePrefix(settingsKey, prefixString){
     }
 }
 
-
-
 document.onreadystatechange = () => {
 
     if (document.readyState == "interactive" || document.readyState == "complete") {
@@ -145,6 +143,10 @@ document.onreadystatechange = () => {
                     break;
                 case "twitter_include_date":
                     document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_custom_date_format");
+
                     break;
                 case "twitter_date_format":
                     document.getElementById("twitter_settings_select_date_format").value = x.value;
@@ -176,6 +178,9 @@ document.onreadystatechange = () => {
                     break;
                 case "lbPrefUseDate":
                     document.getElementById("lineblog_settings_include_date").checked = x.value;
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_custom_date_format");
                     break;
                 case "lbPrefDateFormat":
                     document.getElementById("lineblog_settings_select_date_format").value = x.value;
@@ -213,6 +218,9 @@ document.onreadystatechange = () => {
 
                 case "redditIncludeDate":
                     document.getElementById("reddit_settings_include_date").checked = x.value;
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_custom_date_format");
                     break;
 
                 case "redditStringGenerator":
@@ -241,6 +249,8 @@ document.onreadystatechange = () => {
 
     }
 }
+
+
 
 /**
  * Perform execution after page has loaded
@@ -325,7 +335,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             errorCode = {};
                         }
 
-                        temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value));
+                        document.getElementById("twitter_settings_include_date_checkbox").checked ? temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value)) : "";
                         temp.push(ValidatePrefix("twitter_settings_custom_prefix", document.getElementById("twitter_settings_custom_prefix").value));
                         temp.forEach((x)=>{
                             if (x.is_error == true){
@@ -364,7 +374,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             errorCode = {};
                         }
 
-                        temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
+                        document.getElementById("lineblog_settings_include_date").checked ? temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value)) : "";
                         temp.push(ValidatePrefix("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value));
                         temp.forEach((x)=>{
                             if (x.is_error == true){
@@ -405,7 +415,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             errorCode = {};
                         }
 
-                        temp.push(ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value));
+                        document.getElementById("reddit_settings_include_date").checked ? temp.push(ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value)) : "";
                         temp.push(ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value));
 
                         temp.forEach((x)=>{
@@ -469,5 +479,37 @@ document.addEventListener("DOMContentLoaded", (()=>{
     
     
         }
+    });
+
+    document.querySelectorAll("input[type=checkbox]").forEach((input) => { 
+        
+        switch (input.id){
+            case "twitter_settings_include_date_checkbox":
+                input.addEventListener("change", (()=>{
+
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_custom_date_format");
+
+                }));
+                break;
+
+            case "lineblog_settings_include_date":
+                input.addEventListener("change", (()=>{
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_custom_date_format");
+                }));
+                break;
+
+            case "reddit_settings_include_date":
+                input.addEventListener("change", (()=>{
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_custom_date_format");
+                }));
+                break;
+        }
+
     });
 }));
