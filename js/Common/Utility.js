@@ -55,6 +55,26 @@ let Utility = {
         if (idx > -1){
             return arr.splice(idx, 1);
         }
+    }),
+
+    /**
+     * In HTML pages, this can disable or enable fields
+     * 
+     * @param {string} inputType Type of input
+     * @param {string} fieldId The field id of the element you want to hide
+     * @param {bool} bool `true` to disable the field and `false` to enable the field
+     */
+    UpdateFieldDisplay : ((inputType, settingValue, fieldId) => {
+        switch (inputType){
+            case "checkbox":
+                if (settingValue == true){
+                    document.getElementById(fieldId).disabled = false;
+                } else {
+                    document.getElementById(fieldId).disabled = true;
+
+                }
+                break;
+        }
     })
 
 }
