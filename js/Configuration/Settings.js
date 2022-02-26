@@ -94,25 +94,20 @@ function StartSettingsService() {
             //#region General Settings
             {
                 category: Category.General,
-                name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
+                name: chrome.i18n.getMessage("general_settings_show_download_folder"),
                 value: items.global_show_download_folder,
                 key: "global_show_download_folder"
             }, {
                 category: Category.General,
-                name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
+                name: chrome.i18n.getMessage("general_settings_enable_save_as_dialog"),
                 value: items.global_enable_save_as_window,
                 key: "global_enable_save_as_window"
             }, {
                 category: Category.General,
-                name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
+                name: chrome.i18n.getMessage("general_settings_enable_notifications_on_update"),
                 value: items.global_notifications_updated,
                 key: "global_notifications_updated"
-            }, {
-                category: Category.General,
-                name: chrome.i18n.getMessage("settings_general_settings_show_download_folder"),
-                value: items.global_enable_save_as_window,
-                key: "general_settings_enable_save_as_window"
-            }, 
+            },
             
             //#endregion
     
@@ -149,17 +144,17 @@ function StartSettingsService() {
                 key: "twitter_prefer_locale_format"
             }, {
                 category: Category.Twitter,
-                name: "Date Format",
+                name: chrome.i18n.getMessage("common_label_date_format"),
                 value: items.twitter_date_format,
                 key: "twitter_date_format"
             }, {
                 category: Category.Twitter,
-                name: "Twitter Custom Date Format",
+                name: chrome.i18n.getMessage("common_label_custom_date_format"),
                 value: items.twitter_settings_custom_date_format,
                 key: "twitter_settings_custom_date_format"
             }, {
                 category: Category.Twitter,
-                name: "Custom Prefix",
+                name: chrome.i18n.getMessage("common_section_custom_prefix"),
                 value: items.twitter_settings_custom_prefix,
                 key: "twitter_settings_custom_prefix"
             },
@@ -168,22 +163,22 @@ function StartSettingsService() {
             //#region LINE BLOG Settings
             {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("setting_include_lineblog_web_title"),
+                name: chrome.i18n.getMessage("lineblog_settings_site_title"),
                 value: items.lbPrefIncludeWebsiteTitle,
                 key: "lbPrefIncludeWebsiteTitle"
             }, {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("setting_include_lineblog_blog_title"),
+                name: chrome.i18n.getMessage("lineblog_settings_blog_title"),
                 value: items.lbPrefIncludeBlogTitle,
                 key: "lbPrefIncludeBlogTitle"
             }, {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("settings_twitter_include_tweet_date"),
+                name: chrome.i18n.getMessage("lineblog_settings_include_date"),
                 value: items.lbPrefUseDate,
                 key: "lbPrefUseDate"
             }, {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("settings_generate_string"),
+                name: chrome.i18n.getMessage("common_label_generator_length"),
                 value: items.lbPrefStringGenerator,
                 key: "lbPrefStringGenerator"
             }, {
@@ -193,22 +188,22 @@ function StartSettingsService() {
                 key: "lineblog_convert_title_romaji"
             },  {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+                name: chrome.i18n.getMessage("common_label_prefer_locale_format"),
                 value: items.lineblogPreferLocaleFormat,
                 key: "lineblogPreferLocaleFormat"
             },  {
                 category: Category.LINE_BLOG,
-                name: "Date Format",
+                name: chrome.i18n.getMessage("common_label_date_format"),
                 value: items.lineblogDateFormat,
                 key: "lineblogDateFormat"
             }, {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+                name: chrome.i18n.getMessage("common_label_custom_date_format"),
                 value: items.lineblogCustomDateFormat,
                 key: "lineblogCustomDateFormat"
             },  {
                 category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
+                name: chrome.i18n.getMessage("common_section_custom_prefix"),
                 value: items.lineblogCustomPrefix,
                 key: "lineblogCustomPrefix"
             }, 
@@ -242,17 +237,17 @@ function StartSettingsService() {
                 key: "redditPreferLocaleFormat"
             },  {
                 category: Category.Reddit,
-                name: "Date Format",
+                name: chrome.i18n.getMessage("common_label_date_format"),
                 value: items.redditDateFormat,
                 key: "redditDateFormat"
             }, {
                 category: Category.Reddit,
-                name: chrome.i18n.getMessage("reddit_settings_include_date"),
+                name: chrome.i18n.getMessage("common_label_custom_date_format"),
                 value: items.redditCustomDateFormat,
                 key: "redditCustomDateFormat"
             }, {
                 category: Category.Reddit,
-                name: chrome.i18n.getMessage("reddit_settings_include_date"),
+                name: chrome.i18n.getMessage("common_section_custom_prefix"),
                 value: items.redditCustomPrefix,
                 key: "redditCustomPrefix"
             },
