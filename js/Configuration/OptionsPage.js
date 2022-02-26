@@ -157,6 +157,10 @@ document.onreadystatechange = () => {
                 case "twitter_include_website_title":
                     document.getElementById("twitter_settings_site_title").checked = x.value;
                     break;
+
+                case "twitter_prefer_locale_format":
+                    document.getElementById("twitter_settings_prefer_locale_format").checked = x.value;
+                    break;
                 case "twitter_settings_custom_date_format":
                     document.getElementById("twitter_settings_custom_date_format").value = x.value;
                     break;
@@ -182,7 +186,7 @@ document.onreadystatechange = () => {
                     Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_select_date_format");
                     Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_custom_date_format");
                     break;
-                case "lbPrefDateFormat":
+                case "lineblogDateFormat":
                     document.getElementById("lineblog_settings_select_date_format").value = x.value;
                     break;
                 case "lbPrefStringGenerator":
@@ -288,6 +292,17 @@ document.addEventListener("DOMContentLoaded", (()=>{
      */
     document.querySelectorAll("button").forEach((buttons) => {
 
+        /**
+         * DEV NOTE #1
+         * -----------------
+         * It might seem odd but the logic behind this is that the date validation should
+         * only apply when "Custom" is selected. When a user types random values in the
+         * text field, validation does not apply. However, when custom is selected then the
+         * validation applies. No matter what, the user can't use illegal characters in the 
+         * date format
+         * 
+         */
+
         switch (buttons.id) {
     
             case "button_help_twitter":
@@ -334,8 +349,10 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             temp = [];
                             errorCode = {};
                         }
+                        if (document.getElementById("twitter_settings_include_date_checkbox").checked && !document.getElementById("twitter_settings_prefer_locale_format").checked && document.getElementById("twitter_settings_select_date_format").value == "custom"){
+                            temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value));
+                        }
 
-                        document.getElementById("twitter_settings_include_date_checkbox").checked ? temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value)) : "";
                         temp.push(ValidatePrefix("twitter_settings_custom_prefix", document.getElementById("twitter_settings_custom_prefix").value));
                         temp.forEach((x)=>{
                             if (x.is_error == true){
@@ -353,6 +370,11 @@ document.addEventListener("DOMContentLoaded", (()=>{
                         Settings.Save("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
                         Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
                         Settings.Save("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
+
+                        // See dev note #1
+                        Settings.Save("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value);
+
+
                         messageBox.Save();
         
                     } catch(e){
@@ -374,7 +396,10 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             errorCode = {};
                         }
 
-                        document.getElementById("lineblog_settings_include_date").checked ? temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value)) : "";
+                        if (document.getElementById("lineblog_settings_include_date").checked && !document.getElementById("lineblog_settings_prefer_locale_format").checked && document.getElementById("lineblog_settings_select_date_format").value == "custom"){
+                            temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
+                        }
+                        
                         temp.push(ValidatePrefix("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value));
                         temp.forEach((x)=>{
                             if (x.is_error == true){
@@ -384,7 +409,7 @@ document.addEventListener("DOMContentLoaded", (()=>{
 
                             } 
                         });
-         
+                        console.log( document.getElementById("lineblog_settings_custom_date_format").value)
                         Settings.Save("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
                         Settings.Save("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
                         Settings.Save("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
@@ -392,7 +417,9 @@ document.addEventListener("DOMContentLoaded", (()=>{
                         Settings.Save("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
                         Settings.Save("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
                         Settings.Save("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
-    
+                        
+                        // See dev note #1
+                        Settings.Save("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value);
                         messageBox.Save();
                         
                     } catch(e){
@@ -415,7 +442,9 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             errorCode = {};
                         }
 
-                        document.getElementById("reddit_settings_include_date").checked ? temp.push(ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value)) : "";
+                        if (document.getElementById("reddit_settings_include_date").checked && !document.getElementById("reddit_settings_prefer_locale_format").checked &&document.getElementById("reddit_settings_custom_date_format").value == "custom"){
+                            ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
+                        }
                         temp.push(ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value));
 
                         temp.forEach((x)=>{
@@ -427,13 +456,15 @@ document.addEventListener("DOMContentLoaded", (()=>{
                             } 
                         });
          
-
                         Settings.Save("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
                         Settings.Save("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
                         Settings.Save("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
                         Settings.Save("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
                         Settings.Save("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
-                        Settings.Save("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked)
+                        Settings.Save("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked);
+
+                        // See dev note #1
+                        Settings.Save("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
 
                         messageBox.Save();
                     } catch(e){
