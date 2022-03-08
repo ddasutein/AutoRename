@@ -83,7 +83,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
             prefObj["prefer_locale_format"] = false;
 
             if (redditConfig["redditDateFormat"].value == "custom") {
-               prefObj["date_format"] = redditConfig["twitter_settings_custom_date_format"].value;
+               prefObj["date_format"] = redditConfig["redditCustomDateFormat"].value;
             } else {
                prefObj["date_format"] = GetDateFormat(redditConfig["redditDateFormat"].value);
             }
