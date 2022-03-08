@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,21 +12,44 @@
  * 
  */
 
-/* ---------------------CONTEXT MENU ITEMS----------------------- */
-chrome.contextMenus.create({
-    id: "saveImage",
-    title: chrome.i18n.getMessage("context_menu_save_image_as"),
-    contexts: ["image"]
+//#region CONTEXT MENU ITEMS
+
+/**
+ * Context menu items. When adding new context menu items, declare them here first
+ */
+const contextMenuId = {
+    saveImage: "saveImage",
+    saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
+    viewOriginalImage: "viewOriginalImage"
+}
+
+chrome.runtime.onInstalled.addListener(()=>{
+
+    //#region Common context menu items
+    chrome.contextMenus.create({
+        id: contextMenuId.saveImage,
+        title: chrome.i18n.getMessage("context_menu_save_image_as"),
+        contexts: ["image"]
+    });
+    
+    chrome.contextMenus.create({
+        id: contextMenuId.saveImageWithCustomPrefix,
+        title: "Save image as (AutoRename) with Prefix",
+        contexts: ["image"]
+    });
+    
+    //#endregion
+    
+    //#region Twitter specific context menu
+    chrome.contextMenus.create({
+        id: contextMenuId.viewOriginalImage,
+        title: chrome.i18n.getMessage("context_menu_view_original_image"),
+        contexts: ["image"]
+    });
+    //#endregion
 });
 
-// Twitter Specific Context Menu Item
-chrome.contextMenus.create({
-    id: "viewOriginalImageSizeContextMenuItem",
-    title: chrome.i18n.getMessage("context_menu_view_original_image"),
-    contexts: ["image"]
-});
-
-/* ----------END OF CONTEXT MENU ITEMS FUNCTIONS------------------ */
+//#endregion
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -74,6 +97,9 @@ chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
 
 });
 
+/**
+ * Queries tab data
+ */
 function QueryTab() {
 
     setTimeout(() => {
@@ -94,81 +120,113 @@ function QueryTab() {
 
             url = url.split("/");
             url = url[2];
-            console.log(url);
+            DevMode ? console.log(url) : "";
             UpdateContextMenus(url);
 
             BrowserTabInfo.Title = title;
             BrowserTabInfo.URL = url;
-            console.log(BrowserTabInfo)
+            DevMode ? console.log(BrowserTabInfo) : "";
         }));
 
     }, 500);
 
 };
 
+/**
+ * Here you can dynamically set which websites can use a specific context menu item.
+ * It is important that the user should not see a context menu for the extension if
+ * the website is not supported.
+ * 
+ * @param {string} url URL of the website
+ */
 function UpdateContextMenus(url) {
 
     switch(url){
         case Website.Twitter:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": true 
-                });
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: true 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
             
         case Website.Mobile_Twitter:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": true 
-                });
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: true 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
+            });
             break;
 
         case Website.LINE_BLOG:
 
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
         case Website.Reddit:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
         case Website.Reddit_Old:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
+            });
+
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
         case Website.Reddit_New:
-            chrome.contextMenus.update("saveImage", {
+            chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
             });
 
-            chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                "visible": false 
+            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                visible: false 
+            });
+
+            
+            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                visible: true
             });
             break;
 
@@ -177,17 +235,21 @@ function UpdateContextMenus(url) {
             if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
                 DevMode ? console.log("website not supported. removing context menu items") : "";
 
-                chrome.contextMenus.update("viewOriginalImageSizeContextMenuItem", {
-                    "visible": false 
+                chrome.contextMenus.update("viewOriginalImage", {
+                    visible: false 
                 });
 
-                chrome.contextMenus.update("saveImage", {
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
                     visible: false
                 });
                 
             } else {
                 DevMode ? console.log("add saveImage context menu item") : "";
-                chrome.contextMenus.update("saveImage", {
+                chrome.contextMenus.update(contextMenuId.saveImage, {
                     visible: true
                 });
             }
@@ -195,48 +257,77 @@ function UpdateContextMenus(url) {
     }    
 };
 
-/* Execute everything when save image as is clicked. */
+/**
+ * This is the ENTRY point to trigger saving images or to execute specific
+ * context menu items. If you need to add new websites, add a new case
+ * statement. Then you should also create a specific JavaScript file for that
+ * website you are trying to support
+ */
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
+    let temp = {};
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
     switch (currentUrl) {
         case Website.Twitter:
 
-            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+            if (info.menuItemId === contextMenuId.viewOriginalImage){
                 ViewOriginalMedia(info.srcUrl);
                 return;
             } 
-            else if (info.menuItemId === "saveImage"){
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
+            else if (info.menuItemId === contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
 
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
             }
             break;
 
         case Website.Mobile_Twitter: 
-            if (info.menuItemId === "viewOriginalImageSizeContextMenuItem"){
+            if (info.menuItemId === contextMenuId.viewOriginalImage){
                 ViewOriginalMedia(info.srcUrl);
                 return;
             } 
-            else if (info.menuItemId === "saveImage"){
+            else if (info.menuItemId === contextMenuId.saveImage){
                 SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
 
             }
             break;
 
         case Website.LINE_BLOG:
-            SaveLINEBlogMedia(tab.url, info.srcUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            }
             break;
 
         case Website.Reddit:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
    
             break;
 
         case Website.Reddit_Old:
-            SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl);
+            if (info.menuItemId == contextMenuId.saveImage){
+                temp["use_prefix"] = false;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+                temp["use_prefix"] = true;
+                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+            }
 
             break;
         default:

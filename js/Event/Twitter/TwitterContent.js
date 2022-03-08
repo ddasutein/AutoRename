@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -47,10 +47,12 @@ function ViewOriginalMedia(url) {
         updatedUrl = url;
     }
 
-    window.open(updatedUrl, "_blank");
+    chrome.tabs.create({
+        url: updatedUrl
+    });
 }
 
-function SaveTwitterMedia(tabUrl, url, linkUrl){
+function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
 
     if (Utility.SplitURL(tabUrl, 5) == null || Utility.SplitURL(tabUrl, 5).length == 0){
 
@@ -63,72 +65,82 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
 
     function buildFileName(fileNameObj){
         let temp;
-        let isUsingDateFormat;
-        temp = `Twitter-{username}-${fileNameObj.tweetId}-{date}-{string}`;
+        temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
-        console.log(temp);
-        Object.values(SettingsArray.filter((key)=>{
-            return key.category == CategoryEnum.Twitter
-        }).map((key, index)=>{
-            switch (index) {
 
-                // twitter_include_mention_symbol
-                case 0:
-                    if (!key.value){
-                        temp[temp.indexOf("{username}")] = fileNameObj.username;
-                    } else {
-                        temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
-                    }
-                    break;
-
-                // twitter_include_tweet_id
-                case 1:
-                    if (!key.value){
-                        idx = temp.indexOf(fileNameObj.tweetId);
-                        if (idx > -1){
-                            temp.splice(idx, 1)
-                        }
-                    }
-                    break;
-
-                // twitter_random_string_length
-                case 2:
-                    temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(key.value)
-                    break;
-
-                // twitter_include_date
-                case 3:
-                    if (!key.value){
-                        isUsingDateFormat = false;
-                        idx = temp.indexOf("{date}");
-                        if (idx > -1){
-                            temp.splice(idx, 1);
-                        }
-                    } else {
-                        isUsingDateFormat = true
-                    }
-                    break;
-                    
-                // twitter_date_format
-                case 4:
-                    console.log(isUsingDateFormat)
-                    if (isUsingDateFormat){
-                        temp[temp.indexOf("{date}")] = GetDateFormat(key.value);
-                    }
-                    break;
-
-                case 5:
-                    if (!key.value){
-                        idx = temp.indexOf("Twitter");
-                        if (idx > -1){
-                            temp.splice(idx, 1)
-                        }
-                    }
-
-                    break;
+        const twitterConfig = Settings.Load().Twitter.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
             }
-        }));
-        console.log(temp)
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        
+        if (!twitterConfig["twitter_include_mention_symbol"].value){
+            temp[temp.indexOf("{username}")] = fileNameObj.username;
+        } else {
+            temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
+        }
+
+        if (!twitterConfig["twitter_include_tweet_id"].value){
+            Utility.RemoveUnusedParameter(temp, "{tweetId}");
+        } else {
+            temp[temp.indexOf("{tweetId}")] = fileNameObj.tweetId;
+        }
+
+        if (!twitterConfig["twitter_include_website_title"].value){
+            Utility.RemoveUnusedParameter(temp, "{website_title}");
+        } else {
+            temp[temp.indexOf("{website_title}")] = "Twitter";
+        }
+
+        if (!twitterConfig["twitter_include_date"].value){
+            Utility.RemoveUnusedParameter(temp, "{date}");
+        } else {
+            let prefObj = {};
+
+            if (twitterConfig["twitter_prefer_locale_format"].value == true){
+                prefObj["prefer_locale_format"] = true;
+                const timedateValue = getTimeDate(prefObj);
+                temp[temp.indexOf("{date}")] = timedateValue;
+            } else {
+
+                prefObj["prefer_locale_format"] = false;
+
+                if (twitterConfig["twitter_date_format"].value == "custom"){
+                    prefObj["date_format"] = twitterConfig["twitter_settings_custom_date_format"].value;
+                } else {
+                    prefObj["date_format"] = GetDateFormat(twitterConfig["twitter_date_format"].value);
+                }
+
+                const timedateValue = getTimeDate(prefObj)
+                temp[temp.indexOf("{date}")] = timedateValue;
+
+            }
+
+        }
+
+        if (twitterConfig["twitter_random_string_length"].value == "0"){
+            Utility.RemoveUnusedParameter(temp, "{randomstring}");
+        } else {
+            temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
+        }
+
+        if (customObj.use_prefix == true){
+
+            if (twitterConfig["twitter_settings_custom_prefix"].value == ""){
+                Utility.RemoveUnusedParameter(temp, "{prefix}");
+            } else {
+                temp[temp.indexOf("{prefix}")] = twitterConfig["twitter_settings_custom_prefix"].value;
+            }
+
+        } else {
+            Utility.RemoveUnusedParameter(temp, "{prefix}");
+        }
+
         return temp.toString().replace(/,/g, "-");
     }
 
@@ -140,7 +152,6 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
 
     // Rule 1: When full tweet is clicked then it should be prioritized first
     if (!!tabUrl){
-        console.log('tab url ' + tabUrl);
         if (specialCharacters.test(Utility.SplitURL(tabUrl, 5))){
             tweetId = Utility.SplitURL(tabUrl, 5).split(specialCharacters)[0];
         } else {
@@ -151,7 +162,6 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
     // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
     if (tweetId == "" || tweetId == undefined || tweetId == null){
         if (!!linkUrl){
-            console.log("link url " + linkUrl);
             if (specialCharacters.test(Utility.SplitURL(linkUrl, 5))){
                 tweetId = Utility.SplitURL(linkUrl, 5).split(specialCharacters)[0];
             } else {
@@ -159,7 +169,6 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
             }
         }
     }
-
     fileNameObj["username"] = linkUrl != undefined ? Utility.SplitURL(linkUrl, 3) : Utility.SplitURL(tabUrl, 3);
     fileNameObj["tweetId"] = tweetId;
     twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
@@ -167,7 +176,8 @@ function SaveTwitterMedia(tabUrl, url, linkUrl){
         filename: buildFileName(fileNameObj) + getImageFormat(url),
         url: twitterMediaSrc
     });
-    console.log(twitterImageFile)
+    
+    DevMode ? console.log(twitterImageFile) : "";
     StartDownload(twitterImageFile);
 
 }

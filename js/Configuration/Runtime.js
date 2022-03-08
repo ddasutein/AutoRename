@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2020 Dasutein
+ * Copyright (c) 2022 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -75,7 +75,7 @@ chrome.notifications.onButtonClicked.addListener(function (notifId, index) {
 
 chrome.runtime.onInstalled.addListener(function (details) {
 
-    let runtimeSettings = GetSettings.General();
+    let runtimeSettings = Settings.Load().General;
 
     switch (details.reason){
         case "install":

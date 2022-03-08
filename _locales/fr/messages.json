@@ -14,6 +14,10 @@
         "message": "Enregistrer"
     },
 
+    "button_help": {
+        "message": "Help"
+    },
+
     "common_label_date_format": {
         "message": "Format de Date"
     },
@@ -138,6 +142,42 @@
         "message": "A Propos"
     },
 
+    "common_banner_more_detail": {
+        "message": "More details"
+    },
+
+    "common_section_time_and_date": {
+        "message": "Time and Date"
+    },
+
+    "common_label_prefer_locale_format": {
+        "message": "Prefer Locale Format"
+    },
+
+    "common_label_custom_date_format": {
+        "message": "Custom Date/Time Format"
+    },
+
+    "system_information_browser": {
+        "message": "Browser"
+    }, 
+
+    "common_date_format_item_label_option_custom": {
+        "message": "Custom"
+    },
+
+    "common_section_custom_prefix": {
+        "message": "Custom Prefix"
+    },
+    
+    "common_label_prefix": {
+        "message": "Prefix"
+    },
+
+    "common_label_settings": {
+        "message": "プレフィックス"
+    },
+
     "context_click_here": {
         "message": "Cliquez ici."
     },
@@ -201,6 +241,30 @@
     "error_reddit_old_half_view": {
         "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
     },
+    
+    "error_title_invalid": {
+        "message": "Invalid"
+    },
+
+    "error_validation_date_time_format": {
+        "message": "The Date/Time Format you entered is either empty or invalid"
+    },
+
+    "error_validation_prefix": {
+        "message": "The Prefix you entered contains special characters"
+    },
+
+    "help_text_date_format": {
+        "message": "Visit the GitHub Wiki or click the Help button on how to configure date format"
+    },
+
+    "info_message_announcement_label": {
+        "message": "Announcement"
+    },
+
+    "info_click_announcement_link": {
+        "message": "Clicking this link will redirect to you"
+    },
 
     "message_toast_welcome_title": {
         "message": "Bienvenue à"
@@ -224,6 +288,10 @@
 
     "message_toast_button_ok": {
         "message": "OK"
+    },
+
+    "message_prompt_user_continue": {
+        "message": "Would you like to continue?"
     },
 
     "privacy_policy_and_other_links_terms": {
