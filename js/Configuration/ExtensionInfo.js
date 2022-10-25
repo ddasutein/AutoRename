@@ -180,6 +180,8 @@ function GetSystemInfo() {
                 if (ua.architecture == "arm"){
                     if (ua.platform == "macOS"){
                         platformData["architecture"] = `${ua.platform} - Apple Silicon`;
+                    } else if (ua.platform == "Windows"){
+                        platformData["architecture"] = `${ua.platform} - ARM`;
                     }
                 }
                 document.getElementById("system_information_platform_value").innerHTML = platformData.architecture;
