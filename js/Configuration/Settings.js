@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -30,7 +30,8 @@ function StartSettingsService() {
         General: "General",
         LINE_BLOG: "LINE BLOG",
         Twitter: "Twitter",
-        Reddit: "Reddit"
+        Reddit: "Reddit",
+        Options: "OptionsUI"
     }
 
     chrome.storage.local.get({
@@ -82,6 +83,10 @@ function StartSettingsService() {
         redditDateFormat: "custom",
         redditCustomDateFormat: "",
         redditCustomPrefix: "",
+
+        //#region Options UI settings
+        optionsUITabName: "#general",
+        optionsUITabIndexNumber: 2 // Default 
     
         //#endregion
     
@@ -252,6 +257,20 @@ function StartSettingsService() {
                 key: "redditCustomPrefix"
             },
             //#endregion
+
+            //#region Options UI
+            {
+                category: Category.Options,
+                name: "Options Tab",
+                value: items.optionsUITabName,
+                key: "optionsUITabName"
+            },
+            {
+                category: Category.Options,
+                name: "Options Tab Index",
+                value: items.optionsUITabIndexNumber,
+                key: "optionsUITabIndexNumber"
+            }
         );
     });
     
@@ -296,6 +315,9 @@ function StartSettingsService() {
             }),
             Reddit: SettingsMap.filter((key)=>{
                 return key.category == Category.Reddit;
+            }),
+            OptionsUI: SettingsMap.filter((key)=>{
+                return key.category == Category.Options;
             })
         }
     });
