@@ -124,7 +124,13 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
         }
 
         if (twitterConfig["twitter_random_string_length"].value == "0"){
-            Utility.RemoveUnusedParameter(temp, "{randomstring}");
+            let photoCount = Utility.SplitURL(linkUrl, 7);
+            if (photoCount != undefined || photoCount != null || photoCount != ""){
+                temp[temp.indexOf("{randomstring}")] = `img${Utility.SplitURL(linkUrl, 7)}`;
+            } else {
+                Utility.RemoveUnusedParameter(temp, "{randomstring}");
+            }
+
         } else {
             temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
         }
