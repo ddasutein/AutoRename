@@ -121,7 +121,7 @@ function QueryTab() {
             url = url.split("/");
             url = url[2];
             DevMode ? console.log(url) : "";
-            UpdateContextMenus(url);
+            UpdateContextMenus(url, tabs[0].url);
 
             BrowserTabInfo.Title = title;
             BrowserTabInfo.URL = url;
@@ -139,10 +139,25 @@ function QueryTab() {
  * 
  * @param {string} url URL of the website
  */
-function UpdateContextMenus(url) {
+function UpdateContextMenus(url, urlFull) {
 
     switch(url){
         case Website.Twitter:
+            
+            if (urlFull.includes("messages")){
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+    
+                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                    visible: false 
+                });
+    
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                    visible: false
+                });
+                return;
+            }
 
             chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
@@ -158,6 +173,21 @@ function UpdateContextMenus(url) {
             break;
             
         case Website.Mobile_Twitter:
+
+            if (urlFull.includes("messages")){
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+    
+                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                    visible: false 
+                });
+    
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                    visible: false
+                });
+                return;
+            }
 
             chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
