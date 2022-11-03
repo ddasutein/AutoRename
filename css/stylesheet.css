@@ -1,5 +1,5 @@
 body {
-  background: #fff;
+  background: #eeeeee3b;
   font-family: 'Segoe UI', 'Roboto', '-apple-system', 'BlinkMacSystemFont', 'Arial', sans-serif !important;
   font-size: 1.1em;
   margin: 0;
@@ -369,7 +369,7 @@ a:-webkit-any-link {
 @media (prefers-color-scheme: dark) {
 
   body {
-    background-color: #121212;
+    background-color: #161616;
   }
 
   hr {
@@ -377,7 +377,7 @@ a:-webkit-any-link {
   }
 
   .navbar {
-    background-color: #121212;
+    background-color: #181818;
     border-right: 1px solid #1f1f1f;
     color: #fff;
   }
