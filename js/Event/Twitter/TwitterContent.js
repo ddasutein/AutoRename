@@ -180,7 +180,9 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
     twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
     twitterImageFile.push({
         filename: buildFileName(fileNameObj) + getImageFormat(url),
-        url: twitterMediaSrc
+        url: twitterMediaSrc,
+        website: "twitter",
+        username: fileNameObj.username
     });
     
     DevMode ? console.log(twitterImageFile) : "";
