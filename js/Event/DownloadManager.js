@@ -17,6 +17,10 @@
  * 
  * @param {object} downloadQueue Images that are in queue to download
  */
+
+let dmFileName = "";
+let dmTwitterUsername = "";
+
 function StartDownload(downloadQueue){
 
     Object.values(Settings.Load().General.map((key, index)=>{
@@ -26,6 +30,12 @@ function StartDownload(downloadQueue){
             case 1:
                 if (key.value == true){
                     downloadQueue.forEach((dq)=>{
+                        dmFileName = dq.filename;
+
+                        if (dq.website == "twitter"){
+                            dmTwitterUsername = dq.username
+                        }
+
                         chrome.downloads.download({
                             url: dq.url,
                             filename: dq.filename,
@@ -102,5 +112,16 @@ chrome.downloads.onCreated.addListener((item)=>{
         });
     
     }));
-})
+});
+
+chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
+
+    let suggestedFile = dmFileName;
+    suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
+
+    suggest({
+        filename: suggestedFile,
+        overwrite: false
+    });
+});
 
