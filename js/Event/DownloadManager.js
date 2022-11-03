@@ -116,12 +116,16 @@ chrome.downloads.onCreated.addListener((item)=>{
 
 chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
 
-    let suggestedFile = dmFileName;
-    suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
+    if (!!dmTwitterUsername){
+        let suggestedFile = dmFileName;
+        suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
+        suggest({
+            filename: suggestedFile,
+            overwrite: false
+        });
+        dmTwitterUsername = ""; // This should be empty so it can redirect to the root download folder
+    }
 
-    suggest({
-        filename: suggestedFile,
-        overwrite: false
-    });
+
 });
 
