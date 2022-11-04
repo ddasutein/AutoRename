@@ -364,6 +364,41 @@ a:-webkit-any-link {
   grid-template-columns: auto auto;
   margin-top: 20px;
 }
+
+.download-card {
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 1px 1px 4px #e5e5e5;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+}
+
+.image-thumbnail {
+  margin: 5px 5px 5px 5px;
+}
+
+.download-card-site {
+  color: #888888;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.download-card-actions {
+  margin-left: auto;
+}
+
+.download-card-actions-button-primary {
+  margin-right: 10px;
+
+}
+
+.download-card-actions-button-secondary {
+  margin-right: 1px;
+
+}
+
 /** EVERYTHING BELOW IS FOR DARK MODE ONLY **/
 
 @media (prefers-color-scheme: dark) {
