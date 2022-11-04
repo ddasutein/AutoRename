@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -115,15 +115,20 @@ chrome.downloads.onCreated.addListener((item)=>{
 });
 
 chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
-
+    
+    let suggestedFile = dmFileName;
     if (!!dmTwitterUsername){
-        let suggestedFile = dmFileName;
         suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
         suggest({
             filename: suggestedFile,
             overwrite: false
         });
         dmTwitterUsername = ""; // This should be empty so it can redirect to the root download folder
+    } else {
+        suggest({
+            filename: `AutoRename/${suggestedFile}`,
+            overwrite: false
+        });
     }
 
 
