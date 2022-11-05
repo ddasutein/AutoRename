@@ -48,6 +48,7 @@ function StartSettingsService() {
         global_show_download_folder: false,
         global_enable_save_as_window: true,
         global_notifications_updated: true,
+        global_use_autorename_folder: false,
         //#endregion
     
         //#region Twitter Settings
@@ -60,6 +61,7 @@ function StartSettingsService() {
         twitter_date_format: "custom",
         twitter_settings_custom_date_format: "",
         twitter_settings_custom_prefix: "",
+        twitter_save_image_to_folder_based_on_username: false,
         //#endregion
     
         //#region LINE BLOG Settings
@@ -112,6 +114,11 @@ function StartSettingsService() {
                 name: chrome.i18n.getMessage("general_settings_enable_notifications_on_update"),
                 value: items.global_notifications_updated,
                 key: "global_notifications_updated"
+            }, {
+                category: Category.General,
+                name: "Save image to AutoRename folder",
+                value: items.global_use_autorename_folder,
+                key: "global_use_autorename_folder"
             },
             
             //#endregion
@@ -162,6 +169,11 @@ function StartSettingsService() {
                 name: chrome.i18n.getMessage("common_section_custom_prefix"),
                 value: items.twitter_settings_custom_prefix,
                 key: "twitter_settings_custom_prefix"
+            }, {
+                category: Category.Twitter,
+                name: "Save image to folder based on username",
+                value: items.twitter_save_image_to_folder_based_on_username,
+                key: "twitter_save_image_to_folder_based_on_username"
             },
             //#endregion
     
