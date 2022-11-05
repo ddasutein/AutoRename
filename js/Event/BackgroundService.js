@@ -28,7 +28,6 @@ const Backgroundscripts = [
 ]
 
 try {
-
     Backgroundscripts.forEach((x)=>{
         importScripts(x);
     });
