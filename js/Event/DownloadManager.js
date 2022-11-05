@@ -19,47 +19,60 @@
  */
 
 let dmFileName = "";
+let dmWebsite = "";
+let dmTwitterSaveToFolderByUserName = false;
 let dmTwitterUsername = "";
+let generalSettings;
 
 function StartDownload(downloadQueue){
 
-    Object.values(Settings.Load().General.map((key, index)=>{
-        switch (index){
-            
-            // global_enable_save_as_window
-            case 1:
-                if (key.value == true){
-                    downloadQueue.forEach((dq)=>{
-                        dmFileName = dq.filename;
-
-                        if (dq.website == "twitter"){
-                            dmTwitterUsername = dq.username
-                        }
-
-                        chrome.downloads.download({
-                            url: dq.url,
-                            filename: dq.filename,
-                            saveAs: true
-                        },((id)=>{
-                            console.log(`download id : ${id}`)
-                        }));
-                    });
-                } else {
-                    downloadQueue.forEach((dq)=>{
-                        chrome.downloads.download({
-                            url: dq.url,
-                            filename: dq.filename,
-                            saveAs: false
-                        }, function(dl){
-                            console.log("bytes: " + dl.by)
-                        });
-                    });
-
-                    chrome.Download
-                }
-                break;
+    generalSettings = Settings.Load().General.map((data)=>{
+        return {
+            "key": data.key,
+            "value": data.value
         }
-    }));
+    }).reduce((obj, data)=>{
+        obj[data.key] = data;
+        return obj;
+    }, {});
+
+    if (generalSettings["global_enable_save_as_window"].value == true){
+        downloadQueue.forEach((dq)=>{
+            dmFileName = dq.filename;
+            dmWebsite = dq.website;
+
+            if (dq.website == "twitter"){
+                dmTwitterUsername = dq.username
+                dmTwitterSaveToFolderByUserName = dq.save_to_folder_by_username;
+            }
+
+            chrome.downloads.download({
+                url: dq.url,
+                filename: dq.filename,
+                saveAs: true
+            },((id)=>{
+                console.log(`download id : ${id}`)
+            }));
+        });
+    } else {
+        downloadQueue.forEach((dq)=>{
+            dmFileName = dq.filename;
+            dmWebsite = dq.website;
+
+            if (dq.website == "twitter"){
+                dmTwitterUsername = dq.username
+                dmTwitterSaveToFolderByUserName = dq.save_to_folder_by_username;
+            }
+
+            chrome.downloads.download({
+                url: dq.url,
+                filename: dq.filename,
+                saveAs: false
+            },((id)=>{
+                console.log(`download id : ${id}`)
+            }));
+        });
+    }
 }
 
 chrome.downloads.onChanged.addListener(function (downloadDelta) {
@@ -73,18 +86,9 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
                 console.log(DEBUG_TAG + downloadDelta.state.current);
             }
 
-            let generalSettings = Settings.Load().General;
-
-            generalSettings.map((key, index) => {
-                switch (index){
-                    case 0:
-                        if (key.value){
-                            chrome.downloads.showDefaultFolder();
-                        }
-                        break;
-                }
-            });
-
+            if (generalSettings["global_show_download_folder"].value == true){
+                chrome.downloads.showDefaultFolder();
+            }
             return;
         }
     });
@@ -115,22 +119,39 @@ chrome.downloads.onCreated.addListener((item)=>{
 });
 
 chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
+
+    if (generalSettings["global_use_autorename_folder"].value == false){
+        return;
+    }
     
     let suggestedFile = dmFileName;
     if (!!dmTwitterUsername){
-        suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
-        suggest({
-            filename: suggestedFile,
-            overwrite: false
-        });
+
+        if (dmTwitterSaveToFolderByUserName == true){
+            suggestedFile = `AutoRename/Twitter/${dmTwitterUsername}/${dmFileName}`;
+        } else {
+            suggestedFile = `AutoRename/Twitter/${dmFileName}`;
+        }
+
         dmTwitterUsername = ""; // This should be empty so it can redirect to the root download folder
     } else {
-        suggest({
-            filename: `AutoRename/${suggestedFile}`,
-            overwrite: false
-        });
+
+        switch (dmWebsite){
+            case "lineblog":
+                suggestedFile = `AutoRename/LINE BLOG/${suggestedFile}`
+                break;
+
+            default:
+                suggestedFile = `AutoRename/${suggestedFile}`
+                break;
+        }
+
     }
 
+    suggest({
+        filename: suggestedFile,
+        overwrite: false
+    });
 
 });
 
