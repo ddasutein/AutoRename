@@ -376,7 +376,10 @@ a:-webkit-any-link {
 }
 
 .image-thumbnail {
+  width: 40px;
+  height: 40px;
   margin: 5px 5px 5px 5px;
+  object-fit: cover;
 }
 
 .download-card-site {
@@ -390,11 +393,14 @@ a:-webkit-any-link {
 }
 
 .download-card-actions-button-primary {
+  background-color: #03B4D3;
+  color: #fff;
   margin-right: 10px;
 
 }
 
 .download-card-actions-button-secondary {
+  background-color: #fff0;
   margin-right: 1px;
 
 }
@@ -449,6 +455,44 @@ a:-webkit-any-link {
     background: #242424;
     box-shadow: 0 0 28px #00000059;
   }
+
+  .download-card {
+    align-items: center;
+    background-color: #181818;
+    box-shadow: 1px 1px 4px #000;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+  }
+
+  .download-card-site {
+    color: #888888;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  
+  .download-card-actions {
+    margin-left: auto;
+  }
+  
+  .download-card-actions-button-primary {
+    background-color: #03B4D3;
+    color: #fff;
+    margin-right: 10px;
+  
+  }
+  
+  .download-card-actions-button-secondary {
+    background-color: #fff0;
+    color: #B0B0B0;
+    margin-right: 1px;
+  }
+
+  .download-card-file {
+    color: #B0B0B0;
+  }
+
 }
 
 /** ANIMATION **/
