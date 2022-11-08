@@ -46,6 +46,7 @@ chrome.runtime.onInstalled.addListener(()=>{
         title: chrome.i18n.getMessage("context_menu_view_original_image"),
         contexts: ["image"]
     }, () => chrome.runtime.lastError );
+
     //#endregion
 });
 
@@ -80,7 +81,9 @@ let BrowserTabInfo = {
 chrome.tabs.onActivated.addListener((activeInfo) => {
     
     DevMode ? console.log("tabs onActivated") : "";
-    QueryTab();
+    console.log(activeInfo.tabId)
+
+    QueryTab(activeInfo);
 
 });
 
@@ -97,10 +100,23 @@ chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
 
 });
 
+
+chrome.action.setBadgeBackgroundColor({
+    color: "#181818"
+});
+
+const setBadgeText = ((str) => {
+    chrome.action.setBadgeText({
+        text: str.toString()
+    })
+});
+
+
+let count = 0;
 /**
  * Queries tab data
  */
-function QueryTab() {
+function QueryTab(tabData) {
 
     setTimeout(() => {
 
@@ -111,7 +127,7 @@ function QueryTab() {
 
             let url;
             let title;  
-
+ 
             if (tabs[0] != undefined){
                 DevMode ? console.log(BrowserTabInfo) : "";
                 url = tabs[0].url;
