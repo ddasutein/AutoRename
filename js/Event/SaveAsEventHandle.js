@@ -30,13 +30,13 @@ chrome.runtime.onInstalled.addListener(()=>{
         id: contextMenuId.saveImage,
         title: chrome.i18n.getMessage("context_menu_save_image_as"),
         contexts: ["image"]
-    });
+    },  () => chrome.runtime.lastError );
     
     chrome.contextMenus.create({
         id: contextMenuId.saveImageWithCustomPrefix,
         title: "Save image as (AutoRename) with Prefix",
         contexts: ["image"]
-    });
+    },  () => chrome.runtime.lastError );
     
     //#endregion
     
@@ -45,7 +45,7 @@ chrome.runtime.onInstalled.addListener(()=>{
         id: contextMenuId.viewOriginalImage,
         title: chrome.i18n.getMessage("context_menu_view_original_image"),
         contexts: ["image"]
-    });
+    }, () => chrome.runtime.lastError );
     //#endregion
 });
 
