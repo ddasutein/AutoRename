@@ -63,20 +63,21 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
         
     }
 
+    const twitterConfig = Settings.Load().Twitter.map((data)=>{
+        return {
+            "key": data.key,
+            "value": data.value
+        }
+    }).reduce((obj, data)=>{
+        obj[data.key] = data;
+        return obj;
+    }, {});
+
     function buildFileName(fileNameObj){
         let temp;
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
 
-        const twitterConfig = Settings.Load().Twitter.map((data)=>{
-            return {
-                "key": data.key,
-                "value": data.value
-            }
-        }).reduce((obj, data)=>{
-            obj[data.key] = data;
-            return obj;
-        }, {});
 
         
         if (!twitterConfig["twitter_include_mention_symbol"].value){
@@ -182,7 +183,8 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
         filename: buildFileName(fileNameObj) + getImageFormat(url),
         url: twitterMediaSrc,
         website: "twitter",
-        username: fileNameObj.username
+        username: fileNameObj.username,
+        save_to_folder_by_username: twitterConfig["twitter_save_image_to_folder_based_on_username"].value
     });
     
     DevMode ? console.log(twitterImageFile) : "";
