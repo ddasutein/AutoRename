@@ -22,6 +22,7 @@ let dmFileName = "";
 let dmWebsite = "";
 let dmTwitterSaveToFolderByUserName = false;
 let dmTwitterUsername = "";
+let dmFileSize = "";
 let generalSettings;
 
 function StartDownload(downloadQueue){
@@ -75,6 +76,27 @@ function StartDownload(downloadQueue){
     }
 }
 
+let downloadStorage = [];
+let downloadCount = 0;
+function AddToDownloadQueue(url, filename){
+    downloadCount++;
+    downloadStorage.push(
+        {
+            filename: filename,
+            url: url
+        }
+    );
+    setBadgeText(downloadCount);
+
+    Settings.Save("global_download_queue_data", JSON.stringify(downloadStorage));
+
+    console.log(downloadStorage)
+
+
+    // chrome.storage.local.set(downloadQueueObj);
+
+}
+
 chrome.downloads.onChanged.addListener(function (downloadDelta) {
     chrome.storage.local.get({
         showDownloadFolderCheckbox: false
@@ -106,11 +128,13 @@ chrome.downloads.onCreated.addListener((item)=>{
             console.log(`Item state: ${item.state}`)
             if (item.state == "in_progress"){
 
-                console.log(`FILE SIZE [IN PROG] [${item.id}]: ${totalBytes} of ${receivedByes}`);    
+                console.log(`FILE SIZE [IN PROG] [${item.id}]: ${totalBytes} of ${receivedByes}`);   
+                dmFileSize = totalBytes; 
             }
 
             if (item.state == "complete"){
                 console.log(`FILE SIZE [COMPLETE] [${item.id}]: ${totalBytes} of ${receivedByes}`);    
+                dmFileSize = totalBytes; 
 
             }
         });
@@ -155,3 +179,7 @@ chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
 
 });
 
+function DownloadManager(url, site, callback){
+
+}
+ 
