@@ -20,7 +20,8 @@
 const contextMenuId = {
     saveImage: "saveImage",
     saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
-    viewOriginalImage: "viewOriginalImage"
+    viewOriginalImage: "viewOriginalImage",
+    addDownloadQueue: "downloadqueue"
 }
 
 chrome.runtime.onInstalled.addListener(()=>{
@@ -35,6 +36,12 @@ chrome.runtime.onInstalled.addListener(()=>{
     chrome.contextMenus.create({
         id: contextMenuId.saveImageWithCustomPrefix,
         title: "Save image as (AutoRename) with Prefix",
+        contexts: ["image"]
+    },  () => chrome.runtime.lastError );
+
+    chrome.contextMenus.create({
+        id: contextMenuId.addDownloadQueue,
+        title: "Add to Download Queue",
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
     
@@ -325,11 +332,17 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             } 
             else if (info.menuItemId === contextMenuId.saveImage){
                 temp["use_prefix"] = false;
+                temp["download_queue"] = false;
                 SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
 
             } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
                 temp["use_prefix"] = true;
+                temp["download_queue"] = false;
                 SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
+            } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
+                temp["use_prefix"] = false;
+                temp["download_queue"] = true;
+                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
             }
             break;
 
