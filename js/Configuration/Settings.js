@@ -49,6 +49,7 @@ function StartSettingsService() {
         global_enable_save_as_window: true,
         global_notifications_updated: true,
         global_use_autorename_folder: false,
+        global_download_queue_data: "",
         //#endregion
     
         //#region Twitter Settings
@@ -119,6 +120,11 @@ function StartSettingsService() {
                 name: "Save image to AutoRename folder",
                 value: items.global_use_autorename_folder,
                 key: "global_use_autorename_folder"
+            }, {
+                category: Category.General,
+                name: "Download Queue",
+                value: items.global_download_queue_data,
+                key: "global_download_queue_data"
             },
             
             //#endregion
@@ -330,6 +336,11 @@ function StartSettingsService() {
             }),
             OptionsUI: SettingsMap.filter((key)=>{
                 return key.category == Category.Options;
+            }),
+            DownloadQueue: SettingsMap.filter((key)=>{
+                return key.category == Category.General && key.key == "global_download_queue_data";
+            }).map((x,idx,arr)=>{
+                return JSON.parse(arr[0].value);
             })
         }
     });
