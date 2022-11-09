@@ -188,6 +188,12 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
     });
     
     DevMode ? console.log(twitterImageFile) : "";
-    StartDownload(twitterImageFile);
+    if (customObj.download_queue == true){
+        console.log('start dl queue');
+        AddToDownloadQueue(twitterImageFile[0].url, twitterImageFile[0].filename);
+    } else {
+        StartDownload(twitterImageFile);
+    }
+
 
 }
