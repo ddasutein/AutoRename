@@ -537,6 +537,67 @@ document.addEventListener("DOMContentLoaded", (() => {
                 }));
                 break;
 
+            case "button_download_all":
+                buttons.addEventListener("click", (()=>{
+
+                    function createZip(zipName){
+                       
+                        let downloadJSONData = Settings.Load().General;
+                        downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+                        downloadJSONData = JSON.parse(downloadJSONData);
+                        console.log(downloadJSONData);
+                        
+                        if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
+    
+                        let zip = new JSZip();
+                        downloadJSONData.forEach((x)=>{
+                            console.log(x.filename)
+                            zip.file(x.filename, urlToPromise(x.url), { binary: true});
+                        });
+                        zip.generateAsync({
+                            type: "blob"
+                        }).then(function callback(blob){
+                            saveAs(blob, zipName)
+                        });
+                       return zipName;
+                    }
+
+                    swal({
+                        text: 'Enter name for ZIP file',
+                        content: "input",
+                        button: {
+                          text: "Create ZIP",
+                          closeModal: false,
+                        },
+                      })
+                      .then(name => {
+                        console.log(!name);
+                        if (!name) throw null;
+
+                        return createZip(name);
+  
+                      }).then(results =>{
+                        console.log(results);
+                        swal({
+                            title: `Download Complete`,
+                            text: results + ".zip"
+                          });
+                      }).catch(error =>{
+                        if (error == null){
+                            console.log("null error")
+                            swal({
+                                title: "Error",
+                                text: "You have entered an invalid file name",
+                                icon: "warning",
+                            })
+                        }
+                        console.error(error);
+                      })
+
+
+                }));
+                break;
+
 
         }
     });
@@ -573,3 +634,15 @@ document.addEventListener("DOMContentLoaded", (() => {
 
     });
 }));
+
+function urlToPromise(url) {
+    return new Promise(function (resolve, reject) {
+        JSZipUtils.getBinaryContent(url, function (err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+}
