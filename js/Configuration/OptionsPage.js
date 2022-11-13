@@ -277,7 +277,8 @@ document.addEventListener("DOMContentLoaded", (() => {
     }, {});
     console.log(optionsConfig)
 
-
+    
+    createDownloadCardItem();
 
     tabs.forEach((tab, idx) => {
         // console.log(tab)
@@ -333,6 +334,12 @@ document.addEventListener("DOMContentLoaded", (() => {
          */
 
         switch (buttons.id) {
+
+            // case "download-primary":
+            //     buttons.addEventListener("click", (() => {
+            //         alert("TEST " + buttons.id)
+            //     }));
+            //     break;
 
             case "button_help_twitter":
                 buttons.addEventListener("click", (() => {
@@ -645,4 +652,121 @@ function urlToPromise(url) {
             }
         });
     });
+}
+
+function createDownloadCardItem(indexNumber, objData){
+
+    let download_card_container = document.getElementById("download_card_container");
+    let download_queue_label = document.getElementById("download-queue-label");
+    download_queue_label.textContent = `Download Queue - (0)`;
+
+    let downloadJSONData = Settings.Load().General;
+    downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+    downloadJSONData = JSON.parse(downloadJSONData);
+    console.log(downloadJSONData);
+    
+    if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
+
+    download_queue_label.textContent = `Download Queue - (${downloadJSONData.length})`;
+
+    let buttonIds = [];
+    downloadJSONData.forEach((x, idx)=>{
+        
+        buttonIds.push({
+            primary: `download-primary-${idx}`,
+            secondary: `download-secondary-${idx}`,
+            download_card_ids: `download-card-${idx}`,
+            index_count: idx
+        });
+        download_card_container.innerHTML += `
+        <div class="download-card" id="download-card-${idx}">
+            <img class="image-thumbnail image-thumbnail-${idx}" src="${x.url}"></img>
+            <div class="download-card-info download-card-info-${idx}">
+                <div class="download-card-site download-card-site-${idx}">Twitter</div>
+                <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
+            </div>
+            <div class="download-card-actions">
+                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">Remove</button>
+                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">Download</button>
+            </div>
+        </div>
+        `;
+    });
+    updateDownloadButtonListeners(buttonIds);
+    buttonIds = []; // Clear when done
+
+}
+
+function testt(id){
+
+    let btn = document.getElementById("download-secondary")
+
+    alert("TEST")
+
+    let thisButton = this;
+
+}
+
+function updateDownloadButtonListeners(downloadBtns){
+
+    let updatedDownloadQueueStorage = [];
+    let downloadJSONData = Settings.Load().General;
+    downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+    downloadJSONData = JSON.parse(downloadJSONData);
+    if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
+    console.log(downloadBtns)
+    downloadBtns.forEach((x)=>{
+
+        let buttonPrimaryElement = document.getElementById(x.primary);
+        let buttonPrimarySecondary = document.getElementById(x.secondary);
+    
+        document.querySelectorAll("button").forEach((buttons) => {
+            
+            if (x.secondary == buttons.id){
+                buttons.addEventListener("click", ((e) => {
+                    console.log(e)
+                    // alert("TEST " + e.target.value)
+                    if (confirm("Are you sure you want to remove this from queue?") == true ){
+                        downloadJSONData = downloadJSONData.splice(e.target.value);
+                        console.log(downloadJSONData)
+                        Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
+                    }
+                }));
+            }
+
+            if (x.primary == buttons.id){
+                buttons.addEventListener("click", ((e) => {
+                    data = downloadJSONData.filter((v,idx)=>idx == e.target.value)[0];
+                    console.log(data)
+                    StartDownload([{filename: data.filename, url: data.url}]);
+
+                }));
+            }
+
+        });
+
+        document.getElementById("download_card_container").addEventListener("mouseover", (e)=>{
+
+            if (e.target.id == x.download_card_ids){
+                   console.log("TEST " + e.target.id)
+                   buttonPrimaryElement.style.visibility = "visible";
+                   buttonPrimarySecondary.style.visibility = "visible";
+
+            }
+
+        });
+
+        document.getElementById("download_card_container").addEventListener("mouseout", (e)=>{
+
+            if (e.target.id == x.download_card_ids){
+                   console.log("MOUSE OUT " + e.target.id)
+                   buttonPrimaryElement.style.visibility = "visible";
+                   buttonPrimarySecondary.style.visibility = "visible";
+            }
+
+        });
+    });
+    console.log('updated');
+    console.log(downloadJSONData)
+    
 }
