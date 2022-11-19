@@ -12,7 +12,7 @@
  * 
  */
 
-function SaveLINEBlogMedia(tabUrl, url, customObj){
+function SaveLINEBlogMedia(tabUrl, url, linkUrl, customObj){
 
     if (BrowserTabInfo.URL.match(Website.LINE_BLOG)){
         lineblogTitle = BrowserTabInfo.Title.split("-")[1] != undefined ? BrowserTabInfo.Title.split("-")[1].trim().toString() : "";
@@ -114,7 +114,11 @@ function SaveLINEBlogMedia(tabUrl, url, customObj){
         filename: buildFileName(fileNameObj) + ".jpg",
         url: url
     });
-
-    StartDownload(lineBlogImageFile);
+    console.log(customObj);
+    if (customObj.download_queue == true){
+        AddToDownloadQueue(lineBlogImageFile[0].url, lineBlogImageFile[0].filename, "LINE BLOG")
+    } else {
+        StartDownload(lineBlogImageFile);
+    }
 
 }
