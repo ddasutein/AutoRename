@@ -546,28 +546,56 @@ document.addEventListener("DOMContentLoaded", (() => {
 
             case "button_download_all":
                 buttons.addEventListener("click", (()=>{
-
+                    let isDone = false;
                     function createZip(zipName){
-                       
+                        
+                        var statusEl = document.getElementById("status");
                         let downloadJSONData = Settings.Load().General;
                         downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
                         downloadJSONData = JSON.parse(downloadJSONData);
                         console.log(downloadJSONData);
                         
                         if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
-    
+
                         let zip = new JSZip();
                         downloadJSONData.forEach((x)=>{
-                            console.log(x.filename)
                             zip.file(x.filename, urlToPromise(x.url), { binary: true});
                         });
                         zip.generateAsync({
-                            type: "blob"
+                            type: "blob",streamFiles: true
+                        }, function updateCallback(metaData){
+
+                            if(metaData.currentFile) {
+                                
+                                if (metaData.percent > 0){
+                                    msg = `Saving file: ${metaData.currentFile} to ZIP - ${metaData.percent.toFixed(2)}%`;
+                                } else if (metaData.percent == 0){
+                                    msg = `Your files are currently downloading. Please wait...`
+                                }
+
+                                console.log(metaData);
+
+                                swal({
+                                    title: "Download in progress",
+                                    text: `${msg}`,
+                                    closeOnClickOutside: false,
+                                    buttons: false
+                                })
+
+                            }
+
                         }).then(function callback(blob){
                             saveAs(blob, zipName)
+                            swal({
+                                title: "Download complete",
+                                text: zipName,
+                                icon: "success"
+                            })
+                            isDone = true;
                         });
-                       return zipName;
+                       return isDone;
                     }
+
 
                     swal({
                         text: 'Enter name for ZIP file',
@@ -578,17 +606,9 @@ document.addEventListener("DOMContentLoaded", (() => {
                         },
                       })
                       .then(name => {
-                        console.log(!name);
                         if (!name) throw null;
 
-                        return createZip(name);
-  
-                      }).then(results =>{
-                        console.log(results);
-                        swal({
-                            title: `Download Complete`,
-                            text: results + ".zip"
-                          });
+                       return createZip(name);
                       }).catch(error =>{
                         if (error == null){
                             console.log("null error")
@@ -662,8 +682,8 @@ function createDownloadCardItem(indexNumber, objData){
 
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
-    downloadJSONData = JSON.parse(downloadJSONData);
     console.log(downloadJSONData);
+    downloadJSONData = JSON.parse(downloadJSONData);
     
     if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
 
@@ -725,7 +745,7 @@ function updateDownloadButtonListeners(downloadBtns){
             if (x.secondary == buttons.id){
                 buttons.addEventListener("click", ((e) => {
                     console.log(e)
-                    // alert("TEST " + e.target.value)
+                    alert("TEST " + e.target.value)
                     if (confirm("Are you sure you want to remove this from queue?") == true ){
                         downloadJSONData = downloadJSONData.splice(e.target.value);
                         console.log(downloadJSONData)
