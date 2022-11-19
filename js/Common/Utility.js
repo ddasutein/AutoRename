@@ -75,6 +75,21 @@ let Utility = {
                 }
                 break;
         }
+    }),
+
+    SetBadgeText : ((str)=>{
+        if (str == 0){
+            chrome.action.setBadgeText({
+                text: ""
+            });
+        } else if (str > 0){
+            chrome.action.setBadgeText({
+                text: str.toString()
+            });
+        }
+
     })
+    
+    
 
 }
