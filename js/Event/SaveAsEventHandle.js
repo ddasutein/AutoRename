@@ -112,12 +112,6 @@ chrome.action.setBadgeBackgroundColor({
     color: "#181818"
 });
 
-const setBadgeText = ((str) => {
-    chrome.action.setBadgeText({
-        text: str.toString()
-    })
-});
-
 
 let count = 0;
 /**
@@ -364,6 +358,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
                 temp["use_prefix"] = true;
                 SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            } else if (info.menuItemId == contextMenuId.addDownloadQueue){
+                temp["use_prefix"] = false;
+                temp["download_queue"] = true;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, info.linkUrl, temp);
             }
             break;
 
