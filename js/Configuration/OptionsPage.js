@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -549,14 +549,15 @@ document.addEventListener("DOMContentLoaded", (() => {
                     let isDone = false;
                     function createZip(zipName){
                         
-                        var statusEl = document.getElementById("status");
                         let downloadJSONData = Settings.Load().General;
                         downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+                        console.log("download buttn")
+                        console.log(downloadJSONData)
+                        if (typeof downloadJSONData == "string" && downloadJSONData.length == 0) return;
+                        
                         downloadJSONData = JSON.parse(downloadJSONData);
                         console.log(downloadJSONData);
                         
-                        if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
-
                         let zip = new JSZip();
                         downloadJSONData.forEach((x)=>{
                             zip.file(x.filename, urlToPromise(x.url), { binary: true});
@@ -590,8 +591,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                                 title: "Download complete",
                                 text: zipName,
                                 icon: "success"
-                            })
-                            isDone = true;
+                            });
                         });
                        return isDone;
                     }
@@ -682,10 +682,25 @@ function createDownloadCardItem(indexNumber, objData){
 
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+    console.log("LIELLA")
     console.log(downloadJSONData);
+    console.log(downloadJSONData.length)
+    console.log(typeof downloadJSONData)
+
+    /**
+     * This scenario triggers on a fresh installation as by default, it is a string value.
+     */
+    if (typeof downloadJSONData == "string" && downloadJSONData.length == 0){
+        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        return;
+    }
+
     downloadJSONData = JSON.parse(downloadJSONData);
-    
-    if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
+    if (downloadJSONData.length == 0){
+        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        return;
+    } 
+   
 
     download_queue_label.textContent = `Download Queue - (${downloadJSONData.length})`;
 
@@ -702,10 +717,10 @@ function createDownloadCardItem(indexNumber, objData){
         <div class="download-card" id="download-card-${idx}">
             <img class="image-thumbnail image-thumbnail-${idx}" src="${x.url}"></img>
             <div class="download-card-info download-card-info-${idx}">
-                <div class="download-card-site download-card-site-${idx}">Twitter</div>
+                <div class="download-card-site download-card-site-${idx}">${x.website}</div>
                 <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
             </div>
-            <div class="download-card-actions">
+            <div class="download-card-actions" id="download-card-actions">
                 <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">Remove</button>
                 <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">Download</button>
             </div>
@@ -717,45 +732,39 @@ function createDownloadCardItem(indexNumber, objData){
 
 }
 
-function testt(id){
-
-    let btn = document.getElementById("download-secondary")
-
-    alert("TEST")
-
-    let thisButton = this;
-
-}
-
 function updateDownloadButtonListeners(downloadBtns){
 
-    let updatedDownloadQueueStorage = [];
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
     downloadJSONData = JSON.parse(downloadJSONData);
     if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
     console.log(downloadBtns)
-    downloadBtns.forEach((x)=>{
 
-        let buttonPrimaryElement = document.getElementById(x.primary);
-        let buttonPrimarySecondary = document.getElementById(x.secondary);
+    downloadBtns.forEach((x)=>{
     
         document.querySelectorAll("button").forEach((buttons) => {
             
             if (x.secondary == buttons.id){
                 buttons.addEventListener("click", ((e) => {
                     console.log(e)
-                    alert("TEST " + e.target.value)
                     if (confirm("Are you sure you want to remove this from queue?") == true ){
-                        downloadJSONData = downloadJSONData.splice(e.target.value);
-                        console.log(downloadJSONData)
+                        console.log(e)
+
+
+                        let id = e.target.id;
+                        id = id.split("-")[2]; // Temp workaround as for some reason, there is no value despite it being entered in the for-loop
+
+                        downloadJSONData = downloadJSONData.filter((v,idx)=>idx != +id);
                         Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
+                        Utility.SetBadgeText(downloadJSONData.length);
+                        window.location.reload();
                     }
                 }));
             }
 
             if (x.primary == buttons.id){
                 buttons.addEventListener("click", ((e) => {
+                    console.log("IDX PRIMARY: " + e.target.value)
                     data = downloadJSONData.filter((v,idx)=>idx == e.target.value)[0];
                     console.log(data)
                     StartDownload([{filename: data.filename, url: data.url}]);
@@ -764,29 +773,7 @@ function updateDownloadButtonListeners(downloadBtns){
             }
 
         });
-
-        document.getElementById("download_card_container").addEventListener("mouseover", (e)=>{
-
-            if (e.target.id == x.download_card_ids){
-                   console.log("TEST " + e.target.id)
-                   buttonPrimaryElement.style.visibility = "visible";
-                   buttonPrimarySecondary.style.visibility = "visible";
-
-            }
-
-        });
-
-        document.getElementById("download_card_container").addEventListener("mouseout", (e)=>{
-
-            if (e.target.id == x.download_card_ids){
-                   console.log("MOUSE OUT " + e.target.id)
-                   buttonPrimaryElement.style.visibility = "visible";
-                   buttonPrimarySecondary.style.visibility = "visible";
-            }
-
-        });
+        
     });
-    console.log('updated');
-    console.log(downloadJSONData)
     
 }
