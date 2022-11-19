@@ -340,7 +340,12 @@ function StartSettingsService() {
             DownloadQueue: SettingsMap.filter((key)=>{
                 return key.category == Category.General && key.key == "global_download_queue_data";
             }).map((x,idx,arr)=>{
-                return JSON.parse(arr[0].value);
+                console.log(arr.length)
+                if (arr.length > 1){
+                    return JSON.parse(arr[0].value);
+                } else {
+                    return null
+                }
             })
         }
     });
