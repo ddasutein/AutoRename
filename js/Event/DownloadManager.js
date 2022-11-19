@@ -78,19 +78,29 @@ function StartDownload(downloadQueue){
 
 let downloadStorage = [];
 let downloadCount = 0;
-function AddToDownloadQueue(url, filename){
-    downloadCount++;
-    downloadStorage.push(
+function AddToDownloadQueue(url, filename, website){
+
+    let downloadJSONData = Settings.Load().General;
+    downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
+    if (downloadJSONData.length > 0){
+        downloadJSONData = JSON.parse(downloadJSONData);
+    } else {
+        downloadJSONData = [];
+    }
+    
+    // downloadCount++;
+    downloadJSONData.push(
         {
             filename: filename,
-            url: url
+            url: url,
+            website: website
         }
     );
-    setBadgeText(downloadCount);
+    Utility.SetBadgeText(downloadJSONData.length);
+    console.log("Add to download queue");
+    console.log(downloadJSONData)
+    Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
 
-    Settings.Save("global_download_queue_data", JSON.stringify(downloadStorage));
-
-    console.log(downloadStorage)
 
 
     // chrome.storage.local.set(downloadQueueObj);
@@ -144,9 +154,9 @@ chrome.downloads.onCreated.addListener((item)=>{
 
 chrome.downloads.onDeterminingFilename.addListener((downloadItem, suggest)=>{
 
-    if (generalSettings["global_use_autorename_folder"].value == false){
-        return;
-    }
+    // if (generalSettings["global_use_autorename_folder"].value == false){
+    //     return;
+    // }
     
     let suggestedFile = dmFileName;
     if (!!dmTwitterUsername){
