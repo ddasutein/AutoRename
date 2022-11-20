@@ -591,7 +591,11 @@ document.addEventListener("DOMContentLoaded", (() => {
                                 title: "Download complete",
                                 text: zipName,
                                 icon: "success"
+                            }).then(()=>{
+                                Settings.Save("global_download_queue_data", "");
+                                window.location.reload();
                             });
+
                         });
                        return isDone;
                     }
@@ -677,6 +681,7 @@ function urlToPromise(url) {
 function createDownloadCardItem(indexNumber, objData){
 
     let download_card_container = document.getElementById("download_card_container");
+    let download_card_container_history = document.getElementById("download_card_container_history");
     let download_queue_label = document.getElementById("download-queue-label");
     download_queue_label.textContent = `Download Queue - (0)`;
 
@@ -746,19 +751,26 @@ function updateDownloadButtonListeners(downloadBtns){
             
             if (x.secondary == buttons.id){
                 buttons.addEventListener("click", ((e) => {
-                    console.log(e)
-                    if (confirm("Are you sure you want to remove this from queue?") == true ){
-                        console.log(e)
 
-
-                        let id = e.target.id;
-                        id = id.split("-")[2]; // Temp workaround as for some reason, there is no value despite it being entered in the for-loop
-
-                        downloadJSONData = downloadJSONData.filter((v,idx)=>idx != +id);
-                        Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
-                        Utility.SetBadgeText(downloadJSONData.length);
-                        window.location.reload();
-                    }
+                    swal({
+                        title: "Remove from Queue",
+                        text: "Are you sure you want to remove this file?",
+                        icon: "warning",
+                        buttons: {
+                            cancel: true,
+                            confirm: true
+                        }
+                    }).then((result)=>{
+                        if (result){
+                            let id = e.target.id;
+                            id = id.split("-")[2]; // Temp workaround as for some reason, there is no value despite it being entered in the for-loop
+    
+                            downloadJSONData = downloadJSONData.filter((v,idx)=>idx != +id);
+                            Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
+                            Utility.SetBadgeText(downloadJSONData.length);
+                            window.location.reload();
+                        }
+                    }).catch((error)=> console.error(error));
                 }));
             }
 
@@ -768,6 +780,10 @@ function updateDownloadButtonListeners(downloadBtns){
                     data = downloadJSONData.filter((v,idx)=>idx == e.target.value)[0];
                     console.log(data)
                     StartDownload([{filename: data.filename, url: data.url}]);
+
+                    // Remove once downloaded
+                    data = downloadJSONData.filter((v, idx) => idx != e.target.value);
+                    Settings.Save("global_download_queue_data", JSON.stringify(data));
 
                 }));
             }
