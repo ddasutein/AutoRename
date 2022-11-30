@@ -22,7 +22,8 @@
  */
 let Settings = {};
 
-function StartSettingsService() {
+(()=>{
+    console.log("Settings service started")
 
     let SettingsMap = [];
 
@@ -50,6 +51,7 @@ function StartSettingsService() {
         global_notifications_updated: true,
         global_use_autorename_folder: false,
         global_download_queue_data: "",
+        global_download_history_data: "",
         //#endregion
     
         //#region Twitter Settings
@@ -125,6 +127,11 @@ function StartSettingsService() {
                 name: "Download Queue",
                 value: items.global_download_queue_data,
                 key: "global_download_queue_data"
+            }, {
+                category: Category.General,
+                name: "Download History",
+                value: items.global_download_history_data,
+                key: "global_download_history_data"
             },
             
             //#endregion
@@ -349,6 +356,4 @@ function StartSettingsService() {
             })
         }
     });
-
-};
-StartSettingsService();
+})();
