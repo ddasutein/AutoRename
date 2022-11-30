@@ -78,7 +78,7 @@ let Utility = {
     }),
 
     SetBadgeText : ((str)=>{
-        if (str == 0){
+        if (str == 0 || str == null){
             chrome.action.setBadgeText({
                 text: ""
             });
@@ -88,6 +88,12 @@ let Utility = {
             });
         }
 
+    }),
+
+    CreateNewTab : ((url)=>{
+        return chrome.tabs.create({
+            url: url
+        });
     })
     
     
