@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -13,73 +13,15 @@
  */
 
 /**
- * Twitter supports various image sizes. When using `original`,
- * the extension can save images up to 4096x4096 resolution
+ * asda
  */
- const size = {
-    small: "&name=small",
-    medium: "&name=medium",
-    large: "&name=large",
-    original: "&name=orig"
-}
+var Twitter = {
 
-/**
- * Return if the image is either a JPG or PNG
- * 
- * @param {string} url 
- */
-let getImageFormat = ((url) => "." + url.split("?format=")[1].substring(0, 3));
-
-/**
- * View the Twitter image in it's original size
- * 
- * @param {string} url 
- */
-function ViewOriginalMedia(url) {
-
-    let updatedUrl = null;
-
-    const twitterImageSize = url.substring(0, url.lastIndexOf("&name=") + 0);
-
-    if (url.includes("&name=")) {
-        updatedUrl = twitterImageSize + size.original
-    } else {
-        updatedUrl = url;
-    }
-
-    chrome.tabs.create({
-        url: updatedUrl
-    });
-}
-
-function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
-
-    if (Utility.SplitURL(tabUrl, 5) == null || Utility.SplitURL(tabUrl, 5).length == 0){
-
-        if (!linkUrl){
-            alert(chrome.i18n.getMessage("error_tweet_detail_alert_prompt"));
-            return;
-        }
-        
-    }
-
-    const twitterConfig = Settings.Load().Twitter.map((data)=>{
-        return {
-            "key": data.key,
-            "value": data.value
-        }
-    }).reduce((obj, data)=>{
-        obj[data.key] = data;
-        return obj;
-    }, {});
-
-    function buildFileName(fileNameObj){
+    BuildFileName: ((twitterConfig, fileNameObj)=>{
         let temp;
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
 
-
-        
         if (!twitterConfig["twitter_include_mention_symbol"].value){
             temp[temp.indexOf("{username}")] = fileNameObj.username;
         } else {
@@ -136,7 +78,7 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
             temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
         }
 
-        if (customObj.use_prefix == true){
+        if (fileNameObj.use_prefix == true){
 
             if (twitterConfig["twitter_settings_custom_prefix"].value == ""){
                 Utility.RemoveUnusedParameter(temp, "{prefix}");
@@ -149,50 +91,104 @@ function SaveTwitterMedia(tabUrl, url, linkUrl, customObj){
         }
 
         return temp.toString().replace(/,/g, "-");
-    }
+    }),
 
-    let twitterImageFile = [];
-    let fileNameObj = {};
-    let twitterMediaSrc;
-    let tweetId;
-    const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
+    ImageFormatType : ((url) => "." + url.split("?format=")[1].substring(0, 3)),
 
-    // Rule 1: When full tweet is clicked then it should be prioritized first
-    if (!!tabUrl){
-        if (specialCharacters.test(Utility.SplitURL(tabUrl, 5))){
-            tweetId = Utility.SplitURL(tabUrl, 5).split(specialCharacters)[0];
-        } else {
-            tweetId = Utility.SplitURL(tabUrl, 5);
-        }
-    } 
+    ImageSizeType : (()=> {
+        const size = [{
+            small: "&name=small",
+            medium: "&name=medium",
+            large: "&name=large",
+            original: "&name=orig"
+        }];
+        return size.map((x => x))[0];
+    }),
+
+    MediaSrc : ((linkUrl)=>{
+        let src = "";
+        src = linkUrl.substring(0, linkUrl.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().original
+        return src;
+    }),
+
+    ViewOriginalImage : ((url)=>{
     
-    // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
-    if (tweetId == "" || tweetId == undefined || tweetId == null){
-        if (!!linkUrl){
-            if (specialCharacters.test(Utility.SplitURL(linkUrl, 5))){
-                tweetId = Utility.SplitURL(linkUrl, 5).split(specialCharacters)[0];
+        if (url.info_url.includes("&name=")) {
+            updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().original
+        } else {
+            updatedUrl = url.info_url;
+        }
+        Utility.CreateNewTab(updatedUrl)
+    }),
+
+    SaveMedia : ((data)=>{
+
+        let filename = "";
+        let tweetId;
+        let fileNameObj = {};
+        
+        twitterConfig = Settings.Load().Twitter.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        generalSettings = Settings.Load().General.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+
+        const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
+
+        // Rule 1: When full tweet is clicked then it should be prioritized first
+        if (!!data.tab_url){
+            if (specialCharacters.test(Utility.SplitURL(data.tab_url, 5))){
+                tweetId = Utility.SplitURL(data.tab_url, 5).split(specialCharacters)[0];
             } else {
-                tweetId = Utility.SplitURL(linkUrl, 5);
+                tweetId = Utility.SplitURL(data.tab_url, 5);
+            }
+        } 
+        
+        // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
+        if (tweetId == "" || tweetId == undefined || tweetId == null){
+            if (!!linkUrl){
+                if (specialCharacters.test(Utility.SplitURL(data.link_url, 5))){
+                    tweetId = Utility.SplitURL(data.link_url, 5).split(specialCharacters)[0];
+                } else {
+                    tweetId = Utility.SplitURL(data.link_url, 5);
+                }
             }
         }
-    }
-    fileNameObj["username"] = linkUrl != undefined ? Utility.SplitURL(linkUrl, 3) : Utility.SplitURL(tabUrl, 3);
-    fileNameObj["tweetId"] = tweetId;
-    twitterMediaSrc = url.substring(0, url.lastIndexOf("&name=") + 0) + size.original;
-    twitterImageFile.push({
-        filename: buildFileName(fileNameObj) + getImageFormat(url),
-        url: twitterMediaSrc,
-        website: "twitter",
-        username: fileNameObj.username,
-        save_to_folder_by_username: twitterConfig["twitter_save_image_to_folder_based_on_username"].value
-    });
-    
-    DevMode ? console.log(twitterImageFile) : "";
-    if (customObj.download_queue == true){
-        AddToDownloadQueue(twitterImageFile[0].url, twitterImageFile[0].filename, "Twitter");
-    } else {
-        StartDownload(twitterImageFile);
-    }
 
+        fileNameObj["username"] = data.link_url != undefined ? Utility.SplitURL(data.link_url, 3) : Utility.SplitURL(data.tab_url, 3);
+        fileNameObj["tweetId"] = tweetId;
+        fileNameObj["use_prefix"] = data.use_prefix;
+        filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
+        
+        if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
+            filename = `AutoRename/Twitter/${fileNameObj.username}/${filename}`
+        }
+
+        let twitterFileProp = [];
+        twitterFileProp.push({
+            filename: filename,
+            url: Twitter.MediaSrc(data.info_url),
+            website: "Twitter",
+
+        });
+
+        data.download_queue == false ? DownloadManager.StartDownload(twitterFileProp) : DownloadManager.AddDownloadQueue(twitterFileProp);
+
+    })
 
 }
