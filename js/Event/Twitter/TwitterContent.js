@@ -12,9 +12,6 @@
  * 
  */
 
-/**
- * asda
- */
 var Twitter = {
 
     BuildFileName: ((twitterConfig, fileNameObj)=>{
@@ -161,7 +158,7 @@ var Twitter = {
         
         // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
         if (tweetId == "" || tweetId == undefined || tweetId == null){
-            if (!!linkUrl){
+            if (!!data.link_url){
                 if (specialCharacters.test(Utility.SplitURL(data.link_url, 5))){
                     tweetId = Utility.SplitURL(data.link_url, 5).split(specialCharacters)[0];
                 } else {
@@ -177,6 +174,8 @@ var Twitter = {
         
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
             filename = `AutoRename/Twitter/${fileNameObj.username}/${filename}`
+        } else if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == false){
+            filename = `AutoRename/Twitter/${filename}`
         }
 
         let twitterFileProp = [];
