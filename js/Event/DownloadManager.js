@@ -14,6 +14,27 @@
 
 var DownloadManager = {
 
+    UpdateBadge: (async ()=>{
+        generalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        let downloadData = generalSettings["global_download_queue_data"].value;
+        if (downloadData.length > 0) {
+            downloadData = JSON.parse(downloadData)
+        } else {
+            downloadData = [];
+        }
+
+        Utility.SetBadgeText(downloadData.length);
+    }),
+
     AddDownloadQueue: ((data) => {
 
         generalSettings = Settings.Load().General.map((data) => {
@@ -88,6 +109,7 @@ var DownloadManager = {
                             tmp = [];
                             tmp.push(fileData);
                             Settings.Save("global_download_history_data", JSON.stringify(tmp));
+                            DownloadManager.UpdateBadge();
                         }
                     }
                 });
