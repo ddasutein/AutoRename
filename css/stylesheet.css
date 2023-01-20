@@ -373,6 +373,7 @@ a:-webkit-any-link {
   display: flex;
   flex-direction: row;
   margin-bottom: 5px;
+  padding: 3px;
 }
 
 .download-card .download-card-actions {
@@ -468,18 +469,17 @@ a:-webkit-any-link {
     box-shadow: 0 0 28px #00000059;
   }
 
+  .download_card_container {
+    color: #B0B0B0;
+  }
+
   .download-card {
-    align-items: center;
-    background-color: #181818;
+    background-color: #222222;
     box-shadow: 1px 1px 4px #000;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 5px;
   }
 
   .download-card-site {
-    color: #888888;
+    color: #fff;
     margin-top: 5px;
     font-size: 12px;
   }
@@ -505,6 +505,9 @@ a:-webkit-any-link {
     color: #B0B0B0;
   }
 
+  .download-card-info {
+    color: #B0B0B0;
+  }
 }
 
 /** ANIMATION **/
