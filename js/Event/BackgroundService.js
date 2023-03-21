@@ -12,6 +12,12 @@
  * 
  */
 
+const GLOBAL_VARIABLES = {
+
+    UA_HEADER: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`
+
+}
+
 const Backgroundscripts = [
     "/js/Configuration/Settings.js",
     "/js/Configuration/Runtime.js",
