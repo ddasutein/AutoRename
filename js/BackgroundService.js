@@ -19,18 +19,18 @@ const GLOBAL_VARIABLES = {
 }
 
 const Backgroundscripts = [
-    "/js/Configuration/Settings.js",
-    "/js/Configuration/Runtime.js",
+    "/js/Settings.js",
+    "/js/Runtime.js",
     "/lib/Moment/moment.js",
     "/lib/Moment/moment-with-locales.js",
     "/js/Common/Utility.js",
     "/js/Common/Debugger.js",
     "/js/Common/SetTimeDate.js",
-    "/js/Event/Twitter/TwitterContent.js",
-    "/js/Event/LINE BLOG/LineBlogContent.js",
-    "/js/Event/Reddit/RedditContent.js",
-    "/js/Event/DownloadManager.js",
-    "/js/Event/SaveAsEventHandle.js"
+    "/js/Twitter/TwitterContent.js",
+    "/js/LINE BLOG/LineBlogContent.js",
+    "/js/Reddit/RedditContent.js",
+    "/js/DownloadManager.js",
+    "/js/SaveAsEventHandle.js"
 ]
 
 try {
