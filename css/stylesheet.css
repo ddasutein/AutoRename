@@ -418,6 +418,15 @@ a:-webkit-any-link {
   margin-right: 1px;
 }
 
+.beta_tag {
+  padding: 4px;
+  background-color: #FFCD03;
+  color: black;
+  border-radius: 6px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
 /** EVERYTHING BELOW IS FOR DARK MODE ONLY **/
 
 @media (prefers-color-scheme: dark) {
