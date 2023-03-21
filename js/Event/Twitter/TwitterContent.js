@@ -64,12 +64,7 @@ var Twitter = {
         }
 
         if (twitterConfig["twitter_random_string_length"].value == "0"){
-            let photoCount = Utility.SplitURL(linkUrl, 7);
-            if (photoCount != undefined || photoCount != null || photoCount != ""){
-                temp[temp.indexOf("{randomstring}")] = `img${Utility.SplitURL(linkUrl, 7)}`;
-            } else {
-                Utility.RemoveUnusedParameter(temp, "{randomstring}");
-            }
+            temp[temp.indexOf("{randomstring}")] = fileNameObj.photo_count;
 
         } else {
             temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
@@ -108,7 +103,7 @@ var Twitter = {
         return src;
     }),
 
-    ViewOriginalImage : ((url)=>{
+    ViewOriginalImage : (async (url)=>{
     
         if (url.info_url.includes("&name=")) {
             updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().original
@@ -116,9 +111,10 @@ var Twitter = {
             updatedUrl = url.info_url;
         }
         Utility.CreateNewTab(updatedUrl)
+        
     }),
 
-    SaveMedia : ((data)=>{
+    SaveMedia : ( (data)=>{
 
         let filename = "";
         let tweetId;
@@ -170,6 +166,7 @@ var Twitter = {
         fileNameObj["username"] = data.link_url != undefined ? Utility.SplitURL(data.link_url, 3) : Utility.SplitURL(data.tab_url, 3);
         fileNameObj["tweetId"] = tweetId;
         fileNameObj["use_prefix"] = data.use_prefix;
+        fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
         filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
         
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
