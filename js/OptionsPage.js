@@ -556,8 +556,8 @@ document.addEventListener("DOMContentLoaded", (() => {
                         downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
                         if (typeof downloadJSONData == "string" && downloadJSONData.length == 0) {
                             return swal({
-                                title: "Download Queue is Empty",
-                                text: " To get started, right click on an image > AutoRename > Add to Download Queue",
+                                title: chrome.i18n.getMessage("downloads_section_dialog_empty_queue_title"),
+                                text: chrome.i18n.getMessage("downloads_section_empty_queue"),
                                 icon: "error",
                                 buttons: false,
                                 dangerMode: false
@@ -577,13 +577,13 @@ document.addEventListener("DOMContentLoaded", (() => {
                             if(metaData.currentFile) {
                                 
                                 if (metaData.percent > 0){
-                                    msg = `Saving file: ${metaData.currentFile} to ZIP - ${metaData.percent.toFixed(2)}%`;
+                                    msg = `${chrome.i18n.getMessage("downloads_section_saving_file")} ${metaData.currentFile} ${chrome.i18n.getMessage("downloads_section_saving_file_2")} ${metaData.percent.toFixed(2)}%`;
                                 } else if (metaData.percent == 0){
-                                    msg = `Your files are currently downloading. Please wait...`
+                                    msg = `${chrome.i18n.getMessage("downloads_section_saving_file_3")}`
                                 }
 
                                 swal({
-                                    title: "Download in progress",
+                                    title: chrome.i18n.getMessage("downloads_section_downlaod_in_progress"),
                                     text: `${msg}`,
                                     closeOnClickOutside: false,
                                     buttons: false
@@ -594,7 +594,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                         }).then(function callback(blob){
                             saveAs(blob, zipName)
                             swal({
-                                title: "Download complete",
+                                title: chrome.i18n.getMessage("downloads_section_downlaod_complete_title"),
                                 text: zipName,
                                 icon: "success"
                             }).then(()=>{
@@ -610,10 +610,10 @@ document.addEventListener("DOMContentLoaded", (() => {
 
 
                     swal({
-                        text: 'Enter name for ZIP file',
+                        text: chrome.i18n.getMessage("downloads_section_dialog_enter_zip_name"),
                         content: "input",
                         button: {
-                          text: "Create ZIP",
+                          text: chrome.i18n.getMessage("downloads_section_dialog_enter_zip_name_button_create"),
                           closeModal: false,
                         },
                       })
@@ -624,8 +624,8 @@ document.addEventListener("DOMContentLoaded", (() => {
                       }).catch(error =>{
                         if (error == null){
                             swal({
-                                title: "Error",
-                                text: "You have entered an invalid file name",
+                                title: chrome.i18n.getMessage("error_title"),
+                                text: chrome.i18n.getMessage("error_download_queue_invalid_file_name"),
                                 icon: "warning",
                             })
                         }
@@ -640,7 +640,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                 buttons.addEventListener("click", (()=>{
                     swal({
                         title: "",
-                        text: "Download Queue Cleared",
+                        text: chrome.i18n.getMessage("downloads_section_dialog_queue_cleared"),
                         icon: "success",
                         buttons: false,
                         dangerMode: false,
@@ -705,7 +705,7 @@ function createDownloadCardItem(indexNumber, objData){
     let download_card_container = document.getElementById("download_card_container");
     let download_card_container_history = document.getElementById("download_card_container_history");
     let download_queue_label = document.getElementById("download-queue-label");
-    download_queue_label.textContent = `Download Queue - (0)`;
+    download_queue_label.textContent = `${chrome.i18n.getMessage("downloads_section_count_label")} (0)`;
 
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
@@ -714,18 +714,18 @@ function createDownloadCardItem(indexNumber, objData){
      * This scenario triggers on a fresh installation as by default, it is a string value.
      */
     if (typeof downloadJSONData == "string" && downloadJSONData.length == 0){
-        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        download_card_container.innerHTML += `<div style="width=100%;"><p>${chrome.i18n.getMessage("downloads_section_empty_queue")}</p></div>`;
         return;
     }
 
     downloadJSONData = JSON.parse(downloadJSONData);
     if (downloadJSONData.length == 0){
-        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        download_card_container.innerHTML += `<div style="width=100%;"><p>${chrome.i18n.getMessage("downloads_section_empty_queue")}</p></div>`;
         return;
     } 
    
 
-    download_queue_label.textContent = `Download Queue - (${downloadJSONData.length})`;
+    download_queue_label.textContent = `${chrome.i18n.getMessage("downloads_section_count_label")} (${downloadJSONData.length})`;
 
     let buttonIds = [];
     downloadJSONData.forEach((x, idx)=>{
@@ -744,8 +744,8 @@ function createDownloadCardItem(indexNumber, objData){
                 <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
-                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">Remove</button>
-                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">Download</button>
+                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
+                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_download")}</button>
             </div>
         </div>
         `;
@@ -760,7 +760,7 @@ function createDownloadHistoryCardItem(indexNumber, objData){
     let download_card_container = document.getElementById("download_card_container_history");
     let download_card_container_history = document.getElementById("download_card_container_history");
     let download_queue_label = document.getElementById("download-queue-label");
-    download_queue_label.textContent = `Download Queue - (0)`;
+    download_queue_label.textContent = `${chrome.i18n.getMessage("downloads_section_count_label")} (0)`;
 
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_history_data").map((x) => x.value)[0];
@@ -769,18 +769,18 @@ function createDownloadHistoryCardItem(indexNumber, objData){
      * This scenario triggers on a fresh installation as by default, it is a string value.
      */
     if (typeof downloadJSONData == "string" && downloadJSONData.length == 0){
-        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        download_card_container.innerHTML += `<div style="width=100%;"><p>${chrome.i18n.getMessage("downloads_section_empty_queue")}</p></div>`;
         return;
     }
 
     downloadJSONData = JSON.parse(downloadJSONData);
     if (downloadJSONData.length == 0){
-        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        download_card_container.innerHTML += `<div style="width=100%;"><p>${chrome.i18n.getMessage("downloads_section_empty_queue")}</p></div>`;
         return;
     } 
    
 
-    download_queue_label.textContent = `Download Queue - (${downloadJSONData.length})`;
+    download_queue_label.textContent = `${chrome.i18n.getMessage("downloads_section_count_label")} (${downloadJSONData.length})`;
 
     let buttonIds = [];
     downloadJSONData.forEach((x, idx)=>{
@@ -799,8 +799,8 @@ function createDownloadHistoryCardItem(indexNumber, objData){
                 <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
-                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">Remove</button>
-                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">Download</button>
+                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
+                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_download")}</button>
             </div>
         </div>
         `;

@@ -153,7 +153,7 @@
                                 <td><input type="checkbox" id="general_settings_enable_save_as_window"></td>
                             </tr>
                             <tr>
-                                <td>Store Images to AutoRename Folder</td>
+                                <td><label data-i18n="general_settings_store_images_to_custom_folder"></label></td>
                                 <td><input type="checkbox" id="general_settings_use_autorename_folder"></td>
                             </tr>
                         </table>
@@ -265,7 +265,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Save image to folder based on username</td>
+                            <td><label data-i18n="twitter_settings_save_image_to_folder_based_on_username"></label></td>
                             <td><input type="checkbox" id="twitter_settings_save_to_folder_by_username"></td>
                         </tr>
                         
@@ -820,18 +820,18 @@
                             <th></th>
                         </tr>
                         <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-download-48.png"></img><span class="sidebar-btn-ico-text" >DOWNLOADS</span></b></td>
+                            <td><b><img class="section-ico" src="/assets/icons8-download-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_downloads"></span></b></td>
                             <td>
                                 <div class="button-container">
 
                                     <button type="button" id="button_help_reddit" data-i18n="button_help"></button>
-                                    <button type="button" id="button_clear_queue"  value="Clear">Clear Queue</button>
-                                    <button type="submit" class="button_save" id="button_download_all">Download</button>
+                                    <button type="button" id="button_clear_queue"  value="Clear" data-i18n="downloads_section_button_clear_queue"></button>
+                                    <button type="submit" class="button_save" id="button_download_all" data-i18n="downloads_section_button_download"></button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><p>View previously downloaded files and files ready for download</p></td>
+                            <td><p data-i18n="downloads_section_description"></p></td>
                         </tr>
                     </table>
                     <br/>
@@ -877,8 +877,8 @@
     </div>
 
 
-    <script src="/js/OptionsPage.js" defer></script>
     <script src="/js/i18n.js"></script>
+    <script src="/js/OptionsPage.js" defer></script>
     <script src="/js/ExtensionInfo.js"></script>
     <script src="/js/ModalManager.js"></script>
     <script src="/js/Announcement.js"></script>
