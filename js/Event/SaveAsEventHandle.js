@@ -12,6 +12,7 @@
  * 
  */
 
+
 //#region CONTEXT MENU ITEMS
 
 /**
@@ -55,6 +56,9 @@ chrome.runtime.onInstalled.addListener(()=>{
     }, () => chrome.runtime.lastError );
 
     //#endregion
+
+    DownloadManager.UpdateBadge();
+
 });
 
 //#endregion
@@ -119,33 +123,29 @@ let count = 0;
  */
 function QueryTab(tabData) {
 
-    setTimeout(() => {
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, ((tabs)=>{
 
-        chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        }, ((tabs)=>{
+        let url;
+        let title;  
 
-            let url;
-            let title;  
- 
-            if (tabs[0] != undefined){
-                DevMode ? console.log(BrowserTabInfo) : "";
-                url = tabs[0].url;
-                title = tabs[0].title;
-            }
-
-            url = url.split("/");
-            url = url[2];
-            DevMode ? console.log(url) : "";
-            UpdateContextMenus(url, tabs[0].url);
-
-            BrowserTabInfo.Title = title;
-            BrowserTabInfo.URL = url;
+        if (tabs[0] != undefined){
             DevMode ? console.log(BrowserTabInfo) : "";
-        }));
+            url = tabs[0].url;
+            title = tabs[0].title;
+        }
 
-    }, 500);
+        url = url.split("/");
+        url = url[2];
+        DevMode ? console.log(url) : "";
+        UpdateContextMenus(url, tabs[0].url);
+
+        BrowserTabInfo.Title = title;
+        BrowserTabInfo.URL = url;
+        DevMode ? console.log(BrowserTabInfo) : "";
+    }));
 
 };
 
@@ -317,26 +317,28 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
+    let data = {};
+    data["tab_url"] = tab.url;
+    data["info_url"] = info.srcUrl;
+    data["link_url"] = info.linkUrl;
+    data["use_prefix"] = false;
+    data["download_queue"] = false;
+    console.log(data);
     switch (currentUrl) {
         case Website.Twitter:
 
             if (info.menuItemId === contextMenuId.viewOriginalImage){
-                ViewOriginalMedia(info.srcUrl);
+                Twitter.ViewOriginalImage(data);
                 return;
             } 
-            else if (info.menuItemId === contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                temp["download_queue"] = false;
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-
+            else if (info.menuItemId === contextMenuId.saveImage) {
+                Twitter.SaveMedia(data);
             } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                temp["download_queue"] = false;
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
+                data.use_prefix = true;
+                Twitter.SaveMedia(data);
             } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
-                temp["use_prefix"] = false;
-                temp["download_queue"] = true;
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+                data.download_queue = true;
+                Twitter.SaveMedia(data);
             }
             break;
 
