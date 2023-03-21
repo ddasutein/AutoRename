@@ -128,6 +128,9 @@ document.onreadystatechange = () => {
                 case "global_notifications_updated":
                     document.getElementById("general_settings_notification_updated").checked = x.value
                     break;
+                case "global_use_autorename_folder":
+                    document.getElementById("general_settings_use_autorename_folder").checked = x.value;     
+                    break;
             }
         });
 
@@ -166,6 +169,10 @@ document.onreadystatechange = () => {
                     break;
                 case "twitter_settings_custom_prefix":
                     document.getElementById("twitter_settings_custom_prefix").value = x.value;
+                    break;
+
+                case "twitter_save_image_to_folder_based_on_username":
+                    document.getElementById("twitter_settings_save_to_folder_by_username").checked = x.value;
                     break;
             }
         });
@@ -275,13 +282,10 @@ document.addEventListener("DOMContentLoaded", (() => {
         obj[data.key] = data;
         return obj;
     }, {});
-    console.log(optionsConfig)
-
     
     createDownloadCardItem();
 
     tabs.forEach((tab, idx) => {
-        // console.log(tab)
 
         if (idx == optionsConfig["optionsUITabIndexNumber"].value){
             const target = document.querySelector(optionsConfig["optionsUITabName"].value);
@@ -293,8 +297,6 @@ document.addEventListener("DOMContentLoaded", (() => {
         }
 
         tab.addEventListener("click", () => {
-            console.log(tab.dataset.tabTarget)
-            console.log(idx)
             const target = document.querySelector(tab.dataset.tabTarget);
             tabContents.forEach(tabContent => tabContent.classList.remove("active"));
             tabs.forEach(tabContent => tabContent.classList.remove("active"));
@@ -370,6 +372,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                     Settings.Save("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
                     Settings.Save("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
                     Settings.Save("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
+                    Settings.Save("global_use_autorename_folder", document.getElementById("general_settings_use_autorename_folder").checked)
                     messageBox.Save();
                 }));
 
@@ -406,6 +409,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                         Settings.Save("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
                         Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
                         Settings.Save("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
+                        Settings.Save("twitter_save_image_to_folder_based_on_username", document.getElementById("twitter_settings_save_to_folder_by_username").checked);
 
                         // See dev note #1
                         Settings.Save("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value);
@@ -445,7 +449,6 @@ document.addEventListener("DOMContentLoaded", (() => {
 
                             }
                         });
-                        console.log(document.getElementById("lineblog_settings_custom_date_format").value)
                         Settings.Save("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
                         Settings.Save("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
                         Settings.Save("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
@@ -551,12 +554,17 @@ document.addEventListener("DOMContentLoaded", (() => {
                         
                         let downloadJSONData = Settings.Load().General;
                         downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
-                        console.log("download buttn")
-                        console.log(downloadJSONData)
-                        if (typeof downloadJSONData == "string" && downloadJSONData.length == 0) return;
+                        if (typeof downloadJSONData == "string" && downloadJSONData.length == 0) {
+                            return swal({
+                                title: "Download Queue is Empty",
+                                text: " To get started, right click on an image > AutoRename > Add to Download Queue",
+                                icon: "error",
+                                buttons: false,
+                                dangerMode: false
+                            });
+                        }
                         
                         downloadJSONData = JSON.parse(downloadJSONData);
-                        console.log(downloadJSONData);
                         
                         let zip = new JSZip();
                         downloadJSONData.forEach((x)=>{
@@ -573,8 +581,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                                 } else if (metaData.percent == 0){
                                     msg = `Your files are currently downloading. Please wait...`
                                 }
-
-                                console.log(metaData);
 
                                 swal({
                                     title: "Download in progress",
@@ -594,6 +600,8 @@ document.addEventListener("DOMContentLoaded", (() => {
                             }).then(()=>{
                                 Settings.Save("global_download_queue_data", "");
                                 window.location.reload();
+                                DownloadManager.UpdateBadge();
+                                Utility.SetBadgeText(0);
                             });
 
                         });
@@ -615,7 +623,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                        return createZip(name);
                       }).catch(error =>{
                         if (error == null){
-                            console.log("null error")
                             swal({
                                 title: "Error",
                                 text: "You have entered an invalid file name",
@@ -626,6 +633,21 @@ document.addEventListener("DOMContentLoaded", (() => {
                       })
 
 
+                }));
+                break;
+
+            case "button_clear_queue":
+                buttons.addEventListener("click", (()=>{
+                    swal({
+                        title: "",
+                        text: "Download Queue Cleared",
+                        icon: "success",
+                        buttons: false,
+                        dangerMode: false,
+                        timer: messageBox.autoCloseTimer
+                    });
+                    DownloadManager.ClearDownloadQueue();
+                    window.location.reload();
                 }));
                 break;
 
@@ -687,10 +709,61 @@ function createDownloadCardItem(indexNumber, objData){
 
     let downloadJSONData = Settings.Load().General;
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
-    console.log("LIELLA")
-    console.log(downloadJSONData);
-    console.log(downloadJSONData.length)
-    console.log(typeof downloadJSONData)
+
+    /**
+     * This scenario triggers on a fresh installation as by default, it is a string value.
+     */
+    if (typeof downloadJSONData == "string" && downloadJSONData.length == 0){
+        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        return;
+    }
+
+    downloadJSONData = JSON.parse(downloadJSONData);
+    if (downloadJSONData.length == 0){
+        download_card_container.innerHTML += `<div style="width=100%;"><p>Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue</p></div>`;
+        return;
+    } 
+   
+
+    download_queue_label.textContent = `Download Queue - (${downloadJSONData.length})`;
+
+    let buttonIds = [];
+    downloadJSONData.forEach((x, idx)=>{
+        
+        buttonIds.push({
+            primary: `download-primary-${idx}`,
+            secondary: `download-secondary-${idx}`,
+            download_card_ids: `download-card-${idx}`,
+            index_count: idx
+        });
+        download_card_container.innerHTML += `
+        <div class="download-card" id="download-card-${idx}">
+            <img class="image-thumbnail image-thumbnail-${idx}" src="${x.url}"></img>
+            <div class="download-card-info download-card-info-${idx}">
+                <div class="download-card-site download-card-site-${idx}">${x.website}</div>
+                <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
+            </div>
+            <div class="download-card-actions" id="download-card-actions">
+                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">Remove</button>
+                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">Download</button>
+            </div>
+        </div>
+        `;
+    });
+    updateDownloadButtonListeners(buttonIds);
+    buttonIds = []; // Clear when done
+
+}
+
+function createDownloadHistoryCardItem(indexNumber, objData){
+
+    let download_card_container = document.getElementById("download_card_container_history");
+    let download_card_container_history = document.getElementById("download_card_container_history");
+    let download_queue_label = document.getElementById("download-queue-label");
+    download_queue_label.textContent = `Download Queue - (0)`;
+
+    let downloadJSONData = Settings.Load().General;
+    downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_history_data").map((x) => x.value)[0];
 
     /**
      * This scenario triggers on a fresh installation as by default, it is a string value.
@@ -743,7 +816,6 @@ function updateDownloadButtonListeners(downloadBtns){
     downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
     downloadJSONData = JSON.parse(downloadJSONData);
     if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
-    console.log(downloadBtns)
 
     downloadBtns.forEach((x)=>{
     
@@ -776,10 +848,8 @@ function updateDownloadButtonListeners(downloadBtns){
 
             if (x.primary == buttons.id){
                 buttons.addEventListener("click", ((e) => {
-                    console.log("IDX PRIMARY: " + e.target.value)
                     data = downloadJSONData.filter((v,idx)=>idx == e.target.value)[0];
-                    console.log(data)
-                    StartDownload([{filename: data.filename, url: data.url}]);
+                    DownloadManager.StartDownload([{filename: data.filename, url: data.url}]);
 
                     // Remove once downloaded
                     data = downloadJSONData.filter((v, idx) => idx != e.target.value);
