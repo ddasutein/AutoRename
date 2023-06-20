@@ -163,7 +163,6 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
       }
 
    }
-   console.log(redditImageFile);
    DownloadManager.StartDownload(redditImageFile);
 
 }
