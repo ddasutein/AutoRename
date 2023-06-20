@@ -366,7 +366,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                     })
                 }));
                 break;
-
             case "button_save_general":
                 buttons.addEventListener("click", (() => {
                     Settings.Save("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
@@ -522,7 +521,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                     });
                 }));
                 break;
-
             case "button_help_twitter":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
@@ -530,7 +528,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                     });
                 }));
                 break;
-
             case "button_help_lineblog":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
@@ -538,7 +535,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                     });
                 }));
                 break;
-
             case "button_help_reddit":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
