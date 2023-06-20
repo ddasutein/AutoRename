@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -16,7 +16,7 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
 
    function getRedditImageFormat(mediaLink) {
       if (mediaLink.includes("i.redd.it")) {
-         return "." + mediaLink.split(".")[3]
+         return "." + mediaLink.split(".")[3].substring(0, mediaLink.split(".")[3].indexOf("?s"));
       } else if (mediaLink.includes("preview.redd.it")) {
          mediaLink = mediaLink.substring(0, mediaLink.indexOf("?width"));
          return "." + mediaLink.split(".")[3];
