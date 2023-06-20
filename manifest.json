@@ -1,39 +1,33 @@
 {
     "name": "AutoRename",
     "short_name": "AutoRename",
-    "version": "3.0.1",
+    "version": "4.0.0",
     "description": "Rename image files from the internet with a meaningful file name",
     "default_locale": "en",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "homepage_url": "https://github.com/ddasutein/AutoRename",
+
+    "action":{
+        "default_icon":{
+           "16":"/assets/autorename-16px.png",
+           "32":"assets/autorename-48px.png",
+           "128":"/assets/autorename-128px.png"
+        },
+        "default_title": "AutoRename"
+     },
     "icons": {
         "16": "/assets/autorename-16px.png",
 	    "48": "/assets/autorename-48px.png",
         "128": "/assets/autorename-128px.png"
     },
-    "browser_action":{
-        "default_title": "AutoRename"
-    },
+
 
     "background": {
-        "scripts": [
-            "js/Configuration/Settings.js",
-            "js/Configuration/Runtime.js",
-            "lib/Moment/moment.js",
-            "lib/Moment/moment-with-locales.js",
-            "js/Common/Utility.js",
-            "js/Common/Debugger.js",
-            "js/Common/SetTimeDate.js",
-            "js/Event/Twitter/TwitterContent.js",
-            "js/Event/LINE BLOG/LineBlogContent.js",
-            "js/Event/Reddit/RedditContent.js",
-            "js/Event/DownloadManager.js",
-            "js/Event/SaveAsEventHandle.js"
-
-        ],
-        "persistent": false
+        "service_worker": "js/BackgroundService.js"
     },
 
+    "host_permissions": [ "*://*.twitter.com/*", "*://pbs.twimg.com/*", "*://video.twimg.com/*", "*://*.cdn.vine.co/*"],
+    "minimum_chrome_version": "92",
     "options_page": "/ui/options.html",
 
     "permissions":[

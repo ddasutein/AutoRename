@@ -30,7 +30,7 @@ function ShowUpdateMsg(){
                     title: chrome.i18n.getMessage("message_toast_button_ok"),
                 }
             ],
-            "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
+            "iconUrl": chrome.runtime.getURL("assets/autorename-128px.png"),
             "type": "basic",
             "title": getExtensionName,
             "message": chrome.i18n.getMessage("message_toast_new_version") + " " + getExtensionVersion
@@ -46,7 +46,7 @@ function ShowWelcomeMsg(){
             }, {
                 title: chrome.i18n.getMessage("message_toast_button_ok")
             }],
-            "iconUrl": chrome.extension.getURL("assets/autorename-128px.png"),
+            "iconUrl": chrome.runtime.getURL("assets/autorename-128px.png"),
             "type": "basic",
             "title": `${chrome.i18n.getMessage("message_toast_welcome_title")} ${getExtensionName}`,
             "message": `${chrome.i18n.getMessage("message_toast_welcome_body")}`

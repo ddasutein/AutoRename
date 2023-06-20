@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2021 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,64 +12,111 @@
  * 
  */
 
-/**
- * Start downloading files
- * 
- * @param {object} downloadQueue Images that are in queue to download
- */
-function StartDownload(downloadQueue){
+var DownloadManager = {
 
-    Object.values(Settings.Load().General.map((key, index)=>{
-        switch (index){
-            
-            // global_enable_save_as_window
-            case 1:
-                if (key.value == true){
-                    downloadQueue.forEach((dq)=>{
-                        chrome.downloads.download({
-                            url: dq.url,
-                            filename: dq.filename,
-                            saveAs: true
-                        });
-                    });
-                } else {
-                    downloadQueue.forEach((dq)=>{
-                        chrome.downloads.download({
-                            url: dq.url,
-                            filename: dq.filename,
-                            saveAs: false
-                        });
-                    });
-                }
-                break;
+    UpdateBadge: (async ()=>{
+        generalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        let downloadData = generalSettings["global_download_queue_data"].value;
+        if (downloadData.length > 0) {
+            downloadData = JSON.parse(downloadData)
+        } else {
+            downloadData = [];
         }
-    }));
+
+        Utility.SetBadgeText(downloadData.length);
+    }),
+
+    AddDownloadQueue: ((data) => {
+
+        generalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        let downloadData = generalSettings["global_download_queue_data"].value;
+        if (downloadData.length > 0) {
+            downloadData = JSON.parse(downloadData)
+        } else {
+            downloadData = [];
+        }
+
+        data.forEach((x) => {
+            downloadData.push({
+                filename: x.filename,
+                url: x.url,
+                website: x.website
+            });
+        });
+
+        Utility.SetBadgeText(downloadData.length);
+        Settings.Save("global_download_queue_data", JSON.stringify(downloadData));
+
+    }),
+
+    ClearDownloadQueue: (() => {
+        Settings.Save("global_download_queue_data", "");
+        Utility.SetBadgeText(null);
+    }),
+
+    StartDownload: ((data) => {
+
+        let fileData = {};
+
+        generalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        data.forEach((x) => {
+            chrome.downloads.download({
+                url: x.url,
+                filename: `${x.filename}`,
+                saveAs: generalSettings["global_enable_save_as_window"].value
+            }, ((id) => {
+
+                chrome.downloads.onChanged.addListener((delta) => {
+
+                    if (id == delta.id) {
+
+                        if (delta.state && delta.state.current == "in_progress") {
+                            fileData["size"] = delta.fileSize.current;
+                            fileData["url"] = delta.url.current;
+                            fileData["id"] = delta.id;
+                            fileData["name"] = x.filename;
+                        }
+
+                        if (delta.state && delta.state.current == "complete") {
+                            generalSettings["global_show_download_folder"].value ? chrome.downloads.showDefaultFolder() : null;
+                            tmp = [];
+                            tmp.push(fileData);
+                            Settings.Save("global_download_history_data", JSON.stringify(tmp));
+                            DownloadManager.UpdateBadge();
+                        }
+                    }
+                });
+
+            }));
+        });
+    }),
+
 }
 
-chrome.downloads.onChanged.addListener(function (downloadDelta) {
-    chrome.storage.local.get({
-        showDownloadFolderCheckbox: false
-    }, function (items) {
-        if (downloadDelta.state && downloadDelta.state.current == "complete") {
-
-            if (DevMode){
-                const DEBUG_TAG = "downloadsOnChangedListener => ";
-                console.log(DEBUG_TAG + downloadDelta.state.current);
-            }
-
-            let generalSettings = Settings.Load().General;
-
-            generalSettings.map((key, index) => {
-                switch (index){
-                    case 0:
-                        if (key.value){
-                            chrome.downloads.showDefaultFolder();
-                        }
-                        break;
-                }
-            });
-
-            return;
-        }
-    });
-});

@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2023 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -22,7 +22,8 @@
  */
 let Settings = {};
 
-function StartSettingsService() {
+(()=>{
+    console.log("Settings service started")
 
     let SettingsMap = [];
 
@@ -30,7 +31,8 @@ function StartSettingsService() {
         General: "General",
         LINE_BLOG: "LINE BLOG",
         Twitter: "Twitter",
-        Reddit: "Reddit"
+        Reddit: "Reddit",
+        Options: "OptionsUI"
     }
 
     chrome.storage.local.get({
@@ -47,6 +49,9 @@ function StartSettingsService() {
         global_show_download_folder: false,
         global_enable_save_as_window: true,
         global_notifications_updated: true,
+        global_use_autorename_folder: false,
+        global_download_queue_data: "",
+        global_download_history_data: "",
         //#endregion
     
         //#region Twitter Settings
@@ -59,6 +64,7 @@ function StartSettingsService() {
         twitter_date_format: "custom",
         twitter_settings_custom_date_format: "",
         twitter_settings_custom_prefix: "",
+        twitter_save_image_to_folder_based_on_username: false,
         //#endregion
     
         //#region LINE BLOG Settings
@@ -82,6 +88,10 @@ function StartSettingsService() {
         redditDateFormat: "custom",
         redditCustomDateFormat: "",
         redditCustomPrefix: "",
+
+        //#region Options UI settings
+        optionsUITabName: "#general",
+        optionsUITabIndexNumber: 2 // Default 
     
         //#endregion
     
@@ -107,6 +117,21 @@ function StartSettingsService() {
                 name: chrome.i18n.getMessage("general_settings_enable_notifications_on_update"),
                 value: items.global_notifications_updated,
                 key: "global_notifications_updated"
+            }, {
+                category: Category.General,
+                name: "Save image to AutoRename folder",
+                value: items.global_use_autorename_folder,
+                key: "global_use_autorename_folder"
+            }, {
+                category: Category.General,
+                name: "Download Queue",
+                value: items.global_download_queue_data,
+                key: "global_download_queue_data"
+            }, {
+                category: Category.General,
+                name: "Download History",
+                value: items.global_download_history_data,
+                key: "global_download_history_data"
             },
             
             //#endregion
@@ -157,6 +182,11 @@ function StartSettingsService() {
                 name: chrome.i18n.getMessage("common_section_custom_prefix"),
                 value: items.twitter_settings_custom_prefix,
                 key: "twitter_settings_custom_prefix"
+            }, {
+                category: Category.Twitter,
+                name: "Save image to folder based on username",
+                value: items.twitter_save_image_to_folder_based_on_username,
+                key: "twitter_save_image_to_folder_based_on_username"
             },
             //#endregion
     
@@ -252,6 +282,20 @@ function StartSettingsService() {
                 key: "redditCustomPrefix"
             },
             //#endregion
+
+            //#region Options UI
+            {
+                category: Category.Options,
+                name: "Options Tab",
+                value: items.optionsUITabName,
+                key: "optionsUITabName"
+            },
+            {
+                category: Category.Options,
+                name: "Options Tab Index",
+                value: items.optionsUITabIndexNumber,
+                key: "optionsUITabIndexNumber"
+            }
         );
     });
     
@@ -296,9 +340,20 @@ function StartSettingsService() {
             }),
             Reddit: SettingsMap.filter((key)=>{
                 return key.category == Category.Reddit;
+            }),
+            OptionsUI: SettingsMap.filter((key)=>{
+                return key.category == Category.Options;
+            }),
+            DownloadQueue: SettingsMap.filter((key)=>{
+                return key.category == Category.General && key.key == "global_download_queue_data";
+            }).map((x,idx,arr)=>{
+                console.log(arr.length)
+                if (arr.length > 1){
+                    return JSON.parse(arr[0].value);
+                } else {
+                    return null
+                }
             })
         }
     });
-
-};
-StartSettingsService();
+})();

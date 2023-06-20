@@ -20,7 +20,8 @@
 const contextMenuId = {
     saveImage: "saveImage",
     saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
-    viewOriginalImage: "viewOriginalImage"
+    viewOriginalImage: "viewOriginalImage",
+    addDownloadQueue: "downloadqueue"
 }
 
 chrome.runtime.onInstalled.addListener(()=>{
@@ -30,13 +31,19 @@ chrome.runtime.onInstalled.addListener(()=>{
         id: contextMenuId.saveImage,
         title: chrome.i18n.getMessage("context_menu_save_image_as"),
         contexts: ["image"]
-    });
+    },  () => chrome.runtime.lastError );
     
     chrome.contextMenus.create({
         id: contextMenuId.saveImageWithCustomPrefix,
         title: "Save image as (AutoRename) with Prefix",
         contexts: ["image"]
-    });
+    },  () => chrome.runtime.lastError );
+
+    chrome.contextMenus.create({
+        id: contextMenuId.addDownloadQueue,
+        title: "Add to Download Queue",
+        contexts: ["image"]
+    },  () => chrome.runtime.lastError );
     
     //#endregion
     
@@ -45,8 +52,12 @@ chrome.runtime.onInstalled.addListener(()=>{
         id: contextMenuId.viewOriginalImage,
         title: chrome.i18n.getMessage("context_menu_view_original_image"),
         contexts: ["image"]
-    });
+    }, () => chrome.runtime.lastError );
+
     //#endregion
+
+    DownloadManager.UpdateBadge();
+
 });
 
 //#endregion
@@ -80,7 +91,9 @@ let BrowserTabInfo = {
 chrome.tabs.onActivated.addListener((activeInfo) => {
     
     DevMode ? console.log("tabs onActivated") : "";
-    QueryTab();
+    console.log(activeInfo.tabId)
+
+    QueryTab(activeInfo);
 
 });
 
@@ -97,38 +110,41 @@ chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
 
 });
 
+
+chrome.action.setBadgeBackgroundColor({
+    color: "#181818"
+});
+
+
+let count = 0;
 /**
  * Queries tab data
  */
-function QueryTab() {
+function QueryTab(tabData) {
 
-    setTimeout(() => {
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, ((tabs)=>{
 
-        chrome.tabs.query({
-            active: true,
-            currentWindow: true
-        }, ((tabs)=>{
+        let url;
+        let title;  
 
-            let url;
-            let title;  
-
-            if (tabs[0] != undefined){
-                DevMode ? console.log(BrowserTabInfo) : "";
-                url = tabs[0].url;
-                title = tabs[0].title;
-            }
-
-            url = url.split("/");
-            url = url[2];
-            DevMode ? console.log(url) : "";
-            UpdateContextMenus(url);
-
-            BrowserTabInfo.Title = title;
-            BrowserTabInfo.URL = url;
+        if (tabs[0] != undefined){
             DevMode ? console.log(BrowserTabInfo) : "";
-        }));
+            url = tabs[0].url;
+            title = tabs[0].title;
+        }
 
-    }, 500);
+        url = url.split("/");
+        url = url[2];
+        DevMode ? console.log(url) : "";
+        UpdateContextMenus(url, tabs[0].url);
+
+        BrowserTabInfo.Title = title;
+        BrowserTabInfo.URL = url;
+        DevMode ? console.log(BrowserTabInfo) : "";
+    }));
 
 };
 
@@ -139,10 +155,25 @@ function QueryTab() {
  * 
  * @param {string} url URL of the website
  */
-function UpdateContextMenus(url) {
+function UpdateContextMenus(url, urlFull) {
 
     switch(url){
         case Website.Twitter:
+            
+            if (urlFull.includes("messages")){
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+    
+                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                    visible: false 
+                });
+    
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                    visible: false
+                });
+                return;
+            }
 
             chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
@@ -158,6 +189,21 @@ function UpdateContextMenus(url) {
             break;
             
         case Website.Mobile_Twitter:
+
+            if (urlFull.includes("messages")){
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+    
+                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                    visible: false 
+                });
+    
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                    visible: false
+                });
+                return;
+            }
 
             chrome.contextMenus.update(contextMenuId.saveImage, {
                 visible: true
@@ -270,20 +316,28 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
+    let data = {};
+    data["tab_url"] = tab.url;
+    data["info_url"] = info.srcUrl;
+    data["link_url"] = info.linkUrl;
+    data["use_prefix"] = false;
+    data["download_queue"] = false;
+    console.log(data);
     switch (currentUrl) {
         case Website.Twitter:
 
             if (info.menuItemId === contextMenuId.viewOriginalImage){
-                ViewOriginalMedia(info.srcUrl);
+                Twitter.ViewOriginalImage(data);
                 return;
             } 
-            else if (info.menuItemId === contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-
+            else if (info.menuItemId === contextMenuId.saveImage) {
+                Twitter.SaveMedia(data);
             } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl, temp)
+                data.use_prefix = true;
+                Twitter.SaveMedia(data);
+            } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
+                data.download_queue = true;
+                Twitter.SaveMedia(data);
             }
             break;
 
@@ -305,6 +359,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
                 temp["use_prefix"] = true;
                 SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
+            } else if (info.menuItemId == contextMenuId.addDownloadQueue){
+                temp["use_prefix"] = false;
+                temp["download_queue"] = true;
+                SaveLINEBlogMedia(tab.url, info.srcUrl, info.linkUrl, temp);
             }
             break;
 
