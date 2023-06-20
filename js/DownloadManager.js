@@ -57,6 +57,7 @@ var DownloadManager = {
         data.forEach((x) => {
             downloadData.push({
                 filename: x.filename,
+                filename_display: x.filename_display,
                 url: x.url,
                 website: x.website
             });
@@ -87,9 +88,17 @@ var DownloadManager = {
         }, {});
 
         data.forEach((x) => {
+
+            let fileName;
+            if (generalSettings["global_use_autorename_folder"].value){
+                fileName = `${chrome.runtime.getManifest().name}/${x.website}/${x.filename}`;
+            } else {
+                fileName = x.filename;
+            }
+
             chrome.downloads.download({
                 url: x.url,
-                filename: `${x.filename}`,
+                filename: fileName,
                 saveAs: generalSettings["global_enable_save_as_window"].value
             }, ((id) => {
 
