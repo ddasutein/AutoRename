@@ -737,7 +737,7 @@ function createDownloadCardItem(indexNumber, objData){
             <img class="image-thumbnail image-thumbnail-${idx}" src="${x.url}"></img>
             <div class="download-card-info download-card-info-${idx}">
                 <div class="download-card-site download-card-site-${idx}">${x.website}</div>
-                <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
+                <div class="download-card-info download-card-info-${idx}">${x.filename_display}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
                 <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
