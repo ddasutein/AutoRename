@@ -168,16 +168,15 @@ var Twitter = {
         fileNameObj["use_prefix"] = data.use_prefix;
         fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
         filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
-        
+        fileNameDisplay = filename;
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
-            filename = `AutoRename/Twitter/${fileNameObj.username}/${filename}`
-        } else if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == false){
-            filename = `AutoRename/Twitter/${filename}`
+            filename = `${fileNameObj.username}/${filename}`
         }
 
         let twitterFileProp = [];
         twitterFileProp.push({
             filename: filename,
+            filename_display: fileNameDisplay,
             url: Twitter.MediaSrc(data.info_url),
             website: "Twitter",
 
