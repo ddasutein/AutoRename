@@ -353,27 +353,24 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.Reddit:
-            
-            if (info.menuItemId == contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            }
+        case Website.Reddit_Old:
+            Reddit.SaveMedia(data, info.menuItemId);
    
             break;
 
-        case Website.Reddit_Old:
-            if (info.menuItemId == contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            }
+        // case Website.Reddit_Old:
+        //     if (info.menuItemId == contextMenuId.saveImage){
+        //         temp["use_prefix"] = false;
+        //         SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+        //     } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
+        //         temp["use_prefix"] = true;
+        //         SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
+        //     } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
+        //         data.download_queue = true;
+        //         Twitter.SaveMedia(data);
+        //     }
 
-            break;
+        //     break;
         default:
             alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
