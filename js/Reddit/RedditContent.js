@@ -12,36 +12,22 @@
  * 
  */
 
-function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
+const Reddit = {
 
-   function getRedditImageFormat(mediaLink) {
-      if (mediaLink.includes("i.redd.it")) {
-         return "." + mediaLink.split(".")[3].substring(0, mediaLink.split(".")[3].indexOf("?s"));
-      } else if (mediaLink.includes("preview.redd.it")) {
-         mediaLink = mediaLink.substring(0, mediaLink.indexOf("?width"));
-         return "." + mediaLink.split(".")[3];
-      }
-   }
+   GetSubredditTitle: ((urlObj)=>{
+      return Utility.SplitURL(urlObj.tab_url, 4);
+   }),
 
-   function convertToFullMediaLink(url) {
-      let temp = !!url ? url : "";
-      if (temp.includes("preview.redd.it") || temp) {
-         temp = temp.replace("preview.redd.it", "i.redd.it")
-         temp = temp.substring(0, temp.indexOf("?width"));
-      }
+   GetPostTitle: ((urlObj)=>{
+      return Utility.SplitURL(urlObj.tab_url, 7);
+   }),
 
-      return temp;
-   }
+   GetPostId: ((urlObj)=>{
+      return Utility.SplitURL(urlObj.tab_url, 6);
+   }),
 
-   function buildFileName(fileNameObj) {
-      let temp;
-      let isUsingDateFormat;
-      // temp = `Reddit-${fileNameObj.subredditName.replace(/-/g, "_")}-${fileNameObj.redditPostId}-${fileNameObj.redditPostTitle.replace(/-/g, "_")}-{date}-{string}`;
-
-      temp = `{prefix}-{website_title}-{subreddit_name}-{subreddit_post_id}-{post_title}-{date}-{string}`;
-      temp = temp.split("-");
-
-      const redditConfig = Settings.Load().Reddit.map((data) => {
+   Settings: (()=>{
+      return Settings.Load().Reddit.map((data) => {
          return {
             "key": data.key,
             "value": data.value
@@ -50,119 +36,126 @@ function SaveRedditMedia(tabUrl, url, linkUrl, customObj) {
          obj[data.key] = data;
          return obj;
       }, {});
+   }),
 
-      if (!redditConfig["redditIncludeWebsite"].value) {
-         Utility.RemoveUnusedParameter(temp, "{website_title}");
-      } else {
-         temp[temp.indexOf("{website_title}")] = "Reddit";
+   SaveMedia: ((data, contextMenuSelectedId)=>{
+
+      let urlObj = {
+         info_url: data.info_url,
+         link_url: data.link_url,
+         tab_url: data.tab_url
       }
 
-      if (!redditConfig["redditIncludePostID"].value) {
-         Utility.RemoveUnusedParameter(temp, "{subreddit_post_id}");
-      } else {
-         temp[temp.indexOf("{subreddit_post_id}")] = fileNameObj.redditPostId;
+      const getRedditMedia = function (mediaLink) {
+
+         const imageFormats = [".jpg", ".jpeg", ".png", ".webp"];
+         let mLink = mediaLink.info_url;
+         let src;
+         if (imageFormats.some(x => (mLink).includes(x))){
+            src = mLink.split("/")[3];
+            src = src.substring(0, src.indexOf("?"));
+
+            return {
+               media_id: src.substring(0, src.indexOf(".")),
+               image_format: src.substring(src.indexOf("."))
+            }
+         }
       }
 
-      if (!redditConfig["redditStringGenerator"].value == "0") {
-         Utility.RemoveUnusedParameter(temp, "{string}");
-      } else {
-         temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(redditConfig["redditStringGenerator"].value);
+      const createDirectLink = function(mediaId, imageFormat){
+         return `https://i.redd.it/${mediaId}${imageFormat}`
       }
 
-      if (!redditConfig["redditIncludeDate"].value) {
-         Utility.RemoveUnusedParameter(temp, "{date}");
-      } else {
-         let prefObj = {};
+      const BuildRedditFileName = function(redditSettings, urlObj, include_prefix){
 
-         if (redditConfig["redditPreferLocaleFormat"].value == true) {
-            prefObj["prefer_locale_format"] = true;
-            const timedateValue = getTimeDate(prefObj);
-            temp[temp.indexOf("{date}")] = timedateValue;
-         } else {
+         let temp = `{prefix}-{website_title}-{subreddit_name}-{subreddit_post_id}-{date}-{string}`;
+         temp = temp.split("-");
 
-            prefObj["prefer_locale_format"] = false;
+         if (redditSettings["redditIncludeDate"].value){
+            let prefObj = {};
 
-            if (redditConfig["redditDateFormat"].value == "custom") {
-               prefObj["date_format"] = redditConfig["redditCustomDateFormat"].value;
+            if (redditSettings["redditPreferLocaleFormat"].value == true) {
+               prefObj["prefer_locale_format"] = true;
+               const timedateValue = getTimeDate(prefObj);
+               temp[temp.indexOf("{date}")] = timedateValue;
             } else {
-               prefObj["date_format"] = GetDateFormat(redditConfig["redditDateFormat"].value);
+
+               prefObj["prefer_locale_format"] = false;
+
+               if (redditSettings["redditDateFormat"].value == "custom") {
+                  prefObj["date_format"] = redditConfig["redditCustomDateFormat"].value;
+               } else {
+                  prefObj["date_format"] = GetDateFormat(redditSettings["redditDateFormat"].value);
+               }
+
+               const timedateValue = getTimeDate(prefObj)
+               temp[temp.indexOf("{date}")] = timedateValue;
+
             }
 
-            const timedateValue = getTimeDate(prefObj)
-            temp[temp.indexOf("{date}")] = timedateValue;
-
-         }
-
-      }
-
-      if (customObj.use_prefix == true) {
-
-         if (redditConfig["redditCustomPrefix"].value == "") {
-            Utility.RemoveUnusedParameter(temp, "{prefix}");
          } else {
-            temp[temp.indexOf("{prefix}")] = redditConfig["redditCustomPrefix"].value;
-         }
-      } else {
-         Utility.RemoveUnusedParameter(temp, "{prefix}");
-      }
-
-      temp[temp.indexOf("{subreddit_name}")] = fileNameObj.subredditName;
-      temp[temp.indexOf("{post_title}")] = fileNameObj.redditPostTitle.replace(/-/g, "_");
-
-
-      return temp.toString().replace(/,/g, "-");
-
-   }
-
-   let redditImageFile = [];
-   let fileNameObj = {};
-   let debugObj = {}
-   debugObj["tab"] = tabUrl;
-   debugObj["url"] = url;
-   debugObj["linkUrl"] = linkUrl;
-
-   if (tabUrl.includes("comments")) {
-      fileNameObj["subredditName"] = Utility.SplitURL(tabUrl, 4);
-      fileNameObj["redditPostId"] = Utility.SplitURL(tabUrl, 6);
-      fileNameObj["redditPostTitle"] = Utility.SplitURL(tabUrl, 7);
-      redditPostSrc = linkUrl;
-      redditImageFile.push({
-         filename: buildFileName(fileNameObj) + getRedditImageFormat(linkUrl),
-         url: redditPostSrc
-      });
-   } else {
-
-      // Classic reddit does not return original url for media so this is not supported
-      if (url.includes("b.thumbs.redditmedia.com")) {
-         alert(chrome.i18n.getMessage("error_reddit_old_half_view"))
-         return;
-      }
-
-      // New Reddit card view
-      if (url.includes("preview.redd.it")) {
-
-         // If this is empty then it is a gallery image post
-         if (linkUrl == undefined) {
-            alert(chrome.i18n.getMessage("error_reddit_gallery_post"));
-            return;
+            Utility.RemoveUnusedParameter(temp, "{date}");
          }
 
-         // If user is on classic reddit then show message
-         if (linkUrl.includes("i.redd.it")) {
-            alert(chrome.i18n.getMessage("error_reddit_old_half_view"))
-            return;
+         temp[temp.indexOf("{subreddit_name}")] = Reddit.GetSubredditTitle(urlObj);
+         redditSettings["redditIncludeWebsite"].value ? temp[temp.indexOf("{website_title}")] = "Reddit" : Utility.RemoveUnusedParameter(temp, "{website_title}");
+         redditSettings["redditIncludePostID"].value ?  temp[temp.indexOf("{subreddit_post_id}")] = Reddit.GetPostId(urlObj) : Utility.RemoveUnusedParameter(temp, "{subreddit_post_id}");
+         redditSettings["redditStringGenerator"].value == "0" ? Utility.RemoveUnusedParameter(temp, "{string}") : temp[temp.indexOf("{string}")] = Utility.GenerateRandomString(redditSettings["redditStringGenerator"].value);
+
+         if (include_prefix){
+            redditSettings["redditCustomPrefix"].value == "" ? Utility.RemoveUnusedParameter(temp, "{prefix}") : temp[temp.indexOf("{prefix}")] = redditSettings["redditCustomPrefix"].value;
+         } else {
+            Utility.RemoveUnusedParameter(temp, "{prefix}");
          }
-         fileNameObj["subredditName"] = Utility.SplitURL(linkUrl, 4);
-         fileNameObj["redditPostId"] = Utility.SplitURL(linkUrl, 6);
-         fileNameObj["redditPostTitle"] = Utility.SplitURL(linkUrl, 7);
-         redditPostSrc = convertToFullMediaLink(url);
-         redditImageFile.push({
-            filename: buildFileName(fileNameObj) + getRedditImageFormat(redditPostSrc),
-            url: redditPostSrc
-         });
+
+         return {
+            filename_path: temp.toString().replace(/,/g, "-") + getRedditMedia(urlObj).image_format,
+            filename_display:  temp.toString().replace(/,/g, "-") + getRedditMedia(urlObj).image_format,
+            url: createDirectLink(getRedditMedia(urlObj).media_id, getRedditMedia(urlObj).image_format)
+         }
+         return 
+
       }
 
-   }
-   DownloadManager.StartDownload(redditImageFile);
+
+      // ENTRY POINT
+      let redditImageFile = [];
+
+      switch (contextMenuSelectedId){
+         case contextMenuId.saveImage:
+            fl = BuildRedditFileName(Reddit.Settings(), urlObj, false);
+            redditImageFile.push({
+               filename: fl.filename_path,
+               filename_display: fl.filename_display,
+               url: fl.url,
+               website: "Reddit"
+            });
+            DownloadManager.StartDownload(redditImageFile);
+            break;
+
+         case contextMenuId.saveImageWithCustomPrefix:
+            fl = BuildRedditFileName(Reddit.Settings(), urlObj, true);
+            redditImageFile.push({
+               filename: fl.filename_path,
+               filename_display: fl.filename_display,
+               url: fl.url,
+               website: "Reddit"
+            });
+            DownloadManager.StartDownload(redditImageFile);
+            break;
+
+         case contextMenuId.addDownloadQueue:
+            fl = BuildRedditFileName(Reddit.Settings(), urlObj, false);
+            redditImageFile.push({
+               filename: fl.filename_path,
+               filename_display: fl.filename_display,
+               url: fl.url,
+               website: "Reddit"
+            });
+            DownloadManager.AddDownloadQueue(redditImageFile);
+            break;
+      }
+
+   })
 
 }
