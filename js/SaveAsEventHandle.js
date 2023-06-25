@@ -24,6 +24,7 @@ const contextMenuId = {
     addDownloadQueue: "downloadqueue"
 }
 
+
 chrome.runtime.onInstalled.addListener(()=>{
 
     //#region Common context menu items
@@ -148,160 +149,49 @@ function QueryTab(tabData) {
 
 };
 
-/**
- * Here you can dynamically set which websites can use a specific context menu item.
- * It is important that the user should not see a context menu for the extension if
- * the website is not supported.
- * 
- * @param {string} url URL of the website
- */
-function UpdateContextMenus(url, urlFull) {
+let WebsiteSupport = [
+    {
+        uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com"],
+        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.viewOriginalImage, contextMenuId.addDownloadQueue],
+        other_exclusions: ["messages"]
+    }, {
+        uris: ["reddit.com"],
+        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
+        other_exclusions: ["messages"]
+    }
+]
 
-    switch(url){
-        case Website.Twitter:
-            
-            if (urlFull.includes("messages")){
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-    
-                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                    visible: false 
-                });
-    
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                return;
+function UpdateContextMenus(domain, fUrl){
+
+    const hideContextMenus = (()=>{
+        for (let i of Object.values(contextMenuId)){
+            chrome.contextMenus.update(i, {
+                visible: false
+            });
+        }
+    });
+
+    WS = WebsiteSupport.filter((x)=>{
+        return x.uris.includes(domain);
+    });
+
+    if (WS.length > 0){
+        WS[0].context_menu_support.forEach((cm)=>{
+            chrome.contextMenus.update(cm, {
+                visible: true
+            });
+        });
+
+        WS[0].other_exclusions.forEach((OE)=>{
+            if (fUrl.includes(OE)){
+                hideContextMenus();
             }
+        })
+    } else {
+        hideContextMenus();
+    }
 
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: true 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-            
-        case Website.Mobile_Twitter:
-
-            if (urlFull.includes("messages")){
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-    
-                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                    visible: false 
-                });
-    
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                return;
-            }
-
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: true 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.LINE_BLOG:
-
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit_Old:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit_New:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        default:
-            
-            if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
-                DevMode ? console.log("website not supported. removing context menu items") : "";
-
-                chrome.contextMenus.update("viewOriginalImage", {
-                    visible: false 
-                });
-
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                
-            } else {
-                DevMode ? console.log("add saveImage context menu item") : "";
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: true
-                });
-            }
-            break;
-    }    
-};
+}
 
 /**
  * This is the ENTRY point to trigger saving images or to execute specific
