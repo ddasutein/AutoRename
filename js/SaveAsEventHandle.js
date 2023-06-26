@@ -153,11 +153,26 @@ let WebsiteSupport = [
     {
         uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.viewOriginalImage, contextMenuId.addDownloadQueue],
-        other_exclusions: ["messages"]
+        other_exclusions: ["messages"],
+        placeholder: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}",
     }, {
         uris: ["reddit.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"]
+    }, {
+        uris: ["squabbles.io"],
+        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
+        other_exclusions: ["messages"],
+        placeholder: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}",
+        attributes: [
+            {
+                id: "attrib1",
+                value: 4
+            }, {
+                id: "attrib2",
+                value: 6
+            }
+        ]
     }
 ]
 
@@ -212,7 +227,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["link_url"] = info.linkUrl;
     data["use_prefix"] = false;
     data["download_queue"] = false;
-    console.log(data);
+    console.log(currentUrl);    
+
     switch (currentUrl) {
         case Website.Twitter:
 
@@ -262,8 +278,73 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
         //     break;
         default:
-            alert(chrome.i18n.getMessage("error_website_not_supported"));
+            TestCustomWebsite(currentUrl, data, info.menuItemId);
+            // alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
     }
 
 });
+
+function TestCustomWebsite(domain, data, contextMenuSelectedId){
+
+    console.log(data);
+
+    const splitTool = function(url, number){
+        return url.split("/")[number];
+    }
+
+    let WW;
+    WW = WebsiteSupport.filter((x)=>{
+        return x.uris.includes(domain);
+    });
+
+    let placeholder;
+    console.log(WW)
+    placeholder = WW[0].placeholder;
+    placeholder = placeholder.split("-");
+
+    let attributeData = WW[0].attributes.map((data)=>{
+        return {
+            key: data.id,
+            value: data.value
+        }
+    }).reduce((obj, data)=>{
+        obj[data.key] = data;
+        return obj;
+    }, {});
+
+    for (let i=0; i < placeholder.length; i++){
+        WW[0].attributes.forEach((x)=>{
+            if (placeholder[i] == "{" + x.id + "}"){
+                placeholder[i] = splitTool(data.tab_url, x.value);
+            }
+        });
+    }
+
+    console.log("CUSTOM OUTPUT")
+    fname = (placeholder).toString().replace(/,/g, "-");
+    let testData = []
+
+    switch (contextMenuSelectedId){
+        case contextMenuId.saveImage:
+            testData.push({
+                filename: fname,
+                filename_display: "TEST",
+                url: data.info_url,
+                website: "Squabbles"
+             });
+             console.log(testData);
+             DownloadManager.StartDownload(testData);
+
+           break;
+
+        case contextMenuId.saveImageWithCustomPrefix:
+
+           break;
+
+        case contextMenuId.addDownloadQueue:
+
+           break;
+     }
+
+}
