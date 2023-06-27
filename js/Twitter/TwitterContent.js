@@ -114,7 +114,7 @@ var Twitter = {
         
     }),
 
-    SaveMedia : ( (data)=>{
+    SaveMedia : ( (data, contextMenuSelectedId)=>{
 
         let filename = "";
         let tweetId;
@@ -174,15 +174,47 @@ var Twitter = {
         }
 
         let twitterFileProp = [];
-        twitterFileProp.push({
-            filename: filename,
-            filename_display: fileNameDisplay,
-            url: Twitter.MediaSrc(data.info_url),
-            website: "Twitter",
 
-        });
 
-        data.download_queue == false ? DownloadManager.StartDownload(twitterFileProp) : DownloadManager.AddDownloadQueue(twitterFileProp);
+        switch (contextMenuSelectedId){
+            case contextMenuId.saveImage:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "Twitter",
+        
+                });
+                DownloadManager.StartDownload(twitterFileProp);
+                break;
+
+            case contextMenuId.saveImageWithCustomPrefix:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "Twitter",
+        
+                });
+                DownloadManager.StartDownload(twitterFileProp);
+                break;
+
+            case contextMenuId.viewOriginalImage:
+                Twitter.ViewOriginalImage(data);
+                break;
+
+            case contextMenuId.addDownloadQueue:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "Twitter",
+        
+                });
+                DownloadManager.AddDownloadQueue(twitterFileProp);
+                break;
+
+        }
 
     })
 
