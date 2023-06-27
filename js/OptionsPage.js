@@ -647,6 +647,21 @@ document.addEventListener("DOMContentLoaded", (() => {
                 }));
                 break;
 
+            case "button_open_file":
+                buttons.addEventListener("click", (()=>{
+                    var afilepath = document.getElementById("file_picker").value;
+                    if (afilepath) {
+                        var startIndex = (afilepath.indexOf('\\') >= 0 ? afilepath.lastIndexOf('\\') : afilepath.lastIndexOf('/'));
+                        var filename = afilepath.substring(startIndex);
+                        if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                            filename = filename.substring(1);
+                        }
+                    }
+                    console.log("FILE PATH: " + filename);
+
+                }))
+                break;
+
 
         }
     });
@@ -682,6 +697,7 @@ document.addEventListener("DOMContentLoaded", (() => {
         }
 
     });
+
 }));
 
 function urlToPromise(url) {

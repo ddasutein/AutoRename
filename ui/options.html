@@ -38,6 +38,11 @@
                         <div>Downloads</div>
                     </div>
                 </li>
+                <li data-tab-target="#parseFile" class="tab">
+                    <div class="navbar-tab-label">
+                        <div>Open File</div>
+                    </div>
+                </li>
             </ul>
             <hr>
             <!-- <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span> -->
@@ -849,6 +854,41 @@
                     </div>
 
                     <div id="download_card_container_history"></div>
+
+                </div>
+            </div>
+
+            <!-- TAB: ACTIONS : PARSE -->
+            <div id="parseFile" data-tab-content>
+                <div class="tab-content-main">
+                    <table class="main-body-table">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><b><img class="section-ico" src="/assets/icons8-file-48.png"></img><span class="sidebar-btn-ico-text">Open File</span></b></td>
+                            <td>
+                                <div class="button-container">
+
+                                    <button type="submit" class="button_save" id="button_open_file">Open</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>Upload a file to retrieve the original source</p></td>
+                        </tr>
+                    </table>
+                    <br/>
+
+                    <!-- SECTION : DOWNLOAD QUEUE -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img><span class="sidebar-btn-ico-text" >Upload</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <input type="file" id="file_picker">
 
                 </div>
             </div>
