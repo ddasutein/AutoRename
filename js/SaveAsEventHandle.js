@@ -151,15 +151,18 @@ function QueryTab(tabData) {
 
 let WebsiteSupport = [
     {
+        name: "Twitter",
         uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.viewOriginalImage, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"],
         placeholder: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}",
     }, {
+        name: "Reddit",
         uris: ["reddit.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"]
     }, {
+        name: "Squabbles",
         uris: ["squabbles.io"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"],
@@ -217,7 +220,6 @@ function UpdateContextMenus(domain, fUrl){
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
-    let temp = {};
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
 
@@ -227,35 +229,17 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["link_url"] = info.linkUrl;
     data["use_prefix"] = false;
     data["download_queue"] = false;
-    console.log(currentUrl);    
 
+    /**
+     * When websites are hardcoded in the Switch statement, these are natively
+     * supported features by the extension. In the future, for non-native
+     * support for websites, they should fall under the default statement. Note,
+     * if the website contains subdomains then it should be grouped together.
+     */
     switch (currentUrl) {
         case Website.Twitter:
-
-            if (info.menuItemId === contextMenuId.viewOriginalImage){
-                Twitter.ViewOriginalImage(data);
-                return;
-            } 
-            else if (info.menuItemId === contextMenuId.saveImage) {
-                Twitter.SaveMedia(data);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                data.use_prefix = true;
-                Twitter.SaveMedia(data);
-            } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
-                data.download_queue = true;
-                Twitter.SaveMedia(data);
-            }
-            break;
-
         case Website.Mobile_Twitter: 
-            if (info.menuItemId === contextMenuId.viewOriginalImage){
-                ViewOriginalMedia(info.srcUrl);
-                return;
-            } 
-            else if (info.menuItemId === contextMenuId.saveImage){
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
-
-            }
+            Twitter.SaveMedia(data, info.menuItemId);
             break;
 
         case Website.Reddit:
@@ -264,19 +248,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
    
             break;
 
-        // case Website.Reddit_Old:
-        //     if (info.menuItemId == contextMenuId.saveImage){
-        //         temp["use_prefix"] = false;
-        //         SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-        //     } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-        //         temp["use_prefix"] = true;
-        //         SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-        //     } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
-        //         data.download_queue = true;
-        //         Twitter.SaveMedia(data);
-        //     }
-
-        //     break;
         default:
             TestCustomWebsite(currentUrl, data, info.menuItemId);
             // alert(chrome.i18n.getMessage("error_website_not_supported"));
