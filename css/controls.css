@@ -24,13 +24,14 @@ select {
 }
 
 input[type="checkbox" i] {
+    accent-color: #59c3d9;
     background-color: initial;
     cursor: default;
     appearance: auto;
     box-sizing: border-box;
     margin: 3px 3px 3px 4px;
-    padding: 10px;
     border: initial;
+    transform: scale(1.3);
 }
 
 input[type="button" i] {
