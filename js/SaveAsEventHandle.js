@@ -73,7 +73,8 @@ const Website = {
     Reddit_New: 'new.reddit.com',
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
-    LINE_BLOG_CDN: 'obs.line-scdn.net'
+    LINE_BLOG_CDN: 'obs.line-scdn.net',
+    Threads: "threads.net"
 }
 
 /**
@@ -158,7 +159,7 @@ let WebsiteSupport = [
         placeholder: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}",
     }, {
         name: "Reddit",
-        uris: ["reddit.com"],
+        uris: ["reddit.com", "old.reddit.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"]
     }, {
@@ -176,10 +177,27 @@ let WebsiteSupport = [
                 value: 6
             }
         ]
+    }, {
+        name: "Threads",
+        uris: ["threads.net"],
+        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
+        other_exclusions: [],
+        placeholder: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}",
+        attributes: [
+            {
+                id: 1,
+                value: 1
+            }, {
+                id: 2,
+                value: 2
+            }
+        ]
     }
 ]
 
 function UpdateContextMenus(domain, fUrl){
+
+    domain = domain.replace(/^www\./g, "");
 
     const hideContextMenus = (()=>{
         for (let i of Object.values(contextMenuId)){
@@ -188,11 +206,11 @@ function UpdateContextMenus(domain, fUrl){
             });
         }
     });
-
+    console.log(domain)
     WS = WebsiteSupport.filter((x)=>{
         return x.uris.includes(domain);
     });
-
+    console.log(WS)
     if (WS.length > 0){
         WS[0].context_menu_support.forEach((cm)=>{
             chrome.contextMenus.update(cm, {
@@ -222,6 +240,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     let currentUrl = tab.url;
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
+    currentUrl = currentUrl.replace(/^www\./g, "");
 
     let data = {};
     data["tab_url"] = tab.url;
@@ -246,6 +265,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
         case Website.Reddit_Old:
             Reddit.SaveMedia(data, info.menuItemId);
    
+            break;
+
+        case Website.Threads:
+            Threads.SaveMedia(data, info.menuItemId);
             break;
 
         default:
