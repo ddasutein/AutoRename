@@ -29,7 +29,9 @@ const Backgroundscripts = [
     "/js/Twitter/TwitterContent.js",
     "/js/LINE BLOG/LineBlogContent.js",
     "/js/Reddit/RedditContent.js",
+    "/js/Threads/ThreadsContent.js",
     "/js/DownloadManager.js",
+    "/js/Parser.js",
     "/js/SaveAsEventHandle.js"
 ]
 
