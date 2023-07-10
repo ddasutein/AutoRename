@@ -52,9 +52,23 @@ This extension primarily targets the Microsoft Edge (Chromium) and Google Chrome
 
 For bug reports, go to the issues tab. If you want to discuss new features or if you have any questions, go to the discussion tab.
 
+## Roadmap
+
+Website | Supported
+:--|:--
+Twitter | Yes 
+Instagram | No (low priority, but you may submit PR) 
+Facebook | No (low priority, but you may submit PR)
+Reddit | Yes 
+LINE BLOG | Retired 
+Threads | In-development (as of 7/10/2023)
+Squabbles.io | In-development (as of 7/10/2023)
+General Websites | In-development (as of 7/10/2023) but low priority
+
+
 ## MIT License
 
-Copyright (c) 2022 Dasutein
+Copyright (c) 2023 Dasutein
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
