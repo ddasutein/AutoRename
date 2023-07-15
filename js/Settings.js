@@ -32,7 +32,9 @@ let Settings = {};
         LINE_BLOG: "LINE BLOG",
         Twitter: "Twitter",
         Reddit: "Reddit",
-        Options: "OptionsUI"
+        Options: "OptionsUI",
+        Threads: "Threads",
+        Squabbles: "Squabbles"
     }
 
     chrome.storage.local.get({
@@ -78,6 +80,17 @@ let Settings = {};
         lineblogCustomDateFormat: "",
         lineblogCustomPrefix: "",
         //#endregion
+
+        //#region THREADS SETTINGS
+        threadsIncludeWebsiteTitle: true,
+        threadsIncludeMentionSymbol: true,
+        threadsIncludeDate: false,
+        threadsRandomStringLength: 4,
+        threadsPreferLocaleFormat: true,
+        threadsDateFormat: "custom",
+        threadsCustomDateFormat: "",
+        threadsCustomPrefix: "",
+        threadsSaveImageToFolderBasedOnUsername: false,
     
         //#region Reddit Settings
         redditIncludeWebsite: false,
@@ -283,6 +296,64 @@ let Settings = {};
             },
             //#endregion
 
+            //#region Threads Settings
+            {
+                category: Category.Threads,
+                name: "threadsIncludeWebsiteTitle",
+                value: items.threadsIncludeWebsiteTitle,
+                key: "threadsIncludeWebsiteTitle"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsIncludeMentionSymbol",
+                value: items.threadsIncludeMentionSymbol,
+                key: "threadsIncludeMentionSymbol"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsIncludeDate",
+                value: items.threadsIncludeDate,
+                key: "threadsIncludeDate"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsRandomStringLength",
+                value: items.threadsRandomStringLength,
+                key: "threadsRandomStringLength"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsPreferLocaleFormat",
+                value: items.threadsPreferLocaleFormat,
+                key: "threadsPreferLocaleFormat"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsDateFormat",
+                value: items.threadsDateFormat,
+                key: "threadsDateFormat"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsCustomDateFormat",
+                value: items.threadsCustomDateFormat,
+                key: "threadsCustomDateFormat"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsCustomPrefix",
+                value: items.threadsCustomPrefix,
+                key: "threadsCustomPrefix"
+            },
+            {
+                category: Category.Threads,
+                name: "threadsSaveImageToFolderBasedOnUsername",
+                value: items.threadsSaveImageToFolderBasedOnUsername,
+                key: "threadsSaveImageToFolderBasedOnUsername"
+            },
+
+            //#endregion Threads Settings END
+
             //#region Options UI
             {
                 category: Category.Options,
@@ -353,6 +424,9 @@ let Settings = {};
                 } else {
                     return null
                 }
+            }),
+            Threads: SettingsMap.filter((key)=>{
+                return key.category == Category.Threads
             })
         }
     });
