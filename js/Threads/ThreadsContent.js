@@ -12,7 +12,7 @@
  * 
  */
 
-var Threads = {
+const Threads = {
 
     Settings: (()=>{
         return Settings.Load().Threads.map((data)=>{
@@ -84,7 +84,13 @@ var Threads = {
 
             include_prefix == true ? temp[temp.indexOf("{prefix}")] = threadsSettings["threadsCustomPrefix"].value : Utility.RemoveUnusedParameter(temp, "{prefix}");
             
-            
+            if (include_prefix){
+                threadsSettings["threadsCustomPrefix"].value == "" ? Utility.RemoveUnusedParameter(temp, "{prefix}") : temp[temp.indexOf("{prefix}")] = threadsSettings["threadsCustomPrefix"].value;
+
+            } else {
+                Utility.RemoveUnusedParameter(temp, "{prefix}");
+            }
+
             if (urlObj.tab_url.includes("post")){
                 temp[temp.indexOf("{attrib2}")] = urlObj.tab_url.split("/")[5];
             } else {
@@ -92,6 +98,8 @@ var Threads = {
             }
 
             temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(threadsSettings["threadsRandomStringLength"].value);
+            
+            Object.freeze(temp);
 
             let finalFilePath;
 
