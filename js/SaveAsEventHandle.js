@@ -23,6 +23,7 @@ const contextMenuId = {
     viewOriginalImage: "viewOriginalImage",
     addDownloadQueue: "downloadqueue"
 }
+Object.freeze(contextMenuId);
 
 
 chrome.runtime.onInstalled.addListener(()=>{
@@ -76,15 +77,8 @@ const Website = {
     LINE_BLOG_CDN: 'obs.line-scdn.net',
     Threads: "threads.net"
 }
+Object.freeze(Website);
 
-/**
- * Global parameters to store browser tab information. This can be called
- * on any part of the extension as needed
- */
-let BrowserTabInfo = {
-    Title: "",
-    URL: ""
-}
 
 /**
  * When the user changes tabs, the extension should be able to grab
@@ -133,7 +127,7 @@ function QueryTab(tabData) {
         let title;  
 
         if (tabs[0] != undefined){
-            DevMode ? console.log(BrowserTabInfo) : "";
+            
             url = tabs[0].url;
             title = tabs[0].title;
         }
@@ -143,9 +137,6 @@ function QueryTab(tabData) {
         DevMode ? console.log(url) : "";
         UpdateContextMenus(url, tabs[0].url);
 
-        BrowserTabInfo.Title = title;
-        BrowserTabInfo.URL = url;
-        DevMode ? console.log(BrowserTabInfo) : "";
     }));
 
 };
@@ -195,9 +186,16 @@ let WebsiteSupport = [
     }
 ]
 
+for (let obj of WebsiteSupport){
+    Object.defineProperty(obj, "placeholder", {writable: false})
+}
+
+
 function UpdateContextMenus(domain, fUrl){
 
-    domain = domain.replace(/^www\./g, "");
+    if (domain.includes("www")){
+        domain = domain.replace(/^www\./g, "");
+    }
 
     const hideContextMenus = (()=>{
         for (let i of Object.values(contextMenuId)){
@@ -206,7 +204,6 @@ function UpdateContextMenus(domain, fUrl){
             });
         }
     });
-    console.log(domain)
     WS = WebsiteSupport.filter((x)=>{
         return x.uris.includes(domain);
     });
@@ -246,8 +243,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["tab_url"] = tab.url;
     data["info_url"] = info.srcUrl;
     data["link_url"] = info.linkUrl;
-    data["use_prefix"] = false;
-    data["download_queue"] = false;
 
     /**
      * When websites are hardcoded in the Switch statement, these are natively
