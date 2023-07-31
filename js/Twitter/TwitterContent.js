@@ -99,14 +99,14 @@ var Twitter = {
 
     MediaSrc : ((linkUrl)=>{
         let src = "";
-        src = linkUrl.substring(0, linkUrl.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().original
+        src = linkUrl.substring(0, linkUrl.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().large
         return src;
     }),
 
     ViewOriginalImage : (async (url)=>{
     
         if (url.info_url.includes("&name=")) {
-            updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().original
+            updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().large
         } else {
             updatedUrl = url.info_url;
         }
