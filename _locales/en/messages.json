@@ -79,7 +79,7 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Twitter Settings"
+        "message": "Twitter / X Settings"
     },
 
     "common_section_header_lineblog": {
@@ -131,7 +131,7 @@
     },
 
     "common_navigation_twitter": {
-        "message": "Twitter"
+        "message": "Twitter / X"
     },
 
     "common_navigation_lineblog": {
@@ -182,6 +182,14 @@
         "message": "Settings"
     },
 
+    "common_label_beta": {
+        "message": "Beta"
+    },
+
+    "common_add_to_download_queue": {
+        "message": "Add to Download Queue"
+    },
+
     "context_click_here": {
         "message": "Click Here"
     },
@@ -192,6 +200,10 @@
 
     "context_menu_save_image_as": {
         "message": "Save image as (AutoRename)"
+    },
+
+    "context_menu_save_prefix_image_as": {
+        "message": "Save image as (AutoRename) with Prefix"
     },
 
     "context_menu_view_original_image": {
@@ -352,7 +364,7 @@
     },
 
     "twitter_settings_desciption": {
-        "message": "Customize File Name Format for Twitter"
+        "message": "Customize File Name Format for Twitter / X"
     },
 
     "twitter_settings_include_mention_symbol": {
@@ -373,6 +385,10 @@
 
     "twitter_settings_save_image_to_folder_based_on_username": {
         "message": "Save image to folder based on username"
+    },
+
+    "twitter_settings_download_as_jpeg": {
+        "message": "Download as JPEG only"
     },
 
     "lineblog_settings_description": {

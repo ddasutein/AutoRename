@@ -423,7 +423,7 @@ a:-webkit-any-link {
   background-color: #FFCD03;
   color: black;
   border-radius: 6px;
-  margin-left: 5px;
+  margin-right: 10px;
   font-weight: 600;
 }
 

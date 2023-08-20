@@ -78,7 +78,7 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Twitter設定"
+        "message": "Twitter / X設定"
     },
 
     "common_section_header_lineblog": {
@@ -91,6 +91,10 @@
 
     "common_section_header_about": {
         "message": "訳"
+    },
+
+    "common_section_downloads": {
+        "message": "ダウンロード"
     },
 
     "common_section_file_name": {
@@ -126,7 +130,7 @@
     },
 
     "common_navigation_twitter": {
-        "message": "Twitter"
+        "message": "Twitter / X"
     },
 
     "common_navigation_lineblog": {
@@ -156,6 +160,7 @@
     "common_label_custom_date_format": {
         "message": "カスタムの日付/時刻形式"
     },
+    
 
     "system_information_browser": {
         "message": "ブラウザ"
@@ -177,6 +182,14 @@
         "message": "設定"
     },
 
+    "common_label_beta": {
+        "message": "ベータ"
+    },
+
+    "common_add_to_download_queue": {
+        "message": "ダウンロード キューに追加します"
+    },
+
     "context_click_here": {
         "message": "ここをクリック"
     },
@@ -187,6 +200,10 @@
 
     "context_menu_save_image_as": {
         "message": "画像を保存します【AutoRename】"
+    },
+
+    "context_menu_save_prefix_image_as": {
+        "message": "画像をプレフィックス付き【AutoRename】 として保存"
     },
 
     "context_menu_view_original_image": {
@@ -249,6 +266,10 @@
         "message": "入力した日付/時刻形式が空であるか無効です"
     },
     
+    "error_download_queue_invalid_file_name": {
+        "message": "無効なファイル名を入力しました"
+    },
+
     "error_validation_prefix": {
         "message": "入力したプレフィックスに特殊文字が含まれています "
     },
@@ -339,8 +360,12 @@
         "message": "エクステンションが更新されたときに通知を有効にする"
     },
 
+    "general_settings_store_images_to_custom_folder": {
+        "message": "画像をAutoRenameフォルダーに保存する"
+    },
+
     "twitter_settings_desciption": {
-        "message": "Twitterのファイル名形式をカスタマイズする"
+        "message": "Twitter / Xのファイル名形式をカスタマイズする"
     },
 
     "twitter_settings_include_mention_symbol": {
@@ -358,6 +383,15 @@
     "twitter_settings_site_title": {
         "message": "ウェブサイトを題名含める 【Twitter】"
     },
+
+    "twitter_settings_save_image_to_folder_based_on_username": {
+        "message": "ユーザー名に基づいて画像をフォルダーに保存"
+    },
+    
+    "twitter_settings_download_as_jpeg": {
+        "message": "JPEGのみでダウンロード"
+    },
+
 
     "lineblog_settings_description": {
         "message": "LINE BLOGのファイル名形式をカスタマイズする"
@@ -397,5 +431,74 @@
 
     "reddit_settings_include_date": {
         "message": "日付を含める【システム日付に基づく】"
+    },
+
+    "downloads_section_description": {
+        "message": "ダウンロードが保留中のファイルを表示する"
+    },
+
+    "downloads_section_dialog_empty_queue_title": {
+        "message": "ダウンロードキューが空ける "
+    },
+
+    "downloads_section_empty_queue": {
+        "message": "ダウンロード キューが空ける。 開始するには、画像を右クリック > AutoRename > ダウンロード キューに追加します"
+    },
+
+    "downloads_section_dialog_remove_from_queue_title": {
+        "message": "キュー削除"
+    },
+    
+    "downloads_section_dialog_enter_zip_name": {
+        "message": "ZIPファイルの名前を入力してください"
+    },
+
+    "downloads_section_dialog_queue_cleared": {
+        "message": "ダウンロード キュークリア"
+    },
+
+    "downloads_section_dialog_enter_zip_name_button_create": {
+        "message": "新しZIP"
+    },
+
+    "downloads_section_dialog_remove_from_queue_body": {
+        "message": "これを削除してもよろしいですか?"
+    },
+
+    "downloads_section_count_label": {
+        "message": "ダウンロード キュー -"
+    },
+
+    "downloads_section_button_remove": {
+        "message": "削除"
+    },
+
+    "downloads_section_button_download": {
+        "message": "ダウンロード"
+    },
+
+    "downloads_section_button_clear_queue": {
+        "message": "クリアキュー"
+    },
+
+    "downloads_section_saving_file": {
+        "message": "Saving file:"
+    },
+
+    "downloads_section_saving_file_2": {
+        "message": "ZIPに -",
+        "description": "Dash is required since the percentage is after that"
+    },
+
+    "downloads_section_saving_file_3": {
+        "message": "ファイルは現在ダウンロード中。 お待ちください..."
+    },
+
+    "downloads_section_downlaod_in_progress": {
+        "message": "ダウンロード中"
+    },
+
+    "downloads_section_downlaod_complete_title": {
+        "message": "ダウンロード中です"
     }
 }

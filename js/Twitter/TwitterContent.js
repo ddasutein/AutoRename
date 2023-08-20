@@ -104,6 +104,20 @@ var Twitter = {
     }),
 
     ViewOriginalImage : (async (url)=>{
+
+        twitterConfig = Settings.Load().Twitter.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        if (twitterConfig["twitter_settings_download_as_jpeg"].value == true){
+            url.info_url = (url.info_url).replace("?format=webp", "?format=jpg");
+        }
     
         if (url.info_url.includes("&name=")) {
             updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().large
@@ -140,6 +154,9 @@ var Twitter = {
             return obj;
         }, {});
 
+        if (twitterConfig["twitter_settings_download_as_jpeg"].value == true){
+            data.info_url = (data.info_url).replace("?format=webp", "?format=jpg");
+        }
 
         const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
 
@@ -167,6 +184,7 @@ var Twitter = {
         fileNameObj["tweetId"] = tweetId;
         fileNameObj["use_prefix"] = data.use_prefix;
         fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
+
         filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
         fileNameDisplay = filename;
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){

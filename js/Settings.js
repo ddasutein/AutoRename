@@ -67,6 +67,7 @@ let Settings = {};
         twitter_settings_custom_date_format: "",
         twitter_settings_custom_prefix: "",
         twitter_save_image_to_folder_based_on_username: false,
+        twitter_settings_download_as_jpeg: false,
         //#endregion
     
         //#region LINE BLOG Settings
@@ -200,6 +201,11 @@ let Settings = {};
                 name: "Save image to folder based on username",
                 value: items.twitter_save_image_to_folder_based_on_username,
                 key: "twitter_save_image_to_folder_based_on_username"
+            }, {
+                category: Category.Twitter,
+                name: "Download as JPEG",
+                value: items.twitter_settings_download_as_jpeg,
+                key: "twitter_settings_download_as_jpeg"
             },
             //#endregion
     
