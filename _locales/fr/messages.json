@@ -79,7 +79,7 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Paramètres de Twitter"
+        "message": "Paramètres de Twitter / X"
     },
 
     "common_section_header_lineblog": {
@@ -92,6 +92,10 @@
 
     "common_section_header_about": {
         "message": "A Propos"
+    },
+
+    "common_section_downloads": {
+        "message": "Downloads"
     },
 
     "common_section_file_name": {
@@ -127,7 +131,7 @@
     },
 
     "common_navigation_twitter": {
-        "message": "Twitter"
+        "message": "Twitter / X"
     },
 
     "common_navigation_lineblog": {
@@ -175,8 +179,17 @@
     },
 
     "common_label_settings": {
-        "message": "プレフィックス"
+        "message": "Ajustes"
     },
+
+    "common_label_beta": {
+        "message": "Beta"
+    },
+
+    "common_add_to_download_queue": {
+        "message": "Add to Download Queue"
+    },
+    
 
     "context_click_here": {
         "message": "Cliquez ici."
@@ -188,6 +201,10 @@
 
     "context_menu_save_image_as": {
         "message": "Enregistrer l'image sous (AutoRename)"
+    },
+
+    "context_menu_save_prefix_image_as": {
+        "message": "Save image as (AutoRename) with Prefix"
     },
 
     "context_menu_view_original_image": {
@@ -248,6 +265,10 @@
 
     "error_validation_date_time_format": {
         "message": "The Date/Time Format you entered is either empty or invalid"
+    },
+
+    "error_download_queue_invalid_file_name": {
+        "message": "You have entered an invalid file name"
     },
 
     "error_validation_prefix": {
@@ -339,8 +360,12 @@
         "message": "Habiliter les notifications lorsque l'extension est mise à jour"
     },
 
+    "general_settings_store_images_to_custom_folder": {
+        "message": "Store Images to AutoRename Folder"
+    },
+
     "twitter_settings_desciption": {
-        "message": "Personnaliser le format de nom de fichier pour Twitter"
+        "message": "Personnaliser le format de nom de fichier pour Twitter / X"
     },
 
     "twitter_settings_include_mention_symbol": {
@@ -358,6 +383,15 @@
     "twitter_settings_site_title": {
         "message": "Inclure le titre du site Web [Twitter]"
     },
+
+    "twitter_settings_save_image_to_folder_based_on_username": {
+        "message": "Save image to folder based on username"
+    },
+
+    "twitter_settings_download_as_jpeg": {
+        "message": "Download as JPEG only"
+    },
+
 
     "lineblog_settings_description": {
         "message": "Personnaliser le format de nom de fichier pour LINE BLOG"
@@ -397,5 +431,74 @@
 
     "reddit_settings_include_date": {
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
+    },
+
+    "downloads_section_description": {
+        "message": "View files that are pending for download"
+    },
+
+    "downloads_section_dialog_empty_queue_title": {
+        "message": "Download Queue is Empty"
+    },
+
+    "downloads_section_empty_queue": {
+        "message": "Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue"
+    },
+
+    "downloads_section_dialog_remove_from_queue_title": {
+        "message": "Remove from Queue"
+    },
+    
+    "downloads_section_dialog_enter_zip_name": {
+        "message": "Enter name for ZIP file"
+    },
+
+    "downloads_section_dialog_queue_cleared": {
+        "message": "Download Queue Cleared"
+    },
+
+    "downloads_section_dialog_enter_zip_name_button_create": {
+        "message": "Create ZIP"
+    },
+
+    "downloads_section_dialog_remove_from_queue_body": {
+        "message": "Are you sure you want to remove this?"
+    },
+
+    "downloads_section_count_label": {
+        "message": "Download Queue -"
+    },
+
+    "downloads_section_button_remove": {
+        "message": "Remove"
+    },
+
+    "downloads_section_button_download": {
+        "message": "Download"
+    },
+
+    "downloads_section_button_clear_queue": {
+        "message": "Clear Queue"
+    },
+
+    "downloads_section_saving_file": {
+        "message": "Saving file:"
+    },
+
+    "downloads_section_saving_file_2": {
+        "message": "to ZIP -",
+        "description": "Dash is required since the percentage is after that"
+    },
+
+    "downloads_section_saving_file_3": {
+        "message": "Your files are currently downloading. Please wait..."
+    },
+
+    "downloads_section_downlaod_in_progress": {
+        "message": "Download in progress"
+    },
+
+    "downloads_section_downlaod_complete_title": {
+        "message": "Download Complete"
     }
 }
