@@ -41,7 +41,7 @@ chrome.runtime.onInstalled.addListener(()=>{
 
     chrome.contextMenus.create({
         id: contextMenuId.addDownloadQueue,
-        title: "Add to Download Queue",
+        title: chrome.i18n.getMessage("common_add_to_download_queue"),
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
     
