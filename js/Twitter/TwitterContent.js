@@ -85,7 +85,13 @@ var Twitter = {
         return temp.toString().replace(/,/g, "-");
     }),
 
-    ImageFormatType : ((url) => "." + url.split("?format=")[1].substring(0, 3)),
+    ImageFormatType : ((url)=>{
+        if (url.includes("webp")){
+            return "." + url.split("?format=")[1].substring(0, 4);
+        } else {
+            return "." + url.split("?format=")[1].substring(0, 3);
+        }
+    }),
 
     ImageSizeType : (()=> {
         const size = [{
