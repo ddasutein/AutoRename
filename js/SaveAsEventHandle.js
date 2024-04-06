@@ -72,7 +72,9 @@ const Website = {
     Reddit_New: 'new.reddit.com',
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
-    LINE_BLOG_CDN: 'obs.line-scdn.net'
+    LINE_BLOG_CDN: 'obs.line-scdn.net',
+    Threads: "threads.net",
+    X: "x.com"
 }
 
 /**
@@ -324,6 +326,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["download_queue"] = false;
     console.log(data);
     switch (currentUrl) {
+        case Website.Mobile_Twitter:
+        case Website.X:
         case Website.Twitter:
 
             if (info.menuItemId === contextMenuId.viewOriginalImage){
@@ -364,7 +368,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
                 temp["download_queue"] = true;
                 SaveLINEBlogMedia(tab.url, info.srcUrl, info.linkUrl, temp);
             }
-            break;
 
         case Website.Reddit:
             
