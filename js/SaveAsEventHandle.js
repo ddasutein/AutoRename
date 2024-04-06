@@ -145,7 +145,7 @@ function QueryTab(tabData) {
 let WebsiteSupport = [
     {
         name: "Twitter",
-        uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com"],
+        uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com", "x.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.viewOriginalImage, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"],
         placeholder: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}",
@@ -154,21 +154,6 @@ let WebsiteSupport = [
         uris: ["reddit.com", "old.reddit.com"],
         context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
         other_exclusions: ["messages"]
-    }, {
-        name: "Squabbles",
-        uris: ["squabbles.io"],
-        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
-        other_exclusions: ["messages"],
-        placeholder: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}",
-        attributes: [
-            {
-                id: "attrib1",
-                value: 4
-            }, {
-                id: "attrib2",
-                value: 6
-            }
-        ]
     }, {
         name: "Threads",
         uris: ["threads.net"],
@@ -208,7 +193,7 @@ function UpdateContextMenus(domain, fUrl){
     WS = WebsiteSupport.filter((x)=>{
         return x.uris.includes(domain);
     });
-    console.log(WS)
+
     if (WS.length > 0){
         WS[0].context_menu_support.forEach((cm)=>{
             chrome.contextMenus.update(cm, {
@@ -269,8 +254,6 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         default:
-            TestCustomWebsite(currentUrl, data, info.menuItemId);
-            // alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
     }
 
