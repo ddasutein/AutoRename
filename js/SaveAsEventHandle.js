@@ -75,7 +75,8 @@ const Website = {
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net',
-    Threads: "threads.net"
+    Threads: "threads.net",
+    X: "x.com"
 }
 Object.freeze(Website);
 
@@ -252,7 +253,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
      */
     switch (currentUrl) {
         case Website.Twitter:
-        case Website.Mobile_Twitter: 
+        case Website.Mobile_Twitter:
+        case Website.X:
             Twitter.SaveMedia(data, info.menuItemId);
             break;
 
