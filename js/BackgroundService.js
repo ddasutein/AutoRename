@@ -31,7 +31,6 @@ const Backgroundscripts = [
     "/js/Reddit/RedditContent.js",
     "/js/Threads/ThreadsContent.js",
     "/js/DownloadManager.js",
-    "/js/Parser.js",
     "/js/SaveAsEventHandle.js"
 ]
 
