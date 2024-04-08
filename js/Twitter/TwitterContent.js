@@ -34,7 +34,7 @@ var Twitter = {
         if (!twitterConfig["twitter_include_website_title"].value){
             Utility.RemoveUnusedParameter(temp, "{website_title}");
         } else {
-            temp[temp.indexOf("{website_title}")] = "Twitter";
+            temp[temp.indexOf("{website_title}")] = "X";
         }
 
         if (!twitterConfig["twitter_include_date"].value){
@@ -206,7 +206,7 @@ var Twitter = {
                     filename: filename,
                     filename_display: fileNameDisplay,
                     url: Twitter.MediaSrc(data.info_url),
-                    website: "Twitter",
+                    website: "X",
         
                 });
                 DownloadManager.StartDownload(twitterFileProp);
@@ -217,7 +217,7 @@ var Twitter = {
                     filename: filename,
                     filename_display: fileNameDisplay,
                     url: Twitter.MediaSrc(data.info_url),
-                    website: "Twitter",
+                    website: "X",
         
                 });
                 DownloadManager.StartDownload(twitterFileProp);
@@ -232,7 +232,7 @@ var Twitter = {
                     filename: filename,
                     filename_display: fileNameDisplay,
                     url: Twitter.MediaSrc(data.info_url),
-                    website: "Twitter",
+                    website: "X",
         
                 });
                 DownloadManager.AddDownloadQueue(twitterFileProp);
