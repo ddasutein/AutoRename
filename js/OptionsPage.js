@@ -181,39 +181,33 @@ document.onreadystatechange = () => {
             }
         });
 
-        const lineblogPref = Settings.Load().LINE_BLOG;
+        const lineblogPref = Settings.Load().Threads;
 
         lineblogPref.map(function (x) {
             switch (x.key) {
-                case "lbPrefIncludeWebsiteTitle":
-                    document.getElementById("lineblog_settings_include_site_title").checked = x.value;
+                case "threadsIncludeWebsiteTitle":
+                    document.getElementById("threads_settings_include_site_title").checked = x.value;
                     break;
-                case "lbPrefIncludeBlogTitle":
-                    document.getElementById("lineblog_include_blog_title").checked = x.value;
+                case "threadsIncludeDate":
+                    document.getElementById("threads_settings_include_date").checked = x.value;
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "threads_settings_prefer_locale_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "threads_settings_select_date_format");
+                    Utility.UpdateFieldDisplay("checkbox", x.value, "threads_settings_custom_date_format");
                     break;
-                case "lbPrefUseDate":
-                    document.getElementById("lineblog_settings_include_date").checked = x.value;
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_custom_date_format");
+                case "threadsDateFormat":
+                    document.getElementById("threads_settings_select_date_format").value = x.value;
                     break;
-                case "lineblogDateFormat":
-                    document.getElementById("lineblog_settings_select_date_format").value = x.value;
+                case "threadsRandomStringLength":
+                    document.getElementById("threads_settings_string_length").value = x.value;
                     break;
-                case "lbPrefStringGenerator":
-                    document.getElementById("lineblog_settings_string_length").value = x.value;
+                case "threadsPreferLocaleFormat":
+                    document.getElementById("threads_settings_prefer_locale_format").checked = x.value;
                     break;
-                case "lineblog_convert_title_romaji":
-                    document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
+                case "threadsCustomDateFormat":
+                    document.getElementById("threads_settings_custom_date_format").value = x.value;
                     break;
-                case "lineblogPreferLocaleFormat":
-                    document.getElementById("lineblog_settings_prefer_locale_format").checked = x.value;
-                    break;
-                case "lineblogCustomDateFormat":
-                    document.getElementById("lineblog_settings_custom_date_format").value = x.value;
-                    break;
-                case "lineblogCustomPrefix":
-                    document.getElementById("lineblog_settings_custom_prefix").value = x.value;
+                case "threadsCustomPrefix":
+                    document.getElementById("threads_settings_custom_prefix").value = x.value;
                     break;
             }
         });
@@ -439,11 +433,11 @@ document.addEventListener("DOMContentLoaded", (() => {
                             errorCode = {};
                         }
 
-                        if (document.getElementById("lineblog_settings_include_date").checked && !document.getElementById("lineblog_settings_prefer_locale_format").checked && document.getElementById("lineblog_settings_select_date_format").value == "custom") {
-                            temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
+                        if (document.getElementById("threads_settings_include_date").checked && !document.getElementById("threads_settings_prefer_locale_format").checked && document.getElementById("threads_settings_select_date_format").value == "custom") {
+                            temp.push(ValidateDateTimeFormat("threadsCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
                         }
 
-                        temp.push(ValidatePrefix("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value));
+                        temp.push(ValidatePrefix("threadsCustomPrefix", document.getElementById("threads_settings_custom_date_format").value));
                         temp.forEach((x) => {
                             if (x.is_error == true) {
                                 errorCode["title"] = x.title;
@@ -452,16 +446,15 @@ document.addEventListener("DOMContentLoaded", (() => {
 
                             }
                         });
-                        Settings.Save("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
-                        Settings.Save("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
-                        Settings.Save("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
-                        Settings.Save("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
-                        Settings.Save("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
-                        Settings.Save("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
-                        Settings.Save("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
+                        Settings.Save("threadsIncludeWebsiteTitle", document.getElementById("threads_settings_include_site_title").checked);
+                        Settings.Save("threadsIncludeDate", document.getElementById("threads_settings_include_date").checked);
+                        Settings.Save("threadsRandomStringLength", document.getElementById("threads_settings_string_length").value);
+                        Settings.Save("threadsPreferLocaleFormat", document.getElementById("threads_settings_prefer_locale_format").value);
+                        Settings.Save("threadsDateFormat", document.getElementById("threads_settings_select_date_format").value);
+                        Settings.Save("threadsCustomPrefix", document.getElementById("threads_settings_custom_prefix").value);
 
                         // See dev note #1
-                        Settings.Save("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value);
+                        Settings.Save("threadsCustomDateFormat", document.getElementById("threads_settings_custom_date_format").value);
                         messageBox.Save();
 
                     } catch (e) {
