@@ -156,7 +156,7 @@ function GetSystemInfo() {
                             break;
 
                         case "15.0.0":
-                            platformData["os"] = "Windows 11 version 22H2";
+                            platformData["os"] = "Windows 11 version 22H2/23H2";
                             break;
 
                         default:
