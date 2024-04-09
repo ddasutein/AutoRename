@@ -79,7 +79,7 @@
     },
 
     "common_section_header_twitter": {
-        "message": "Twitter / X Settings"
+        "message": "X Settings"
     },
 
     "common_section_header_lineblog": {
@@ -92,6 +92,10 @@
 
     "common_section_header_about": {
         "message": "About"
+    },
+
+    "common_section_header_threads": {
+        "message": "Threads Settings"
     },
 
     "common_section_downloads": {
@@ -131,7 +135,7 @@
     },
 
     "common_navigation_twitter": {
-        "message": "Twitter / X"
+        "message": "X (formerly Twitter)"
     },
 
     "common_navigation_lineblog": {
@@ -144,6 +148,10 @@
 
     "common_navigation_about": {
         "message": "About"
+    },
+
+    "common_navigation_threads": {
+        "message": "Threads"
     },
 
     "common_banner_more_detail": {
@@ -364,7 +372,7 @@
     },
 
     "twitter_settings_desciption": {
-        "message": "Customize File Name Format for Twitter / X"
+        "message": "Customize File Name Format for X (formerly Twitter)"
     },
 
     "twitter_settings_include_mention_symbol": {
@@ -380,7 +388,7 @@
     },
 
     "twitter_settings_site_title": {
-        "message": "Include Website Title [Twitter]"
+        "message": "Include Website Title [X]"
     },
 
     "twitter_settings_save_image_to_folder_based_on_username": {
@@ -391,23 +399,23 @@
         "message": "Download as JPEG only"
     },
 
-    "lineblog_settings_description": {
-        "message": "Customize File Name Format for LINE BLOG"
+    "threads_settings_description": {
+        "message": "Customize File Name Format for Threads"
     },
 
-    "lineblog_settings_site_title": {
-        "message": "Include Website Title [LINE BLOG]"
+    "threads_settings_site_title": {
+        "message": "Include Website Title [Threads]"
     },
 
-    "lineblog_settings_blog_title": {
+    "threads_settings_blog_title": {
         "message": "Include Blog Title"
     },
 
-    "lineblog_settings_include_date": {
+    "threads_settings_include_date": {
         "message": "Include Date (Based on System Date)"
     },
 
-    "lineblog_settings_convert_blog_title_romaji": {
+    "threads_settings_convert_blog_title_romaji": {
         "message": "Convert Blog Title to Romaji"
     },
 
