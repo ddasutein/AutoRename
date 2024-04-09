@@ -1,3 +1,15 @@
+:root {
+    --primary-control-color: #fff;
+    --secondary-control-color: #333;
+    --input-border-color: #c9c9c9;
+}
+
+[page-theme="dark"] {
+    --primary-control-color: #242424;
+    --secondary-control-color: #eee;
+    --input-border-color: #1a1a1a;
+}
+
 button {
     /* padding: 10px 30px 10px 30px;
     border-radius: 5px;
@@ -18,6 +30,8 @@ button {
 }
 
 select {
+    background-color: var(--primary-control-color);
+    color: var(--secondary-control-color);
     padding: 5px;
     border-radius: 10px;
     padding-right: 20px;
@@ -43,39 +57,22 @@ input[type="button" i] {
 }
 
 input[type="text" i] {
+    background-color: var(--primary-control-color);
+    color: var(--secondary-control-color);
     padding: 5px;
+    border: 1px solid var(--input-border-color);
 }
 
 .button_save {
     padding: 10px 30px 10px 30px;
     border-radius: 5px;
-    border: none;
-    /* background-color: #0c0c0c; */
     background-color: #27ae60;
     color: white;
     cursor: pointer;
-    /* text-transform: uppercase; */
 }
 
 .button_banner_link {
     background: none;
     color: #03B4D3;
     padding: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-
-    select {
-        background-color: #242424;
-        color: #fff;
-    }
-
-    input[type="text" i] {
-        border: none;
-        background-color: #242424;
-        color: #fff;
-        padding: 5px;
-    }
-    
-
 }

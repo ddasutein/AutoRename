@@ -1,5 +1,31 @@
+:root {
+  --primary-color: #f9f9f9;
+  --secondary-color: #333;
+  --hr-color: #f1f1f1;
+  --nav-bg: var(--primary-color);
+  --nav-border: #eee;
+  --banner-bg: #eee;
+  --download-card-primary: #fff;
+  --download-card-title: #000;
+  --download-card-box-shadow: #e5e5e5;
+  --web-link: #036273;
+}
+
+[page-theme="dark"] {
+  --primary-color: #161616;
+  --secondary-color: #eee;
+  --hr-color: #1f1f1f;
+  --nav-bg: #181818;
+  --nav-border: #1f1f1f;
+  --banner-bg: #242424;
+  --download-card-primary: #222222;
+  --download-card-title: #000;
+  --download-card-box-shadow: #000;
+  --web-link: #03B4D3;
+}
+
 body {
-  background: #eeeeee3b;
+  background: var(--primary-color);
   font-family: 'Segoe UI Variable Display', 'Segoe UI', 'Roboto', '-apple-system', 'BlinkMacSystemFont', 'Arial', sans-serif !important;
   font-size: 1.1em;
   margin: 0;
@@ -21,13 +47,12 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #f1f1f1;
+  border-top: 1px solid var(--hr-color);
   margin: 1em 0;
   padding: 0;
 }
 
 .content {
-  background: #fff !important;
   box-shadow: 1px 1px 0.2em rgb(199, 199, 199);
   color: #161616;
   margin: 5px;
@@ -60,6 +85,7 @@ h2 {
 }
 
 .sidebar-btn-ico-text {
+  color: var(--secondary-color);
   font-weight: bold;
   margin-left: 15px;
   text-transform: uppercase;
@@ -72,7 +98,7 @@ h2 {
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: var(--primary-color);
   overflow-x: hidden;
   box-shadow: -2px 0px 10px #d0d0d0;
 }
@@ -82,13 +108,8 @@ h2 {
   margin-right: 7px;
   text-decoration: none;
   font-size: 14px;
-  /* color: #818181; */
   display: flex;
   align-items: center;
-}
-
-.sidebar a:hover {
-  /* color: #161616; */
 }
 
 .sidebar-active {
@@ -98,7 +119,6 @@ h2 {
 
 .main {
   margin-left: 220px;
-  /* Same as the width of the sidenav */
   padding: 6px 15px;
 }
 
@@ -124,11 +144,12 @@ h2 {
 }
 
 .main-body-section-header {
-  border-bottom: 1px solid #f1f1f1;
+  border-bottom: 1px solid var(--hr-color);
 }
 
 .main-body-table {
   border-spacing: 0px 10px;
+  color: var(--secondary-color);
   table-layout: fixed;
   width: 100%;
 }
@@ -186,7 +207,6 @@ h2 {
   letter-spacing: .5px;
 }
 
-/* The Close Button */
 .close {
   color: #aaaaaa;
   float: right;
@@ -208,21 +228,19 @@ h2 {
 }
 
 .main-body-section-announcement {
-  background-color: #eee;
-  border: 1px solid #e3e3e3;
+  background-color: var(--banner-bg);
+  border: 1px solid var(--hr-color);
   border-radius: 5px;
+  color: var(--secondary-color);
   margin-bottom: 15px;
   padding: 5px;
   transition: background-color 0.5s;
 }
 
 .main-body-section-announcement label {
-  /* background-color: #e3e3e3; */
-  /* padding: 3px 10px 3px 10px; */
   font-weight: bold;
 }
 
-/** NEW */
 
 [data-tab-content] {
   display: none;
@@ -231,7 +249,6 @@ h2 {
 
 .active[data-tab-content] {
   display: block;
-  /* padding: 10px; */
   font-size: 0.9em;
   position: absolute;
   margin-left: 300px;
@@ -243,20 +260,16 @@ h2 {
   width: 15rem;
   height: 100vh;
   position: fixed;
-  background-color: #fff;
-  /* color: #121212; */
-  /* margin-top: -25px; */
-  border-right: 1px solid #eee;
+  background-color: var(--nav-bg);
+  color: var(--secondary-color);
+  border-right: 1px solid var(--nav-border);
   transition: background-color 0.5s;
 
 }
 
 .tab {
-  /* background-color: #fff; */
   cursor: pointer;
   padding: 5px;
-  /* width: 100%; */
-  /* text-align: center; */
 }
 
 .tab.active::before {
@@ -280,10 +293,6 @@ h2 {
 }
 
 .tab.active {
-  /* display: block; */
-  /* border-left: 5px solid black; */
-  /* background-color: #eee; */
-
   display: flex;
   position: relative;
   box-sizing: border-box;
@@ -312,12 +321,7 @@ h2 {
   margin-left: 5px;
 }
 
-/* .tab-content {
-  margin-left: 375px;
-} */
-
 .tab-content-main {
-  /* margin-left: 375px; */
   width: 95%;
 }
 
@@ -350,11 +354,10 @@ h2 {
 
 .help-text {
   font-size: 0.8em;
-  /* color: #858585; */
 }
 
 a:-webkit-any-link {
-  color: #036273;
+  color: var(--web-link);
   cursor: pointer;
   text-decoration: underline;
 }
@@ -367,8 +370,8 @@ a:-webkit-any-link {
 
 .download-card {
   align-items: center;
-  background-color: #fff;
-  box-shadow: 1px 1px 4px #e5e5e5;
+  background-color: var(--download-card-primary);
+  box-shadow: 1px 1px 4px var(--download-card-box-shadow);
   border-radius: 5px;
   display: flex;
   flex-direction: row;
@@ -392,7 +395,7 @@ a:-webkit-any-link {
 }
 
 .download-card-site {
-  background-color: #000;
+  background-color: var(--download-card-title);
   border-radius: 5px;
   color: #fff;
   display: inline-flex;
@@ -418,6 +421,10 @@ a:-webkit-any-link {
   margin-right: 1px;
 }
 
+.download-card-info {
+  color: var(--secondary-color);
+}
+
 .beta_tag {
   padding: 4px;
   background-color: #FFCD03;
@@ -429,111 +436,13 @@ a:-webkit-any-link {
 
 .grid-container {
   display: inline-block;
-  /* background-color: #2196F3; */
   vertical-align: top;
   padding: 1px;
-  /* width: 100%; */
 }
 .grid-item {
-  /* background-color: rgba(255, 255, 255, 0.8); */
   display: inline-block;
-  /* border: 1px solid rgba(0, 0, 0, 0.8); */
-  /* width: 100%; */
   padding: 5px;
   vertical-align: top;
-  /* text-align: center; */
-}
-
-/** EVERYTHING BELOW IS FOR DARK MODE ONLY **/
-
-@media (prefers-color-scheme: dark) {
-
-  body {
-    background-color: #161616;
-  }
-
-  hr {
-    border-top: 1px solid #1f1f1f;
-  }
-
-  .navbar {
-    background-color: #181818;
-    border-right: 1px solid #1f1f1f;
-    color: #fff;
-  }
-
-  .main-body-table {
-    color: #fff;
-  }
-
-  .main-body-table {
-    color: #B0B0B0;
-  }
-
-  .sidebar-btn-ico-text {
-    color: #fff;
-  }
-
-  .main-body-section-header {
-    border-bottom: 1px solid #1f1f1f;
-  }
-
-  a:-webkit-any-link {
-    color: #03B4D3;
-    cursor: pointer;
-    text-decoration: underline;
-  }
-
-  .main-body-section-announcement {
-    background-color: #242424;
-    border: 1px solid #1f1f1f;
-    color: #fff;
-  }
-
-  .modal {
-    background: #242424;
-    box-shadow: 0 0 28px #00000059;
-  }
-
-  .download_card_container {
-    color: #B0B0B0;
-  }
-
-  .download-card {
-    background-color: #222222;
-    box-shadow: 1px 1px 4px #000;
-  }
-
-  .download-card-site {
-    color: #fff;
-    margin-top: 5px;
-    font-size: 12px;
-  }
-  
-  .download-card-actions {
-    margin-left: auto;
-  }
-  
-  .download-card-actions-button-primary {
-    background-color: #03B4D3;
-    color: #fff;
-    margin-right: 10px;
-  
-  }
-  
-  .download-card-actions-button-secondary {
-    background-color: #fff0;
-    color: #B0B0B0;
-    margin-right: 1px;
-  }
-
-  .download-card-file {
-    color: #B0B0B0;
-  }
-
-  .download-card-info {
-    color: #B0B0B0;
-  }
 }
 
 /** ANIMATION **/
