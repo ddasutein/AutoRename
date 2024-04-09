@@ -56,7 +56,6 @@ const Threads = {
 
             threadsSettings["threadsIncludeWebsiteTitle"].value ?  temp[temp.indexOf("{website_title}")] = "Threads" : Utility.RemoveUnusedParameter(temp, "{website_title}")
             user = urlObj.tab_url.split("/")[3];
-            threadsSettings["threadsIncludeMentionSymbol"].value == false ? user = user.replace("@", "") : null;
             temp[temp.indexOf("{attrib1}")] = user;
 
             if (threadsSettings["threadsIncludeDate"].value){
