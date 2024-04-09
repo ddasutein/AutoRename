@@ -84,7 +84,6 @@ let Settings = {};
 
         //#region THREADS SETTINGS
         threadsIncludeWebsiteTitle: true,
-        threadsIncludeMentionSymbol: true,
         threadsIncludeDate: false,
         threadsRandomStringLength: 4,
         threadsPreferLocaleFormat: true,
@@ -209,55 +208,6 @@ let Settings = {};
             },
             //#endregion
     
-            //#region LINE BLOG Settings
-            {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_site_title"),
-                value: items.lbPrefIncludeWebsiteTitle,
-                key: "lbPrefIncludeWebsiteTitle"
-            }, {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_blog_title"),
-                value: items.lbPrefIncludeBlogTitle,
-                key: "lbPrefIncludeBlogTitle"
-            }, {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_include_date"),
-                value: items.lbPrefUseDate,
-                key: "lbPrefUseDate"
-            }, {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("common_label_generator_length"),
-                value: items.lbPrefStringGenerator,
-                key: "lbPrefStringGenerator"
-            }, {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("lineblog_settings_convert_blog_title_romaji"),
-                value: items.lineblog_convert_title_romaji,
-                key: "lineblog_convert_title_romaji"
-            },  {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("common_label_prefer_locale_format"),
-                value: items.lineblogPreferLocaleFormat,
-                key: "lineblogPreferLocaleFormat"
-            },  {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("common_label_date_format"),
-                value: items.lineblogDateFormat,
-                key: "lineblogDateFormat"
-            }, {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("common_label_custom_date_format"),
-                value: items.lineblogCustomDateFormat,
-                key: "lineblogCustomDateFormat"
-            },  {
-                category: Category.LINE_BLOG,
-                name: chrome.i18n.getMessage("common_section_custom_prefix"),
-                value: items.lineblogCustomPrefix,
-                key: "lineblogCustomPrefix"
-            }, 
-            //#endregion
-    
             //#region Reddit Settings
             {
                 category: Category.Reddit,
@@ -308,12 +258,6 @@ let Settings = {};
                 name: "threadsIncludeWebsiteTitle",
                 value: items.threadsIncludeWebsiteTitle,
                 key: "threadsIncludeWebsiteTitle"
-            },
-            {
-                category: Category.Threads,
-                name: "threadsIncludeMentionSymbol",
-                value: items.threadsIncludeMentionSymbol,
-                key: "threadsIncludeMentionSymbol"
             },
             {
                 category: Category.Threads,
