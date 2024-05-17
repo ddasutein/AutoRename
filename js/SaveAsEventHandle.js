@@ -160,6 +160,7 @@ function QueryTab(tabData) {
 function UpdateContextMenus(url, urlFull) {
 
     switch(url){
+        case Website.X:
         case Website.Twitter:
             
             if (urlFull.includes("messages")){
