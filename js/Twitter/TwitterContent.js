@@ -34,7 +34,7 @@ var Twitter = {
         if (!twitterConfig["twitter_include_website_title"].value){
             Utility.RemoveUnusedParameter(temp, "{website_title}");
         } else {
-            temp[temp.indexOf("{website_title}")] = "Twitter";
+            temp[temp.indexOf("{website_title}")] = "X";
         }
 
         if (!twitterConfig["twitter_include_date"].value){
