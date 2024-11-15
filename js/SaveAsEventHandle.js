@@ -76,7 +76,8 @@ const Website = {
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net',
     Threads: "threads.net",
-    X: "x.com"
+    X: "x.com",
+    Bluesky: "bsky.app"
 }
 Object.freeze(Website);
 
@@ -251,6 +252,10 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
         case Website.Threads:
             Threads.SaveMedia(data, info.menuItemId);
+            break;
+
+        case Website.Bluesky:
+            BlueSky.SaveMedia(data, info.menuItemId);
             break;
 
         default:
