@@ -143,35 +143,36 @@ function QueryTab(tabData) {
 
 };
 
-let WebsiteSupport = [
-    {
-        name: "Twitter",
-        uris: ["twitter.com", "mobile.twitter.com", "m.twitter.com", "x.com"],
-        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.viewOriginalImage, contextMenuId.addDownloadQueue],
-        other_exclusions: ["messages"],
-        placeholder: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}",
-    }, {
-        name: "Reddit",
-        uris: ["reddit.com", "old.reddit.com"],
-        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
-        other_exclusions: ["messages"]
-    }, {
-        name: "Threads",
-        uris: ["threads.net"],
-        context_menu_support: [contextMenuId.saveImage, contextMenuId.saveImageWithCustomPrefix, contextMenuId.addDownloadQueue],
-        other_exclusions: [],
-        placeholder: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}",
-        attributes: [
-            {
-                id: 1,
-                value: 1
-            }, {
-                id: 2,
-                value: 2
+/**
+ * Here you can dynamically set which websites can use a specific context menu item.
+ * It is important that the user should not see a context menu for the extension if
+ * the website is not supported.
+ * 
+ * @param {string} url URL of the website
+ */
+function UpdateContextMenus(url, urlFull) {
+
+    switch(url){
+        case Website.X:
+        case Website.Twitter:
+            
+            if (urlFull.includes("messages")){
+                chrome.contextMenus.update(contextMenuId.saveImage, {
+                    visible: false
+                });
+    
+                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
+                    visible: false 
+                });
+    
+                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
+                    visible: false
+                });
+                return;
             }
-        ]
+        
     }
-]
+}
 
 for (let obj of WebsiteSupport){
     Object.defineProperty(obj, "placeholder", {writable: false})
@@ -238,6 +239,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
      * if the website contains subdomains then it should be grouped together.
      */
     switch (currentUrl) {
+        case Website.Mobile_Twitter:
+        case Website.X:
         case Website.Twitter:
         case Website.Mobile_Twitter:
         case Website.X:
