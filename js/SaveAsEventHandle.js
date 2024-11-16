@@ -12,136 +12,7 @@
  * 
  */
 
-//#region CONTEXT MENU ITEMS
 
-/**
- * Context menu items. When adding new context menu items, declare them here first
- */
-const ContextMenuID = {
-    SaveImage: "saveImage",
-    SaveImageWithPrefix: "saveImageWithCustomPrefix",
-    ViewOriginalImage: "viewOriginalImage",
-    AddDownloadQueue: "downloadqueue"
-}
-Object.freeze(ContextMenuID);
-
-chrome.runtime.onInstalled.addListener(()=>{
-
-    //#region Common context menu items
-    chrome.contextMenus.create({
-        id: ContextMenuID.SaveImage,
-        title: chrome.i18n.getMessage("context_menu_save_image_as"),
-        contexts: ["image"]
-    },  () => chrome.runtime.lastError );
-    
-    chrome.contextMenus.create({
-        id: ContextMenuID.SaveImageWithPrefix,
-        title: "Save image as (AutoRename) with Prefix",
-        contexts: ["image"]
-    },  () => chrome.runtime.lastError );
-
-    chrome.contextMenus.create({
-        id: ContextMenuID.AddDownloadQueue,
-        title: chrome.i18n.getMessage("common_add_to_download_queue"),
-        contexts: ["image"]
-    },  () => chrome.runtime.lastError );
-    
-    //#endregion
-    
-    //#region Twitter specific context menu
-    chrome.contextMenus.create({
-        id: ContextMenuID.ViewOriginalImage,
-        title: chrome.i18n.getMessage("context_menu_view_original_image"),
-        contexts: ["image"]
-    }, () => chrome.runtime.lastError );
-
-    //#endregion
-
-    DownloadManager.UpdateBadge();
-
-});
-
-//#endregion
-
-/* Enums of Supported sites by this extension */
-const Website = {
-    Twitter: 'twitter.com',
-    Mobile_Twitter: 'mobile.twitter.com',
-    Instagram: 'instagram.com',
-    Facebook: 'facebook.com',
-    Reddit: 'reddit.com',
-    Reddit_New: 'new.reddit.com',
-    Reddit_Old: 'old.reddit.com',
-    LINE_BLOG: 'lineblog.me',
-    LINE_BLOG_CDN: 'obs.line-scdn.net',
-    Threads: "threads.net",
-    X: "x.com",
-    Bluesky: "bsky.app"
-}
-
-const WebsiteConfigObject = [
-    {
-        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
-        exclude_path: ["messages"],
-        inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
-        file_name: ""
-    }, {
-        uri: [Website.Bluesky],
-        exclude_path: [],
-        inactive: true,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
-        file_name: ""
-    }, {
-        uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
-        exclude_path: [],
-        inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
-        file_name: ""
-    }, {
-        uri: [Website.Threads],
-        exclude_path: [],
-        inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
-        file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
-    }
-];
-
-/**
- * When the user changes tabs, the extension should be able to grab
- * the URL and Title
- */
-chrome.tabs.onActivated.addListener((activeInfo) => {
-    
-    DevMode ? console.log("tabs onActivated") : "";
-    console.log(activeInfo.tabId)
-
-    QueryTab(activeInfo);
-
-});
-
-/**
- * When the user clicks a link on the same tab, the extension should be able to
- * get the updated data.
- */
-chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
-    DevMode ? console.log("-- on update --") : ""
-
-    if (selectInfo.status == "complete"){
-        QueryTab();
-    }
-
-});
-
-
-chrome.action.setBadgeBackgroundColor({
-    color: "#181818"
-});
-
-
-/**
- * Queries tab data
- */
 function QueryTab(tabData) {
 
     chrome.tabs.query({
@@ -160,7 +31,7 @@ function QueryTab(tabData) {
 
         url = url.split("/");
         url = url[2];
-        DevMode ? console.log(url) : "";
+
         UpdateContextMenus(url, tabs[0].url);
 
     }));
@@ -260,6 +131,123 @@ function UpdateContextMenus(domain, fullURL){
         SetContextMenuVisibility.HideAll();
     }
 }
+
+
+const ContextMenuID = {
+    SaveImage: "saveImage",
+    SaveImageWithPrefix: "saveImageWithCustomPrefix",
+    ViewOriginalImage: "viewOriginalImage",
+    AddDownloadQueue: "downloadqueue"
+}
+
+chrome.runtime.onInstalled.addListener(()=>{
+
+    chrome.contextMenus.create({
+        id: ContextMenuID.SaveImage,
+        title: chrome.i18n.getMessage("context_menu_save_image_as"),
+        contexts: ["image"]
+    },  () => chrome.runtime.lastError );
+    
+    chrome.contextMenus.create({
+        id: ContextMenuID.SaveImageWithPrefix,
+        title: "Save image as (AutoRename) with Prefix",
+        contexts: ["image"]
+    },  () => chrome.runtime.lastError );
+
+    chrome.contextMenus.create({
+        id: ContextMenuID.AddDownloadQueue,
+        title: chrome.i18n.getMessage("common_add_to_download_queue"),
+        contexts: ["image"]
+    },  () => chrome.runtime.lastError );
+    
+    chrome.contextMenus.create({
+        id: ContextMenuID.ViewOriginalImage,
+        title: chrome.i18n.getMessage("context_menu_view_original_image"),
+        contexts: ["image"]
+    }, () => chrome.runtime.lastError );
+
+    DownloadManager.UpdateBadge();
+
+});
+
+/* Enums of Supported sites by this extension */
+const Website = {
+    Twitter: 'twitter.com',
+    Mobile_Twitter: 'mobile.twitter.com',
+    Instagram: 'instagram.com',
+    Facebook: 'facebook.com',
+    Reddit: 'reddit.com',
+    Reddit_New: 'new.reddit.com',
+    Reddit_Old: 'old.reddit.com',
+    LINE_BLOG: 'lineblog.me',
+    LINE_BLOG_CDN: 'obs.line-scdn.net',
+    Threads: "threads.net",
+    X: "x.com",
+    Bluesky: "bsky.app"
+}
+
+/**
+ * Configure parameters for websites
+ * 
+ * URI                          = Base URL of the website
+ * Exclude Path                 = Add which path in the URL you want to hide the context menu item from appearing.
+ * Inactive                     = Whether or not to display the context menu for that website even if they are added in this array.
+ * allowed_context_menu_items   = Add/Remove context menu items here
+ * file_name                    = This is still in beta for version 4.1.0. Will expand on this idea in the future
+ */
+const WebsiteConfigObject = [
+    {
+        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
+        exclude_path: ["messages"],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
+        file_name: ""
+    }, {
+        uri: [Website.Bluesky],
+        exclude_path: [],
+        inactive: true,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: ""
+    }, {
+        uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
+        exclude_path: [],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: ""
+    }, {
+        uri: [Website.Threads],
+        exclude_path: [],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
+    }
+];
+
+/**
+ * When the user changes tabs, the extension should be able to grab
+ * the URL and Title
+ */
+chrome.tabs.onActivated.addListener((activeInfo) => {
+    QueryTab(activeInfo);
+});
+
+/**
+ * When the user clicks a link on the same tab, the extension should be able to
+ * get the updated data.
+ */
+chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
+    DevMode ? console.log("-- on update --") : ""
+
+    if (selectInfo.status == "complete"){
+        QueryTab();
+    }
+
+});
+
+
+chrome.action.setBadgeBackgroundColor({
+    color: "#181818"
+});
 
 /**
  * This is the ENTRY point to trigger saving images or to execute specific
