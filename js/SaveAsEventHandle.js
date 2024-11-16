@@ -69,7 +69,7 @@ const Website = {
     Mobile_Twitter: 'mobile.twitter.com',
     Instagram: 'instagram.com',
     Facebook: 'facebook.com',
-    Reddit: 'www.reddit.com',
+    Reddit: 'reddit.com',
     Reddit_New: 'new.reddit.com',
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
@@ -139,7 +139,6 @@ chrome.action.setBadgeBackgroundColor({
 });
 
 
-let count = 0;
 /**
  * Queries tab data
  */
@@ -178,6 +177,10 @@ function QueryTab(tabData) {
 
 
 function UpdateContextMenus(domain, fullURL){
+
+    if ( (domain == undefined || domain == null || domain == "") || fullURL.includes("chrome-extension://")){
+        return;
+    }
 
     if (domain.includes("www")){
         domain = domain.replace(/^www\./g, "");
@@ -250,7 +253,7 @@ function UpdateContextMenus(domain, fullURL){
             }
         })
     }
-    console.log(`FULL URL >> ${fullURL}`)
+
     if (Object.values(Website).some((wb => wb == domain)) == true){
         SetContextMenuVisibility.Normal(domain, fullURL);
     } else {
