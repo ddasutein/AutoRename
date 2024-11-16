@@ -33,7 +33,7 @@ const Threads = {
             link_url: data.link_url,
             tab_url: data.tab_url
         }
-
+        console.log("enter func")
         const getImageFormat = function (mediaLink) {
 
             const imageFormats = [".jpg", ".jpeg", ".png", ".webp"];
@@ -118,9 +118,11 @@ const Threads = {
 
         let threadsFileProp = [];
 
+        console.log(contextMenuSelectedId)
         switch (contextMenuSelectedId) {
-            case ContextMenuID.saveImage:
+            case ContextMenuID.SaveImage:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
+                console.log(fl);
                 threadsFileProp.push({
                     filename: fl.filename_path,
                     filename_display: fl.filename_display,
@@ -131,7 +133,7 @@ const Threads = {
                 DownloadManager.StartDownload(threadsFileProp);
                 break;
 
-            case ContextMenuID.saveImageWithCustomPrefix:
+            case ContextMenuID.SaveImageWithPrefix:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, true);
                 threadsFileProp.push({
                     filename: fl.filename_path,
@@ -143,7 +145,7 @@ const Threads = {
                 DownloadManager.StartDownload(threadsFileProp);
                 break;
 
-            case ContextMenuID.addDownloadQueue:
+            case ContextMenuID.AddDownloadQueue:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
                 threadsFileProp.push({
                     filename: fl.filename_path,
