@@ -24,7 +24,6 @@ const Backgroundscripts = [
     "/lib/Moment/moment.js",
     "/lib/Moment/moment-with-locales.js",
     "/js/Common/Utility.js",
-    "/js/Common/Debugger.js",
     "/js/Common/SetTimeDate.js",
     "/js/Twitter/TwitterContent.js",
     "/js/LINE BLOG/LineBlogContent.js",
