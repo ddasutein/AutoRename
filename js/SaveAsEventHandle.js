@@ -212,7 +212,7 @@ const WebsiteConfigObject = [
         uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
         exclude_path: [],
         inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: ""
     }, {
         uri: [Website.Threads],
