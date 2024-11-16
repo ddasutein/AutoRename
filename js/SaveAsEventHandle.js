@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -17,32 +17,31 @@
 /**
  * Context menu items. When adding new context menu items, declare them here first
  */
-const contextMenuId = {
-    saveImage: "saveImage",
-    saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
-    viewOriginalImage: "viewOriginalImage",
-    addDownloadQueue: "downloadqueue"
+const ContextMenuID = {
+    SaveImage: "saveImage",
+    SaveImageWithPrefix: "saveImageWithCustomPrefix",
+    ViewOriginalImage: "viewOriginalImage",
+    AddDownloadQueue: "downloadqueue"
 }
-Object.freeze(contextMenuId);
-
+Object.freeze(ContextMenuID);
 
 chrome.runtime.onInstalled.addListener(()=>{
 
     //#region Common context menu items
     chrome.contextMenus.create({
-        id: contextMenuId.saveImage,
+        id: ContextMenuID.SaveImage,
         title: chrome.i18n.getMessage("context_menu_save_image_as"),
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
     
     chrome.contextMenus.create({
-        id: contextMenuId.saveImageWithCustomPrefix,
+        id: ContextMenuID.SaveImageWithPrefix,
         title: "Save image as (AutoRename) with Prefix",
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
 
     chrome.contextMenus.create({
-        id: contextMenuId.addDownloadQueue,
+        id: ContextMenuID.AddDownloadQueue,
         title: chrome.i18n.getMessage("common_add_to_download_queue"),
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
@@ -51,7 +50,7 @@ chrome.runtime.onInstalled.addListener(()=>{
     
     //#region Twitter specific context menu
     chrome.contextMenus.create({
-        id: contextMenuId.viewOriginalImage,
+        id: ContextMenuID.ViewOriginalImage,
         title: chrome.i18n.getMessage("context_menu_view_original_image"),
         contexts: ["image"]
     }, () => chrome.runtime.lastError );
@@ -79,8 +78,26 @@ const Website = {
     X: "x.com",
     Bluesky: "bsky.app"
 }
-Object.freeze(Website);
 
+const WebsiteConfigObject = [
+    {
+        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
+        exclude_path: ["messages"],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue]
+    }, {
+        uri: [Website.Bluesky],
+        exclude_path: [],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+    }, {
+        uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
+        exclude_path: [],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+    }, {
+        uri: [Website.Threads],
+        exclude_path: [],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+    }
+];
 
 /**
  * When the user changes tabs, the extension should be able to grab
@@ -150,68 +167,87 @@ function QueryTab(tabData) {
  * 
  * @param {string} url URL of the website
  */
-function UpdateContextMenus(url, urlFull) {
-
-    switch(url){
-        case Website.X:
-        case Website.Twitter:
-            
-            if (urlFull.includes("messages")){
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-    
-                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                    visible: false 
-                });
-    
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                return;
-            }
-        
-    }
-}
-
-for (let obj of WebsiteSupport){
-    Object.defineProperty(obj, "placeholder", {writable: false})
-}
 
 
-function UpdateContextMenus(domain, fUrl){
+function UpdateContextMenus(domain, fullURL){
 
     if (domain.includes("www")){
         domain = domain.replace(/^www\./g, "");
     }
 
-    const hideContextMenus = (()=>{
-        for (let i of Object.values(contextMenuId)){
-            chrome.contextMenus.update(i, {
+    const SetContextMenuVisibility = {
+
+        Normal : ((uri, fullURL) => {
+
+            let websiteConfigObject = WebsiteConfigObject.filter((x)=>{
+                return (x.uri).includes(uri);
+            });
+
+            if (websiteConfigObject.length != 0){
+
+                let blockedByExcludedPath = false;
+
+                // Step 1: Check if we need to hide any additional paths on the website. For example,
+                // we don't want the extension to show context menus items if user is in Twitter DMs.
+                // Then set a flag to stop from further execution if path is detected
+                excludedPaths = websiteConfigObject.map((x) => {
+                    return x.exclude_path;
+                });
+                if (excludedPaths.length != 0){
+                    let domain = fullURL.split("/");
+
+                    excludedPaths[0].forEach((x) => {
+                        if (domain.includes(x)){
+                            SetContextMenuVisibility.HideAll();
+                            blockedByExcludedPath = true;
+                        }
+                    });
+                }
+                
+                if (blockedByExcludedPath == true) return;
+
+                // Step 2: Then proceed to check base domain
+                websiteConfigObject = websiteConfigObject.map((x)=>{
+                    return x.allowed_context_menu_items;
+                })[0];
+                
+                Object.values(ContextMenuID).forEach((CMID) => {
+                    
+                    let hasContextMenuItem = websiteConfigObject.some((x => x == CMID));
+                    if (hasContextMenuItem == true){
+                        chrome.contextMenus.update(CMID, {
+                            visible: true
+                        });
+                    } else {
+                        SetContextMenuVisibility.Hide(CMID);
+                    }
+                });
+
+            } else {
+                SetContextMenuVisibility.HideAll();
+            }
+        }),
+
+        Hide: ((CMID) => {
+            chrome.contextMenus.update(CMID, {
                 visible: false
             });
-        }
-    });
-    WS = WebsiteSupport.filter((x)=>{
-        return x.uris.includes(domain);
-    });
+        }),
 
-    if (WS.length > 0){
-        WS[0].context_menu_support.forEach((cm)=>{
-            chrome.contextMenus.update(cm, {
-                visible: true
-            });
-        });
-
-        WS[0].other_exclusions.forEach((OE)=>{
-            if (fUrl.includes(OE)){
-                hideContextMenus();
+        HideAll : (() => {
+            for (let i of Object.values(ContextMenuID)){
+                chrome.contextMenus.update(i, {
+                    visible: false
+                });
             }
         })
-    } else {
-        hideContextMenus();
     }
-
+    console.log(`FULL URL >> ${fullURL}`)
+    if (Object.values(Website).some((wb => wb == domain)) == true){
+        SetContextMenuVisibility.Normal(domain, fullURL);
+    } else {
+        SetContextMenuVisibility.HideAll();
+    }
 }
 
 /**
@@ -266,67 +302,3 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     }
 
 });
-
-function TestCustomWebsite(domain, data, contextMenuSelectedId){
-
-    console.log(data);
-
-    const splitTool = function(url, number){
-        return url.split("/")[number];
-    }
-
-    let WW;
-    WW = WebsiteSupport.filter((x)=>{
-        return x.uris.includes(domain);
-    });
-
-    let placeholder;
-    console.log(WW)
-    placeholder = WW[0].placeholder;
-    placeholder = placeholder.split("-");
-
-    let attributeData = WW[0].attributes.map((data)=>{
-        return {
-            key: data.id,
-            value: data.value
-        }
-    }).reduce((obj, data)=>{
-        obj[data.key] = data;
-        return obj;
-    }, {});
-
-    for (let i=0; i < placeholder.length; i++){
-        WW[0].attributes.forEach((x)=>{
-            if (placeholder[i] == "{" + x.id + "}"){
-                placeholder[i] = splitTool(data.tab_url, x.value);
-            }
-        });
-    }
-
-    console.log("CUSTOM OUTPUT")
-    fname = (placeholder).toString().replace(/,/g, "-");
-    let testData = []
-
-    switch (contextMenuSelectedId){
-        case contextMenuId.saveImage:
-            testData.push({
-                filename: fname,
-                filename_display: "TEST",
-                url: data.info_url,
-                website: "Squabbles"
-             });
-             console.log(testData);
-             DownloadManager.StartDownload(testData);
-
-           break;
-
-        case contextMenuId.saveImageWithCustomPrefix:
-
-           break;
-
-        case contextMenuId.addDownloadQueue:
-
-           break;
-     }
-
-}
