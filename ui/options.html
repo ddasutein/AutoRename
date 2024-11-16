@@ -126,7 +126,7 @@
                             <tr>
                                 <td><label>Theme</label></td>
                                 <td>
-                                    <select id="theme-selector">
+                                    <select id="theme_selector">
                                         <option value="auto">Auto</option>
                                         <option value="light">Light</option>
                                         <option value="dark">Dark</option>
@@ -181,14 +181,14 @@
                         </tr>
                         <tr>
                             <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                            <td><input type="checkbox" id="twitter_settings_prefer_locale_format"></td>
+                            <td><input type="checkbox" id="global_settings_prefer_locale_format"></td>
                         </tr>
                         <tr>
                             <td>
                                 <label data-i18n="common_label_date_format"></label>
                             </td>
                             <td>
-                                <select id="twitter_settings_select_date_format">
+                                <select id="global_settings_select_date_format">
                                     <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
                                     <option disabled data-i18n="common_date_format_label_numerical"></option>
                                     <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
@@ -208,7 +208,7 @@
                         <tr>
                             <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
                             <td style="vertical-align: middle;">
-                                <span><input type="text" id="twitter_settings_custom_date_format" style="width: 100%;"></span>
+                                <span><input type="text" id="global_custom_date_format" style="width: 100%;"></span>
                                 <br/>
                                 <div class="help-text" data-i18n="help_text_date_format"></div>
                             </td>
@@ -429,58 +429,6 @@
                         </table>
                         <br/>
 
-                        <!-- SECTION: TIME & DATE -->
-                        <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                            </div>
-                        </div>
-
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                                <td><input type="checkbox" id="threads_settings_prefer_locale_format"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="common_label_date_format"></label>
-                                </td>
-                                <td>
-                                    <select id="threads_settings_select_date_format">
-                                        <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
-                                        <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                        <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                        <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                        <option disabled data-i18n="common_date_format_label_long"></option>
-                                        <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                        <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                        <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                        <option disabled  data-i18n="common_date_format_label_short"></option>
-                                        <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                        <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                        <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
-                                <td style="vertical-align: middle;">
-                                    <span><input id="threads_settings_custom_date_format" type="text" style="width: 100%;"></span>
-                                    <br/>
-                                    <div class="help-text" data-i18n="help_text_date_format"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-
                         <!-- SECTION : PREFIX -->
                         <div class="main-body-section-header">
                             <div style="display: inline-flex;">
@@ -582,58 +530,6 @@
                         </tr>
                     </table>
                     <br/>
-
-                    <!-- SECTION: TIME & DATE -->
-                    <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                        </div>
-                    </div>
-
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                            <td><input type="checkbox" id="reddit_settings_prefer_locale_format"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_date_format"></label>
-                            </td>
-                            <td>
-                                <select id="reddit_settings_select_date_format">
-                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
-                                    <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                    <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                    <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                    <option disabled data-i18n="common_date_format_label_long"></option>
-                                    <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                    <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                    <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                    <option disabled  data-i18n="common_date_format_label_short"></option>
-                                    <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                    <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                    <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
-                            <td style="vertical-align: middle;">
-                                <span><input type="text" id="reddit_settings_custom_date_format" style="width: 100%;"></span>
-                                <br/>
-                                <div class="help-text" data-i18n="help_text_date_format"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></p></td>
-                        </tr>
-                    </table>
 
                     <!-- SECTION : PREFIX -->
                     <div class="main-body-section-header">

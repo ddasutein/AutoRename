@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -48,9 +48,18 @@ const Threads = {
         }
 
         const BuildThreadsFileName = ((threadsSettings, urlObj, include_prefix)=>{
-            
+
+            let GlobalSettings = Settings.Load().General.map((data)=>{
+                return {
+                    "key": data.key,
+                    "value": data.value
+                }
+            }).reduce((obj, data)=>{
+                obj[data.key] = data;
+                return obj;
+            }, {});
+
             ThreadsAttributes = WebsiteConfigObject.filter((x => x.uri == "threads.net"))[0];
-            console.log(ThreadsAttributes);
             let temp = ThreadsAttributes.file_name;
             let user;
             temp = temp.split("-");
@@ -62,19 +71,18 @@ const Threads = {
             if (threadsSettings["threadsIncludeDate"].value){
                 let prefObj = {};
 
-                if (threadsSettings["threadsPreferLocaleFormat"]){
+                if (GlobalSettings["global_prefer_locale_format"].value){
                     prefObj["prefer_locale_format"] = true;
                     const timedateValue = getTimeDate(prefObj);
                     temp[temp.indexOf("{date}")] = timedateValue
                 } else {
                     prefObj["prefer_locale_format"] = false;
 
-                    if (threadsSettings["threadsDateFormat"].value == "custom"){
-                        prefObj["date_format"] = threadsSettings["threadsCustomDateFormat"];
+                    if (GlobalSettings["global_date_format"].value == "custom"){
+                        prefObj["date_format"] = GlobalSettings["global_custom_date_format"].value;
                     } else {
-                        prefObj["date_format"] = GetDateFormat(threadsSettings["threadsDateFormat"].value);
+                        prefObj["date_format"] = GetDateFormat(GlobalSettings["global_date_format"].value);
                     }
-
                     const timedateValue = getTimeDate(prefObj);
                     temp[temp.indexOf("{date}")] = timedateValue;
                 }

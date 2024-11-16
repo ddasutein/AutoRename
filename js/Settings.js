@@ -34,7 +34,7 @@ let Settings = {};
         Reddit: "Reddit",
         Options: "OptionsUI",
         Threads: "Threads",
-        Squabbles: "Squabbles"
+        Bluesky: "Bluesky"
     }
 
     chrome.storage.local.get({
@@ -54,6 +54,11 @@ let Settings = {};
         global_use_autorename_folder: false,
         global_download_queue_data: "",
         global_download_history_data: "",
+        global_prefer_locale_format: true,
+        global_date_format: "custom",
+        global_custom_date_format: "",
+        global_theme: "auto",
+
         //#endregion
     
         //#region Twitter Settings
@@ -111,7 +116,7 @@ let Settings = {};
     
     
     }, function (items) {
-    
+
         SettingsMap.push(
     
             //#region General Settings
@@ -145,6 +150,26 @@ let Settings = {};
                 name: "Download History",
                 value: items.global_download_history_data,
                 key: "global_download_history_data"
+            }, {
+                category: Category.General,
+                name: chrome.i18n.getMessage("common_label_prefer_locale_format"),
+                value: items.global_prefer_locale_format,
+                key: "global_prefer_locale_format"
+            }, {
+                category: Category.General,
+                name: chrome.i18n.getMessage("common_label_date_format"),
+                value: items.global_date_format,
+                key: "global_date_format"
+            }, {
+                category: Category.General,
+                name: chrome.i18n.getMessage("common_label_custom_date_format"),
+                value: items.global_custom_date_format,
+                key: "global_custom_date_format"
+            }, {
+                category: Category.General,
+                name: "appearance",
+                value: items.global_theme,
+                key: "global_theme"
             },
             
             //#endregion
@@ -229,21 +254,6 @@ let Settings = {};
                 name: chrome.i18n.getMessage("reddit_settings_include_date"),
                 value: items.redditIncludeDate,
                 key: "redditIncludeDate"
-            },  {
-                category: Category.Reddit,
-                name: chrome.i18n.getMessage("reddit_settings_include_date"),
-                value: items.redditPreferLocaleFormat,
-                key: "redditPreferLocaleFormat"
-            },  {
-                category: Category.Reddit,
-                name: chrome.i18n.getMessage("common_label_date_format"),
-                value: items.redditDateFormat,
-                key: "redditDateFormat"
-            }, {
-                category: Category.Reddit,
-                name: chrome.i18n.getMessage("common_label_custom_date_format"),
-                value: items.redditCustomDateFormat,
-                key: "redditCustomDateFormat"
             }, {
                 category: Category.Reddit,
                 name: chrome.i18n.getMessage("common_section_custom_prefix"),
@@ -270,24 +280,6 @@ let Settings = {};
                 name: "threadsRandomStringLength",
                 value: items.threadsRandomStringLength,
                 key: "threadsRandomStringLength"
-            },
-            {
-                category: Category.Threads,
-                name: "threadsPreferLocaleFormat",
-                value: items.threadsPreferLocaleFormat,
-                key: "threadsPreferLocaleFormat"
-            },
-            {
-                category: Category.Threads,
-                name: "threadsDateFormat",
-                value: items.threadsDateFormat,
-                key: "threadsDateFormat"
-            },
-            {
-                category: Category.Threads,
-                name: "threadsCustomDateFormat",
-                value: items.threadsCustomDateFormat,
-                key: "threadsCustomDateFormat"
             },
             {
                 category: Category.Threads,
@@ -368,7 +360,6 @@ let Settings = {};
             DownloadQueue: SettingsMap.filter((key)=>{
                 return key.category == Category.General && key.key == "global_download_queue_data";
             }).map((x,idx,arr)=>{
-                console.log(arr.length)
                 if (arr.length > 1){
                     return JSON.parse(arr[0].value);
                 } else {

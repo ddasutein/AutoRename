@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -68,13 +68,24 @@ const Reddit = {
 
       const BuildRedditFileName = function(redditSettings, urlObj, include_prefix){
 
+         
+         let GlobalSettings = Settings.Load().General.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
          let temp = `{prefix}-{website_title}-{subreddit_name}-{subreddit_post_id}-{date}-{string}`;
          temp = temp.split("-");
 
          if (redditSettings["redditIncludeDate"].value){
             let prefObj = {};
 
-            if (redditSettings["redditPreferLocaleFormat"].value == true) {
+            if (GlobalSettings["global_prefer_locale_format"].value == true) {
                prefObj["prefer_locale_format"] = true;
                const timedateValue = getTimeDate(prefObj);
                temp[temp.indexOf("{date}")] = timedateValue;
@@ -82,10 +93,10 @@ const Reddit = {
 
                prefObj["prefer_locale_format"] = false;
 
-               if (redditSettings["redditDateFormat"].value == "custom") {
-                  prefObj["date_format"] = redditConfig["redditCustomDateFormat"].value;
+               if (GlobalSettings["global_date_format"].value == "custom") {
+                  prefObj["date_format"] = GlobalSettings["global_custom_date_format"].value;
                } else {
-                  prefObj["date_format"] = GetDateFormat(redditSettings["redditDateFormat"].value);
+                  prefObj["date_format"] = GetDateFormat(GlobalSettings["global_date_format"].value);
                }
 
                const timedateValue = getTimeDate(prefObj)

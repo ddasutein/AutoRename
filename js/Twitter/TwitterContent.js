@@ -14,7 +14,7 @@
 
 var Twitter = {
 
-    BuildFileName: ((twitterConfig, fileNameObj)=>{
+    BuildFileName: ((twitterConfig, generalSettings, fileNameObj)=>{
         let temp;
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
@@ -42,7 +42,7 @@ var Twitter = {
         } else {
             let prefObj = {};
 
-            if (twitterConfig["twitter_prefer_locale_format"].value == true){
+            if (generalSettings["global_prefer_locale_format"].value == true){
                 prefObj["prefer_locale_format"] = true;
                 const timedateValue = getTimeDate(prefObj);
                 temp[temp.indexOf("{date}")] = timedateValue;
@@ -50,10 +50,10 @@ var Twitter = {
 
                 prefObj["prefer_locale_format"] = false;
 
-                if (twitterConfig["twitter_date_format"].value == "custom"){
-                    prefObj["date_format"] = twitterConfig["twitter_settings_custom_date_format"].value;
+                if (generalSettings["global_date_format"].value == "custom"){
+                    prefObj["date_format"] = generalSettings["global_custom_date_format"].value;
                 } else {
-                    prefObj["date_format"] = GetDateFormat(twitterConfig["twitter_date_format"].value);
+                    prefObj["date_format"] = GetDateFormat(generalSettings["global_date_format"].value);
                 }
 
                 const timedateValue = getTimeDate(prefObj)
@@ -191,7 +191,7 @@ var Twitter = {
         fileNameObj["use_prefix"] = data.use_prefix;
         fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
 
-        filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
+        filename = Twitter.BuildFileName(twitterConfig, generalSettings, fileNameObj) + Twitter.ImageFormatType(data.info_url);
         fileNameDisplay = filename;
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
             filename = `${fileNameObj.username}/${filename}`
