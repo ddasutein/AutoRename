@@ -49,8 +49,9 @@ const Threads = {
 
         const BuildThreadsFileName = ((threadsSettings, urlObj, include_prefix)=>{
             
-            ThreadsAttributes = WebsiteSupport.filter((x => x.uris == "threads.net"))[0];
-            let temp = ThreadsAttributes.placeholder;
+            ThreadsAttributes = WebsiteConfigObject.filter((x => x.uri == "threads.net"))[0];
+            console.log(ThreadsAttributes);
+            let temp = ThreadsAttributes.file_name;
             let user;
             temp = temp.split("-");
 
