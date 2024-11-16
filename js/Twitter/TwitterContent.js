@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -201,7 +201,7 @@ var Twitter = {
 
 
         switch (contextMenuSelectedId){
-            case contextMenuId.saveImage:
+            case ContextMenuID.SaveImage:
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
@@ -212,7 +212,7 @@ var Twitter = {
                 DownloadManager.StartDownload(twitterFileProp);
                 break;
 
-            case contextMenuId.saveImageWithCustomPrefix:
+            case ContextMenuID.SaveImageWithPrefix:
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
@@ -223,11 +223,11 @@ var Twitter = {
                 DownloadManager.StartDownload(twitterFileProp);
                 break;
 
-            case contextMenuId.viewOriginalImage:
+            case ContextMenuID.ViewOriginalImage:
                 Twitter.ViewOriginalImage(data);
                 break;
 
-            case contextMenuId.addDownloadQueue:
+            case ContextMenuID.AddDownloadQueue:
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
