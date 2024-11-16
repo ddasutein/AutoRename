@@ -11,11 +11,11 @@ Download now
 <br>
 <a href="https://chrome.google.com/webstore/detail/autorename/gjmkdopdnkblnjbadmccmjpjpjcechgm">Chrome Web Store</a>
 |
-<a href="https://microsoftedge.microsoft.com/addons/detail/pcjifgnddjaicajodgbpcgjfbebnckfe">Microsoft Edge Extension Store</a>
-<h1></h1>
-</p>
+<a href="https://microsoftedge.microsoft.com/addons/detail/pcjifgnddjaicajodgbpcgjfbebnckfe">Microsoft Edge Extension Store</a></p>
 
-This Chromium extension is designed to automatically rename files using custom parameters to keep your files more organized. Normally, when you download files from the internet, file names are often scrambled with random words and numbers that don't mean anything.  
+## Example
+
+This is an example of downloading an image from X (Twitter) using the normal method versus the AutoRename extension
 
 **BEFORE**
 
@@ -28,8 +28,6 @@ Using the default "Save image as" option in Microsoft Edge.
 Using the extension "Save image as (AutoRename)" in Microsoft Edge.
 
 `[@][Twitter username] [Tweet ID] [Random string].`
-
-These parameters can be customized in the Extension Options.
 
 ![autorename-after](https://user-images.githubusercontent.com/24803220/55883848-9d80b700-5bd9-11e9-950a-9b8ae05e9f5b.png)
 
@@ -56,19 +54,18 @@ For bug reports, go to the issues tab. If you want to discuss new features or if
 
 Website | Supported
 :--|:--
-Twitter | Yes 
+X | Yes 
 Instagram | No (low priority, but you may submit PR) 
 Facebook | No (low priority, but you may submit PR)
 Reddit | Yes 
-LINE BLOG | Retired 
-Threads | In-development (as of 7/10/2023)
-Squabbles.io | In-development (as of 7/10/2023)
+Threads | Yes
+Bluesky | Coming Soon
 General Websites | In-development (as of 7/10/2023) but low priority
 
 
 ## MIT License
 
-Copyright (c) 2023 Dasutein
+Copyright (c) 2024 Dasutein
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
