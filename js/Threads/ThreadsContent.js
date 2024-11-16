@@ -119,7 +119,7 @@ const Threads = {
         let threadsFileProp = [];
 
         switch (contextMenuSelectedId) {
-            case contextMenuId.saveImage:
+            case contextMenuID.saveImage:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
                 threadsFileProp.push({
                     filename: fl.filename_path,
@@ -131,7 +131,7 @@ const Threads = {
                 DownloadManager.StartDownload(threadsFileProp);
                 break;
 
-            case contextMenuId.saveImageWithCustomPrefix:
+            case contextMenuID.saveImageWithCustomPrefix:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, true);
                 threadsFileProp.push({
                     filename: fl.filename_path,
@@ -143,7 +143,7 @@ const Threads = {
                 DownloadManager.StartDownload(threadsFileProp);
                 break;
 
-            case contextMenuId.addDownloadQueue:
+            case contextMenuID.addDownloadQueue:
                 fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
                 threadsFileProp.push({
                     filename: fl.filename_path,

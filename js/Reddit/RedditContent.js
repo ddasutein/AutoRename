@@ -122,7 +122,7 @@ const Reddit = {
       let redditImageFile = [];
 
       switch (contextMenuSelectedId){
-         case contextMenuId.saveImage:
+         case contextMenuID.saveImage:
             fl = BuildRedditFileName(Reddit.Settings(), urlObj, false);
             redditImageFile.push({
                filename: fl.filename_path,
@@ -133,7 +133,7 @@ const Reddit = {
             DownloadManager.StartDownload(redditImageFile);
             break;
 
-         case contextMenuId.saveImageWithCustomPrefix:
+         case contextMenuID.saveImageWithCustomPrefix:
             fl = BuildRedditFileName(Reddit.Settings(), urlObj, true);
             redditImageFile.push({
                filename: fl.filename_path,
@@ -144,7 +144,7 @@ const Reddit = {
             DownloadManager.StartDownload(redditImageFile);
             break;
 
-         case contextMenuId.addDownloadQueue:
+         case contextMenuID.addDownloadQueue:
             fl = BuildRedditFileName(Reddit.Settings(), urlObj, false);
             redditImageFile.push({
                filename: fl.filename_path,
