@@ -188,7 +188,7 @@ var Twitter = {
 
         fileNameObj["username"] = data.link_url != undefined ? Utility.SplitURL(data.link_url, 3) : Utility.SplitURL(data.tab_url, 3);
         fileNameObj["tweetId"] = tweetId;
-        fileNameObj["use_prefix"] = data.use_prefix;
+        fileNameObj["use_prefix"] = contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? true : false;
         fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
 
         filename = Twitter.BuildFileName(twitterConfig, generalSettings, fileNameObj) + Twitter.ImageFormatType(data.info_url);
