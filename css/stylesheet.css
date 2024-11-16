@@ -30,7 +30,7 @@ body {
   font-size: 1.1em;
   margin: 0;
   padding: 0;
-  transition: background-color 0.5s;
+  /* transition: background-color 0.5s; */
 }
 
 .container {
@@ -234,7 +234,7 @@ h2 {
   color: var(--secondary-color);
   margin-bottom: 15px;
   padding: 5px;
-  transition: background-color 0.5s;
+  /* transition: background-color 0.5s; */
 }
 
 .main-body-section-announcement label {
@@ -263,7 +263,7 @@ h2 {
   background-color: var(--nav-bg);
   color: var(--secondary-color);
   border-right: 1px solid var(--nav-border);
-  transition: background-color 0.5s;
+  /* transition: background-color 0.5s; */
 
 }
 
