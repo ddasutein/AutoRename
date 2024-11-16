@@ -83,18 +83,22 @@ const WebsiteConfigObject = [
     {
         uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
         exclude_path: ["messages"],
+        inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue]
     }, {
         uri: [Website.Bluesky],
         exclude_path: [],
+        inactive: true,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
     }, {
         uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
         exclude_path: [],
+        inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
     }, {
         uri: [Website.Threads],
         exclude_path: [],
+        inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
     }
 ];
@@ -180,7 +184,7 @@ function UpdateContextMenus(domain, fullURL){
         Normal : ((uri, fullURL) => {
 
             let websiteConfigObject = WebsiteConfigObject.filter((x)=>{
-                return (x.uri).includes(uri);
+                return (x.uri).includes(uri) && x.inactive == false;
             });
 
             if (websiteConfigObject.length != 0){
