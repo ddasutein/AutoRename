@@ -84,22 +84,26 @@ const WebsiteConfigObject = [
         uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
         exclude_path: ["messages"],
         inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue]
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
+        file_name: ""
     }, {
         uri: [Website.Bluesky],
         exclude_path: [],
         inactive: true,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: ""
     }, {
         uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
         exclude_path: [],
         inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: ""
     }, {
         uri: [Website.Threads],
         exclude_path: [],
         inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage]
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
     }
 ];
 
@@ -278,6 +282,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
      * support for websites, they should fall under the default statement. Note,
      * if the website contains subdomains then it should be grouped together.
      */
+
+    console.log(currentUrl);
     switch (currentUrl) {
         case Website.Mobile_Twitter:
         case Website.X:
@@ -294,6 +300,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.Threads:
+            console.log("enter threads")
             Threads.SaveMedia(data, info.menuItemId);
             break;
 
