@@ -25,7 +25,7 @@ const fs = require('fs');
 const path = require('path');
 
 const BASE_LOCALIZATION = path.resolve('_locales', 'en', 'messages.json');
-const TARGET_LOCALIZATION = path.resolve('_locales', 'ja', 'messages.json');
+const TARGET_LOCALIZATION = path.resolve('_locales', 'fr', 'messages.json');
 
 let BASE_JSON = {};
 let TARGET_JSON = {};
@@ -61,7 +61,7 @@ fs.readFile(BASE_LOCALIZATION, 'utf8', (err, data) => {
                 const filePath = path.join(__dirname, 'localeOutput.json');
                 fs.writeFile(filePath, JSON.stringify(FINAL_OUTPUT), (err) => {
                     if (err) {
-                        console.log("Write Error", err)
+                        console.log("Write Error", err) 
                         return;
                     }
                     console.log("Saved")
@@ -86,11 +86,11 @@ function CopyAllKeys(source, target) {
             target[key] = target[key] || {};
             CopyAllKeys(source[key], target[key]);
         } else {
-           if (key == "message"){
-            target[key] = target.hasOwnProperty(key) ? target[key] : "";
-           } else {
-            target[key] = source[key];
-           }
+
+            if (!target.hasOwnProperty(key)){
+                target[key] = source[key]
+            }
+            
         }
     });
     return target;
