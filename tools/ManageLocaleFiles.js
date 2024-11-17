@@ -1,4 +1,7 @@
-/** MIT License
+/** 
+ * MANAGE LOCALE FILES TOOL - VERSION 1.0.0
+ * 
+ * MIT License
  * 
  * Copyright (c) 2024 Dasutein
  * 
@@ -21,18 +24,18 @@
  * 
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const BASE_LOCALIZATION = path.resolve('_locales', 'en', 'messages.json');
-const TARGET_LOCALIZATION = path.resolve('_locales', 'fr', 'messages.json');
+const BASE_LOCALIZATION = path.resolve("_locales", "en", "messages.json");
+const TARGET_LOCALIZATION = path.resolve("_locales", "fr", "messages.json");
 
 let BASE_JSON = {};
 let TARGET_JSON = {};
 
 const OUTPUT_TO_CONSOLE = false;
 
-fs.readFile(BASE_LOCALIZATION, 'utf8', (err, data) => {
+fs.readFile(BASE_LOCALIZATION, "utf8", (err, data) => {
     if (err) {
         console.error("File error 1", err)
         return;
@@ -43,7 +46,7 @@ fs.readFile(BASE_LOCALIZATION, 'utf8', (err, data) => {
 
         OUTPUT_TO_CONSOLE == true ? console.log(BASE_JSON) : "";
 
-        fs.readFile(TARGET_LOCALIZATION, 'utf8', (err, data) => {
+        fs.readFile(TARGET_LOCALIZATION, "utf8", (err, data) => {
             if (err) {
                 console.error("File error 2", err)
                 return;
@@ -58,7 +61,7 @@ fs.readFile(BASE_LOCALIZATION, 'utf8', (err, data) => {
                  */
 
                 FINAL_OUTPUT = CopyAllKeys(BASE_JSON, TARGET_JSON);
-                const filePath = path.join(__dirname, 'localeOutput.json');
+                const filePath = path.join(__dirname, "localeOutput.json");
                 fs.writeFile(filePath, JSON.stringify(FINAL_OUTPUT), (err) => {
                     if (err) {
                         console.log("Write Error", err) 
@@ -67,15 +70,14 @@ fs.readFile(BASE_LOCALIZATION, 'utf8', (err, data) => {
                     console.log("Saved")
                 })
 
-                // Do something with the JSON data
             } catch (parseError) {
-                console.error('Error parsing JSON:', parseError);
+                console.error("Error parsing JSON:", parseError);
             }
         });
 
 
     } catch (parseError) {
-        console.error('Error parsing JSON:', parseError);
+        console.error("Error parsing JSON:", parseError);
     }
 });
 
