@@ -236,7 +236,6 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
  * get the updated data.
  */
 chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
-    DevMode ? console.log("-- on update --") : ""
 
     if (selectInfo.status == "complete"){
         QueryTab();
