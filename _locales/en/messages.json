@@ -506,6 +506,25 @@
 
     "downloads_section_downlaod_complete_title": {
         "message": "Download Complete"
-    }
+    },
 
+    "general_settings_theme": {
+        "message": "Theme"
+    },
+
+    "set_theme_auto": {
+        "message": "Auto"
+    },
+
+    "set_theme_light": {
+        "message": "Light"
+    },
+
+    "set_theme_dark": {
+        "message": "Dark"
+    },
+
+    "common_section_appearance": {
+        "message": "Appearance"
+    }
 }

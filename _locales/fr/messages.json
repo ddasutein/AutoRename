@@ -1,504 +1,414 @@
 {
-
     "announce_banner_title": {
         "message": "Annonce",
         "description": "This is only temporary for the release of v2.0.0"
     },
-
     "announce_banner_content": {
         "message": "Bienvenue dans AutoRename version 2.0.0. Vos paramètres peuvent avoir été réinitialisés dans cette version. ",
         "description": "This is only temporary for the release of v2.0.0"
     },
-
     "button_save": {
         "message": "Enregistrer"
     },
-
     "button_help": {
         "message": "Help"
     },
-
     "common_label_date_format": {
         "message": "Format de Date"
     },
-
     "common_date_format_label_numerical": {
         "message": "Numérique"
     },
-
     "common_date_format_item_label_option_1": {
         "message": "MM-JJ-AAAA (Numérique)"
     },
-
     "common_date_format_item_label_option_2": {
         "message": "JJ-MM-AAAA (Numérique)"
     },
-
     "common_date_format_item_label_option_3": {
         "message": "AAAA-MM-JJ (Numérique)"
     },
-
     "common_date_format_label_long": {
         "message": "Long"
     },
-
     "common_date_format_item_label_option_4": {
         "message": "MM-JJ-AAAA (Long)"
     },
-
     "common_date_format_item_label_option_5": {
         "message": "JJ-MM-AAAA (Long)"
     },
-
     "common_date_format_item_label_option_6": {
         "message": "AAAA-MM-JJ (Long)"
     },
-
     "common_date_format_label_short": {
         "message": "Court"
     },
-
     "common_date_format_item_label_option_7": {
         "message": "MM-JJ-AAAA (Court)"
     },
-
     "common_date_format_item_label_option_8": {
         "message": "JJ-MM-AAAA (Court)"
     },
-
     "common_date_format_item_label_option_9": {
         "message": "AAAA-MM-JJ (Court)"
     },
-
     "common_label_generator_length": {
         "message": "Longueur du générateur de chaine de caractères"
     },
-
     "common_section_header_general": {
         "message": "Paramètres generaux"
     },
-
     "common_section_header_twitter": {
-        "message": "Paramètres de Twitter / X"
+        "message": "Paramètres de X"
     },
-
     "common_section_header_lineblog": {
         "message": "Paramètres de LINE BLOG"
     },
-
     "common_section_header_reddit": {
         "message": "Paramètres de Reddit"
     },
-
     "common_section_header_about": {
         "message": "A Propos"
     },
-
     "common_section_downloads": {
         "message": "Downloads"
     },
-
     "common_section_file_name": {
         "message": "Nom du Fichier"
     },
-
     "common_section_file_system": {
         "message": "Système de Classement"
     },
-
     "common_section_system_notifications": {
         "message": "Notifications du Système"
     },
-
     "common_section_lineblog_title": {
         "message": "Titre du Blog"
     },
-
     "common_section_system_information": {
         "message": "Information du Système"
     },
-
     "common_section_credits": {
         "message": "Crédits"
     },
-
     "common_section_privacy_policy_links": {
         "message": "Politique de confidentialité et autres liens"
     },
-
     "common_navigation_general": {
         "message": "Général"
     },
-
     "common_navigation_twitter": {
-        "message": "Twitter / X"
+        "message": "X (anciennement: Twitter)"
     },
-
     "common_navigation_lineblog": {
         "message": "LINE BLOG"
     },
-
     "common_navigation_reddit": {
         "message": "Reddit"
     },
-
     "common_navigation_about": {
         "message": "A Propos"
     },
-
     "common_banner_more_detail": {
         "message": "More details"
     },
-
     "common_section_time_and_date": {
         "message": "Time and Date"
     },
-
     "common_label_prefer_locale_format": {
         "message": "Prefer Locale Format"
     },
-
     "common_label_custom_date_format": {
         "message": "Custom Date/Time Format"
     },
-
     "system_information_browser": {
         "message": "Browser"
-    }, 
-
+    },
     "common_date_format_item_label_option_custom": {
         "message": "Custom"
     },
-
     "common_section_custom_prefix": {
         "message": "Custom Prefix"
     },
-    
     "common_label_prefix": {
         "message": "Prefix"
     },
-
     "common_label_settings": {
         "message": "Ajustes"
     },
-
     "common_label_beta": {
         "message": "Beta"
     },
-
     "common_add_to_download_queue": {
         "message": "Add to Download Queue"
     },
-    
-
     "context_click_here": {
         "message": "Cliquez ici."
     },
-
     "context_save_success": {
         "message": "Préférences enregistrées"
     },
-
     "context_menu_save_image_as": {
         "message": "Enregistrer l'image sous (AutoRename)"
     },
-
     "context_menu_save_prefix_image_as": {
         "message": "Save image as (AutoRename) with Prefix"
     },
-
     "context_menu_view_original_image": {
         "message": "Voir l'image originale"
     },
-
     "credits_icons": {
         "message": "Icônes"
     },
-
     "credits_localization": {
         "message": "Localisation"
     },
-
     "credits_list_of_translators": {
         "message": "Liste des traducteurs"
     },
-
     "error_website_not_supported": {
         "message": "Désolé, cette extension ne prend en charge que Twitter et LINE BLOG pour l'instant. Pour une liste des sites Web pris en charge, visitez mon référentiel Github: https://github.com/ddasutein/AutoRename"
     },
-
     "error_tweet_detail_alert_prompt": {
         "message": "Cliquez sur le tweet pour utiliser cette extension."
     },
-
     "error_lineblog_click_blog": {
         "message": "Cliquez sur le blog pour enregistrer cette image."
     },
-
     "error_title": {
         "message": "Erreur"
     },
-
     "error_generic": {
         "message": "Une erreur est survenue"
     },
-
     "error_send_report": {
         "message": "L'extension ne peut pas résoudre cette erreur. Pensez à déposer un rapport sur GitHub."
     },
-
     "error_exception_reload": {
         "message": "Cet onglet se rechargera."
     },
-
     "error_lineblog_no_title": {
         "message": "Impossible de récupérer le titre du blog"
     },
-
     "error_reddit_old_half_view": {
         "message": "Saving images directly from the subreddit is not supported on old Reddit. Click on the post and save the image again."
     },
-    
     "error_title_invalid": {
         "message": "Invalid"
     },
-
     "error_validation_date_time_format": {
         "message": "The Date/Time Format you entered is either empty or invalid"
     },
-
     "error_download_queue_invalid_file_name": {
         "message": "You have entered an invalid file name"
     },
-
     "error_validation_prefix": {
         "message": "The Prefix you entered contains special characters"
     },
-
     "help_text_date_format": {
         "message": "Visit the GitHub Wiki or click the Help button on how to configure date format"
     },
-
     "info_message_announcement_label": {
         "message": "Announcement"
     },
-
     "info_click_announcement_link": {
         "message": "Clicking this link will redirect to you"
     },
-
     "message_toast_welcome_title": {
         "message": "Bienvenue à"
     },
-
     "message_toast_welcome_body": {
         "message": "Merci d'avoir installé l'extension. Visitez le Wiki GitHub pour plus d'informations."
     },
-
     "message_toast_new_version": {
         "message": "L'extension a été mise à jour vers la version."
     },
-
     "message_toast_button_whats_new": {
         "message": "Quoi de neuf?"
     },
-
     "message_toast_button_github_wiki": {
         "message": "GitHub Wiki"
     },
-
     "message_toast_button_ok": {
         "message": "OK"
     },
-
     "message_prompt_user_continue": {
         "message": "Would you like to continue?"
     },
-
     "privacy_policy_and_other_links_terms": {
         "message": "Politique de confidentialité"
     },
-
     "privacy_policy_and_other_links_github_wiki": {
         "message": "GitHub Wiki"
     },
-
     "privacy_policy_and_other_links_translate_assist": {
         "message": "Voudrez-vous aider à traduire?"
     },
-
     "privacy_policy_and_other_links_feedback": {
         "message": "Déposer un problème ou une demande de fonctionnalité"
     },
-
     "privacy_policy_and_other_links_github": {
         "message": "GitHub",
         "description": "Does not need to be translated"
     },
-
     "system_information_os": {
         "message": "Système d'Exploitation"
     },
-
     "system_information_platform": {
         "message": "Plateforme"
     },
-
     "general_settings_description": {
         "message": "Configurer les paramètres generaux de l'extension"
     },
-
     "general_settings_show_download_folder": {
         "message": "Ouvrir automatiquement le dossier de téléchargement"
     },
-
     "general_settings_enable_save_as_dialog": {
         "message": "Habiliter la fenêtre de dialogue «Enregistrer sous»"
     },
-
     "general_settings_enable_notifications_on_update": {
         "message": "Habiliter les notifications lorsque l'extension est mise à jour"
     },
-
     "general_settings_store_images_to_custom_folder": {
         "message": "Store Images to AutoRename Folder"
     },
-
     "twitter_settings_desciption": {
-        "message": "Personnaliser le format de nom de fichier pour Twitter / X"
+        "message": "Personnaliser le format de nom de fichier pour X"
     },
-
     "twitter_settings_include_mention_symbol": {
         "message": "Inclure le symbole de mention @"
     },
-
     "twitter_settings_include_tweet_id": {
         "message": "Inclure l'identifiant (ID) du Tweet"
     },
-
     "twitter_settings_include_date": {
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     },
-
     "twitter_settings_site_title": {
-        "message": "Inclure le titre du site Web [Twitter]"
+        "message": "Inclure le titre du site Web [X]"
     },
-
     "twitter_settings_save_image_to_folder_based_on_username": {
         "message": "Save image to folder based on username"
     },
-
     "twitter_settings_download_as_jpeg": {
         "message": "Download as JPEG only"
     },
-
-
     "lineblog_settings_description": {
         "message": "Personnaliser le format de nom de fichier pour LINE BLOG"
     },
-
     "lineblog_settings_site_title": {
         "message": "Inclure le titre du site Web [LINE BLOG]"
     },
-
     "lineblog_settings_blog_title": {
         "message": "Inclure le titre du blog"
     },
-
     "lineblog_settings_include_date": {
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     },
-
     "lineblog_settings_convert_blog_title_romaji": {
         "message": "Convertir le titre du blog en Romaji"
     },
-
     "reddit_settings_description": {
         "message": "Personnaliser le format de nom de fichier pour Reddit"
     },
-
     "reddit_settings_site_title": {
         "message": "Inclure le titre du site Web [Reddit]"
     },
-
     "reddit_settings_subreddit_name": {
         "message": "Include Subreddit Name"
     },
-
     "reddit_settings_subreddit_post_id": {
         "message": "Include Subreddit Post ID"
     },
-
     "reddit_settings_include_date": {
         "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
     },
-
     "downloads_section_description": {
         "message": "View files that are pending for download"
     },
-
     "downloads_section_dialog_empty_queue_title": {
         "message": "Download Queue is Empty"
     },
-
     "downloads_section_empty_queue": {
         "message": "Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue"
     },
-
     "downloads_section_dialog_remove_from_queue_title": {
         "message": "Remove from Queue"
     },
-    
     "downloads_section_dialog_enter_zip_name": {
         "message": "Enter name for ZIP file"
     },
-
     "downloads_section_dialog_queue_cleared": {
         "message": "Download Queue Cleared"
     },
-
     "downloads_section_dialog_enter_zip_name_button_create": {
         "message": "Create ZIP"
     },
-
     "downloads_section_dialog_remove_from_queue_body": {
         "message": "Are you sure you want to remove this?"
     },
-
     "downloads_section_count_label": {
         "message": "Download Queue -"
     },
-
     "downloads_section_button_remove": {
         "message": "Remove"
     },
-
     "downloads_section_button_download": {
         "message": "Download"
     },
-
     "downloads_section_button_clear_queue": {
         "message": "Clear Queue"
     },
-
     "downloads_section_saving_file": {
         "message": "Saving file:"
     },
-
     "downloads_section_saving_file_2": {
         "message": "to ZIP -",
         "description": "Dash is required since the percentage is after that"
     },
-
     "downloads_section_saving_file_3": {
         "message": "Your files are currently downloading. Please wait..."
     },
-
     "downloads_section_downlaod_in_progress": {
         "message": "Download in progress"
     },
-
     "downloads_section_downlaod_complete_title": {
         "message": "Download Complete"
+    },
+    "common_section_header_threads": {
+        "message": "Threads Settings"
+    },
+    "common_navigation_threads": {
+        "message": "Threads"
+    },
+    "threads_settings_description": {
+        "message": "Customize File Name Format for Threads"
+    },
+    "threads_settings_site_title": {
+        "message": "Include Website Title [Threads]"
+    },
+    "threads_settings_blog_title": {
+        "message": "Include Blog Title"
+    },
+    "threads_settings_include_date": {
+        "message": "Include Date (Based on System Date)"
+    },
+    "threads_settings_convert_blog_title_romaji": {
+        "message": "Convert Blog Title to Romaji"
+    },
+    "general_settings_theme": {
+        "message": "Theme"
+    },
+    "set_theme_auto": {
+        "message": "Auto"
+    },
+    "set_theme_light": {
+        "message": "Light"
+    },
+    "set_theme_dark": {
+        "message": "Dark"
+    },
+    "common_section_appearance": {
+        "message": "Appearance"
     }
 }
