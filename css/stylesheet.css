@@ -394,6 +394,10 @@ a:-webkit-any-link {
   object-fit: cover;
 }
 
+.download_card_container {
+  color: var(--secondary-color);
+}
+
 .download-card-site {
   background-color: var(--download-card-title);
   border-radius: 5px;
