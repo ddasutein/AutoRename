@@ -29,6 +29,8 @@
     "minimum_chrome_version": "92",
     "options_page": "/ui/options.html",
 
+    "host_permissions": [ "https://www.reddit.com/*", "https://preview.redd.it/*"],
+
     "permissions":[
         "storage",
         "contextMenus",
