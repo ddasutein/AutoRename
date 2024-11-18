@@ -55,15 +55,16 @@ const Reddit = {
             src = mLink.split("/")[3];
             src = src.substring(0, src.indexOf("?"));
 
+            mediaId        = src.substring(0, src.indexOf("."));
+            imageFormat   = src.substring(src.indexOf("."))
+
+            AutoRename.LOG_LEVEL == AutoRename.LOG_TYPE.DEBUG ? console.log(`Reddit >> Media ID ${mediaId} : Image Format ${imageFormat}`) : "";
+
             return {
-               media_id: src.substring(0, src.indexOf(".")),
-               image_format: src.substring(src.indexOf("."))
+               media_id: mediaId,
+               image_format: imageFormat
             }
          }
-      }
-
-      const createDirectLink = function(mediaId, imageFormat){
-         return `https://i.redd.it/${mediaId}${imageFormat}`
       }
 
       const BuildRedditFileName = function(redditSettings, urlObj, include_prefix){
@@ -122,7 +123,7 @@ const Reddit = {
          return {
             filename_path: temp.toString().replace(/,/g, "-") + getRedditMedia(urlObj).image_format,
             filename_display:  temp.toString().replace(/,/g, "-") + getRedditMedia(urlObj).image_format,
-            url: createDirectLink(getRedditMedia(urlObj).media_id, getRedditMedia(urlObj).image_format)
+            url: urlObj.info_url
          }
          return 
 
@@ -132,15 +133,18 @@ const Reddit = {
       // ENTRY POINT
       let redditImageFile = [];
 
+      
       switch (contextMenuSelectedId){
          case ContextMenuID.SaveImage:
             fl = BuildRedditFileName(Reddit.Settings(), urlObj, false);
+            console.log(fl);
             redditImageFile.push({
                filename: fl.filename_path,
                filename_display: fl.filename_display,
                url: fl.url,
                website: "Reddit"
             });
+            console.log(redditImageFile);
             DownloadManager.StartDownload(redditImageFile);
             break;
 
