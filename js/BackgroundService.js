@@ -14,7 +14,7 @@
 
 const AutoRename = {
 
-    USER_AGENT: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
+    GetUserAgent: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
     LOG_LEVEL: "debug",
     LOG_TYPE: {
         "DEBUG": "debug",
