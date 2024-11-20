@@ -139,6 +139,7 @@ const ContextMenuID = {
     ViewOriginalImage: "viewOriginalImage",
     AddDownloadQueue: "downloadqueue"
 }
+Object.freeze(ContextMenuID);
 
 chrome.runtime.onInstalled.addListener(()=>{
 
@@ -185,6 +186,7 @@ const Website = {
     X: "x.com",
     Bluesky: "bsky.app"
 }
+Object.freeze(Website);
 
 /**
  * Configure parameters for websites
@@ -197,24 +199,28 @@ const Website = {
  */
 const WebsiteConfigObject = [
     {
+        name: "X",
         uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
         exclude_path: ["messages"],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: ""
     }, {
+        name: "Bluesky",
         uri: [Website.Bluesky],
         exclude_path: [],
-        inactive: true,
+        inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
-        file_name: ""
+        file_name: "{prefix}-{website_title}-{bsky_username}-{bsky_post_id}-{date}-{randomstring}"
     }, {
+        name: "Reddit",
         uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
         exclude_path: [],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: ""
     }, {
+        name: "Threads",
         uri: [Website.Threads],
         exclude_path: [],
         inactive: false,
@@ -222,6 +228,9 @@ const WebsiteConfigObject = [
         file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
     }
 ];
+WebsiteConfigObject.forEach((x)=>{
+    Object.freeze(x)
+});
 
 /**
  * When the user changes tabs, the extension should be able to grab
@@ -273,12 +282,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
      * if the website contains subdomains then it should be grouped together.
      */
 
-    console.log(currentUrl);
     switch (currentUrl) {
-        case Website.Mobile_Twitter:
-        case Website.X:
         case Website.Twitter:
-        case Website.Mobile_Twitter:
         case Website.X:
             Twitter.SaveMedia(data, info.menuItemId);
             break;
@@ -290,12 +295,11 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
 
         case Website.Threads:
-            console.log("enter threads")
             Threads.SaveMedia(data, info.menuItemId);
             break;
 
         case Website.Bluesky:
-            BlueSky.SaveMedia(data, info.menuItemId);
+            Bluesky.SaveMedia(data, info.menuItemId);
             break;
 
         default:
