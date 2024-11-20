@@ -35,7 +35,7 @@ const Backgroundscripts = [
     "/js/Common/Utility.js",
     "/js/Common/SetTimeDate.js",
     "/js/Twitter/TwitterContent.js",
-    "/js/LINE BLOG/LineBlogContent.js",
+    "/js/Bluesky/Bluesky.js",
     "/js/Reddit/RedditContent.js",
     "/js/Threads/ThreadsContent.js",
     "/js/DownloadManager.js",
