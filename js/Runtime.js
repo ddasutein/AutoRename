@@ -59,12 +59,17 @@ chrome.notifications.onButtonClicked.addListener(function (notifId, index) {
     switch (notifId){
         case "noti_1":
             if (index == 0){
-                window.open("https://github.com/ddasutein/AutoRename/releases", "_blank");
+
+                chrome.tabs.create({
+                    url: "https://github.com/ddasutein/AutoRename/releases"
+                });
             }
             break;
         case "noti_2":
             if (index == 0){
-                window.open("https://github.com/ddasutein/AutoRename/wiki", "_blank");
+                chrome.tabs.create({
+                    url: "https://github.com/ddasutein/AutoRename/wiki"
+                });
             }
             break;
     }

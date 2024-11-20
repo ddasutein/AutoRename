@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -119,6 +119,10 @@ document.onreadystatechange = () => {
 
         generalPref.forEach(function (x) {
             switch (x.key) {
+                case "global_theme":
+                    document.getElementById("theme_selector").value = x.value
+                    document.getElementById("theme_selector").dispatchEvent(new Event("change"));
+                    break;
                 case "global_show_download_folder":
                     document.getElementById("general_settings_auto_show_download_folder").checked = x.value
                     break;
@@ -130,6 +134,15 @@ document.onreadystatechange = () => {
                     break;
                 case "global_use_autorename_folder":
                     document.getElementById("general_settings_use_autorename_folder").checked = x.value;     
+                    break;
+                case "global_prefer_locale_format":
+                    document.getElementById("global_settings_prefer_locale_format").checked = x.value;
+                    break;
+                case "global_date_format":
+                    document.getElementById("global_settings_select_date_format").value = x.value;
+                    break;
+                case "global_custom_date_format":
+                    document.getElementById("global_custom_date_format").value = x.value;
                     break;
             }
         });
@@ -146,14 +159,8 @@ document.onreadystatechange = () => {
                     break;
                 case "twitter_include_date":
                     document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "twitter_settings_custom_date_format");
+                    break;
 
-                    break;
-                case "twitter_date_format":
-                    document.getElementById("twitter_settings_select_date_format").value = x.value;
-                    break;
                 case "twitter_random_string_length":
                     document.getElementById("twitter_settings_string_length").value = x.value;
                     break;
@@ -161,12 +168,6 @@ document.onreadystatechange = () => {
                     document.getElementById("twitter_settings_site_title").checked = x.value;
                     break;
 
-                case "twitter_prefer_locale_format":
-                    document.getElementById("twitter_settings_prefer_locale_format").checked = x.value;
-                    break;
-                case "twitter_settings_custom_date_format":
-                    document.getElementById("twitter_settings_custom_date_format").value = x.value;
-                    break;
                 case "twitter_settings_custom_prefix":
                     document.getElementById("twitter_settings_custom_prefix").value = x.value;
                     break;
@@ -181,39 +182,23 @@ document.onreadystatechange = () => {
             }
         });
 
-        const lineblogPref = Settings.Load().LINE_BLOG;
+        const lineblogPref = Settings.Load().Threads;
 
         lineblogPref.map(function (x) {
             switch (x.key) {
-                case "lbPrefIncludeWebsiteTitle":
-                    document.getElementById("lineblog_settings_include_site_title").checked = x.value;
+                case "threadsIncludeWebsiteTitle":
+                    document.getElementById("threads_settings_include_site_title").checked = x.value;
                     break;
-                case "lbPrefIncludeBlogTitle":
-                    document.getElementById("lineblog_include_blog_title").checked = x.value;
+                case "threadsIncludeDate":
+                    document.getElementById("threads_settings_include_date").checked = x.value;
                     break;
-                case "lbPrefUseDate":
-                    document.getElementById("lineblog_settings_include_date").checked = x.value;
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "lineblog_settings_custom_date_format");
+
+                case "threadsRandomStringLength":
+                    document.getElementById("threads_settings_string_length").value = x.value;
                     break;
-                case "lineblogDateFormat":
-                    document.getElementById("lineblog_settings_select_date_format").value = x.value;
-                    break;
-                case "lbPrefStringGenerator":
-                    document.getElementById("lineblog_settings_string_length").value = x.value;
-                    break;
-                case "lineblog_convert_title_romaji":
-                    document.getElementById("lineblog_settings_convert_title_romaji").checked = x.value;
-                    break;
-                case "lineblogPreferLocaleFormat":
-                    document.getElementById("lineblog_settings_prefer_locale_format").checked = x.value;
-                    break;
-                case "lineblogCustomDateFormat":
-                    document.getElementById("lineblog_settings_custom_date_format").value = x.value;
-                    break;
-                case "lineblogCustomPrefix":
-                    document.getElementById("lineblog_settings_custom_prefix").value = x.value;
+
+                case "threadsCustomPrefix":
+                    document.getElementById("threads_settings_custom_prefix").value = x.value;
                     break;
             }
         });
@@ -233,25 +218,10 @@ document.onreadystatechange = () => {
 
                 case "redditIncludeDate":
                     document.getElementById("reddit_settings_include_date").checked = x.value;
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", x.value, "reddit_settings_custom_date_format");
                     break;
 
                 case "redditStringGenerator":
                     document.getElementById("reddit_settings_string_length").value = x.value;
-                    break;
-
-                case "redditDateFormat":
-                    document.getElementById("reddit_settings_select_date_format").value = x.value;
-                    break;
-
-                case "redditPreferLocaleFormat":
-                    document.getElementById("reddit_settings_prefer_locale_format").checked = x.value;
-                    break;
-
-                case "redditCustomDateFormat":
-                    document.getElementById("reddit_settings_custom_date_format").value = x.value;
                     break;
 
                 case "redditCustomPrefix":
@@ -341,12 +311,6 @@ document.addEventListener("DOMContentLoaded", (() => {
 
         switch (buttons.id) {
 
-            // case "download-primary":
-            //     buttons.addEventListener("click", (() => {
-            //         alert("TEST " + buttons.id)
-            //     }));
-            //     break;
-
             case "button_help_twitter":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
@@ -372,10 +336,14 @@ document.addEventListener("DOMContentLoaded", (() => {
                 break;
             case "button_save_general":
                 buttons.addEventListener("click", (() => {
+                    Settings.Save("global_theme", document.getElementById("theme_selector").value);
                     Settings.Save("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
                     Settings.Save("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
                     Settings.Save("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
                     Settings.Save("global_use_autorename_folder", document.getElementById("general_settings_use_autorename_folder").checked)
+                    Settings.Save("global_prefer_locale_format", document.getElementById("global_settings_prefer_locale_format").checked)
+                    Settings.Save("global_date_format", document.getElementById("global_settings_select_date_format").value)
+                    Settings.Save("global_custom_date_format", document.getElementById("global_custom_date_format").value);
                     messageBox.Save();
                 }));
 
@@ -386,14 +354,6 @@ document.addEventListener("DOMContentLoaded", (() => {
                 buttons.addEventListener("click", (() => {
 
                     try {
-
-                        if (temp.length > 0) {
-                            temp = [];
-                            errorCode = {};
-                        }
-                        if (document.getElementById("twitter_settings_include_date_checkbox").checked && !document.getElementById("twitter_settings_prefer_locale_format").checked && document.getElementById("twitter_settings_select_date_format").value == "custom") {
-                            temp.push(ValidateDateTimeFormat("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value));
-                        }
 
                         temp.push(ValidatePrefix("twitter_settings_custom_prefix", document.getElementById("twitter_settings_custom_prefix").value));
                         temp.forEach((x) => {
@@ -408,16 +368,10 @@ document.addEventListener("DOMContentLoaded", (() => {
                         Settings.Save("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
                         Settings.Save("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
                         Settings.Save("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
-                        Settings.Save("twitter_date_format", document.getElementById("twitter_settings_select_date_format").value);
                         Settings.Save("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
                         Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
-                        Settings.Save("twitter_prefer_locale_format", document.getElementById("twitter_settings_prefer_locale_format").checked);
                         Settings.Save("twitter_save_image_to_folder_based_on_username", document.getElementById("twitter_settings_save_to_folder_by_username").checked);
                         Settings.Save("twitter_settings_download_as_jpeg", document.getElementById("twitter_settings_download_as_jpeg").checked);
-                        // See dev note #1
-                        Settings.Save("twitter_settings_custom_date_format", document.getElementById("twitter_settings_custom_date_format").value);
-
-
                         messageBox.Save();
 
                     } catch (e) {
@@ -433,35 +387,11 @@ document.addEventListener("DOMContentLoaded", (() => {
                 buttons.addEventListener("click", (() => {
 
                     try {
+                        Settings.Save("threadsIncludeWebsiteTitle", document.getElementById("threads_settings_include_site_title").checked);
+                        Settings.Save("threadsIncludeDate", document.getElementById("threads_settings_include_date").checked);
+                        Settings.Save("threadsRandomStringLength", document.getElementById("threads_settings_string_length").value);
+                        Settings.Save("threadsCustomPrefix", document.getElementById("threads_settings_custom_prefix").value);
 
-                        if (temp.length > 0) {
-                            temp = [];
-                            errorCode = {};
-                        }
-
-                        if (document.getElementById("lineblog_settings_include_date").checked && !document.getElementById("lineblog_settings_prefer_locale_format").checked && document.getElementById("lineblog_settings_select_date_format").value == "custom") {
-                            temp.push(ValidateDateTimeFormat("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value));
-                        }
-
-                        temp.push(ValidatePrefix("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value));
-                        temp.forEach((x) => {
-                            if (x.is_error == true) {
-                                errorCode["title"] = x.title;
-                                errorCode["message"] = x.message;
-                                throw errorCode;
-
-                            }
-                        });
-                        Settings.Save("lbPrefIncludeWebsiteTitle", document.getElementById("lineblog_settings_include_site_title").checked);
-                        Settings.Save("lbPrefIncludeBlogTitle", document.getElementById("lineblog_include_blog_title").checked);
-                        Settings.Save("lbPrefUseDate", document.getElementById("lineblog_settings_include_date").checked);
-                        Settings.Save("lbPrefStringGenerator", document.getElementById("lineblog_settings_string_length").value);
-                        Settings.Save("lineblog_convert_title_romaji", document.getElementById("lineblog_settings_convert_title_romaji").checked);
-                        Settings.Save("lineblogDateFormat", document.getElementById("lineblog_settings_select_date_format").value);
-                        Settings.Save("lineblogCustomPrefix", document.getElementById("lineblog_settings_custom_prefix").value);
-
-                        // See dev note #1
-                        Settings.Save("lineblogCustomDateFormat", document.getElementById("lineblog_settings_custom_date_format").value);
                         messageBox.Save();
 
                     } catch (e) {
@@ -478,36 +408,11 @@ document.addEventListener("DOMContentLoaded", (() => {
                 buttons.addEventListener("click", (() => {
 
                     try {
-
-                        if (temp.length > 0) {
-                            temp = [];
-                            errorCode = {};
-                        }
-
-                        if (document.getElementById("reddit_settings_include_date").checked && !document.getElementById("reddit_settings_prefer_locale_format").checked && document.getElementById("reddit_settings_custom_date_format").value == "custom") {
-                            ValidateDateTimeFormat("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
-                        }
-                        temp.push(ValidatePrefix("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value));
-
-                        temp.forEach((x) => {
-                            if (x.is_error == true) {
-                                errorCode["title"] = x.title;
-                                errorCode["message"] = x.message;
-                                throw errorCode;
-
-                            }
-                        });
-
                         Settings.Save("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
                         Settings.Save("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
                         Settings.Save("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
-                        Settings.Save("redditDateFormat", document.getElementById("reddit_settings_select_date_format").value);
                         Settings.Save("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
-                        Settings.Save("redditPreferLocaleFormat", document.getElementById("reddit_settings_prefer_locale_format").checked);
-
-                        // See dev note #1
-                        Settings.Save("redditCustomDateFormat", document.getElementById("reddit_settings_custom_date_format").value);
-
+                        Settings.Save("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value)
                         messageBox.Save();
                     } catch (e) {
                         console.error(e);
@@ -651,6 +556,20 @@ document.addEventListener("DOMContentLoaded", (() => {
                 }));
                 break;
 
+            case "button_open_file":
+                buttons.addEventListener("click", (async ()=>{
+                    
+                    document.getElementById("file_picker").click();
+                    document.getElementById('file_picker').addEventListener('change', function(e) {
+                        if (e.target.files[0]) {
+                          document.getElementById("file_detail_name").textContent = e.target.files[0].name;
+                        }
+                      });
+                    // document.getElementById("button_parse_file").click();
+
+                }));
+                break;
+
 
         }
     });
@@ -686,6 +605,7 @@ document.addEventListener("DOMContentLoaded", (() => {
         }
 
     });
+
 }));
 
 function urlToPromise(url) {
@@ -741,7 +661,7 @@ function createDownloadCardItem(indexNumber, objData){
             <img class="image-thumbnail image-thumbnail-${idx}" src="${x.url}"></img>
             <div class="download-card-info download-card-info-${idx}">
                 <div class="download-card-site download-card-site-${idx}">${x.website}</div>
-                <div class="download-card-info download-card-info-${idx}">${x.filename}</div>
+                <div class="download-card-info download-card-info-${idx}">${x.filename_display}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
                 <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>

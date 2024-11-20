@@ -12,11 +12,20 @@
  * 
  */
 
-const GLOBAL_VARIABLES = {
+const AutoRename = {
 
-    UA_HEADER: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`
-
+    USER_AGENT: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
+    LOG_LEVEL: "debug",
+    LOG_TYPE: {
+        "DEBUG": "debug",
+        "VERBOSE": "verbose",
+        "ERROR": "error",
+        "INFO": "info",
+        "WARN": "warn"
+    },
+    ENABLE_LOGGING: false
 }
+
 
 const Backgroundscripts = [
     "/js/Settings.js",
@@ -24,11 +33,11 @@ const Backgroundscripts = [
     "/lib/Moment/moment.js",
     "/lib/Moment/moment-with-locales.js",
     "/js/Common/Utility.js",
-    "/js/Common/Debugger.js",
     "/js/Common/SetTimeDate.js",
     "/js/Twitter/TwitterContent.js",
     "/js/LINE BLOG/LineBlogContent.js",
     "/js/Reddit/RedditContent.js",
+    "/js/Threads/ThreadsContent.js",
     "/js/DownloadManager.js",
     "/js/SaveAsEventHandle.js"
 ]

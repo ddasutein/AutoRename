@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,55 +12,163 @@
  * 
  */
 
-//#region CONTEXT MENU ITEMS
+
+function QueryTab(tabData) {
+
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, ((tabs)=>{
+
+        let url;
+        let title;  
+
+        if (tabs[0] != undefined){
+            
+            url = tabs[0].url;
+            title = tabs[0].title;
+        }
+
+        url = url.split("/");
+        url = url[2];
+
+        UpdateContextMenus(url, tabs[0].url);
+
+    }));
+
+};
 
 /**
- * Context menu items. When adding new context menu items, declare them here first
+ * Here you can dynamically set which websites can use a specific context menu item.
+ * It is important that the user should not see a context menu for the extension if
+ * the website is not supported.
+ * 
+ * @param {string} url URL of the website
  */
-const contextMenuId = {
-    saveImage: "saveImage",
-    saveImageWithCustomPrefix: "saveImageWithCustomPrefix",
-    viewOriginalImage: "viewOriginalImage",
-    addDownloadQueue: "downloadqueue"
+
+
+function UpdateContextMenus(domain, fullURL){
+
+    if ( (domain == undefined || domain == null || domain == "") || fullURL.includes("chrome-extension://")){
+        return;
+    }
+
+    if (domain.includes("www")){
+        domain = domain.replace(/^www\./g, "");
+    }
+
+    const SetContextMenuVisibility = {
+
+        Normal : ((uri, fullURL) => {
+
+            let websiteConfigObject = WebsiteConfigObject.filter((x)=>{
+                return (x.uri).includes(uri) && x.inactive == false;
+            });
+
+            if (websiteConfigObject.length != 0){
+
+                let blockedByExcludedPath = false;
+
+                // Step 1: Check if we need to hide any additional paths on the website. For example,
+                // we don't want the extension to show context menus items if user is in Twitter DMs.
+                // Then set a flag to stop from further execution if path is detected
+                excludedPaths = websiteConfigObject.map((x) => {
+                    return x.exclude_path;
+                });
+                if (excludedPaths.length != 0){
+                    let domain = fullURL.split("/");
+
+                    excludedPaths[0].forEach((x) => {
+                        if (domain.includes(x)){
+                            SetContextMenuVisibility.HideAll();
+                            blockedByExcludedPath = true;
+                        }
+                    });
+                }
+                
+                if (blockedByExcludedPath == true) return;
+
+                // Step 2: Then proceed to check base domain
+                websiteConfigObject = websiteConfigObject.map((x)=>{
+                    return x.allowed_context_menu_items;
+                })[0];
+                
+                Object.values(ContextMenuID).forEach((CMID) => {
+                    
+                    let hasContextMenuItem = websiteConfigObject.some((x => x == CMID));
+                    if (hasContextMenuItem == true){
+                        chrome.contextMenus.update(CMID, {
+                            visible: true
+                        });
+                    } else {
+                        SetContextMenuVisibility.Hide(CMID);
+                    }
+                });
+
+            } else {
+                SetContextMenuVisibility.HideAll();
+            }
+        }),
+
+        Hide: ((CMID) => {
+            chrome.contextMenus.update(CMID, {
+                visible: false
+            });
+        }),
+
+        HideAll : (() => {
+            for (let i of Object.values(ContextMenuID)){
+                chrome.contextMenus.update(i, {
+                    visible: false
+                });
+            }
+        })
+    }
+
+    if (Object.values(Website).some((wb => wb == domain)) == true){
+        SetContextMenuVisibility.Normal(domain, fullURL);
+    } else {
+        SetContextMenuVisibility.HideAll();
+    }
+}
+
+
+const ContextMenuID = {
+    SaveImage: "saveImage",
+    SaveImageWithPrefix: "saveImageWithCustomPrefix",
+    ViewOriginalImage: "viewOriginalImage",
+    AddDownloadQueue: "downloadqueue"
 }
 
 chrome.runtime.onInstalled.addListener(()=>{
 
-    //#region Common context menu items
     chrome.contextMenus.create({
-        id: contextMenuId.saveImage,
+        id: ContextMenuID.SaveImage,
         title: chrome.i18n.getMessage("context_menu_save_image_as"),
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
     
     chrome.contextMenus.create({
-        id: contextMenuId.saveImageWithCustomPrefix,
+        id: ContextMenuID.SaveImageWithPrefix,
         title: "Save image as (AutoRename) with Prefix",
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
 
     chrome.contextMenus.create({
-        id: contextMenuId.addDownloadQueue,
+        id: ContextMenuID.AddDownloadQueue,
         title: chrome.i18n.getMessage("common_add_to_download_queue"),
         contexts: ["image"]
     },  () => chrome.runtime.lastError );
     
-    //#endregion
-    
-    //#region Twitter specific context menu
     chrome.contextMenus.create({
-        id: contextMenuId.viewOriginalImage,
+        id: ContextMenuID.ViewOriginalImage,
         title: chrome.i18n.getMessage("context_menu_view_original_image"),
         contexts: ["image"]
     }, () => chrome.runtime.lastError );
 
-    //#endregion
-
     DownloadManager.UpdateBadge();
 
 });
-
-//#endregion
 
 /* Enums of Supported sites by this extension */
 const Website = {
@@ -68,35 +176,59 @@ const Website = {
     Mobile_Twitter: 'mobile.twitter.com',
     Instagram: 'instagram.com',
     Facebook: 'facebook.com',
-    Reddit: 'www.reddit.com',
+    Reddit: 'reddit.com',
     Reddit_New: 'new.reddit.com',
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net',
     Threads: "threads.net",
-    X: "x.com"
+    X: "x.com",
+    Bluesky: "bsky.app"
 }
 
 /**
- * Global parameters to store browser tab information. This can be called
- * on any part of the extension as needed
+ * Configure parameters for websites
+ * 
+ * URI                          = Base URL of the website
+ * Exclude Path                 = Add which path in the URL you want to hide the context menu item from appearing.
+ * Inactive                     = Whether or not to display the context menu for that website even if they are added in this array.
+ * allowed_context_menu_items   = Add/Remove context menu items here
+ * file_name                    = This is still in beta for version 4.1.0. Will expand on this idea in the future
  */
-let BrowserTabInfo = {
-    Title: "",
-    URL: ""
-}
+const WebsiteConfigObject = [
+    {
+        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
+        exclude_path: ["messages"],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
+        file_name: ""
+    }, {
+        uri: [Website.Bluesky],
+        exclude_path: [],
+        inactive: true,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: ""
+    }, {
+        uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
+        exclude_path: [],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
+        file_name: ""
+    }, {
+        uri: [Website.Threads],
+        exclude_path: [],
+        inactive: false,
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
+    }
+];
 
 /**
  * When the user changes tabs, the extension should be able to grab
  * the URL and Title
  */
 chrome.tabs.onActivated.addListener((activeInfo) => {
-    
-    DevMode ? console.log("tabs onActivated") : "";
-    console.log(activeInfo.tabId)
-
     QueryTab(activeInfo);
-
 });
 
 /**
@@ -104,7 +236,6 @@ chrome.tabs.onActivated.addListener((activeInfo) => {
  * get the updated data.
  */
 chrome.tabs.onUpdated.addListener((tabId, selectInfo) => {
-    DevMode ? console.log("-- on update --") : ""
 
     if (selectInfo.status == "complete"){
         QueryTab();
@@ -117,195 +248,6 @@ chrome.action.setBadgeBackgroundColor({
     color: "#181818"
 });
 
-
-let count = 0;
-/**
- * Queries tab data
- */
-function QueryTab(tabData) {
-
-    chrome.tabs.query({
-        active: true,
-        currentWindow: true
-    }, ((tabs)=>{
-
-        let url;
-        let title;  
-
-        if (tabs[0] != undefined){
-            DevMode ? console.log(BrowserTabInfo) : "";
-            url = tabs[0].url;
-            title = tabs[0].title;
-        }
-
-        url = url.split("/");
-        url = url[2];
-        DevMode ? console.log(url) : "";
-        UpdateContextMenus(url, tabs[0].url);
-
-        BrowserTabInfo.Title = title;
-        BrowserTabInfo.URL = url;
-        DevMode ? console.log(BrowserTabInfo) : "";
-    }));
-
-};
-
-/**
- * Here you can dynamically set which websites can use a specific context menu item.
- * It is important that the user should not see a context menu for the extension if
- * the website is not supported.
- * 
- * @param {string} url URL of the website
- */
-function UpdateContextMenus(url, urlFull) {
-
-    switch(url){
-        case Website.X:
-        case Website.Twitter:
-            
-            if (urlFull.includes("messages")){
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-    
-                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                    visible: false 
-                });
-    
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                return;
-            }
-
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: true 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-            
-        case Website.Mobile_Twitter:
-
-            if (urlFull.includes("messages")){
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-    
-                chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                    visible: false 
-                });
-    
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                return;
-            }
-
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: true 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.LINE_BLOG:
-
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit_Old:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        case Website.Reddit_New:
-            chrome.contextMenus.update(contextMenuId.saveImage, {
-                visible: true
-            });
-
-            chrome.contextMenus.update(contextMenuId.viewOriginalImage, {
-                visible: false 
-            });
-
-            
-            chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                visible: true
-            });
-            break;
-
-        default:
-            
-            if (Object.keys(Website).map(key => Website[key]).indexOf(url) == -1){
-                DevMode ? console.log("website not supported. removing context menu items") : "";
-
-                chrome.contextMenus.update("viewOriginalImage", {
-                    visible: false 
-                });
-
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: false
-                });
-
-                chrome.contextMenus.update(contextMenuId.saveImageWithCustomPrefix, {
-                    visible: false
-                });
-                
-            } else {
-                DevMode ? console.log("add saveImage context menu item") : "";
-                chrome.contextMenus.update(contextMenuId.saveImage, {
-                    visible: true
-                });
-            }
-            break;
-    }    
-};
-
 /**
  * This is the ENTRY point to trigger saving images or to execute specific
  * context menu items. If you need to add new websites, add a new case
@@ -315,85 +257,48 @@ function UpdateContextMenus(url, urlFull) {
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
     let currentUrl = tab.url;
-    let temp = {};
     currentUrl = currentUrl.split("/");
     currentUrl = currentUrl[2];
+    currentUrl = currentUrl.replace(/^www\./g, "");
 
     let data = {};
     data["tab_url"] = tab.url;
     data["info_url"] = info.srcUrl;
     data["link_url"] = info.linkUrl;
-    data["use_prefix"] = false;
-    data["download_queue"] = false;
-    console.log(data);
+
+    /**
+     * When websites are hardcoded in the Switch statement, these are natively
+     * supported features by the extension. In the future, for non-native
+     * support for websites, they should fall under the default statement. Note,
+     * if the website contains subdomains then it should be grouped together.
+     */
+
+    console.log(currentUrl);
     switch (currentUrl) {
         case Website.Mobile_Twitter:
         case Website.X:
         case Website.Twitter:
-
-            if (info.menuItemId === contextMenuId.viewOriginalImage){
-                Twitter.ViewOriginalImage(data);
-                return;
-            } 
-            else if (info.menuItemId === contextMenuId.saveImage) {
-                Twitter.SaveMedia(data);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                data.use_prefix = true;
-                Twitter.SaveMedia(data);
-            } else if ( info.menuItemId === contextMenuId.addDownloadQueue){
-                data.download_queue = true;
-                Twitter.SaveMedia(data);
-            }
+        case Website.Mobile_Twitter:
+        case Website.X:
+            Twitter.SaveMedia(data, info.menuItemId);
             break;
-
-        case Website.Mobile_Twitter: 
-            if (info.menuItemId === contextMenuId.viewOriginalImage){
-                ViewOriginalMedia(info.srcUrl);
-                return;
-            } 
-            else if (info.menuItemId === contextMenuId.saveImage){
-                SaveTwitterMedia(tab.url, info.srcUrl, info.linkUrl);
-
-            }
-            break;
-
-        case Website.LINE_BLOG:
-            if (info.menuItemId == contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveLINEBlogMedia(tab.url, info.srcUrl, temp);
-            } else if (info.menuItemId == contextMenuId.addDownloadQueue){
-                temp["use_prefix"] = false;
-                temp["download_queue"] = true;
-                SaveLINEBlogMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            }
 
         case Website.Reddit:
-            
-            if (info.menuItemId == contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            }
+        case Website.Reddit_Old:
+            Reddit.SaveMedia(data, info.menuItemId);
    
             break;
 
-        case Website.Reddit_Old:
-            if (info.menuItemId == contextMenuId.saveImage){
-                temp["use_prefix"] = false;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            } else if (info.menuItemId == contextMenuId.saveImageWithCustomPrefix){
-                temp["use_prefix"] = true;
-                SaveRedditMedia(tab.url, info.srcUrl, info.linkUrl, temp);
-            }
-
+        case Website.Threads:
+            console.log("enter threads")
+            Threads.SaveMedia(data, info.menuItemId);
             break;
+
+        case Website.Bluesky:
+            BlueSky.SaveMedia(data, info.menuItemId);
+            break;
+
         default:
-            alert(chrome.i18n.getMessage("error_website_not_supported"));
             break;
     }
 

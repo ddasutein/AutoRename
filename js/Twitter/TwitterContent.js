@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -14,7 +14,7 @@
 
 var Twitter = {
 
-    BuildFileName: ((twitterConfig, fileNameObj)=>{
+    BuildFileName: ((twitterConfig, generalSettings, fileNameObj)=>{
         let temp;
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
         temp = temp.split("-");
@@ -42,7 +42,7 @@ var Twitter = {
         } else {
             let prefObj = {};
 
-            if (twitterConfig["twitter_prefer_locale_format"].value == true){
+            if (generalSettings["global_prefer_locale_format"].value == true){
                 prefObj["prefer_locale_format"] = true;
                 const timedateValue = getTimeDate(prefObj);
                 temp[temp.indexOf("{date}")] = timedateValue;
@@ -50,10 +50,10 @@ var Twitter = {
 
                 prefObj["prefer_locale_format"] = false;
 
-                if (twitterConfig["twitter_date_format"].value == "custom"){
-                    prefObj["date_format"] = twitterConfig["twitter_settings_custom_date_format"].value;
+                if (generalSettings["global_date_format"].value == "custom"){
+                    prefObj["date_format"] = generalSettings["global_custom_date_format"].value;
                 } else {
-                    prefObj["date_format"] = GetDateFormat(twitterConfig["twitter_date_format"].value);
+                    prefObj["date_format"] = GetDateFormat(generalSettings["global_date_format"].value);
                 }
 
                 const timedateValue = getTimeDate(prefObj)
@@ -134,7 +134,7 @@ var Twitter = {
         
     }),
 
-    SaveMedia : ( (data)=>{
+    SaveMedia : ( (data, contextMenuSelectedId)=>{
 
         let filename = "";
         let tweetId;
@@ -188,26 +188,57 @@ var Twitter = {
 
         fileNameObj["username"] = data.link_url != undefined ? Utility.SplitURL(data.link_url, 3) : Utility.SplitURL(data.tab_url, 3);
         fileNameObj["tweetId"] = tweetId;
-        fileNameObj["use_prefix"] = data.use_prefix;
+        fileNameObj["use_prefix"] = contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? true : false;
         fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
 
-        filename = Twitter.BuildFileName(twitterConfig, fileNameObj) + Twitter.ImageFormatType(data.info_url);
-        
+        filename = Twitter.BuildFileName(twitterConfig, generalSettings, fileNameObj) + Twitter.ImageFormatType(data.info_url);
+        fileNameDisplay = filename;
         if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
-            filename = `AutoRename/Twitter/${fileNameObj.username}/${filename}`
-        } else if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == false){
-            filename = `AutoRename/Twitter/${filename}`
+            filename = `${fileNameObj.username}/${filename}`
         }
 
         let twitterFileProp = [];
-        twitterFileProp.push({
-            filename: filename,
-            url: Twitter.MediaSrc(data.info_url),
-            website: "Twitter",
 
-        });
 
-        data.download_queue == false ? DownloadManager.StartDownload(twitterFileProp) : DownloadManager.AddDownloadQueue(twitterFileProp);
+        switch (contextMenuSelectedId){
+            case ContextMenuID.SaveImage:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "X",
+        
+                });
+                DownloadManager.StartDownload(twitterFileProp);
+                break;
+
+            case ContextMenuID.SaveImageWithPrefix:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "X",
+        
+                });
+                DownloadManager.StartDownload(twitterFileProp);
+                break;
+
+            case ContextMenuID.ViewOriginalImage:
+                Twitter.ViewOriginalImage(data);
+                break;
+
+            case ContextMenuID.AddDownloadQueue:
+                twitterFileProp.push({
+                    filename: filename,
+                    filename_display: fileNameDisplay,
+                    url: Twitter.MediaSrc(data.info_url),
+                    website: "X",
+        
+                });
+                DownloadManager.AddDownloadQueue(twitterFileProp);
+                break;
+
+        }
 
     })
 

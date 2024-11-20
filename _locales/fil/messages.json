@@ -1,503 +1,414 @@
 {
-
     "announce_banner_title": {
         "message": "Announcement",
         "description": "This is only temporary for the release of v2.0.0"
     },
-
     "announce_banner_content": {
         "message": "Welcome to AutoRename Version 2.0.0. Your settings may have reset in this version. ",
         "description": "This is only temporary for the release of v2.0.0"
     },
-
     "button_save": {
         "message": "I-save"
     },
-
     "button_help": {
         "message": "Help"
     },
-
     "common_label_date_format": {
         "message": "Format ng Petsa"
     },
-
     "common_date_format_label_numerical": {
         "message": "Numerical"
     },
-
     "common_date_format_item_label_option_1": {
         "message": "MM-DD-YYYY (Numerical)"
     },
-
     "common_date_format_item_label_option_2": {
         "message": "DD-MM-YYYY (Numerical)"
     },
-
     "common_date_format_item_label_option_3": {
         "message": "YYYY-MM-DD (Numerical)"
     },
-
     "common_date_format_label_long": {
         "message": "Mahaba"
     },
-
     "common_date_format_item_label_option_4": {
         "message": "MM-DD-YYYY (Mahaba)"
     },
-
     "common_date_format_item_label_option_5": {
         "message": "DD-MM-YYYY (Mahaba)"
     },
-
     "common_date_format_item_label_option_6": {
         "message": "YYYY-MM-DD (Mahaba)"
     },
-
     "common_date_format_label_short": {
         "message": "Maikli"
     },
-
     "common_date_format_item_label_option_7": {
         "message": "MM-DD-YYYY (Maikli)"
     },
-
     "common_date_format_item_label_option_8": {
         "message": "DD-MM-YYYY (Maikli)"
     },
-
     "common_date_format_item_label_option_9": {
         "message": "YYYY-MM-DD (Maikli)"
     },
-
     "common_label_generator_length": {
         "message": "String generator length"
     },
-
     "common_section_header_general": {
         "message": "General Settings"
     },
-
     "common_section_header_twitter": {
-        "message": "Settings ng Twitter / X"
+        "message": "Settings ng X"
     },
-
     "common_section_header_lineblog": {
         "message": "Settings ng LINE BLOG "
     },
-
     "common_section_header_reddit": {
         "message": "Settings ng Reddit"
     },
-
     "common_section_header_about": {
         "message": "About"
     },
-
     "common_section_downloads": {
         "message": "Downloads"
     },
-
     "common_section_file_name": {
         "message": "Pangalan ng File"
     },
-
     "common_section_file_system": {
         "message": "File System"
     },
-
     "common_section_system_notifications": {
         "message": "System Notifications"
     },
-
     "common_section_lineblog_title": {
         "message": "Titlo ng Blog"
     },
-
     "common_section_system_information": {
         "message": "System Information"
     },
-
     "common_section_credits": {
         "message": "Mga kredito"
     },
-
     "common_section_privacy_policy_links": {
         "message": "Privacy Policy and Other Links"
     },
-
     "common_navigation_general": {
         "message": "General"
     },
-
     "common_navigation_twitter": {
-        "message": "Twitter / X"
+        "message": "X (dating: Twitter)"
     },
-
     "common_navigation_lineblog": {
         "message": "LINE BLOG"
     },
-
     "common_navigation_reddit": {
         "message": "Reddit"
     },
-
     "common_navigation_about": {
         "message": "About"
     },
-
     "common_banner_more_detail": {
         "message": "More details"
     },
-
     "common_section_time_and_date": {
         "message": "Time and Date"
     },
-
     "common_label_prefer_locale_format": {
         "message": "Prefer Locale Format"
     },
-
     "common_label_custom_date_format": {
         "message": "Custom Date/Time Format"
     },
-
     "system_information_browser": {
         "message": "Browser"
-    }, 
-
+    },
     "common_date_format_item_label_option_custom": {
         "message": "Custom"
     },
-
     "common_section_custom_prefix": {
         "message": "Custom Prefix"
     },
-    
     "common_label_prefix": {
         "message": "Prefix"
     },
-
     "common_label_settings": {
         "message": "Mga Settings"
     },
-
     "common_label_beta": {
         "message": "Beta"
     },
-
     "common_add_to_download_queue": {
         "message": "Add to Download Queue"
     },
-
     "context_click_here": {
         "message": "Pindutin dito"
     },
-
     "context_save_success": {
         "message": "Nai-save ang preferences"
     },
-
     "context_menu_save_image_as": {
         "message": "I-save ang image as (AutoRename)"
     },
-
     "context_menu_save_prefix_image_as": {
         "message": "Save image as (AutoRename) with Prefix"
     },
-
     "context_menu_view_original_image": {
         "message": "Tingnan ang orihinal image"
     },
-
     "credits_icons": {
         "message": "Mga icon"
     },
-
     "credits_localization": {
         "message": "Lokalisasyon"
     },
-
     "credits_list_of_translators": {
         "message": "Listahan ng mga Tagasalin"
     },
-
     "error_website_not_supported": {
         "message": "Sorry, supported ang extension sa Twitter and LINE BLOG. Para sa isang listahan ng mga sinusuportahang website, paki visit sa GitHub Repository: https://github.com/ddasutein/AutoRename"
     },
-
     "error_tweet_detail_alert_prompt": {
         "message": "Paki-click sa tweet para gamitin ang extension"
     },
-
     "error_lineblog_click_blog": {
         "message": "Paki-click sa blog post para i-save ang image"
     },
-
     "error_title": {
         "message": "Error"
     },
-
     "error_generic": {
         "message": "An error has occured"
     },
-
     "error_send_report": {
         "message": "Hindi malutas ng extension error na ito. Paki submit ang report sa GitHub"
     },
-
     "error_exception_reload": {
         "message": "Magre-reload nagayon ang tab na ito"
     },
-
     "error_lineblog_no_title": {
         "message": "Hindi makuha ang titlo ng blog"
     },
-
     "error_reddit_old_half_view": {
         "message": "Ang pag-save direkta sa subreddit ay hindi suportado sa old Reddit. Pa-click sa post at i-save yung image."
     },
-
     "error_title_invalid": {
         "message": "Invalid"
     },
-
     "error_validation_date_time_format": {
         "message": "The Date/Time Format you entered is either empty or invalid"
     },
-
     "error_download_queue_invalid_file_name": {
         "message": "You have entered an invalid file name"
     },
-
     "error_validation_prefix": {
         "message": "The Prefix you entered contains special characters"
     },
-
     "help_text_date_format": {
         "message": "Visit the GitHub Wiki or click the Help button on how to configure date format"
     },
-
     "info_message_announcement_label": {
         "message": "Announcement"
     },
-
     "info_click_announcement_link": {
         "message": "Clicking this link will redirect to you"
     },
-
     "message_toast_welcome_title": {
         "message": "Maligayang pagdating sa"
     },
-
     "message_toast_welcome_body": {
         "message": "Salamat sa pag-install. Pwede i-visit ang GitHub Wiki para higit ang impormasyon"
     },
-
     "message_toast_new_version": {
         "message": "Ang extension ay na-update sa version"
     },
-
     "message_toast_button_whats_new": {
         "message": "Anong bago?"
     },
-
     "message_toast_button_github_wiki": {
         "message": "GitHub Wiki"
     },
-
     "message_toast_button_ok": {
         "message": "OK"
     },
-
     "message_prompt_user_continue": {
         "message": "Would you like to continue?"
     },
-
     "privacy_policy_and_other_links_terms": {
         "message": "Privacy Policy"
     },
-
     "privacy_policy_and_other_links_github_wiki": {
         "message": "GitHub Wiki"
     },
-
     "privacy_policy_and_other_links_translate_assist": {
         "message": "Gusto tumulong sa pagsasalin?"
     },
-
     "privacy_policy_and_other_links_feedback": {
         "message": "Submit ng isyu o Feature Request"
     },
-
     "privacy_policy_and_other_links_github": {
         "message": "GitHub",
         "description": "Does not need to be translated"
     },
-
     "system_information_os": {
         "message": "Operating System"
     },
-
     "system_information_platform": {
         "message": "Platform"
     },
-
     "general_settings_description": {
         "message": "I-configure ang Extension Global Settings"
     },
-
     "general_settings_show_download_folder": {
         "message": "I-pakita ang Download Folder automatically"
     },
-
     "general_settings_enable_save_as_dialog": {
         "message": "I-enable ang 'Save As' dialog window"
     },
-
     "general_settings_enable_notifications_on_update": {
         "message": "I-enable ang notification kapag na-update ang extension"
     },
-
     "general_settings_store_images_to_custom_folder": {
         "message": "Store Images to AutoRename Folder"
     },
-
     "twitter_settings_desciption": {
-        "message": "I-customize ang File Name Format para sa Twitter / X"
+        "message": "I-customize ang File Name Format para sa X"
     },
-
     "twitter_settings_include_mention_symbol": {
         "message": "Isama ang mention simbolo @"
     },
-
     "twitter_settings_include_tweet_id": {
         "message": "Isama ang Tweet ID"
     },
-
     "twitter_settings_include_date": {
         "message": "Isama ang Petsa (Based sa petsta ng system)"
     },
-
     "twitter_settings_site_title": {
-        "message": "Isama ang titlo ng website [Twitter]"
+        "message": "Isama ang titlo ng website [X]"
     },
-
     "twitter_settings_save_image_to_folder_based_on_username": {
         "message": "Save image to folder based on username"
     },
-
     "twitter_settings_download_as_jpeg": {
         "message": "Download as JPEG only"
     },
-
-
     "lineblog_settings_description": {
         "message": "I-customize ang File Name Format para sa LINE BLOG"
     },
-
     "lineblog_settings_site_title": {
         "message": "Isama ang titlo ng website [LINE BLOG]"
     },
-
     "lineblog_settings_blog_title": {
         "message": "Isama ang titlo ng blog"
     },
-
     "lineblog_settings_include_date": {
         "message": "Isama ang Petsa (Based sa petsta ng system)"
     },
-
     "lineblog_settings_convert_blog_title_romaji": {
         "message": "I-convert ang titlo ng blog sa romaji"
     },
-
     "reddit_settings_description": {
         "message": "I-customize ang File Name Format para sa Reddit"
     },
-
     "reddit_settings_site_title": {
         "message": "Isama ang titlo ng website [Reddit]"
     },
-
     "reddit_settings_subreddit_name": {
         "message": "Isama ang subreddit"
     },
-
     "reddit_settings_subreddit_post_id": {
         "message": "Isama ang Subreddit Post ID"
     },
-
     "reddit_settings_include_date": {
         "message": "Isama ang Petsa (Based sa petsta ng system)"
     },
-
     "downloads_section_description": {
         "message": "View files that are pending for download"
     },
-
     "downloads_section_dialog_empty_queue_title": {
         "message": "Download Queue is Empty"
     },
-
     "downloads_section_empty_queue": {
         "message": "Download queue is empty. To get started, right click on an image > AutoRename > Add to Download Queue"
     },
-
     "downloads_section_dialog_remove_from_queue_title": {
         "message": "Remove from Queue"
     },
-    
     "downloads_section_dialog_enter_zip_name": {
         "message": "Enter name for ZIP file"
     },
-
     "downloads_section_dialog_queue_cleared": {
         "message": "Download Queue Cleared"
     },
-
     "downloads_section_dialog_enter_zip_name_button_create": {
         "message": "Create ZIP"
     },
-
     "downloads_section_dialog_remove_from_queue_body": {
         "message": "Are you sure you want to remove this?"
     },
-
     "downloads_section_count_label": {
         "message": "Download Queue -"
     },
-
     "downloads_section_button_remove": {
         "message": "Remove"
     },
-
     "downloads_section_button_download": {
         "message": "Download"
     },
-
     "downloads_section_button_clear_queue": {
         "message": "Clear Queue"
     },
-
     "downloads_section_saving_file": {
         "message": "Saving file:"
     },
-
     "downloads_section_saving_file_2": {
         "message": "to ZIP -",
         "description": "Dash is required since the percentage is after that"
     },
-
     "downloads_section_saving_file_3": {
         "message": "Your files are currently downloading. Please wait..."
     },
-
     "downloads_section_downlaod_in_progress": {
         "message": "Download in progress"
     },
-
     "downloads_section_downlaod_complete_title": {
         "message": "Download Complete"
+    },
+    "common_section_header_threads": {
+        "message": "Threads Settings"
+    },
+    "common_navigation_threads": {
+        "message": "Threads"
+    },
+    "threads_settings_description": {
+        "message": "Customize File Name Format for Threads"
+    },
+    "threads_settings_site_title": {
+        "message": "Include Website Title [Threads]"
+    },
+    "threads_settings_blog_title": {
+        "message": "Include Blog Title"
+    },
+    "threads_settings_include_date": {
+        "message": "Include Date (Based on System Date)"
+    },
+    "threads_settings_convert_blog_title_romaji": {
+        "message": "Convert Blog Title to Romaji"
+    },
+    "general_settings_theme": {
+        "message": "Theme"
+    },
+    "set_theme_auto": {
+        "message": "Auto"
+    },
+    "set_theme_light": {
+        "message": "Light"
+    },
+    "set_theme_dark": {
+        "message": "Dark"
+    },
+    "common_section_appearance": {
+        "message": "Appearance"
     }
 }

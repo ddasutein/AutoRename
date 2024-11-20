@@ -16,7 +16,7 @@
     
 </head>
 
-<body>
+<body data-theme="auto">
 
     <div class="container" id="blur">
         <nav class="navbar">
@@ -38,6 +38,11 @@
                         <div data-i18n="common_section_downloads"></div>
                     </div>
                 </li>
+                <!-- <li data-tab-target="#parseFile" class="tab">
+                    <div class="navbar-tab-label">
+                        <div>Open File</div>
+                    </div>
+                </li> -->
             </ul>
             <hr>
             <!-- <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span> -->
@@ -56,6 +61,11 @@
                 <li data-tab-target="#reddit" class="tab">
                     <div class="navbar-tab-label">
                         <div data-i18n="common_navigation_reddit"></div>
+                    </div>
+                </li>
+                <li data-tab-target="#threads" class="tab">
+                    <div class="navbar-tab-label">
+                        <div data-i18n="common_navigation_threads"></div>
                     </div>
                 </li>
                 <li data-tab-target="#about" class="tab">
@@ -101,28 +111,30 @@
                     <br/>
 
                     <!-- SECTION: APPEARANCE -->
-                    <!-- <div class="main-body-section-header">
+                    <div class="main-body-section-header">
                         <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text">Appearance</span>
+                            <img class="section-ico" src="/assets/icons8-change-theme-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_appearance"></span>
                         </div>
-                    </div> -->
+                    </div>
 
-                    <!-- <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><label>Theme</label></td>
-                            <td>
-                                <select id="twitter_settings_string_length">
-                                    <option value="auto">Auto</option>
-                                    <option value="light">Light</option>
-                                    <option value="dark">Dark</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table> -->
+                    <div>
+                        <table class="main-body-table">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><label data-i18n="general_settings_theme"></label></td>
+                                <td>
+                                    <select id="theme_selector">
+                                        <option value="auto" data-i18n="set_theme_auto"></option>
+                                        <option value="light" data-i18n="set_theme_light"></option>
+                                        <option value="dark" data-i18n="set_theme_dark"></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <!-- SECTION: FILE SYSTEM -->
                     <div class="main-body-section-header">
@@ -154,6 +166,59 @@
                         </table>
                     </div>
                     <br/>
+
+                    <!-- SECTION: TIME & DATE -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
+                        </div>
+                    </div>
+
+                    <table class="main-body-table">
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
+                            <td><input type="checkbox" id="global_settings_prefer_locale_format"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label data-i18n="common_label_date_format"></label>
+                            </td>
+                            <td>
+                                <select id="global_settings_select_date_format">
+                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
+                                    <option disabled data-i18n="common_date_format_label_numerical"></option>
+                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
+                                    <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
+                                    <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
+                                    <option disabled data-i18n="common_date_format_label_long"></option>
+                                    <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
+                                    <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
+                                    <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
+                                    <option disabled  data-i18n="common_date_format_label_short"></option>
+                                    <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
+                                    <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
+                                    <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
+                            <td style="vertical-align: middle;">
+                                <span><input type="text" id="global_custom_date_format" style="width: 100%;"></span>
+                                <br/>
+                                <div class="help-text" data-i18n="help_text_date_format"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></p></td>
+                        </tr>
+                    </table>
+                    
 
                     <!-- SECTION: SYSTEM NOTIFICATIONS -->
                     <div class="main-body-section-header">
@@ -270,58 +335,6 @@
                     </table>
                     <br/>
 
-                    <!-- SECTION: TIME & DATE -->
-                    <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                        </div>
-                    </div>
-
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                            <td><input type="checkbox" id="twitter_settings_prefer_locale_format"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_date_format"></label>
-                            </td>
-                            <td>
-                                <select id="twitter_settings_select_date_format">
-                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
-                                    <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                    <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                    <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                    <option disabled data-i18n="common_date_format_label_long"></option>
-                                    <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                    <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                    <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                    <option disabled  data-i18n="common_date_format_label_short"></option>
-                                    <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                    <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                    <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
-                            <td style="vertical-align: middle;">
-                                <span><input type="text" id="twitter_settings_custom_date_format" style="width: 100%;"></span>
-                                <br/>
-                                <div class="help-text" data-i18n="help_text_date_format"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></p></td>
-                        </tr>
-                    </table>
-
                     <!-- SECTION : PREFIX -->
                     <div class="main-body-section-header">
                         <div style="display: inline-flex;">
@@ -346,8 +359,8 @@
                 </div>
             </div>
 
-            <!-- TAB : LINE BLOG -->
-            <div id="lineblog" data-tab-content>
+            <!-- TAB : THREADS -->
+            <div id="threads" data-tab-content>
                 <div class="tab-content-main">
                     <div class="main-body-table">
                         <table class="main-body-table">
@@ -356,7 +369,7 @@
                                 <th></th>
                             </tr>
                             <tr>
-                                <td><b><img class="section-ico" src="/assets/icons8-line-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_lineblog"></span></b></td>
+                                <td><b><img class="section-ico" src="/assets/threads.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_threads"></span></b></td>
                                 <td>
                                     <div class="button-container">
                                         <button type="button" id="button_help_lineblog" data-i18n="button_help"></button>
@@ -365,7 +378,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><p data-i18n="lineblog_settings_description"></p></td>
+                                <td><p data-i18n="threads_settings_description"></p></td>
                             </tr>
                         </table>
                         <br/>
@@ -382,22 +395,21 @@
                             <th></th>
                             </tr>
                             <tr>
-                                <td><label data-i18n="lineblog_settings_site_title"></label></td>
-                                <td><input type="checkbox" id="lineblog_settings_include_site_title"><label data-i18n="setting_include_lineblog_web_title"></label></input></td>
+                                <td><label data-i18n="threads_settings_site_title"></label></td>
+                                <td><input type="checkbox" id="threads_settings_include_site_title"></input></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <label data-i18n="lineblog_settings_include_date"></label>
+                                    <label data-i18n="threads_settings_include_date"></label>
                                 </td>
-                                <td><input type="checkbox" id="lineblog_settings_include_date"></td>
+                                <td><input type="checkbox" id="threads_settings_include_date"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <label data-i18n="common_label_generator_length"></label>
                                 </td>
                                 <td>
-                                    <select id="lineblog_settings_string_length">
-                                        <option value="0">0</option>
+                                    <select id="threads_settings_string_length">
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                         <option value="6">6</option>
@@ -417,80 +429,6 @@
                         </table>
                         <br/>
 
-                        <!-- SECTION : BLOG TITLE -->
-                        <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-hiragana-ma-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_lineblog_title"></span>
-                            </div>
-                        </div>
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="lineblog_settings_blog_title"></label></td>
-                                <td><input type="checkbox" id="lineblog_include_blog_title"></td>
-                            </tr>
-                            <tr style="display: none;">
-                                <td><label data-i18n="lineblog_settings_convert_blog_title_romaji"></label></td>
-                                <td><input type="checkbox" id="lineblog_settings_convert_title_romaji"></td>
-                            </tr>
-                        </table>
-                        <br/>
-
-                        <!-- SECTION: TIME & DATE -->
-                        <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                            </div>
-                        </div>
-
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                                <td><input type="checkbox" id="lineblog_settings_prefer_locale_format"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="common_label_date_format"></label>
-                                </td>
-                                <td>
-                                    <select id="lineblog_settings_select_date_format">
-                                        <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
-                                        <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                        <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                        <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                        <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                        <option disabled data-i18n="common_date_format_label_long"></option>
-                                        <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                        <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                        <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                        <option disabled  data-i18n="common_date_format_label_short"></option>
-                                        <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                        <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                        <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
-                                <td style="vertical-align: middle;">
-                                    <span><input id="lineblog_settings_custom_date_format" type="text" style="width: 100%;"></span>
-                                    <br/>
-                                    <div class="help-text" data-i18n="help_text_date_format"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </table>
-
                         <!-- SECTION : PREFIX -->
                         <div class="main-body-section-header">
                             <div style="display: inline-flex;">
@@ -506,7 +444,7 @@
                             <tr>
                                 <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
                                 <td style="vertical-align: middle;">
-                                    <span><input type="text" id="lineblog_settings_custom_prefix" style="width: 100%;"></span>
+                                    <span><input type="text" id="threads_settings_custom_prefix" style="width: 100%;"></span>
                                 </td>
                             </tr>
                         </table>
@@ -593,58 +531,6 @@
                     </table>
                     <br/>
 
-                    <!-- SECTION: TIME & DATE -->
-                    <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                        </div>
-                    </div>
-
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                            <td><input type="checkbox" id="reddit_settings_prefer_locale_format"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_date_format"></label>
-                            </td>
-                            <td>
-                                <select id="reddit_settings_select_date_format">
-                                    <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
-                                    <option disabled data-i18n="common_date_format_label_numerical"></option>
-                                    <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
-                                    <option value="1" data-i18n="common_date_format_item_label_option_2"></option>
-                                    <option value="2" data-i18n="common_date_format_item_label_option_3"></option></option>
-                                    <option disabled data-i18n="common_date_format_label_long"></option>
-                                    <option value="3" data-i18n="common_date_format_item_label_option_4"></option>
-                                    <option value="4" data-i18n="common_date_format_item_label_option_5"></option>
-                                    <option value="5" data-i18n="common_date_format_item_label_option_6"></option>
-                                    <option disabled  data-i18n="common_date_format_label_short"></option>
-                                    <option value="6" data-i18n="common_date_format_item_label_option_7"></option>
-                                    <option value="7" data-i18n="common_date_format_item_label_option_8"></option>
-                                    <option value="8" data-i18n="common_date_format_item_label_option_9"></option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
-                            <td style="vertical-align: middle;">
-                                <span><input type="text" id="reddit_settings_custom_date_format" style="width: 100%;"></span>
-                                <br/>
-                                <div class="help-text" data-i18n="help_text_date_format"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></p></td>
-                        </tr>
-                    </table>
-
                     <!-- SECTION : PREFIX -->
                     <div class="main-body-section-header">
                         <div style="display: inline-flex;">
@@ -693,7 +579,7 @@
                             <td>AutoRename</td>
                         </tr>
                         <tr>
-                            <td>Copyright © 2023 Dasutein</td>
+                            <td>Copyright © 2024 Dasutein</td>
                             <td><a href="https://github.com/ddasutein/AutoRename#mit-license">MIT License</a></td>
                         </tr>
                         <tr>
@@ -855,6 +741,41 @@
 
                 </div>
             </div>
+
+            <!-- TAB: ACTIONS : PARSE -->
+            <div id="parseFile" data-tab-content>
+                <div class="tab-content-main">
+                    <table class="main-body-table">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td><b><img class="section-ico" src="/assets/icons8-file-48.png"></img><span class="sidebar-btn-ico-text">Open File</span></b></td>
+                            <td>
+                                <div class="button-container">
+
+                                    <button type="submit" class="button_save" id="button_open_file">Open</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><p>Upload a file to retrieve the original source</p></td>
+                        </tr>
+                    </table>
+                    <br/>
+
+                    <!-- SECTION : DOWNLOAD QUEUE -->
+                    <div class="main-body-section-header">
+                        <div style="display: inline-flex;">
+                            <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img><span class="sidebar-btn-ico-text" >Upload</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <input type="file" id="file_picker">
+
+                </div>
+            </div>
             
         </div>
     </div>  
@@ -874,7 +795,7 @@
         </div>
     </div>
 
-
+    <script src="/lib/ThemeEngine/ThemeEngine.js"></script>
     <script src="/js/i18n.js"></script>
     <script src="/js/OptionsPage.js" defer></script>
     <script src="/js/ExtensionInfo.js"></script>

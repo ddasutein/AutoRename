@@ -53,10 +53,6 @@ function GetDateFormat(DateTimeFormat) {
 
     const DEBUG_TAG = "GetDateFormat => ";
 
-    if (DevMode){
-        console.log(DEBUG_TAG + "DateTimeFormat: " + DateTimeFormat);
-    }
-
     const _date = new Date();
     let _finalTimeDateValue = "";
 
