@@ -51,11 +51,11 @@ var Bluesky = {
         return postId;
     }),
 
-
     GetDomain: ((url) => {
 
         const isUsingBKSYDomain = ((arr) => {
-            let arr = arr.split(".");
+            arr = arr.split(".");
+            console.log(arr);
             let counter = 0;
             let defaultDomain = ("bsky.social").split(".")
 
@@ -80,6 +80,8 @@ var Bluesky = {
         });
 
         const getDomain = ((isBSKYDomain = true, username) => {
+            username = username.split(".");
+
             if (isBSKYDomain == true){
                 return "bsky.social";
             } else {
@@ -95,6 +97,7 @@ var Bluesky = {
                 console.log(username)
             }
         });
+        
         let BSKYUsername = Bluesky.GetUsername(url);
         isBSKYDomain = isUsingBKSYDomain(BSKYUsername);
         domainName = getDomain(isBSKYDomain, BSKYUsername);
@@ -122,14 +125,19 @@ var Bluesky = {
             return fileformat;
         }
 
-        let TARGET_URL = Bluesky.ViewOriginalImage(data, false);
-        const BKSY = Bluesky.Parameters();
+        const BKSY          = Bluesky.Parameters();
+        const BKSYUrl       = Bluesky.ViewOriginalImage(data, false);
+        const BSKYTitle     = BKSY.name;
+        const BKSYUsername  = Bluesky.GetUsername(data.tab_url);
+        const BKSYDomain    = Bluesky.GetDomain(data.tab_url);
+        const BKSYPostID    = Bluesky.GetPostID(data.tab_url);
         
         let bksyFileNameObj = {
-            "website_title": BKSY.name,
-            "bsky_username": Bluesky.GetUsername(data.tab_url),
-            "bsky_post_id": Bluesky.GetPostID(data.tab_url)
+            "website_title": BSKYTitle,
+            "bsky_username": BKSYUsername,
+            "bsky_post_id": BKSYPostID
         }
+
         FILE_NAME_FORMAT = BKSY.file_name;
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.map((FNF)=>{
@@ -161,8 +169,8 @@ var Bluesky = {
                 BlueskyProp.push({
                     filename: `${FILE_NAME}`,
                     filename_display: FILE_NAME,
-                    url: TARGET_URL,
-                    website: BKSY.name,
+                    url: BKSYUrl,
+                    website: BSKYTitle,
         
                 });
                 DownloadManager.StartDownload(BlueskyProp);
