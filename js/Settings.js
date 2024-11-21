@@ -88,7 +88,7 @@ let Settings = {};
         //#endregion
 
         //#region THREADS SETTINGS
-        threadsIncludeWebsiteTitle: true,
+        threadsIncludeWebsiteTitle: false,
         threadsIncludeDate: false,
         threadsRandomStringLength: 4,
         threadsPreferLocaleFormat: true,
