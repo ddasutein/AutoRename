@@ -184,7 +184,8 @@ const Website = {
     LINE_BLOG_CDN: 'obs.line-scdn.net',
     Threads: "threads.net",
     X: "x.com",
-    Bluesky: "bsky.app"
+    Bluesky: "bsky.app",
+    XPro: "pro.x.com"
 }
 Object.freeze(Website);
 
@@ -200,7 +201,7 @@ Object.freeze(Website);
 const WebsiteConfigObject = [
     {
         name: "X",
-        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X],
+        uri: [Website.Twitter, Website.Mobile_Twitter, Website.X, Website.XPro],
         exclude_path: ["messages"],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
@@ -285,6 +286,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     switch (currentUrl) {
         case Website.Twitter:
         case Website.X:
+        case Website.XPro:
             Twitter.SaveMedia(data, info.menuItemId);
             break;
 
