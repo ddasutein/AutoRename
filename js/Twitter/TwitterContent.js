@@ -14,6 +14,15 @@
 
 var Twitter = {
 
+    IsArticle: ((url) => {
+
+        let isXArticle = false;
+        url = url.split("/");
+        isXArticle = url.some((x => x == "article"));
+        return isXArticle;
+        
+    }),
+
     BuildFileName: ((twitterConfig, generalSettings, fileNameObj)=>{
         let temp;
         temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
