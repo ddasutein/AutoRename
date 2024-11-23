@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2023 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -13,40 +13,52 @@
  */
 
 const AutoRename = {
-
+    Name: chrome.runtime.getManifest().name,
     GetUserAgent: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
-    LOG_LEVEL: "debug",
-    LOG_TYPE: {
+    LogLevel: {
         "DEBUG": "debug",
         "VERBOSE": "verbose",
         "ERROR": "error",
         "INFO": "info",
         "WARN": "warn"
     },
-    ENABLE_LOGGING: false
+    SetLogLevel: "debug",
+    EnableLogging: false,
+    Version: chrome.runtime.getManifest().version
 }
 
+Object.keys(AutoRename).forEach(key => {
+    if (!["ENABLE_LOGGING", "LOG_LEVEL"].includes(key)) {
+        Object.defineProperty(AutoRename, key, {
+            writable: false,
+            configurable: false
+        });
+    }
+});
 
-const Backgroundscripts = [
-    "/js/Settings.js",
-    "/js/Runtime.js",
-    "/lib/Moment/moment.js",
-    "/lib/Moment/moment-with-locales.js",
-    "/js/Common/Utility.js",
-    "/js/Common/SetTimeDate.js",
-    "/js/Twitter/TwitterContent.js",
-    "/js/Bluesky/Bluesky.js",
-    "/js/Reddit/RedditContent.js",
-    "/js/Threads/ThreadsContent.js",
-    "/js/DownloadManager.js",
-    "/js/SaveAsEventHandle.js"
-]
 
-try {
-    Backgroundscripts.forEach((x)=>{
-        importScripts(x);
-    });
-
-}catch(e){
-    console.error(e);
-}
+(() => {
+    const Backgroundscripts = [
+        "/js/Settings.js",
+        "/js/Runtime.js",
+        "/lib/Moment/moment.js",
+        "/lib/Moment/moment-with-locales.js",
+        "/js/Common/Utility.js",
+        "/js/Common/SetTimeDate.js",
+        "/js/Twitter/TwitterContent.js",
+        "/js/Bluesky/Bluesky.js",
+        "/js/Reddit/RedditContent.js",
+        "/js/Threads/ThreadsContent.js",
+        "/js/DownloadManager.js",
+        "/js/SaveAsEventHandle.js"
+    ]
+    
+    try {
+        Backgroundscripts.forEach((x)=>{
+            importScripts(x);
+        });
+    
+    }catch(e){
+        console.error(e);
+    }
+})();
