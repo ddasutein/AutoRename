@@ -14,7 +14,9 @@
 
 const AutoRename = {
     Name: chrome.runtime.getManifest().name,
+    CurrentTabId: 0,
     GetUserAgent: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
+    Icon: chrome.runtime.getURL("assets/autorename-128px.png"),
     LogLevel: {
         "DEBUG": "debug",
         "VERBOSE": "verbose",
@@ -28,14 +30,14 @@ const AutoRename = {
 }
 
 Object.keys(AutoRename).forEach(key => {
-    if (!["ENABLE_LOGGING", "LOG_LEVEL"].includes(key)) {
+    // Do not lock these keys
+    if (!["ENABLE_LOGGING", "LOG_LEVEL", "CurrentTabId"].includes(key)) {
         Object.defineProperty(AutoRename, key, {
             writable: false,
             configurable: false
         });
     }
 });
-
 
 (() => {
     const Backgroundscripts = [
