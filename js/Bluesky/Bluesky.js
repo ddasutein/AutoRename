@@ -23,7 +23,7 @@ const bskySettings = {
 var Bluesky = {
 
     Settings: (() => {
-        return Settings.Load().Threads.map((data)=>{
+        return Settings.Load().Bluesky.map((data)=>{
             return {
                 "key": data.key,
                 "value": data.value
@@ -107,7 +107,7 @@ var Bluesky = {
     Parameters: (() => WebsiteConfigObject.filter((x => x.uri == Website.Bluesky))[0]),
 
     SaveMedia: ((data, contextMenuSelectedId) => {
- 
+        
         function DetermineImageFormat(url){
             let fileformat = "";
             const ImageFormats = ["jpg", "jpeg", "JPEG", "JPG", "png", "PNG"];
@@ -125,26 +125,38 @@ var Bluesky = {
             return fileformat;
         }
 
-        const BKSY          = Bluesky.Parameters();
-        const BKSYUrl       = Bluesky.ViewOriginalImage(data, false);
-        const BSKYTitle     = BKSY.name;
-        const BKSYUsername  = Bluesky.GetUsername(data.tab_url);
-        const BKSYDomain    = Bluesky.GetDomain(data.tab_url);
-        const BKSYPostID    = Bluesky.GetPostID(data.tab_url);
-        
-        let bksyFileNameObj = {
-            "website_title": BSKYTitle,
-            "bsky_username": BKSYUsername,
-            "bsky_post_id": BKSYPostID
-        }
+        const GlobalSettings = Settings.Load().General.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
+        const BKSY              = Bluesky.Parameters();
+        const BKSYUrl           = Bluesky.ViewOriginalImage(data, false);
+        const BSKYTitle         = BKSY.name;
+        const BKSYUsername      = Bluesky.GetUsername(data.tab_url);
+        const BKSYDomain        = Bluesky.GetDomain(data.tab_url);
+        const BKSYPostID        = Bluesky.GetPostID(data.tab_url);
+        const BSKYSettings      = Bluesky.Settings();
+
+        let BSKYObject      = {}
+
+        BSKYObject["bsky_username"] = BKSYUsername;
+        BSKYObject["bsky_post_id"] = BKSYPostID;
+
+        BSKYSettings["blueskyIncludeWebsite"].value ? BSKYObject["website_title"] = "Bluesky" : "";
+        BSKYObject["randomstring"] = Utility.GenerateRandomString(BSKYSettings["blueskyRandomStringLength"].value)
 
         FILE_NAME_FORMAT = BKSY.file_name;
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.map((FNF)=>{
             let hasReplacedValue = false;
-            for (let BFN in bksyFileNameObj){
+            for (let BFN in BSKYObject){
                 if (FNF == `{${BFN}}`) {
-                    FNF = FNF.replace(`{${BFN}}`, bksyFileNameObj[BFN]);
+                    FNF = FNF.replace(`{${BFN}}`, BSKYObject[BFN]);
                     hasReplacedValue = true;
                     break;
                 }
@@ -154,13 +166,10 @@ var Bluesky = {
 
         const ImageFormat = DetermineImageFormat(data.info_url);
         FILE_NAME = `${FILE_NAME_FORMAT}.${ImageFormat}`;
-        console.log(FILE_NAME);
         
-        
-        console.log(ImageFormat);
-        console.log("==BSKY==")
-        console.log(data);
-        console.log(contextMenuSelectedId)
+        if (GlobalSettings["global_use_autorename_folder"].value && BSKYSettings["blueskySaveImageToFolderBasedOnUsername"].value){
+            FILE_NAME = BSKYSettings["blueskySaveImageToFolderBasedOnUsername"].value ? `${BKSYUsername}/${FILE_NAME}` : FILE_NAME;
+        }
 
         let BlueskyProp = []
 
