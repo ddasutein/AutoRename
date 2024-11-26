@@ -107,6 +107,14 @@ let Settings = {};
         redditCustomDateFormat: "",
         redditCustomPrefix: "",
 
+        //#region Bluesky Settings
+        blueskyIncludeWebsite: false,
+        blueskyIncludeDate: false,
+        blueskyRandomStringLength: 4,
+        blueskySaveImageToFolderBasedOnUsername: false,
+        blueskyCustomPrefix: "",
+        //#endregion
+
         //#region Options UI settings
         optionsUITabName: "#general",
         optionsUITabIndexNumber: 2 // Default 
@@ -296,6 +304,39 @@ let Settings = {};
 
             //#endregion Threads Settings END
 
+            //#region Bluesky
+            {
+                category: Category.Bluesky,
+                name: "Include Website Title (Bluesky)",
+                value: items.blueskyIncludeWebsite,
+                key: "blueskyIncludeWebsite"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Include Date",
+                value: items.blueskyIncludeDate,
+                key: "blueskyIncludeDate"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Bluesky Random String Generator",
+                value: items.blueskyRandomStringLength,
+                key: "blueskyRandomStringLength"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Save Image to folder based on username",
+                value: items.blueskySaveImageToFolderBasedOnUsername,
+                key: "blueskySaveImageToFolderBasedOnUsername"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Bluesky Prefix",
+                value: items.blueskyCustomPrefix,
+                key: "blueskyCustomPrefix"
+            },
+            //#endregion
+
             //#region Options UI
             {
                 category: Category.Options,
@@ -367,7 +408,10 @@ let Settings = {};
                 }
             }),
             Threads: SettingsMap.filter((key)=>{
-                return key.category == Category.Threads
+                return key.category == Category.Threads;
+            }),
+            Bluesky: SettingsMap.filter((key) => {
+                return key.category == Category.Bluesky;
             })
         }
     });
