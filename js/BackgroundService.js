@@ -17,6 +17,7 @@ const AutoRename = {
     CurrentTabId: 0,
     GetUserAgent: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
     Icon: chrome.runtime.getURL("assets/autorename-128px.png"),
+    Language: chrome.i18n.getUILanguage(),
     LogLevel: {
         "DEBUG": "debug",
         "VERBOSE": "verbose",
