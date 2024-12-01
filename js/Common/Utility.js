@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2024 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -106,7 +106,19 @@ let Utility = {
                 const browserLanguage = AutoRename.Language;
                 return moment().locale(browserLanguage).format("LL");
             }),
-            SetupDateFormat : ((params, prefer_locale_format = false, date_format = null) => {
+            GetUTCOffset    : ((locale = "") => {
+                let _locale = locale;
+                if (Utility.ValidateParameter(locale)) {
+                    _locale = locale.locale || "";
+                }
+
+                if (_locale == null) return "";
+
+                if (_locale == "") _locale = Utility.DateUtils().GetLocaleFormat();
+                console.log(_locale)
+                return moment().tz(_locale).format("Z");
+            }),
+            SetupDateFormat : ((params, prefer_locale_format = false, date_format = null, utcOffset = null) => {
                 let dateStr = params;
                 const specialCharacters = new RegExp(/[:/]/g)
 
@@ -114,14 +126,18 @@ let Utility = {
                     dateStr = params.inputDate || "";
                     prefer_locale_format = params.preferLocaleFormat || prefer_locale_format;
                     date_format = params.dateFormat || null;
+                    utcOffset = params.utcOffset || null;
                 }
 
                 if (date_format == null && prefer_locale_format == false) throw Error("Date Format not specified");
+                if (utcOffset != null) utcOffset = Utility.DateUtils().GetUTCOffset(utcOffset);
+                if (utcOffset == null) utcOffset = Utility.DateUtils().GetUTCOffset();
+                console.log(">> UTC OFFSET " + utcOffset)
 
                 if (prefer_locale_format){
                     dateStr = Utility.DateUtils().GetLocaleFormat()
                 } else {
-                    dateStr = moment().format(date_format);
+                    dateStr = moment().utcOffset(utcOffset).format(date_format);
                     if (dateStr.match(specialCharacters)){
                         dateStr = dateStr.replace(specialCharacters, "_");
                     }
