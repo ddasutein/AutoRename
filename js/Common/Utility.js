@@ -94,6 +94,43 @@ let Utility = {
         return chrome.tabs.create({
             url: url
         });
+    }),
+
+    ValidateParameter: ((params) => (typeof params == "object" && !Array.isArray(params))),
+
+    DateUtils: (() => {
+        return {
+
+            GetTimeZone     : (() => Intl.DateTimeFormat().resolvedOptions().timeZone),
+            GetLocaleFormat : (() => {
+                const browserLanguage = AutoRename.Language;
+                return moment().locale(browserLanguage).format("LL");
+            }),
+            SetupDateFormat : ((params, prefer_locale_format = false, date_format = null) => {
+                let dateStr = params;
+                const specialCharacters = new RegExp(/[:/]/g)
+
+                if (Utility.ValidateParameter(params)){
+                    dateStr = params.inputDate || "";
+                    prefer_locale_format = params.preferLocaleFormat || prefer_locale_format;
+                    date_format = params.dateFormat || null;
+                }
+
+                if (date_format == null && prefer_locale_format == false) throw Error("Date Format not specified");
+
+                if (prefer_locale_format){
+                    dateStr = Utility.DateUtils().GetLocaleFormat()
+                } else {
+                    dateStr = moment().format(date_format);
+                    if (dateStr.match(specialCharacters)){
+                        dateStr = dateStr.replace(specialCharacters, "_");
+                    }
+                }
+
+                return dateStr;
+            })
+
+        }
     })
     
     
