@@ -46,6 +46,7 @@ Object.keys(AutoRename).forEach(key => {
         "/js/Runtime.js",
         "/lib/Moment/moment.js",
         "/lib/Moment/moment-with-locales.js",
+        "/lib/Moment/moment-timezone-with-data.js",
         "/js/Common/Utility.js",
         "/js/Common/SetTimeDate.js",
         "/js/Twitter/TwitterContent.js",
