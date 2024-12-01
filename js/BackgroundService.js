@@ -41,6 +41,8 @@ Object.keys(AutoRename).forEach(key => {
 });
 
 (() => {
+    console.log("🎵 It's like each of our wishes shines through, it's the sea! We'll meet again here, we'll surely see each other again")
+
     const Backgroundscripts = [
         "/js/Settings.js",
         "/js/Runtime.js",
