@@ -12,14 +12,6 @@
  * 
  */
 
-// development use only
-const bskySettings = {
-    set_website_title: true,
-    save_image_to_folder_based_on_user_name: false,
-    sort_by_domain: false
-}
-
-
 var Bluesky = {
 
     Settings: (() => {
@@ -134,6 +126,7 @@ var Bluesky = {
             obj[data.key] = data;
             return obj;
         }, {});
+
         const BKSY              = Bluesky.Parameters();
         const BKSYUrl           = Bluesky.ViewOriginalImage(data, false);
         const BSKYTitle         = BKSY.name;
@@ -141,14 +134,27 @@ var Bluesky = {
         const BKSYDomain        = Bluesky.GetDomain(data.tab_url);
         const BKSYPostID        = Bluesky.GetPostID(data.tab_url);
         const BSKYSettings      = Bluesky.Settings();
+        const DateUtils         = Utility.DateUtils();
+        const CurrentTime       = DateUtils.GetCurrentTime();
+        const CurrentFormat     = DateUtils.GetUserFormat();
 
-        let BSKYObject      = {}
+        const BSKY_TS = DateUtils.SetupDateFormat({
+            inputDate: CurrentTime,
+            preferLocaleFormat: false,
+            dateFormat: CurrentFormat
+        });
+
+        let BSKYObject          = {}
 
         BSKYObject["bsky_username"] = BKSYUsername;
         BSKYObject["bsky_post_id"] = BKSYPostID;
 
+        contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? BSKYObject["prefix"] = BSKYSettings["blueskyCustomPrefix"].value : undefined;
+
         BSKYSettings["blueskyIncludeWebsite"].value ? BSKYObject["website_title"] = "Bluesky" : "";
-        BSKYObject["randomstring"] = Utility.GenerateRandomString(BSKYSettings["blueskyRandomStringLength"].value)
+        BSKYSettings["blueskyIncludeDate"].value ? BSKYObject["date"] = BSKY_TS : "";
+
+        BSKYObject["randomstring"] = Utility.GenerateRandomString(BSKYSettings["blueskyRandomStringLength"].value);
 
         FILE_NAME_FORMAT = BKSY.file_name;
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
@@ -174,18 +180,39 @@ var Bluesky = {
         let BlueskyProp = []
 
         switch (contextMenuSelectedId){
+
             case ContextMenuID.SaveImage:
                 BlueskyProp.push({
                     filename: `${FILE_NAME}`,
                     filename_display: FILE_NAME,
                     url: BKSYUrl,
                     website: BSKYTitle,
-        
                 });
                 DownloadManager.StartDownload(BlueskyProp);
                 break;
+
+            case ContextMenuID.SaveImageWithPrefix:
+                BlueskyProp.push({
+                    filename: `${FILE_NAME}`,
+                    filename_display: FILE_NAME,
+                    url: BKSYUrl,
+                    website: BSKYTitle,
+                });
+                DownloadManager.StartDownload(BlueskyProp);
+                break;
+
             case ContextMenuID.ViewOriginalImage:
                 Bluesky.ViewOriginalImage(data, true);
+                break;
+
+            case ContextMenuID.AddDownloadQueue:
+                BlueskyProp.push({
+                    filename: `${FILE_NAME}`,
+                    filename_display: FILE_NAME,
+                    url: BKSYUrl,
+                    website: BSKYTitle,
+                });
+                DownloadManager.AddDownloadQueue(BlueskyProp);
                 break;
         }
     }),
