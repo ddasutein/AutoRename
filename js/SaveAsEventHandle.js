@@ -30,16 +30,12 @@ function QueryTab(tabData) {
         }
 
         url = url.split("/");
-        urlArray = url;
-        console.log(url);
-
-
         url = url[2];
 
-        console.log(tabs)
-        AutoRename.CurrentTabId = tabs[0].id;
+        AutoRename.CurrentTabName   = tabs[0].title;
+        AutoRename.CurrentTabId     = tabs[0].id;
 
-        UpdateContextMenus(url, tabs[0].url, urlArray);
+        UpdateContextMenus(url, tabs[0].url);
 
     }));
 
@@ -54,7 +50,7 @@ function QueryTab(tabData) {
  */
 
 
-function UpdateContextMenus(domain, fullURL, urlArray){
+function UpdateContextMenus(domain, fullURL){
 
     if ( (domain == undefined || domain == null || domain == "") || fullURL.includes("chrome-extension://")){
         return;
@@ -256,7 +252,7 @@ const WebsiteConfigObject = [
         require_path: [""],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
-        file_name: ""
+        file_name: "{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}"
     }, {
         name: "Bluesky",
         uri: [Website.Bluesky],
@@ -329,8 +325,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["tab_url"] = tab.url;
     data["info_url"] = info.srcUrl;
     data["link_url"] = info.linkUrl;
-    console.log(data);
-    console.log(info)
+    WriteLog("debug", data);
+    WriteLog("debug", info);
     
 
     /**
