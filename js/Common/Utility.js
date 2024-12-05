@@ -115,7 +115,7 @@ let Utility = {
                 if (_locale == null) return "";
 
                 if (_locale == "") _locale = Utility.DateUtils().GetLocaleFormat();
-                console.log(_locale)
+
                 return moment().tz(_locale).format("Z");
             }),
             SetupDateFormat : ((params, prefer_locale_format = false, date_format = null, utcOffset = null) => {
@@ -132,7 +132,6 @@ let Utility = {
                 if (date_format == null && prefer_locale_format == false) throw Error("Date Format not specified");
                 if (utcOffset != null) utcOffset = Utility.DateUtils().GetUTCOffset(utcOffset);
                 if (utcOffset == null) utcOffset = Utility.DateUtils().GetUTCOffset();
-                console.log(">> UTC OFFSET " + utcOffset)
 
                 if (prefer_locale_format){
                     dateStr = Utility.DateUtils().GetLocaleFormat()
