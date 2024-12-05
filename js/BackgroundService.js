@@ -14,6 +14,7 @@
 
 const AutoRename = {
     Name: chrome.runtime.getManifest().name,
+    CurrentTabName: null,
     CurrentTabId: 0,
     GetUserAgent: `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`,
     Icon: chrome.runtime.getURL("assets/autorename-128px.png"),
@@ -23,7 +24,8 @@ const AutoRename = {
         "VERBOSE": "verbose",
         "ERROR": "error",
         "INFO": "info",
-        "WARN": "warn"
+        "WARN": "warn",
+        "NONE": "none"
     },
     SetLogLevel: "debug",
     EnableLogging: false,
@@ -32,13 +34,48 @@ const AutoRename = {
 
 Object.keys(AutoRename).forEach(key => {
     // Do not lock these keys
-    if (!["ENABLE_LOGGING", "LOG_LEVEL", "CurrentTabId"].includes(key)) {
+    if (!["EnableLogging", "LOG_LEVEL", "CurrentTabId", "CurrentTabName"].includes(key)) {
         Object.defineProperty(AutoRename, key, {
             writable: false,
             configurable: false
         });
     }
 });
+
+function WriteLog(logType = "debug", details = ""){
+
+    const LogLevel = AutoRename.LogLevel;
+    const IsLoggingEnabled = AutoRename.EnableLogging;
+    let _type = logType;
+    let _message = details;
+    
+    if (typeof logType == "object" && !Array.isArray(logType) ){
+        _type       = logType.log_level || AutoRename.LogLevel.DEBUG;
+        _message    = logType.details   || details;
+    }
+
+    if (!IsLoggingEnabled) return;
+
+    switch (_type){
+        case LogLevel.DEBUG:
+            console.log(_message)
+            break;
+        case LogLevel.INFO:
+            console.info(_message);
+            break;
+        case LogLevel.ERROR:
+            console.error(_message);
+            break;
+        case LogLevel.WARN:
+            console.warn(_message);
+            break;
+        case LogLevel.VERBOSE:
+            console.log(_message);
+            break;
+    }
+
+}
+
 
 (() => {
     console.log("🎵 It's like each of our wishes shines through, it's the sea! We'll meet again here, we'll surely see each other again")
