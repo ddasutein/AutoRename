@@ -30,9 +30,16 @@ function QueryTab(tabData) {
         }
 
         url = url.split("/");
+        urlArray = url;
+        console.log(url);
+
+
         url = url[2];
 
-        UpdateContextMenus(url, tabs[0].url);
+        console.log(tabs)
+        AutoRename.CurrentTabId = tabs[0].id;
+
+        UpdateContextMenus(url, tabs[0].url, urlArray);
 
     }));
 
@@ -47,7 +54,7 @@ function QueryTab(tabData) {
  */
 
 
-function UpdateContextMenus(domain, fullURL){
+function UpdateContextMenus(domain, fullURL, urlArray){
 
     if ( (domain == undefined || domain == null || domain == "") || fullURL.includes("chrome-extension://")){
         return;
@@ -60,7 +67,7 @@ function UpdateContextMenus(domain, fullURL){
     const SetContextMenuVisibility = {
 
         Normal : ((uri, fullURL) => {
-
+            let domain = fullURL.split("/");
             let websiteConfigObject = WebsiteConfigObject.filter((x)=>{
                 return (x.uri).includes(uri) && x.inactive == false;
             });
@@ -69,15 +76,48 @@ function UpdateContextMenus(domain, fullURL){
 
                 let blockedByExcludedPath = false;
 
-                // Step 1: Check if we need to hide any additional paths on the website. For example,
-                // we don't want the extension to show context menus items if user is in Twitter DMs.
-                // Then set a flag to stop from further execution if path is detected
+                /**
+                 * STEP 1
+                 * 
+                 * Check for required paths. Some websites like Bluesky do not have any
+                 * links attached to the image unlike Twitter. So even if
+                 * the user is browsing the feed and the extension matches the base domain,
+                 * we still need to check if the user is on the required path.
+                 * 
+                 * On Bluesky, viewing a post would contain "profile" or "post" in the URL
+                 */
+                requiredPath = websiteConfigObject.map((x)=>{
+                    return x.require_path;
+                });
+
+                if (requiredPath.length > 0){
+                    requiredPath = requiredPath.some((rp)=>{
+                        return domain.some((d => d == rp));
+                    });
+
+                    websiteConfigObject.forEach((x)=>{
+                        (x.allowed_context_menu_items).map((c)=>{
+                            if (requiredPath){
+                                SetContextMenuVisibility.Show(c);
+                            } else {
+                                SetContextMenuVisibility.Hide(c);
+                            }
+                        });
+                    });
+                    return;
+                }
+
+                /**
+                 * STEP 2
+                 * 
+                 * Check if we need to hide any additional paths on the website. For example, 
+                 * we don't want the extension to show context menus items if user is in Twitter DMs.
+                 *  Then set a flag to stop from further execution if path is detected
+                 */
                 excludedPaths = websiteConfigObject.map((x) => {
                     return x.exclude_path;
                 });
                 if (excludedPaths.length != 0){
-                    let domain = fullURL.split("/");
-
                     excludedPaths[0].forEach((x) => {
                         if (domain.includes(x)){
                             SetContextMenuVisibility.HideAll();
@@ -88,7 +128,12 @@ function UpdateContextMenus(domain, fullURL){
                 
                 if (blockedByExcludedPath == true) return;
 
-                // Step 2: Then proceed to check base domain
+                /**
+                 * STEP 3
+                 * 
+                 * Then we can finally validate if the user is on the supported domain
+                 * 
+                 */
                 websiteConfigObject = websiteConfigObject.map((x)=>{
                     return x.allowed_context_menu_items;
                 })[0];
@@ -97,9 +142,7 @@ function UpdateContextMenus(domain, fullURL){
                     
                     let hasContextMenuItem = websiteConfigObject.some((x => x == CMID));
                     if (hasContextMenuItem == true){
-                        chrome.contextMenus.update(CMID, {
-                            visible: true
-                        });
+                        SetContextMenuVisibility.Show(CMID);
                     } else {
                         SetContextMenuVisibility.Hide(CMID);
                     }
@@ -108,6 +151,12 @@ function UpdateContextMenus(domain, fullURL){
             } else {
                 SetContextMenuVisibility.HideAll();
             }
+        }),
+
+        Show : ((CMID) => {
+            chrome.contextMenus.update(CMID, {
+                visible: true
+            });
         }),
 
         Hide: ((CMID) => {
@@ -194,6 +243,7 @@ Object.freeze(Website);
  * 
  * URI                          = Base URL of the website
  * Exclude Path                 = Add which path in the URL you want to hide the context menu item from appearing.
+ * Require Path                 = Add the required path in which the context menu can be visible
  * Inactive                     = Whether or not to display the context menu for that website even if they are added in this array.
  * allowed_context_menu_items   = Add/Remove context menu items here
  * file_name                    = This is still in beta for version 4.1.0. Will expand on this idea in the future
@@ -203,6 +253,7 @@ const WebsiteConfigObject = [
         name: "X",
         uri: [Website.Twitter, Website.Mobile_Twitter, Website.X, Website.XPro],
         exclude_path: ["messages"],
+        require_path: [""],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: ""
@@ -210,13 +261,15 @@ const WebsiteConfigObject = [
         name: "Bluesky",
         uri: [Website.Bluesky],
         exclude_path: [],
+        require_path: ["post"],
         inactive: false,
-        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
+        allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: "{prefix}-{website_title}-{bsky_username}-{bsky_post_id}-{date}-{randomstring}"
     }, {
         name: "Reddit",
         uri: [Website.Reddit, Website.Reddit_New, Website.Reddit_Old],
         exclude_path: [],
+        require_path: [],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
         file_name: ""
@@ -224,6 +277,7 @@ const WebsiteConfigObject = [
         name: "Threads",
         uri: [Website.Threads],
         exclude_path: [],
+        require_path: [],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
         file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
@@ -275,6 +329,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     data["tab_url"] = tab.url;
     data["info_url"] = info.srcUrl;
     data["link_url"] = info.linkUrl;
+    console.log(data);
+    console.log(info)
+    
 
     /**
      * When websites are hardcoded in the Switch statement, these are natively
