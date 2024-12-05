@@ -100,7 +100,39 @@ let Utility = {
 
     DateUtils: (() => {
         return {
+            GetUserFormat   : (() => {
 
+                let userDateFormat = "";
+
+                DateSettings = Settings.Load().General;
+                DateSettings = DateSettings.filter((x)=>{
+                    const dateKeys = [
+                        "global_custom_date_format", 
+                        "global_date_format", 
+                        "global_prefer_locale_format"
+                    ]
+                    return dateKeys.some((e => e == x.key));
+                }).reduce((obj, data) => {
+                    obj[data.key] = data;
+                    return obj;
+                }, {});
+
+                if (DateSettings["global_date_format"].value == "custom"){
+                    userDateFormat = DateSettings["global_custom_date_format"].value;
+                } else {
+                    userDateFormat = DateSettings["global_date_format"].value;
+                }
+                
+                if (DateSettings["global_prefer_locale_format"].value == true){
+                    userDateFormat = Utility.DateUtils().GetLocaleFormat();
+                }
+
+                return userDateFormat;
+            }),
+            GetCurrentTime  : (() => Utility.DateUtils().SetupDateFormat({
+                inputDate: moment(),
+                preferLocaleFormat: true
+            })),
             GetTimeZone     : (() => Intl.DateTimeFormat().resolvedOptions().timeZone),
             GetLocaleFormat : (() => {
                 const browserLanguage = AutoRename.Language;
@@ -134,7 +166,7 @@ let Utility = {
                 if (utcOffset == null) utcOffset = Utility.DateUtils().GetUTCOffset();
 
                 if (prefer_locale_format){
-                    dateStr = Utility.DateUtils().GetLocaleFormat()
+                    dateStr = Utility.DateUtils().GetLocaleFormat();
                 } else {
                     dateStr = moment().utcOffset(utcOffset).format(date_format);
                     if (dateStr.match(specialCharacters)){
