@@ -14,208 +14,228 @@
 
 var Twitter = {
 
+    InfoUrl: null,
+    TabUrl: null,
+    LinkUrl: null,
+
+    Parameters: (() => WebsiteConfigObject.filter((x => (x.uri).includes(Website.X)))[0]),
+
     IsArticle: ((url) => {
+        
+        url = Twitter.LinkUrl;
 
         let isXArticle = false;
-        url = url.split("/");
-        isXArticle = url.some((x => x == "article"));
+        if (url != undefined){
+            url = url.split("/");
+            isXArticle = url.some((x => x == "article"));
+        }
         return isXArticle;
-        
+
     }),
 
-    BuildFileName: ((twitterConfig, generalSettings, fileNameObj)=>{
-        let temp;
-        temp = `{prefix}-{website_title}-{username}-{tweetId}-{date}-{randomstring}`;
-        temp = temp.split("-");
-
-        if (!twitterConfig["twitter_include_mention_symbol"].value){
-            temp[temp.indexOf("{username}")] = fileNameObj.username;
-        } else {
-            temp[temp.indexOf("{username}")] = `@${fileNameObj.username}`;
-        }
-
-        if (!twitterConfig["twitter_include_tweet_id"].value){
-            Utility.RemoveUnusedParameter(temp, "{tweetId}");
-        } else {
-            temp[temp.indexOf("{tweetId}")] = fileNameObj.tweetId;
-        }
-
-        if (!twitterConfig["twitter_include_website_title"].value){
-            Utility.RemoveUnusedParameter(temp, "{website_title}");
-        } else {
-            temp[temp.indexOf("{website_title}")] = "X";
-        }
-
-        if (!twitterConfig["twitter_include_date"].value){
-            Utility.RemoveUnusedParameter(temp, "{date}");
-        } else {
-            let prefObj = {};
-
-            if (generalSettings["global_prefer_locale_format"].value == true){
-                prefObj["prefer_locale_format"] = true;
-                const timedateValue = getTimeDate(prefObj);
-                temp[temp.indexOf("{date}")] = timedateValue;
-            } else {
-
-                prefObj["prefer_locale_format"] = false;
-
-                if (generalSettings["global_date_format"].value == "custom"){
-                    prefObj["date_format"] = generalSettings["global_custom_date_format"].value;
-                } else {
-                    prefObj["date_format"] = GetDateFormat(generalSettings["global_date_format"].value);
-                }
-
-                const timedateValue = getTimeDate(prefObj)
-                temp[temp.indexOf("{date}")] = timedateValue;
-
+    Settings: (() => {
+        return Settings.Load().Twitter.map((data)=>{
+            return {
+                "key": data.key,
+                "value": data.value
             }
-
-        }
-
-        if (twitterConfig["twitter_random_string_length"].value == "0"){
-            temp[temp.indexOf("{randomstring}")] = fileNameObj.photo_count;
-
-        } else {
-            temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(twitterConfig["twitter_random_string_length"].value);
-        }
-
-        if (fileNameObj.use_prefix == true){
-
-            if (twitterConfig["twitter_settings_custom_prefix"].value == ""){
-                Utility.RemoveUnusedParameter(temp, "{prefix}");
-            } else {
-                temp[temp.indexOf("{prefix}")] = twitterConfig["twitter_settings_custom_prefix"].value;
-            }
-
-        } else {
-            Utility.RemoveUnusedParameter(temp, "{prefix}");
-        }
-
-        return temp.toString().replace(/,/g, "-");
+        }).reduce((obj, data)=>{
+            obj[data.key] = data;
+            return obj;
+        }, {});
     }),
 
-    ImageFormatType : ((url)=>{
+    ImageFormatType : (()=>{
+
+        let XSettings = Twitter.Settings();
+
+        url = Twitter.InfoUrl;
         if (url.includes("webp")){
-            return "." + url.split("?format=")[1].substring(0, 4);
+
+            if (XSettings["twitter_settings_download_as_jpeg"].value == true){
+                return "jpg";
+            }
+
+            return url.split("?format=")[1].substring(0, 4);
         } else {
-            return "." + url.split("?format=")[1].substring(0, 3);
+            return url.split("?format=")[1].substring(0, 3);
         }
     }),
 
-    ImageSizeType : (()=> {
-        const size = [{
-            small: "&name=small",
-            medium: "&name=medium",
-            large: "&name=large",
-            original: "&name=orig"
-        }];
-        return size.map((x => x))[0];
-    }),
+    GetImageSource : ((image_format = Twitter.ImageFormatType() )=>{
 
-    MediaSrc : ((linkUrl)=>{
-        let src = "";
-        src = linkUrl.substring(0, linkUrl.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().large
+        function isValidImageFormat(format){
+            
+            let isValid = false;
+            const supportedImageFormat = ["jpg", "png", "jpeg", "webp"];
+            isValid = supportedImageFormat.some((e => e == format));
+            
+            if (!isValid){
+                console.error("Invalid image format. Twitter/X only supports jpg, png, and webp");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        let _imageFormat = image_format;
+        if (Utility.ValidateParameter(image_format)){
+            _imageFormat = image_format.format || Twitter.ImageFormatType();
+        }
+
+        _imageFormat = isValidImageFormat(_imageFormat) ? _imageFormat : Twitter.ImageFormatType();
+
+        const Size = {
+            Small: "&name=small",
+            Medium: "&name=medium",
+            Large: "&name=large"
+        };
+
+        let src = Twitter.InfoUrl;
+        src = src.substring(0, src.lastIndexOf("&name=") + 0) + Size.Large;
+        src = src.replace(/\?format=[^&]+/, `?format=${_imageFormat}`).replace(/\?(?!format)/, `?format=${_imageFormat}&`);
         return src;
     }),
 
-    ViewOriginalImage : (async (url)=>{
-
-        twitterConfig = Settings.Load().Twitter.map((data)=>{
-            return {
-                "key": data.key,
-                "value": data.value
-            }
-        }).reduce((obj, data)=>{
-            obj[data.key] = data;
-            return obj;
-        }, {});
-
-        if (twitterConfig["twitter_settings_download_as_jpeg"].value == true){
-            url.info_url = (url.info_url).replace("?format=webp", "?format=jpg");
-        }
-    
-        if (url.info_url.includes("&name=")) {
-            updatedUrl = url.info_url.substring(0, url.info_url.lastIndexOf("&name=") + 0) + Twitter.ImageSizeType().large
-        } else {
-            updatedUrl = url.info_url;
-        }
-        Utility.CreateNewTab(updatedUrl)
-        
+    ViewOriginalImage : ( ()=>{
+        Utility.CreateNewTab(Twitter.GetImageSource());
     }),
 
-    SaveMedia : ( (data, contextMenuSelectedId)=>{
+    ParseURL: (() => {
 
-        let filename = "";
-        let tweetId;
-        let fileNameObj = {};
-        
-        twitterConfig = Settings.Load().Twitter.map((data)=>{
-            return {
-                "key": data.key,
-                "value": data.value
-            }
-        }).reduce((obj, data)=>{
-            obj[data.key] = data;
-            return obj;
-        }, {});
+        let _url = Twitter.LinkUrl;
+        let urlObj = {};
 
-        generalSettings = Settings.Load().General.map((data)=>{
-            return {
-                "key": data.key,
-                "value": data.value
-            }
-        }).reduce((obj, data)=>{
-            obj[data.key] = data;
-            return obj;
-        }, {});
+        _url = _url.split("/");
+        _url[3] != undefined ? urlObj["username"] = _url[3] : urlObj["username"] = null;
+        _url[5] != undefined ? urlObj["tweet_id"] = _url[5] : urlObj["tweet_id"] = null;
 
-        if (twitterConfig["twitter_settings_download_as_jpeg"].value == true){
-            data.info_url = (data.info_url).replace("?format=webp", "?format=jpg");
+        return urlObj;
+    }),
+
+    GetUsername: (() => {
+        return Twitter.ParseURL().username;
+    }),
+
+    GetTweetId: (() => {
+        return Twitter.ParseURL().tweet_id;
+    }),
+
+    GetMediaIndex: (() => {
+        let _url = Twitter.LinkUrl;
+        _url = _url.split("/");
+        photoIndex = _url.indexOf("photo");
+
+        if (photoIndex != -1){
+            return _url[photoIndex + 1];
         }
 
-        const specialCharacters = /[?!@#$%^&*(),';:*-.]/g;
+        return 0;
+    }),
 
-        // Rule 1: When full tweet is clicked then it should be prioritized first
-        if (!!data.tab_url){
-            if (specialCharacters.test(Utility.SplitURL(data.tab_url, 5))){
-                tweetId = Utility.SplitURL(data.tab_url, 5).split(specialCharacters)[0];
-            } else {
-                tweetId = Utility.SplitURL(data.tab_url, 5);
+    SaveMedia : ( (data, contextMenuSelectedId) => {
+
+        function RandomString(length = 4){
+            let _length = length;
+            let _isXArticle = Twitter.IsArticle();
+            let randomStr = "";
+
+            let MediaIndex = Twitter.GetMediaIndex();
+            if (Utility.ValidateParameter(length)){
+                _length = length.length || length;
             }
-        } 
-        
-        // Rule 2: If Tweet ID is still empty then retrieve it from linkUrl
-        if (tweetId == "" || tweetId == undefined || tweetId == null){
-            if (!!data.link_url){
-                if (specialCharacters.test(Utility.SplitURL(data.link_url, 5))){
-                    tweetId = Utility.SplitURL(data.link_url, 5).split(specialCharacters)[0];
+
+            if (_length == "0"){
+                
+                if (_isXArticle){
+                    const articleMediaId = (Twitter.LinkUrl).split("/")[7];
+                    randomStr = articleMediaId;
+
                 } else {
-                    tweetId = Utility.SplitURL(data.link_url, 5);
+                    randomStr = `img${MediaIndex}`;
+                }
+
+            } else {
+                randomStr = Utility.GenerateRandomString(_length);
+            }
+
+            return randomStr;
+        }
+
+        const GlobalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        Twitter.InfoUrl         = data.info_url;
+        Twitter.TabUrl          = data.tab_url;
+        Twitter.LinkUrl         = data.link_url;
+        const X                 = Twitter.Parameters();
+        const XSettings         = Twitter.Settings();
+        const XTitle            = X.name;
+        const XPostId           = Twitter.GetTweetId();
+        const XUsername         = Twitter.GetUsername();
+        const XImageFormat      = Twitter.ImageFormatType();
+        const isViewingXArticle = Twitter.IsArticle();
+        const DateUtils         = Utility.DateUtils();
+        const CurrentTime       = DateUtils.GetCurrentTime();
+        const CurrentFormat     = DateUtils.GetUserFormat();
+
+        const XTimestamp = DateUtils.SetupDateFormat({
+            inputDate: CurrentTime,
+            preferLocaleFormat: false,
+            dateFormat: CurrentFormat
+        });
+
+        const XObject = {};
+        XObject["username"] = XSettings["twitter_include_mention_symbol"].value ? `@${XUsername}` : XUsername;
+        XObject["randomstring"] = RandomString({
+            url: data.tab_url,
+            length: XSettings["twitter_random_string_length"].value
+        });
+
+        XSettings["twitter_include_tweet_id"].value ? XObject["tweetId"] = XPostId : null ;
+        XSettings["twitter_include_date"].value ? XObject["date"] = XTimestamp : null ;
+        contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? XObject["prefix"] = XSettings["twitter_settings_custom_prefix"].value : null;
+
+
+        FILE_NAME_FORMAT = X.file_name;
+        FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
+        FILE_NAME_FORMAT = FILE_NAME_FORMAT.map((FNF)=>{
+            let hasReplacedValue = false;
+            for (let BFN in XObject){
+                if (FNF == `{${BFN}}`) {
+                    FNF = FNF.replace(`{${BFN}}`, XObject[BFN]);
+                    hasReplacedValue = true;
+                    break;
                 }
             }
+            return hasReplacedValue ? FNF : null;
+        }).filter((x => x != null)).join("-");
+
+        let filename = FILE_NAME_FORMAT;
+        let fileNameDisplay = FILE_NAME_FORMAT;
+
+        if (GlobalSettings["global_use_autorename_folder"].value == true && ["twitter_save_image_to_folder_based_on_username"].value == true){
+            filename = XSettings["twitter_save_image_to_folder_based_on_username"].value ? `${XUsername}/${filename}` : filename;
         }
 
-        fileNameObj["username"] = data.link_url != undefined ? Utility.SplitURL(data.link_url, 3) : Utility.SplitURL(data.tab_url, 3);
-        fileNameObj["tweetId"] = tweetId;
-        fileNameObj["use_prefix"] = contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? true : false;
-        fileNameObj["photo_count"] = data.link_url != undefined ? `img${Utility.SplitURL(data.link_url, 7)}` : "img1";
-
-        filename = Twitter.BuildFileName(twitterConfig, generalSettings, fileNameObj) + Twitter.ImageFormatType(data.info_url);
-        fileNameDisplay = filename;
-        if (generalSettings["global_use_autorename_folder"].value == true && twitterConfig["twitter_save_image_to_folder_based_on_username"].value == true){
-            filename = `${fileNameObj.username}/${filename}`
-        }
+        filename = `${filename}.${XImageFormat}`;
 
         let twitterFileProp = [];
-
 
         switch (contextMenuSelectedId){
             case ContextMenuID.SaveImage:
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
-                    url: Twitter.MediaSrc(data.info_url),
-                    website: "X",
+                    url: Twitter.GetImageSource(),
+                    website: XTitle,
         
                 });
                 DownloadManager.StartDownload(twitterFileProp);
@@ -225,8 +245,8 @@ var Twitter = {
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
-                    url: Twitter.MediaSrc(data.info_url),
-                    website: "X",
+                    url: Twitter.GetImageSource(),
+                    website: XTitle,
         
                 });
                 DownloadManager.StartDownload(twitterFileProp);
@@ -240,8 +260,8 @@ var Twitter = {
                 twitterFileProp.push({
                     filename: filename,
                     filename_display: fileNameDisplay,
-                    url: Twitter.MediaSrc(data.info_url),
-                    website: "X",
+                    url: Twitter.GetImageSource(),
+                    website: XTitle,
         
                 });
                 DownloadManager.AddDownloadQueue(twitterFileProp);
