@@ -133,6 +133,22 @@ var Twitter = {
         return 0;
     }),
 
+    ConvertTweetTimestamp: ((tweetId = "") => {
+        
+        let _tweetId = tweetId;
+        
+        if (Utility.ValidateParameter(_tweetId)){
+            _tweetId = tweetId.tweetId || "";
+        }
+
+        if (!_tweetId) throw Error("Tweet ID not specified");
+        
+        const twitterEpoch = 1288834974657;
+        const TweetTimeStamp = (BigInt(_tweetId) >> BigInt(22)) + BigInt(twitterEpoch);
+
+        return TTS = new Date(Number(TweetTimeStamp));
+    }),
+
     SaveMedia : ( (data, contextMenuSelectedId) => {
 
         function RandomString(length = 4){
