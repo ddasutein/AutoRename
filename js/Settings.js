@@ -73,6 +73,7 @@ let Settings = {};
         twitter_settings_custom_prefix: "",
         twitter_save_image_to_folder_based_on_username: false,
         twitter_settings_download_as_jpeg: false,
+        twitter_settings_set_timestamp_preference: "systemtime",
         //#endregion
     
         //#region LINE BLOG Settings
@@ -238,6 +239,11 @@ let Settings = {};
                 name: "Download as JPEG",
                 value: items.twitter_settings_download_as_jpeg,
                 key: "twitter_settings_download_as_jpeg"
+            }, {
+                category: Category.Twitter,
+                name: "Set Timestamp Preference",
+                value: items.twitter_settings_set_timestamp_preference,
+                key: "twitter_settings_set_timestamp_preference"
             },
             //#endregion
     
