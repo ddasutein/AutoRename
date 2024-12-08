@@ -197,16 +197,29 @@ var Twitter = {
         const XPostId           = Twitter.GetTweetId();
         const XUsername         = Twitter.GetUsername();
         const XImageFormat      = Twitter.ImageFormatType();
-        const isViewingXArticle = Twitter.IsArticle();
+        const XOriginalPostTime = Twitter.ConvertTweetTimestamp(XPostId);
         const DateUtils         = Utility.DateUtils();
         const CurrentTime       = DateUtils.GetCurrentTime();
         const CurrentFormat     = DateUtils.GetUserFormat();
-
-        const XTimestamp = DateUtils.SetupDateFormat({
-            inputDate: CurrentTime,
-            preferLocaleFormat: false,
-            dateFormat: CurrentFormat
-        });
+        const OrigTweetTime     = Twitter.ConvertTweetTimestamp(XPostId);
+        const XTimestampPref    = XSettings["twitter_settings_set_timestamp_preference"].value;
+        
+        let XTimestamp          = "";
+        switch (XTimestampPref){
+            case "systemtime":
+                XTimestamp = DateUtils.SetupDateFormat({
+                    inputDate: CurrentTime,
+                    preferLocaleFormat: true
+                });
+                break;
+            case "originaltweettimestamp":
+                XTimestamp = DateUtils.SetupDateFormat({
+                    inputDate: OrigTweetTime,
+                    preferLocaleFormat: false,
+                    dateFormat: CurrentFormat
+                });
+                break;
+        }
 
         const XObject = {};
         XObject["username"] = XSettings["twitter_include_mention_symbol"].value ? `@${XUsername}` : XUsername;
