@@ -120,11 +120,43 @@ let Utility = {
                 if (DateSettings["global_date_format"].value == "custom"){
                     userDateFormat = DateSettings["global_custom_date_format"].value;
                 } else {
-                    userDateFormat = DateSettings["global_date_format"].value;
+
+                    switch (+DateSettings["global_date_format"].value){
+                        case 0:
+                            userDateFormat = "MM-DD-YYYY";
+                            break;
+                        case 1:
+                            userDateFormat = "DD-MM-YYYY";
+                            break;
+                        case 2:
+                            userDateFormat = "YYYY-MM-DD";
+                            break;
+                            // 3-5 = Long Format
+                        case 3:
+                            userDateFormat = "MMMM DD, YYYY";
+                            break;
+                        case 4:
+                            userDateFormat = "DD MMMM YYYY";
+                            break;
+                        case 5:
+                            userDateFormat = "YYYY MMMM DD";
+                            break;
+                            // 6-8 = Short Format
+                        case 6:
+                            userDateFormat = "MMM DD, YYYY";
+                            break;
+                        case 7:
+                            userDateFormat = "DD MMM YYYY";
+                            break;
+                        case 8:
+                            userDateFormat = "YYYY MMM DD";
+                            break;
+                    }
                 }
                 
                 if (DateSettings["global_prefer_locale_format"].value == true){
-                    userDateFormat = Utility.DateUtils().GetLocaleFormat();
+                    userDateFormat = "LLL";
+                    console.log(userDateFormat);
                 }
 
                 return userDateFormat;
@@ -135,8 +167,7 @@ let Utility = {
             })),
             GetTimeZone     : (() => Intl.DateTimeFormat().resolvedOptions().timeZone),
             GetLocaleFormat : (() => {
-                const browserLanguage = AutoRename.Language;
-                return moment().locale(browserLanguage).format("LL");
+                return moment().locale(AutoRename.Language).format("LLL");
             }),
             GetUTCOffset    : ((locale = "") => {
                 let _locale = locale;
@@ -168,12 +199,15 @@ let Utility = {
                 if (prefer_locale_format){
                     dateStr = Utility.DateUtils().GetLocaleFormat();
                 } else {
-                    dateStr = moment().utcOffset(utcOffset).format(date_format);
-                    if (dateStr.match(specialCharacters)){
-                        dateStr = dateStr.replace(specialCharacters, "_");
+
+                    if (utcOffset != null || utcOffset != undefined){
+                        dateStr = moment(dateStr).utcOffset(utcOffset).format(date_format);
+                    } else {
+                        dateStr = moment(dateStr).format(date_format);
                     }
                 }
-
+                
+                dateStr = dateStr.replace(specialCharacters, "_");
                 return dateStr;
             })
 
