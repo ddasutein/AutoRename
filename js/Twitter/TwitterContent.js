@@ -224,14 +224,13 @@ var Twitter = {
         const XObject = {};
         XObject["username"] = XSettings["twitter_include_mention_symbol"].value ? `@${XUsername}` : XUsername;
         XObject["randomstring"] = RandomString({
-            url: data.tab_url,
             length: XSettings["twitter_random_string_length"].value
         });
 
         XSettings["twitter_include_tweet_id"].value ? XObject["tweetId"] = XPostId : null ;
         XSettings["twitter_include_date"].value ? XObject["date"] = XTimestamp : null ;
+        
         contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? XObject["prefix"] = XSettings["twitter_settings_custom_prefix"].value : null;
-
 
         FILE_NAME_FORMAT = X.file_name;
         FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
