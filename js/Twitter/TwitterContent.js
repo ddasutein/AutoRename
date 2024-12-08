@@ -259,16 +259,6 @@ var Twitter = {
 
         switch (contextMenuSelectedId){
             case ContextMenuID.SaveImage:
-                twitterFileProp.push({
-                    filename: filename,
-                    filename_display: fileNameDisplay,
-                    url: Twitter.GetImageSource(),
-                    website: XTitle,
-        
-                });
-                DownloadManager.StartDownload(twitterFileProp);
-                break;
-
             case ContextMenuID.SaveImageWithPrefix:
                 twitterFileProp.push({
                     filename: filename,
