@@ -161,10 +161,7 @@ let Utility = {
 
                 return userDateFormat;
             }),
-            GetCurrentTime  : (() => Utility.DateUtils().SetupDateFormat({
-                inputDate: moment(),
-                preferLocaleFormat: true
-            })),
+            GetCurrentTime  : (() => new Date()),
             GetTimeZone     : (() => Intl.DateTimeFormat().resolvedOptions().timeZone),
             GetLocaleFormat : (() => {
                 return moment().locale(AutoRename.Language).format("LLL");
