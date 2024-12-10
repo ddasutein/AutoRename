@@ -137,13 +137,11 @@ var Bluesky = {
         const DateUtils         = Utility.DateUtils();
         const CurrentTime       = DateUtils.GetCurrentTime();
         const CurrentFormat     = DateUtils.GetUserFormat();
-
         const BSKY_TS = DateUtils.SetupDateFormat({
             inputDate: CurrentTime,
             preferLocaleFormat: false,
             dateFormat: CurrentFormat
         });
-
         let BSKYObject          = {}
 
         BSKYObject["bsky_username"] = BKSYUsername;
@@ -182,15 +180,6 @@ var Bluesky = {
         switch (contextMenuSelectedId){
 
             case ContextMenuID.SaveImage:
-                BlueskyProp.push({
-                    filename: `${FILE_NAME}`,
-                    filename_display: FILE_NAME,
-                    url: BKSYUrl,
-                    website: BSKYTitle,
-                });
-                DownloadManager.StartDownload(BlueskyProp);
-                break;
-
             case ContextMenuID.SaveImageWithPrefix:
                 BlueskyProp.push({
                     filename: `${FILE_NAME}`,
