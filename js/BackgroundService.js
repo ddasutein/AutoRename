@@ -87,7 +87,6 @@ function WriteLog(logType = "debug", details = ""){
         "/lib/Moment/moment-with-locales.js",
         "/lib/Moment/moment-timezone-with-data.js",
         "/js/Common/Utility.js",
-        "/js/Common/SetTimeDate.js",
         "/js/Twitter/TwitterContent.js",
         "/js/Bluesky/Bluesky.js",
         "/js/Reddit/RedditContent.js",
