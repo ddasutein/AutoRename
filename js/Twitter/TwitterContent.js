@@ -229,6 +229,7 @@ var Twitter = {
 
         XSettings["twitter_include_tweet_id"].value ? XObject["tweetId"] = XPostId : null ;
         XSettings["twitter_include_date"].value ? XObject["date"] = XTimestamp : null ;
+        XSettings["twitter_include_website_title"].value ? XObject["website_title"] = XTitle : null ;
         
         contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? XObject["prefix"] = XSettings["twitter_settings_custom_prefix"].value : null;
 
@@ -249,7 +250,7 @@ var Twitter = {
         let filename = FILE_NAME_FORMAT;
         let fileNameDisplay = FILE_NAME_FORMAT;
 
-        if (GlobalSettings["global_use_autorename_folder"].value == true && ["twitter_save_image_to_folder_based_on_username"].value == true){
+        if (GlobalSettings["global_use_autorename_folder"].value == true && XSettings["twitter_save_image_to_folder_based_on_username"].value == true){
             filename = XSettings["twitter_save_image_to_folder_based_on_username"].value ? `${XUsername}/${filename}` : filename;
         }
 
