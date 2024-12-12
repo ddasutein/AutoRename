@@ -104,6 +104,11 @@ var Twitter = {
     ParseURL: (() => {
 
         let _url = Twitter.LinkUrl;
+
+        if (_url == undefined || _url == null){
+            _url = Twitter.TabUrl;
+        }
+
         let urlObj = {};
 
         _url = _url.split("/");
@@ -123,6 +128,11 @@ var Twitter = {
 
     GetMediaIndex: (() => {
         let _url = Twitter.LinkUrl;
+
+        if (_url == undefined || _url == null){
+            _url = Twitter.TabUrl;
+        }
+
         _url = _url.split("/");
         photoIndex = _url.indexOf("photo");
 
@@ -209,7 +219,8 @@ var Twitter = {
             case "systemtime":
                 XTimestamp = DateUtils.SetupDateFormat({
                     inputDate: CurrentTime,
-                    preferLocaleFormat: true
+                    preferLocaleFormat: false,
+                    dateFormat: CurrentFormat
                 });
                 break;
             case "originaltweettimestamp":
