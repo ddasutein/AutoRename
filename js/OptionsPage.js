@@ -232,6 +232,35 @@ document.onreadystatechange = () => {
             }
         });
 
+        const blueskyPref = Settings.Load().Bluesky;
+        blueskyPref.map((x) => {
+            switch (x.key) {
+
+                case "blueskyIncludeWebsite":
+                    document.getElementById("bsky_settings_include_site_title").checked = x.value;
+                    break;
+
+                case "blueskyIncludeDate":
+                    document.getElementById("bsky_settings_include_date").checked = x.value;
+                    break;
+
+                case "blueskyRandomStringLength":
+                    document.getElementById("bsky_settings_string_length").value = x.value;
+                    break;
+
+                case "blueskySaveImageToFolderBasedOnUsername":
+                    document.getElementById("bsky_settings_save_to_folder_by_username").checked = x.value;
+                    break;
+
+                case "blueskyCustomPrefix":
+                    document.getElementById("bsky_settings_custom_prefix").value = x.value;
+                    break;
+
+
+            }
+        });
+        
+
     }
 }
 
@@ -375,6 +404,35 @@ document.addEventListener("DOMContentLoaded", (() => {
                         messageBox.Save();
 
                     } catch (e) {
+                        console.error(e);
+                        messageBox.Warning(e.title, e.message);
+                    }
+
+                }));
+
+                break;
+
+            case "button_save_bluesky":
+
+                buttons.addEventListener("click", (() => {
+
+                    try {
+                        temp.push(ValidatePrefix("blueskyCustomPrefix", document.getElementById("bsky_settings_custom_prefix").value));
+                        temp.forEach((x) => {
+                            if (x.is_error == true) {
+                                errorCode["title"] = x.title;
+                                errorCode["message"] = x.message;
+                                throw errorCode;
+
+                            }
+                        });
+
+                        Settings.Save("blueskyIncludeWebsite", document.getElementById("bsky_settings_include_site_title").checked);
+                        Settings.Save("blueskyIncludeDate", document.getElementById("bsky_settings_include_date").checked);
+                        Settings.Save("blueskyRandomStringLength", document.getElementById("bsky_settings_string_length").value);
+                        Settings.Save("blueskySaveImageToFolderBasedOnUsername", document.getElementById("bsky_settings_save_to_folder_by_username").checked);
+                        messageBox.Save();
+                    } catch(e){
                         console.error(e);
                         messageBox.Warning(e.title, e.message);
                     }
