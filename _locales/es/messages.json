@@ -282,7 +282,7 @@
         "message": "Incluir el ID del Tweet"
     },
     "twitter_settings_include_date": {
-        "message": "Incluir la Fecha (Basado en la fecha del sistema operativo)"
+        "message": "Incluir la Fecha"
     },
     "twitter_settings_site_title": {
         "message": "Incluir el título de la página [X]"

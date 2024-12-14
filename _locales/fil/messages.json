@@ -282,7 +282,7 @@
         "message": "Isama ang Tweet ID"
     },
     "twitter_settings_include_date": {
-        "message": "Isama ang Petsa (Based sa petsta ng system)"
+        "message": "Isama ang Petsa"
     },
     "twitter_settings_site_title": {
         "message": "Isama ang titlo ng website [X]"

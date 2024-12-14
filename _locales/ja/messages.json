@@ -283,7 +283,7 @@
         "message": "TweetのIDを含める"
     },
     "twitter_settings_include_date": {
-        "message": "日付を含める【システム日付に基づく】"
+        "message": "日付を含める"
     },
     "twitter_settings_site_title": {
         "message": "ウェブサイトを題名含める 【X】"
@@ -422,7 +422,7 @@
         "message": "タイムスタンプの設定"
     },
     "twitter_settings_timestamp_pref_device_time": {
-        "message": "デバイスの設定に基づいた現地時間を使用するs"
+        "message": "デバイスの設定に基づいた現地時間を使用する"
     },
     "twitter_settings_timestamp_pref_tweet_time": {
         "message": "ツイートが投稿された元の時刻を使用する"

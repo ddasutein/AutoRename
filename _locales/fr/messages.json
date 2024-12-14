@@ -282,7 +282,7 @@
         "message": "Inclure l'identifiant (ID) du Tweet"
     },
     "twitter_settings_include_date": {
-        "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
+        "message": "Inclure la date"
     },
     "twitter_settings_site_title": {
         "message": "Inclure le titre du site Web [X]"
