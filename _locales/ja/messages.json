@@ -377,7 +377,7 @@
         "message": "ダウンロード中です"
     },
     "common_section_header_threads": {
-        "message": "設定"
+        "message": "Threads設定"
     },
     "common_navigation_threads": {
         "message": "Threads"
@@ -411,5 +411,26 @@
     },
     "common_section_appearance": {
         "message": "外観"
+    },
+    "common_section_header_bluesky": {
+        "message": "Bluesky設定"
+    },
+    "common_label_include_date_based_on_system_date": {
+        "message": "日付を含める【システム日付に基づく】"
+    },
+    "common_label_set_timestamp_preference": {
+        "message": "タイムスタンプの設定"
+    },
+    "twitter_settings_timestamp_pref_device_time": {
+        "message": "デバイスの設定に基づいた現地時間を使用するs"
+    },
+    "twitter_settings_timestamp_pref_tweet_time": {
+        "message": "ツイートが投稿された元の時刻を使用する"
+    },
+    "bluesky_settings_description": {
+        "message": "Blueskyのファイル名形式をカスタマイズする"
+    },
+    "bluesky_settings_site_title": {
+        "message": "ウェブサイトを題名含める 【Bluesky】"
     }
 }

@@ -98,6 +98,10 @@
         "message": "Threads Settings"
     },
 
+    "common_section_header_bluesky": {
+        "message": "Threads Settings"
+    },
+
     "common_section_downloads": {
         "message": "Downloads"
     },
@@ -196,6 +200,14 @@
 
     "common_add_to_download_queue": {
         "message": "Add to Download Queue"
+    },
+
+    "common_label_include_date_based_on_system_date": {
+        "message": "Include Date (Based on System Date)"
+    },
+
+    "common_label_set_timestamp_preference": {
+        "message": "Set Timestamp Preference"
     },
 
     "context_click_here": {
@@ -398,6 +410,12 @@
     "twitter_settings_download_as_jpeg": {
         "message": "Download as JPEG only"
     },
+    "twitter_settings_timestamp_pref_device_time": {
+        "message": "Use local time based on your device's settings"
+    },
+    "twitter_settings_timestamp_pref_tweet_time": {
+        "message": "Use the original time the tweet was posted"
+    },
 
     "threads_settings_description": {
         "message": "Customize File Name Format for Threads"
@@ -437,6 +455,14 @@
 
     "reddit_settings_include_date": {
         "message": "Include Date (Based on System Date)"
+    },
+
+    "bluesky_settings_description": {
+        "message": "Customize File Name Format for Bluesky"
+    },
+
+    "bluesky_settings_site_title": {
+        "message": "Include Website Title [Bluesky]"
     },
 
     "downloads_section_description": {
