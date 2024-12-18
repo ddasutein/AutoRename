@@ -282,7 +282,7 @@
         "message": "Inclure l'identifiant (ID) du Tweet"
     },
     "twitter_settings_include_date": {
-        "message": "Inclure la date (basée sur la date du systèmes d’exploitation)"
+        "message": "Inclure la date"
     },
     "twitter_settings_site_title": {
         "message": "Inclure le titre du site Web [X]"
@@ -410,5 +410,26 @@
     },
     "common_section_appearance": {
         "message": "Appearance"
+    },
+    "common_section_header_bluesky": {
+        "message": "Threads Settings"
+    },
+    "common_label_include_date_based_on_system_date": {
+        "message": "Include Date (Based on System Date)"
+    },
+    "common_label_set_timestamp_preference": {
+        "message": "Set Timestamp Preference"
+    },
+    "twitter_settings_timestamp_pref_device_time": {
+        "message": "Use local time based on your device's settings"
+    },
+    "twitter_settings_timestamp_pref_tweet_time": {
+        "message": "Use the original time the tweet was posted"
+    },
+    "bluesky_settings_description": {
+        "message": "Customize File Name Format for Bluesky"
+    },
+    "bluesky_settings_site_title": {
+        "message": "Include Website Title [Bluesky]"
     }
 }

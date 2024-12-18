@@ -400,12 +400,13 @@ a:-webkit-any-link {
 
 .download-card-site {
   background-color: var(--download-card-title);
-  border-radius: 5px;
+  border-radius: 6px;
   color: #fff;
   display: inline-flex;
   margin-top: 5px;
-  padding: 2px;
-  font-size: 12px;
+  padding: 4px 7px;
+  font-size: 0.8em;
+  font-weight: 600;
 }
 
 .download-card-actions {
