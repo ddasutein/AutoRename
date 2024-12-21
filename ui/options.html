@@ -68,6 +68,11 @@
                         <div data-i18n="common_navigation_threads"></div>
                     </div>
                 </li>
+                <li data-tab-target="#bluesky" class="tab">
+                    <div class="navbar-tab-label">
+                        <div>Bluesky</div>
+                    </div>
+                </li>
                 <li data-tab-target="#about" class="tab">
                     <div class="navbar-tab-label">
                         <div data-i18n="common_navigation_about"></div>
@@ -303,6 +308,17 @@
                         </tr>
                         <tr>
                             <td>
+                                <label data-i18n="common_label_set_timestamp_preference"></label>
+                            </td>
+                            <td>
+                                <select id="twitter_settings_select_date">
+                                    <option value="systemtime" data-i18n="twitter_settings_timestamp_pref_device_time"></option>
+                                    <option value="originaltweettimestamp" data-i18n="twitter_settings_timestamp_pref_tweet_time"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 <label data-i18n="common_label_generator_length"></label>
                             </td>
                             <td>
@@ -372,8 +388,8 @@
                                 <td><b><img class="section-ico" src="/assets/threads.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_threads"></span></b></td>
                                 <td>
                                     <div class="button-container">
-                                        <button type="button" id="button_help_lineblog" data-i18n="button_help"></button>
-                                        <button type="submit" class="button_save" id="button_save_lineblog" data-i18n="button_save" value="save"></button>
+                                        <button type="button" id="button_help_threads" data-i18n="button_help"></button>
+                                        <button type="submit" class="button_save" id="button_save_threads" data-i18n="button_save" value="save"></button>
                                     </div>
                                 </td>
                             </tr>
@@ -555,6 +571,104 @@
                 </div>
             </div>
 
+            <!-- TAB : BLUESKY -->
+            <div id="bluesky" data-tab-content>
+                <div class="tab-content-main">
+                    <div class="main-body-table">
+                        <table class="main-body-table">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><b><img class="section-ico" src="/assets/bluesky-logo-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_bluesky"></span></b></td>
+                                <td>
+                                    <div class="button-container">
+                                        <button type="button" id="button_help_bluesky" data-i18n="button_help"></button>
+                                        <button type="submit" class="button_save" id="button_save_bluesky" data-i18n="button_save" value="save"></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p data-i18n="bluesky_settings_description"></p></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <!-- SECTION : FILE NAME -->
+                        <div class="main-body-section-header">
+                            <div style="display: inline-flex;">
+                                <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
+                            </div>
+                        </div>
+                        <table class="main-body-table">
+                            <tr>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                            <tr>
+                                <td><label data-i18n="bluesky_settings_site_title"></label></td>
+                                <td><input type="checkbox" id="bsky_settings_include_site_title"></input></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label data-i18n="common_label_include_date_based_on_system_date"></label>
+                                </td>
+                                <td><input type="checkbox" id="bsky_settings_include_date"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label data-i18n="common_label_generator_length"></label>
+                                </td>
+                                <td>
+                                    <select id="bsky_settings_string_length">
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label data-i18n="twitter_settings_save_image_to_folder_based_on_username"></label></td>
+                                <td><input type="checkbox" id="bsky_settings_save_to_folder_by_username"></td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                        <!-- SECTION : PREFIX -->
+                        <div class="main-body-section-header">
+                            <div style="display: inline-flex;">
+                                <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
+                            </div>
+                        </div>
+
+                        <table class="main-body-table">
+                            <tr>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
+                                <td style="vertical-align: middle;">
+                                    <span><input type="text" id="bsky_settings_custom_prefix" style="width: 100%;"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+
+                    </div>
+                </div>
+            </div>
             <!-- TAB : ABOUT -->
             <div id="about" data-tab-content>
                 <div class="tab-content-main">
@@ -738,6 +852,7 @@
                     </div>
 
                     <div id="download_card_container_history"></div>
+
 
                 </div>
             </div>

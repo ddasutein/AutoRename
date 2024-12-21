@@ -73,6 +73,7 @@ let Settings = {};
         twitter_settings_custom_prefix: "",
         twitter_save_image_to_folder_based_on_username: false,
         twitter_settings_download_as_jpeg: false,
+        twitter_settings_set_timestamp_preference: "systemtime",
         //#endregion
     
         //#region LINE BLOG Settings
@@ -88,7 +89,7 @@ let Settings = {};
         //#endregion
 
         //#region THREADS SETTINGS
-        threadsIncludeWebsiteTitle: true,
+        threadsIncludeWebsiteTitle: false,
         threadsIncludeDate: false,
         threadsRandomStringLength: 4,
         threadsPreferLocaleFormat: true,
@@ -106,6 +107,14 @@ let Settings = {};
         redditDateFormat: "custom",
         redditCustomDateFormat: "",
         redditCustomPrefix: "",
+
+        //#region Bluesky Settings
+        blueskyIncludeWebsite: false,
+        blueskyIncludeDate: false,
+        blueskyRandomStringLength: 4,
+        blueskySaveImageToFolderBasedOnUsername: false,
+        blueskyCustomPrefix: "",
+        //#endregion
 
         //#region Options UI settings
         optionsUITabName: "#general",
@@ -230,6 +239,11 @@ let Settings = {};
                 name: "Download as JPEG",
                 value: items.twitter_settings_download_as_jpeg,
                 key: "twitter_settings_download_as_jpeg"
+            }, {
+                category: Category.Twitter,
+                name: "Set Timestamp Preference",
+                value: items.twitter_settings_set_timestamp_preference,
+                key: "twitter_settings_set_timestamp_preference"
             },
             //#endregion
     
@@ -295,6 +309,39 @@ let Settings = {};
             },
 
             //#endregion Threads Settings END
+
+            //#region Bluesky
+            {
+                category: Category.Bluesky,
+                name: "Include Website Title (Bluesky)",
+                value: items.blueskyIncludeWebsite,
+                key: "blueskyIncludeWebsite"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Include Date",
+                value: items.blueskyIncludeDate,
+                key: "blueskyIncludeDate"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Bluesky Random String Generator",
+                value: items.blueskyRandomStringLength,
+                key: "blueskyRandomStringLength"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Save Image to folder based on username",
+                value: items.blueskySaveImageToFolderBasedOnUsername,
+                key: "blueskySaveImageToFolderBasedOnUsername"
+            },
+            {
+                category: Category.Bluesky,
+                name: "Bluesky Prefix",
+                value: items.blueskyCustomPrefix,
+                key: "blueskyCustomPrefix"
+            },
+            //#endregion
 
             //#region Options UI
             {
@@ -367,7 +414,10 @@ let Settings = {};
                 }
             }),
             Threads: SettingsMap.filter((key)=>{
-                return key.category == Category.Threads
+                return key.category == Category.Threads;
+            }),
+            Bluesky: SettingsMap.filter((key) => {
+                return key.category == Category.Bluesky;
             })
         }
     });

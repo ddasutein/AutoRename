@@ -232,6 +232,35 @@ document.onreadystatechange = () => {
             }
         });
 
+        const blueskyPref = Settings.Load().Bluesky;
+        blueskyPref.map((x) => {
+            switch (x.key) {
+
+                case "blueskyIncludeWebsite":
+                    document.getElementById("bsky_settings_include_site_title").checked = x.value;
+                    break;
+
+                case "blueskyIncludeDate":
+                    document.getElementById("bsky_settings_include_date").checked = x.value;
+                    break;
+
+                case "blueskyRandomStringLength":
+                    document.getElementById("bsky_settings_string_length").value = x.value;
+                    break;
+
+                case "blueskySaveImageToFolderBasedOnUsername":
+                    document.getElementById("bsky_settings_save_to_folder_by_username").checked = x.value;
+                    break;
+
+                case "blueskyCustomPrefix":
+                    document.getElementById("bsky_settings_custom_prefix").value = x.value;
+                    break;
+
+
+            }
+        });
+        
+
     }
 }
 
@@ -314,17 +343,38 @@ document.addEventListener("DOMContentLoaded", (() => {
             case "button_help_twitter":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#twitter"
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#x-formerly-twitter"
                     })
                 }));
                 break;
 
-            case "button_help_lineblog":
+            case "button_help_bluesky":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#line-blog"
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#bluesky"
                     })
                 }));
+                break;
+
+            case "button_save_threads":
+                buttons.addEventListener("click", (() => {
+
+                    try {
+                        Settings.Save("threadsIncludeWebsiteTitle", document.getElementById("threads_settings_include_site_title").checked);
+                        Settings.Save("threadsIncludeDate", document.getElementById("threads_settings_include_date").checked);
+                        Settings.Save("threadsRandomStringLength", document.getElementById("threads_settings_string_length").value);
+                        Settings.Save("threadsCustomPrefix", document.getElementById("threads_settings_custom_prefix").value);
+
+                        messageBox.Save();
+
+                    } catch (e) {
+                        console.error(e)
+                        messageBox.Warning(e.title, e.message);
+                    }
+
+
+                }));
+
                 break;
 
             case "button_help_reddit":
@@ -383,26 +433,35 @@ document.addEventListener("DOMContentLoaded", (() => {
 
                 break;
 
-            case "button_save_lineblog":
+            case "button_save_bluesky":
+
                 buttons.addEventListener("click", (() => {
 
                     try {
-                        Settings.Save("threadsIncludeWebsiteTitle", document.getElementById("threads_settings_include_site_title").checked);
-                        Settings.Save("threadsIncludeDate", document.getElementById("threads_settings_include_date").checked);
-                        Settings.Save("threadsRandomStringLength", document.getElementById("threads_settings_string_length").value);
-                        Settings.Save("threadsCustomPrefix", document.getElementById("threads_settings_custom_prefix").value);
+                        temp.push(ValidatePrefix("blueskyCustomPrefix", document.getElementById("bsky_settings_custom_prefix").value));
+                        temp.forEach((x) => {
+                            if (x.is_error == true) {
+                                errorCode["title"] = x.title;
+                                errorCode["message"] = x.message;
+                                throw errorCode;
 
+                            }
+                        });
+
+                        Settings.Save("blueskyIncludeWebsite", document.getElementById("bsky_settings_include_site_title").checked);
+                        Settings.Save("blueskyIncludeDate", document.getElementById("bsky_settings_include_date").checked);
+                        Settings.Save("blueskyRandomStringLength", document.getElementById("bsky_settings_string_length").value);
+                        Settings.Save("blueskySaveImageToFolderBasedOnUsername", document.getElementById("bsky_settings_save_to_folder_by_username").checked);
                         messageBox.Save();
-
-                    } catch (e) {
-                        console.error(e)
+                    } catch(e){
+                        console.error(e);
                         messageBox.Warning(e.title, e.message);
                     }
-
 
                 }));
 
                 break;
+
 
             case "button_save_reddit":
                 buttons.addEventListener("click", (() => {
@@ -437,10 +496,10 @@ document.addEventListener("DOMContentLoaded", (() => {
                     });
                 }));
                 break;
-            case "button_help_lineblog":
+            case "button_help_threads":
                 buttons.addEventListener("click", (() => {
                     chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#line-blog"
+                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#threads"
                     });
                 }));
                 break;
