@@ -36,7 +36,6 @@
         "contextMenus",
         "downloads",
         "notifications",
-        "tabs",
-        "scripting"
+        "tabs"
     ]
 }
