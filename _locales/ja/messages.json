@@ -412,6 +412,7 @@
     "common_section_appearance": {
         "message": "外観"
     },
+<<<<<<< Updated upstream
     "common_section_header_bluesky": {
         "message": "Bluesky設定"
     },
@@ -432,5 +433,9 @@
     },
     "bluesky_settings_site_title": {
         "message": "ウェブサイトを題名含める 【Bluesky】"
+=======
+    "common_label_include_date": {
+        "message": "日付を含める【システム日付と時刻に基づく】"
+>>>>>>> Stashed changes
     }
 }
