@@ -411,7 +411,6 @@
     "common_section_appearance": {
         "message": "Appearance"
     },
-<<<<<<< Updated upstream
     "common_section_header_bluesky": {
         "message": "Threads Settings"
     },
@@ -432,9 +431,5 @@
     },
     "bluesky_settings_site_title": {
         "message": "Include Website Title [Bluesky]"
-=======
-    "common_label_include_date": {
-        "message": "Include Date (Based on System Date and Time)"
->>>>>>> Stashed changes
     }
 }
