@@ -179,6 +179,10 @@ document.onreadystatechange = () => {
                 case "twitter_settings_download_as_jpeg":
                     document.getElementById("twitter_settings_download_as_jpeg").checked = x.value;
                     break;
+                
+                case "twitter_settings_set_timestamp_preference":
+                    document.getElementById("twitter_settings_select_date").value = x.value;
+                    break;
             }
         });
 
@@ -422,6 +426,7 @@ document.addEventListener("DOMContentLoaded", (() => {
                         Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
                         Settings.Save("twitter_save_image_to_folder_based_on_username", document.getElementById("twitter_settings_save_to_folder_by_username").checked);
                         Settings.Save("twitter_settings_download_as_jpeg", document.getElementById("twitter_settings_download_as_jpeg").checked);
+                        Settings.Save("twitter_settings_set_timestamp_preference", document.getElementById("twitter_settings_select_date").value);
                         messageBox.Save();
 
                     } catch (e) {
