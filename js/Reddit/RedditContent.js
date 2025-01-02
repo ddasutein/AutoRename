@@ -58,7 +58,7 @@ const Reddit = {
             mediaId        = src.substring(0, src.indexOf("."));
             imageFormat   = src.substring(src.indexOf("."))
 
-            AutoRename.LOG_LEVEL == AutoRename.LOG_TYPE.DEBUG ? console.log(`Reddit >> Media ID ${mediaId} : Image Format ${imageFormat}`) : "";
+            AutoRename.SetLogLevel == AutoRename.LogLevel.DEBUG ? console.log(`Reddit >> Media ID ${mediaId} : Image Format ${imageFormat}`) : "";
 
             return {
                media_id: mediaId,
