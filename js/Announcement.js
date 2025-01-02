@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2022 Dasutein
+ * Copyright (c) 2025 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,70 +12,78 @@
  * 
  */
 
+( () => {
 
-function loadRestAPI(){
+    const AnnouncementUri = "https://api.github.com/repos/ddasutein/autorename-privacy-policy/issues/2";
 
-    onReadyStateChange = (() => {
+    fetch(AnnouncementUri, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "User-Agent": `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`
+        }
+    }).then((resp => resp.json())).then((x)=>{
 
-        try {
+        const currentBrowserLanguage = (chrome.i18n.getUILanguage()).substring(0,2);
+        const isLocked = x.locked;
+        const postTitle = x.title;
+        let postBody    = (x.body).replace(/```/g, "");
+        postBody = JSON.parse(postBody);
+        postBody = postBody.data;
 
-            if (xhr.readyState === XMLHttpRequest.DONE){
-                console.info(xhr.status);
-                if (xhr.status == 200){
-                    result = xhr.responseText;
-                    result = JSON.parse(result);
+        if (isLocked == false){
+            document.getElementById('main-body-section-announcement').style.display ='none';
+        } else {
 
-                    if (result.locked == false){
-                        document.getElementById('main-body-section-announcement').style.display ='none';
-                    } else {
-                        document.getElementById("announcement_title").textContent = result.title;
+            let announcementTitle   = "";
+            let announcementText    = "";
+            let announcementLink    = "";
 
-                        let resultBody = result.body;
-                        bodyContent = resultBody.substring("[0]", resultBody.indexOf("[1]"));
-                        bodyContent = bodyContent.replace("[0]", "");
-                        
-                        bannerUrl = resultBody.substring(resultBody.indexOf("[1]"));
-                        bannerUrl = bannerUrl.replace("[1]", "");
+            if (postBody.hasOwnProperty(currentBrowserLanguage)){           
+                announcementTitle   = postBody[currentBrowserLanguage]["post"].title    ? postBody[currentBrowserLanguage]["post"].title : postTitle;
+                announcementText    = postBody[currentBrowserLanguage]["post"].message;
+                announcementLink    = postBody[currentBrowserLanguage]["post"].link;
+            } else {
 
-                        document.getElementById("announcement_body").textContent = bodyContent;
+                // Fallback to English announcement
+                announcementTitle   = postBody["en"]["post"].title    ? postBody["en"]["post"].title : postTitle;
+                announcementText    = postBody["en"]["post"].message;
+                announcementLink    = postBody["en"]["post"].link;
 
-                        document.querySelectorAll("button").forEach((buttons)=>{
-                            switch (buttons.id){
-                                case "button_banner_link":
-                                    buttons.addEventListener("click", (()=>{
-
-                                        swal({
-                                            title: chrome.i18n.getMessage("info_message_announcement_label"),
-                                            text: `${chrome.i18n.getMessage("info_click_announcement_link")} ${bannerUrl} \n\n${chrome.i18n.getMessage("message_prompt_user_continue")}`,
-                                            icon: "info",
-                                            buttons: true,
-                                            dangerMode: true
-                                        }).then((redirect)=>{
-                                            if (redirect){
-                                                chrome.tabs.create({url: bannerUrl});
-                                            }
-                                        })
-
-                                    }));
-                                    break;
-                            }
-                    
-                        });
-                    }
-                }
             }
-        } catch(exception){
-            console.error(exception);
-            document.getElementsByClassName('main-body-section-announcement')[0].style.display ='none';
+
+            document.getElementById("announcement_title").textContent   = announcementTitle;
+            document.getElementById("announcement_body").textContent    = announcementText;
+
+            document.querySelectorAll("button").forEach((buttons)=>{
+                switch (buttons.id){
+                    case "button_banner_link":
+                        buttons.addEventListener("click", (()=>{
+
+                            swal({
+                                title: chrome.i18n.getMessage("info_message_announcement_label"),
+                                text: `${chrome.i18n.getMessage("info_click_announcement_link")} ${announcementLink} \n\n${chrome.i18n.getMessage("message_prompt_user_continue")}`,
+                                icon: "info",
+                                buttons: true,
+                                dangerMode: true
+                            }).then((redirect)=>{
+                                if (redirect){
+                                    chrome.tabs.create({url: announcementLink});
+                                }
+                            })
+
+                        }));
+                        break;
+                }
+        
+            });
         }
 
+    }).catch((err) => {
+        console.error("Failed to fetch Announcement");
+        console.error(err);
+        document.getElementById('main-body-section-announcement').style.display ='none';
     });
-    
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.github.com/repos/ddasutein/autorename-privacy-policy/issues/1")
-    xhr.onreadystatechange = onReadyStateChange;
-    xhr.send();
-}
 
-document.addEventListener("DOMContentLoaded", function(e) { loadRestAPI() })
+})();
 
