@@ -1,0 +1,204 @@
+[
+    {
+        "label": "Include Website Title",
+        "data-i18n": "twitter_settings_site_title",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_include_website_title"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_site_title",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Include Mention Symbol",
+        "data-i18n": "twitter_settings_include_mention_symbol",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_include_mention_symbol"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_include_mention_symbol",
+            "value": false,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Include Tweet ID",
+        "data-i18n": "twitter_settings_include_tweet_id",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_include_tweet_id"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_include_tweet_id",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Include Date/Time",
+        "data-i18n": "twitter_settings_include_date",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_include_tweet_id"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_include_date_checkbox",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Select Preferred Timestamp Preference",
+        "data-i18n": "common_label_set_timestamp_preference",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_settings_set_timestamp_preference"
+        },      
+        "field": {
+            "type": "select",
+            "id": "twitter_settings_select_date",
+            "value": 4,
+            "options": [
+                {
+                    "text": "twitter_settings_timestamp_pref_device_time",
+                    "value": "systemtime"
+                },
+                {
+                    "text": "twitter_settings_timestamp_pref_tweet_time",
+                    "value": "originaltweettimestamp"
+                }
+            ]
+        }
+    },
+    
+    {
+        "label": "Generate Random String",
+        "data-i18n": "common_label_generator_length",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_random_string_length"
+        },      
+        "field": {
+            "type": "select",
+            "id": "twitter_settings_string_length",
+            "value": 4,
+            "options": [
+                {
+                    "text": "0",
+                    "value": 0
+                },
+                {
+                    "text": "4",
+                    "value": 4
+                },
+                {
+                    "text": "5",
+                    "value": 5
+                },
+                {
+                    "text": "6",
+                    "value": 6
+                },
+                {
+                    "text": "7",
+                    "value": 7
+                },
+                {
+                    "text": "8",
+                    "value": 8
+                },
+                {
+                    "text": "9",
+                    "value": 9
+                },
+                {
+                    "text": "10",
+                    "value": 10
+                },
+                {
+                    "text": "11",
+                    "value": 11
+                },
+                {
+                    "text": "12",
+                    "value": 12
+                },
+                {
+                    "text": "13",
+                    "value": 13
+                },
+                {
+                    "text": "14",
+                    "value": 14
+                },
+                {
+                    "text": "15",
+                    "value": 15
+                },
+                {
+                    "text": "16",
+                    "value": 16
+                }
+
+            ]
+        }
+    },
+
+    {
+        "label": "Save image to folder based on username",
+        "data-i18n": "twitter_settings_save_image_to_folder_based_on_username",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_save_image_to_folder_based_on_username"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_save_to_folder_by_username",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Download as JPEG only",
+        "data-i18n": "twitter_settings_download_as_jpeg",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "settings": {
+            "website": "Twitter",
+            "key": "twitter_settings_download_as_jpeg"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "twitter_settings_download_as_jpeg",
+            "value": true,
+            "options": null
+        }
+    }
+]
