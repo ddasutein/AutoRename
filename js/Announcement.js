@@ -14,16 +14,7 @@
 
 ( () => {
 
-    const AnnouncementUri = "https://api.github.com/repos/ddasutein/autorename-privacy-policy/issues/2";
-
-    fetch(AnnouncementUri, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "User-Agent": `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`
-        }
-    }).then((resp => resp.json())).then((x)=>{
-
+    function parseJSON(x){
         const currentBrowserLanguage = (chrome.i18n.getUILanguage()).substring(0,2);
         const isLocked = x.locked;
         const postTitle = x.title;
@@ -78,12 +69,67 @@
         
             });
         }
+    }
 
-    }).catch((err) => {
-        console.error("Failed to fetch Announcement");
-        console.error(err);
-        document.getElementById('main-body-section-announcement').style.display ='none';
-    });
+    const MAX_TIME_LIMIT_BEFORE_NETWORK_REFRESH = 5.0;
+    const AnnouncementUri = "https://api.github.com/repos/ddasutein/autorename-privacy-policy/issues/2";
+
+    const getRateLimitCount = localStorage.getItem("x-ratelimit-limit");
+    const getRemainingRateLimit = localStorage.getItem("x-ratelimit-remaining");
+    const getRateLimitReset = localStorage.getItem("x-ratelimit-reset");
+    const getRateConsumed = localStorage.getItem("x-ratelimit-used");
+    const getResponseContent = localStorage.getItem("response_data");
+    const getLastNetworkRequestTime = localStorage.getItem("last_network_request_time_in_unix");
+    const currentTimeInUnix = moment().format("X");
+
+    let unixTime1 = moment.unix(getLastNetworkRequestTime);
+    let unixTime2 = moment.unix(currentTimeInUnix);
+    let timeDiff = Math.abs(unixTime1.diff(unixTime2, "minutes", true));
+
+    if (timeDiff >= MAX_TIME_LIMIT_BEFORE_NETWORK_REFRESH) {
+
+        fetch(AnnouncementUri, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "User-Agent": `${navigator.userAgent} ${chrome.runtime.getManifest().name}/${chrome.runtime.getManifest().version}`
+            }
+        }).then((x) => {
+            let headers = {};
+            const responseHeaders = x.headers;
+            for (let RH of responseHeaders.entries()) {
+                headers[RH[0]] = RH[1];
+            }
+
+            localStorage.setItem("x-ratelimit-limit", headers["x-ratelimit-limit"]);
+            localStorage.setItem("x-ratelimit-remaining", headers["x-ratelimit-remaining"]);
+            localStorage.setItem("x-ratelimit-reset", headers["x-ratelimit-reset"]);
+            localStorage.setItem("x-ratelimit-used", headers["x-ratelimit-used"]);
+    
+            const httpStatus = x.status;
+    
+            // Note: GitHub API has rate limit of 60 requests PER HOUR
+            if (httpStatus == 200){
+                return x.json().then((jsonResp) => {
+                    localStorage.setItem("last_network_request_time_in_unix", moment().format("X"));
+                    localStorage.setItem("response_data", JSON.stringify(jsonResp));
+                    return jsonResp;
+                });
+            } else {
+                return JSON.parse(localStorage.getItem("response_data"));
+            }
+    
+        }).then((x) => {
+            parseJSON(x);
+        }).catch((err) => {
+            console.error("Failed to fetch Announcement");
+            console.error(err);
+            document.getElementById('main-body-section-announcement').style.display ='none';
+        });
+
+    } else {
+        parseJSON(JSON.parse(getResponseContent));
+    }
 
 })();
 
