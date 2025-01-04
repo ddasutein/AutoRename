@@ -4,6 +4,7 @@
         "data-i18n": "twitter_settings_site_title",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_include_website_title"
@@ -21,6 +22,7 @@
         "data-i18n": "twitter_settings_include_mention_symbol",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_include_mention_symbol"
@@ -38,6 +40,7 @@
         "data-i18n": "twitter_settings_include_tweet_id",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_include_tweet_id"
@@ -55,6 +58,7 @@
         "data-i18n": "twitter_settings_include_date",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_include_tweet_id"
@@ -72,6 +76,7 @@
         "data-i18n": "common_label_set_timestamp_preference",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_settings_set_timestamp_preference"
@@ -98,6 +103,7 @@
         "data-i18n": "common_label_generator_length",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_random_string_length"
@@ -173,6 +179,7 @@
         "data-i18n": "twitter_settings_save_image_to_folder_based_on_username",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
             "key": "twitter_save_image_to_folder_based_on_username"
@@ -190,6 +197,7 @@
         "data-i18n": "twitter_settings_download_as_jpeg",
         "inactive": false,
         "show_in_ui": ["main", "popup"],
+        "show_beta_badge": true,
         "settings": {
             "website": "Twitter",
             "key": "twitter_settings_download_as_jpeg"
