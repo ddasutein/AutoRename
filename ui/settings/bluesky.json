@@ -1,0 +1,127 @@
+[
+    {
+        "label": "Include Website Title",
+        "data-i18n": "bluesky_settings_site_title",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "Bluesky",
+            "key": "blueskyIncludeWebsite"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "bsky_settings_include_site_title",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Include Date/Time",
+        "data-i18n": "common_label_include_date_based_on_system_date",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "Bluesky",
+            "key": "blueskyIncludeDate"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "bsky_settings_include_date",
+            "value": true,
+            "options": null
+        }
+    },
+
+    {
+        "label": "Generate Random String",
+        "data-i18n": "common_label_generator_length",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "Bluesky",
+            "key": "blueskyRandomStringLength"
+        },      
+        "field": {
+            "type": "select",
+            "id": "bsky_settings_string_length",
+            "value": 4,
+            "options": [
+                {
+                    "text": "4",
+                    "value": 4
+                },
+                {
+                    "text": "5",
+                    "value": 5
+                },
+                {
+                    "text": "6",
+                    "value": 6
+                },
+                {
+                    "text": "7",
+                    "value": 7
+                },
+                {
+                    "text": "8",
+                    "value": 8
+                },
+                {
+                    "text": "9",
+                    "value": 9
+                },
+                {
+                    "text": "10",
+                    "value": 10
+                },
+                {
+                    "text": "11",
+                    "value": 11
+                },
+                {
+                    "text": "12",
+                    "value": 12
+                },
+                {
+                    "text": "13",
+                    "value": 13
+                },
+                {
+                    "text": "14",
+                    "value": 14
+                },
+                {
+                    "text": "15",
+                    "value": 15
+                },
+                {
+                    "text": "16",
+                    "value": 16
+                }
+
+            ]
+        }
+    },
+
+    {
+        "label": "Save image to folder based on username",
+        "data-i18n": "twitter_settings_save_image_to_folder_based_on_username",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "Bluesky",
+            "key": "blueskySaveImageToFolderBasedOnUsername"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "bsky_settings_save_to_folder_by_username",
+            "value": true,
+            "options": null
+        }
+    }
+]
