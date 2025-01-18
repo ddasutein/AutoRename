@@ -1,15 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+    <title>AutoRename</title>
     <meta charset="UTF-8">
-    <title>Auto Renamer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="ui" content="popup">
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="/css/controls.css" />
+
+    <script src="/js/Settings.js"></script>
+    
 </head>
-<body>
-    <h2>AutoRename Extension</h2>
-    <p id="extension_version">Version 1.0</p>
-    <p>Developed by: <b>Dasutein</b></p>
-    <p>Github: <a href="https://github.com/ddasutein/AutoRename">https://github.com/ddasutein/AutoRename</a></p>
+
+<body data-theme="auto" style="width: 650px; margin: 0px !important">
+
+    <div id="popup-container">
+        <div class="title-area" style="background-color: #eee; display: flex; justify-content: space-between; padding: 10px; border-top: 5px solid #70cadc">
+            <div class="title-logo-area">
+                <img src="/assets/autorename-16px.png"></img>
+                <span id="extension_name">AutoRename</span>
+                <span id="extension_version" class="popup_ui_version_string">v4.3.0</span>
+                <div class="popup_ui_header_container">
+                    <span id="header-title" class="popup_ui_header_site_title"></span>
+                </div>
+            </div>
+            
+            <nav class="popup_ui_nav_quick_access_container">
+                <button id="nav-github" class="autorename_primary_button">
+                    <img src="/assets/github-mark.png" alt="Github">
+                    <p>GitHub</p>
+                </button>
+                <button id="nav-help" class="autorename_primary_button">
+                    <img src="/assets/icons8-help-48.png" alt="Help">
+                    <p data-i18n="button_help"></p>
+                </button>
+                <button id="nav-settings" class="autorename_primary_button">
+                    <img src="/assets/icons8-settings-48.png" alt="More Settings">
+                    <p data-i18n="common_label_settings"></p>
+                </button>
+            </nav>
+        </div>
+
+        <div class="popup-settings-area">
+            <div id="popup-area" class="tab-content-main">
+        </div>
+    </div>
 
     <script type="module" src="/lib/LetsBeOne/LetsBeOne.js"></script>
+    <script src="/lib/ThemeEngine/ThemeEngine.js"></script>
 </body>
 </html>
