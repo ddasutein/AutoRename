@@ -1,0 +1,130 @@
+[
+    {
+        "id": "#downloadhistory",
+        "name": "downloadhistory",
+        "logo": "/assets/icons8-download-48.png",
+        "description": "downloads_section_description",
+        "buttons": [
+            {
+                "id": "button_help_reddit",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            },
+            {
+                "id": "button_clear_queue",
+                "class": "primary",
+                "icon": "/assets/icons8-trash-48.png",
+                "name": "Clear Queue"
+            },
+            {
+                "id": "button_download_all",
+                "class": "primary",
+                "icon": "/assets/icons8-download-48.png",
+                "name": "Download"
+            }
+        ]
+    },
+    {
+        "id": "#general",
+        "name": "general",
+        "logo": "/assets/icons8-settings-48.png",
+        "description": "common_section_header_general",
+        "buttons": [
+            {
+                "id": "button_help_general",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            }
+        ]
+    },
+    {
+        "id": "#twitter",
+        "name": "twitter",
+        "logo": "/assets/icons8-twitter-48.png",
+        "description": "twitter_settings_desciption",
+        "buttons": [
+            {
+                "id": "button_help_twitter",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            }
+        ]
+    },
+    {
+        "id": "#reddit",
+        "name": "reddit",
+        "logo": "/assets/reddit_logo.png",
+        "description": "reddit_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_reddit",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            }
+        ]
+    },
+    {
+        "id": "#threads",
+        "name": "threads",
+        "logo": "/assets/threads.png",
+        "description": "threads_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_threads",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            }
+        ]
+    },
+    {
+        "id": "#bluesky",
+        "name": "bluesky",
+        "logo": "/assets/bluesky-logo-48.png",
+        "description": "bluesky_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_bluesky",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "Help"
+            }
+        ]
+    },
+    {
+        "id": "#about",
+        "name": "about",
+        "logo": "/assets/icons8-about-48.png",
+        "description": "",
+        "buttons": [
+            {
+                "id": "button_privacy_policy",
+                "class": "primary",
+                "icon": "/assets/icons8-privacy-policy-48.png",
+                "name": "Privacy Policy"
+            },
+            {
+                "id": "button_help_bluesky",
+                "class": "primary",
+                "icon": "/assets/icons8-internet-48.png",
+                "name": "Help with Localization"
+            }, 
+            {
+                "id": "button_feedback",
+                "class": "primary",
+                "icon": "/assets/icons8-feedback-48.png",
+                "name": "Send Feedback"
+            }, 
+            {
+                "id": "button_help_bluesky",
+                "class": "primary",
+                "icon": "/assets/github-mark.png",
+                "name": "GitHub"
+            }
+        ]
+    }
+]
