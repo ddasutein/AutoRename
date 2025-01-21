@@ -1,7 +1,7 @@
 [
     {
         "id": "#downloadhistory",
-        "name": "downloadhistory",
+        "name": "common_section_downloads",
         "logo": "/assets/icons8-download-48.png",
         "description": "downloads_section_description",
         "buttons": [
@@ -27,9 +27,9 @@
     },
     {
         "id": "#general",
-        "name": "general",
+        "name": "common_section_header_general",
         "logo": "/assets/icons8-settings-48.png",
-        "description": "common_section_header_general",
+        "description": "general_settings_description",
         "buttons": [
             {
                 "id": "button_help_general",
@@ -41,7 +41,7 @@
     },
     {
         "id": "#twitter",
-        "name": "twitter",
+        "name": "common_section_header_twitter",
         "logo": "/assets/icons8-twitter-48.png",
         "description": "twitter_settings_desciption",
         "buttons": [
@@ -55,7 +55,7 @@
     },
     {
         "id": "#reddit",
-        "name": "reddit",
+        "name": "common_section_header_reddit",
         "logo": "/assets/reddit_logo.png",
         "description": "reddit_settings_description",
         "buttons": [
@@ -69,7 +69,7 @@
     },
     {
         "id": "#threads",
-        "name": "threads",
+        "name": "common_section_header_threads",
         "logo": "/assets/threads.png",
         "description": "threads_settings_description",
         "buttons": [
@@ -83,7 +83,7 @@
     },
     {
         "id": "#bluesky",
-        "name": "bluesky",
+        "name": "common_section_header_bluesky",
         "logo": "/assets/bluesky-logo-48.png",
         "description": "bluesky_settings_description",
         "buttons": [
@@ -97,7 +97,7 @@
     },
     {
         "id": "#about",
-        "name": "about",
+        "name": "common_section_header_about",
         "logo": "/assets/icons8-about-48.png",
         "description": "",
         "buttons": [
