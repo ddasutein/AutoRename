@@ -49,7 +49,7 @@ let Settings = {};
     
         //#region Global Setings
         global_show_download_folder: false,
-        global_enable_save_as_window: true,
+        global_enable_save_as_window: false,
         global_notifications_updated: true,
         global_use_autorename_folder: false,
         global_download_queue_data: "",
