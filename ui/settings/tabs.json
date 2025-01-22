@@ -99,7 +99,7 @@
         "id": "#about",
         "name": "common_section_header_about",
         "logo": "/assets/icons8-about-48.png",
-        "description": "",
+        "description": "none",
         "buttons": [
             {
                 "id": "button_privacy_policy",
@@ -120,7 +120,7 @@
                 "name": "Send Feedback"
             }, 
             {
-                "id": "button_help_bluesky",
+                "id": "nav-github",
                 "class": "primary",
                 "icon": "/assets/github-mark.png",
                 "name": "GitHub"
