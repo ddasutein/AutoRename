@@ -27,11 +27,16 @@ Key | Description
 website | This is used as a lookup for Settings API
 key | Reference to the setting key. You can find this in `/js/Settings.js` or you may simply type `Settings.Load()` in the console to retrieve the list of settings for the extension
 
+Example
+
+![image](https://github.com/user-attachments/assets/47d114c8-d9a8-49d1-81ac-716aba370bf3)
+
+
 <b>Option 2</b>: Add `settings` attribute to input field
 
 For input fields that are not loaded from JSON, you must add the `setting` attribute. Here, you enter the setting key which can be found in `/js/Settings.js` or you may simply type `Settings.Load()` in the console to retrieve the list of settings for the extension
 
-
+![image](https://github.com/user-attachments/assets/c40f4e32-eeb6-49ea-8c8b-280bc3fb3c2f)
 
 ### Add Field Validation
 
