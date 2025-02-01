@@ -210,11 +210,11 @@ input[type="text"i] {
 .autorename_primary_button {
     text-align: center;
     flex-grow: 1;
-    border: 0.5px solid #cbcbcb;
-    border-bottom: 3px solid #b1b1b1;
+    border: 0.5px solid var(--primary-button-border-color);
+    border-bottom: 3px solid var(--primary-button-border-color);
     border-radius: 5px;
     padding: 1vh 2vw;
-    background-color: #ffffff;
+    background-color: var(--primary-button-background-color);
     font-weight: 700;
     display: block;
 }
@@ -229,4 +229,5 @@ input[type="text"i] {
 .autorename_primary_button p {
     margin: 1vh;
     display: block;
+    color: var(--secondary-control-color);
 }

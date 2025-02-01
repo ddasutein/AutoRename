@@ -586,6 +586,29 @@ a:-webkit-any-link {
   }
 }
 
+.title-area {
+  background-color: var(--navigation-section-container-primary-background-color);
+  display: flex; 
+  justify-content: space-between; 
+  padding: 10px; 
+  border-top: 5px solid #70cadc;
+}
+
+.title-area span {
+  color: var(--secondary-color) !important;
+}
+
+.popup-settings-none-available {
+  padding: 2em;
+  text-align: center; 
+  color: rgb(63, 63, 63); 
+  font-weight: 600;
+}
+
+.popup-settings-none-available p {
+  color: var(--secondary-color) !important;
+}
+
 /** ANIMATION **/
 
 @keyframes transitionIn {
