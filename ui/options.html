@@ -4,29 +4,35 @@
 <head>
     <title>AutoRename</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ui" content="main">
     <link rel="stylesheet" type="text/css" href="/css/stylesheet.css" />
     <link rel="stylesheet" type="text/css" href="/css/controls.css" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans+JP:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="/js/Settings.js"></script>
     <script src="/lib/SweetAlert/node_modules/sweetalert/dist/sweetalert.min.js"></script> 
     <script src="/lib/Moment/moment.js"></script> 
     <script src="/js/Common/Utility.js"></script>
     <script src="/js/DownloadManager.js"></script>
-
     
 </head>
 
-<body data-theme="auto">
+<body>
+    <div id="notification" class="notification">
+        <span data-i18n="context_save_success"></span>
+    </div>
 
-    <div class="container" id="blur">
+    <div class="container">
         <nav class="navbar">
             <div class="navbar-title">
                 <table style="table-layout: fixed; width: 100%;" border="0">
                     <tr>
                         <td style="width: 30%;"><img class="sidebar-btn-ico" src="/assets/autorename-48px.png" style="float: right; margin-right: 10px;"></img></td>
                         <td>
-                            <section style="font-weight: bold;" id="main_extension_name"></section>
-                            <section class="navbar-version-string"></section>
+                            <section style="font-weight: bold;" class="extension_name"></section>
                         </td>
                     </tr>
                 </table>
@@ -38,14 +44,9 @@
                         <div data-i18n="common_section_downloads"></div>
                     </div>
                 </li>
-                <!-- <li data-tab-target="#parseFile" class="tab">
-                    <div class="navbar-tab-label">
-                        <div>Open File</div>
-                    </div>
-                </li> -->
             </ul>
             <hr>
-            <!-- <span><p id="main_extension_name" style="text-align: center; font-size: 1.69em; font-weight: bold;">AutoRename</p></span> -->
+
             <label class="navbar-label" data-i18n="common_label_settings"></label>
             <ul class="tabs">
                 <li data-tab-target="#general" class="active tab">
@@ -79,47 +80,37 @@
                     </div>
                 </li>
             </ul>
-            <hr>
         </nav>
 
-        <div class="tab-content">
+        <main class="content-area">
+            <div class="navigation-section-container">
+
+                <div id="options-section-title-and-description">
+                    <img id="options-section-logo" class="section-ico" src="/assets/icons8-settings-48.png">
+                    <div style="display: flex; flex-direction: column;">
+                        <div id="options-section-title"></div>
+                        <div id="options-section-description"></div>
+                    </div>
+                </div>
             
+                <div id="options-quick-actions-button-container" class="options-quick-action-buttons"></div>
+            
+            </div>
+
+            <div id="settings-content">
+
             <!-- TAB : GENERAL SETTINGS -->
             <div id="general" data-tab-content class="active">
                 <div class="tab-content-main"> 
 
+                    
                     <!-- ANNOUNCEMENT BANNER -->
-                    <div id="main-body-section-announcement" class="main-body-section-announcement">
-                        <span id="announcement_title" style="font-weight: bold;"></span><br/>
-                        <section id="announcement_body"></section>
-                        <button type="button" class="button_banner_link" id="button_banner_link" data-i18n="common_banner_more_detail"></button>
-                    </div>
-
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-settings-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_general"></span></b></td>
-                            <td>
-                                <div class="button-container">
-                                    <button type="button" id="button_help_general" data-i18n="button_help"></button>
-                                    <button type="submit" class="button_save" id="button_save_general" data-i18n="button_save" value="save"></button>
-                                </div>    
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p data-i18n="general_settings_description"></p></td>
-                        </tr>
-                    </table>
-                    <br/>
+                    <div id="main-body-section-announcement" class="main-body-section-announcement"></div>
 
                     <!-- SECTION: APPEARANCE -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-change-theme-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_appearance"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-change-theme-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_appearance"></span>
                     </div>
 
                     <div>
@@ -131,7 +122,7 @@
                             <tr>
                                 <td><label data-i18n="general_settings_theme"></label></td>
                                 <td>
-                                    <select id="theme_selector">
+                                    <select id="theme_selector" setting="global_theme">
                                         <option value="auto" data-i18n="set_theme_auto"></option>
                                         <option value="light" data-i18n="set_theme_light"></option>
                                         <option value="dark" data-i18n="set_theme_dark"></option>
@@ -143,11 +134,8 @@
 
                     <!-- SECTION: FILE SYSTEM -->
                     <div class="main-body-section-header">
-                        <table  border="0">
-                            <tr>
-                                <td><img class="section-ico" src="/assets/icons8-documents-folder-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span></td>
-                            </tr>
-                        </table>
+                        <img class="section-ico" src="/assets/icons8-documents-folder-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_file_system"></span>
                     </div>
 
                     <div>
@@ -158,15 +146,15 @@
                             </tr>
                             <tr>
                                 <td><label data-i18n="general_settings_show_download_folder"></label></td>
-                                <td ><input type="checkbox" id="general_settings_auto_show_download_folder"></td>
+                                <td ><input type="checkbox" id="general_settings_auto_show_download_folder" setting="global_show_download_folder"></td>
                             </tr>
                             <tr>
                                 <td><label data-i18n="general_settings_enable_save_as_dialog"></label></td>
-                                <td><input type="checkbox" id="general_settings_enable_save_as_window"></td>
+                                <td><input type="checkbox" id="general_settings_enable_save_as_window" setting="global_enable_save_as_window"></td>
                             </tr>
                             <tr>
                                 <td><label data-i18n="general_settings_store_images_to_custom_folder"></label></td>
-                                <td><input type="checkbox" id="general_settings_use_autorename_folder"></td>
+                                <td><input type="checkbox" id="general_settings_use_autorename_folder" setting="global_use_autorename_folder"></td>
                             </tr>
                         </table>
                     </div>
@@ -174,9 +162,8 @@
 
                     <!-- SECTION: TIME & DATE -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-calendar-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-calendar-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_time_and_date"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -186,14 +173,14 @@
                         </tr>
                         <tr>
                             <td><label data-i18n="common_label_prefer_locale_format"></label></td>
-                            <td><input type="checkbox" id="global_settings_prefer_locale_format"></td>
+                            <td><input type="checkbox" id="global_settings_prefer_locale_format" setting="global_prefer_locale_format"></td>
                         </tr>
                         <tr>
                             <td>
                                 <label data-i18n="common_label_date_format"></label>
                             </td>
                             <td>
-                                <select id="global_settings_select_date_format">
+                                <select id="global_settings_select_date_format" setting="global_date_format">
                                     <option value="custom" data-i18n="common_date_format_item_label_option_custom"></option>
                                     <option disabled data-i18n="common_date_format_label_numerical"></option>
                                     <option value="0" data-i18n="common_date_format_item_label_option_1"></option>
@@ -213,7 +200,7 @@
                         <tr>
                             <td style="vertical-align: top;"><label data-i18n="common_label_custom_date_format"></label></td>
                             <td style="vertical-align: middle;">
-                                <span><input type="text" id="global_custom_date_format" style="width: 100%;"></span>
+                                <span><input type="text" class="custom_date_format" id="global_custom_date_format" style="width: 100%;" setting="global_custom_date_format"></span>
                                 <br/>
                                 <div class="help-text" data-i18n="help_text_date_format"></div>
                             </td>
@@ -227,11 +214,8 @@
 
                     <!-- SECTION: SYSTEM NOTIFICATIONS -->
                     <div class="main-body-section-header">
-                        <table  border="0">
-                            <tr>
-                                <td><img class="section-ico" src="/assets/icons8-notification-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications"></span></td>
-                            </tr>
-                        </table>
+                        <img class="section-ico" src="/assets/icons8-notification-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_system_notifications"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -240,8 +224,12 @@
                         <th></th>
                         </tr>
                         <tr>
-                        <td><label data-i18n="general_settings_enable_notifications_on_update"></label></td>
-                        <td><input type="checkbox" id="general_settings_notification_updated"></td>
+                            <td><label data-i18n="general_settings_enable_notifications_on_update"></label></td>
+                            <td><input type="checkbox" id="general_settings_notification_updated" setting="global_notifications_updated"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Play Sound Effect</label></td>
+                            <td><input type="checkbox" id="general_settings_notification_play_sound_fx" setting="global_notification_play_sound_fx"></td>
                         </tr>
                     </table>    
                 </div>
@@ -249,113 +237,24 @@
 
             <!-- TAB : TWITTER -->
             <div id="twitter" data-tab-content>
-                <div class="tab-content-main">
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-twitter-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_twitter"></span></b></td>
-                            <td>
-                                <div class="button-container">
+                <div id="tab-twitter" class="tab-content-main">
 
-                                    <button type="button" id="button_help_twitter" data-i18n="button_help"></button>
-                                    <button type="submit" class="button_save" id="button_save_twitter" data-i18n="button_save" value="save"></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p data-i18n="twitter_settings_desciption"></p></td>
-                        </tr>
-                    </table>
                     <br/>
 
                     <!-- SECTION: FILE NAME -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-rename-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
                     </div>
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="twitter_settings_site_title"></label>
-                            </td>
-                            <td><input type="checkbox" id="twitter_settings_site_title"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="twitter_settings_include_mention_symbol"></label>
-                            </td>
-                            <td><input type="checkbox" id="twitter_settings_include_mention_symbol" checked></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="twitter_settings_include_tweet_id"></label>
-                            </td>
-                            <td><input type="checkbox" id="twitter_settings_include_tweet_id" checked></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="twitter_settings_include_date"></label>
-                            </td>
-                            <td><input type="checkbox" id="twitter_settings_include_date_checkbox"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_set_timestamp_preference"></label>
-                            </td>
-                            <td>
-                                <select id="twitter_settings_select_date">
-                                    <option value="systemtime" data-i18n="twitter_settings_timestamp_pref_device_time"></option>
-                                    <option value="originaltweettimestamp" data-i18n="twitter_settings_timestamp_pref_tweet_time"></option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_generator_length"></label>
-                            </td>
-                            <td>
-                                <select id="twitter_settings_string_length">
-                                    <option value="0">0</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label data-i18n="twitter_settings_save_image_to_folder_based_on_username"></label></td>
-                            <td><input type="checkbox" id="twitter_settings_save_to_folder_by_username"></td>
-                        </tr>
-                        <tr>
-                            <td><span class="beta_tag" data-i18n="common_label_beta"></span><label data-i18n="twitter_settings_download_as_jpeg"></label></td>
-                            <td><input type="checkbox" id="twitter_settings_download_as_jpeg"></td>
-                        </tr>
-                    </table>
+
+                    <div id="twitter-settings-file-parameter-area"></div>
+
                     <br/>
 
                     <!-- SECTION : PREFIX -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-tags-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -366,7 +265,7 @@
                         <tr>
                             <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
                             <td style="vertical-align: middle;">
-                                <span><input type="text" id="twitter_settings_custom_prefix" style="width: 100%;"></span>
+                                <span><input type="text" class="custom_prefix test" id="twitter_settings_custom_prefix" style="width: 100%;" setting="twitter_settings_custom_prefix"></span>
                             </td>
                         </tr>
                     </table>
@@ -378,180 +277,23 @@
             <!-- TAB : THREADS -->
             <div id="threads" data-tab-content>
                 <div class="tab-content-main">
-                    <div class="main-body-table">
-                        <table class="main-body-table">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td><b><img class="section-ico" src="/assets/threads.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_threads"></span></b></td>
-                                <td>
-                                    <div class="button-container">
-                                        <button type="button" id="button_help_threads" data-i18n="button_help"></button>
-                                        <button type="submit" class="button_save" id="button_save_threads" data-i18n="button_save" value="save"></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><p data-i18n="threads_settings_description"></p></td>
-                            </tr>
-                        </table>
-                        <br/>
-
-                        <!-- SECTION : FILE NAME -->
-                        <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
-                            </div>
-                        </div>
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="threads_settings_site_title"></label></td>
-                                <td><input type="checkbox" id="threads_settings_include_site_title"></input></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="threads_settings_include_date"></label>
-                                </td>
-                                <td><input type="checkbox" id="threads_settings_include_date"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="common_label_generator_length"></label>
-                                </td>
-                                <td>
-                                    <select id="threads_settings_string_length">
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-
-                        <!-- SECTION : PREFIX -->
-                        <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
-                            </div>
-                        </div>
-
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
-                                <td style="vertical-align: middle;">
-                                    <span><input type="text" id="threads_settings_custom_prefix" style="width: 100%;"></span>
-                                </td>
-                            </tr>
-                        </table>
-                        <br/>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB : REDDIT -->
-            <div id="reddit" data-tab-content>
-                <div class="tab-content-main">
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/reddit_logo.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_reddit"></span></b></td>
-                            <td>
-                                <div class="button-container">
-
-                                    <button type="button" id="button_help_reddit" data-i18n="button_help"></button>
-                                    <button type="submit" class="button_save" id="button_save_reddit" data-i18n="button_save" value="save"></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p data-i18n="reddit_settings_description"></p></td>
-                        </tr>
-                    </table>
                     <br/>
 
                     <!-- SECTION : FILE NAME -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-rename-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
                     </div>
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td><label data-i18n="reddit_settings_site_title"></label></td>
-                            <td><input type="checkbox" id="reddit_settings_site_title"></input></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="reddit_settings_subreddit_post_id"></label>
-                            </td>
-                            <td><input type="checkbox" id="reddit_settings_subreddit_post_id"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="reddit_settings_include_date"></label>
-                            </td>
-                            <td><input type="checkbox" id="reddit_settings_include_date"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label data-i18n="common_label_generator_length"></label>
-                            </td>
-                            <td>
-                                <select id="reddit_settings_string_length">
-                                    <option value="0">0</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+
+
+                    <div id="threads-settings-file-parameter-area"></div>
+
                     <br/>
 
                     <!-- SECTION : PREFIX -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-tags-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -562,7 +304,45 @@
                         <tr>
                             <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
                             <td style="vertical-align: middle;">
-                                <span><input type="text" id="reddit_settings_custom_prefix" style="width: 100%;"></span>
+                                <span><input type="text" class="custom_prefix" id="threads_settings_custom_prefix" style="width: 100%;" setting="threadsCustomPrefix"></span>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                </div>
+            </div>
+
+            <!-- TAB : REDDIT -->
+            <div id="reddit" data-tab-content>
+                <div class="tab-content-main">
+
+                    <br/>
+
+                    <!-- SECTION : FILE NAME -->
+                    <div class="main-body-section-header">
+                        <img class="section-ico" src="/assets/icons8-rename-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
+                    </div>
+
+
+                    <div id="reddit-settings-file-parameter-area"></div>
+                    <br/>
+
+                    <!-- SECTION : PREFIX -->
+                    <div class="main-body-section-header">
+                        <img class="section-ico" src="/assets/icons8-tags-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
+                    </div>
+
+                    <table class="main-body-table">
+                        <tr>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
+                            <td style="vertical-align: middle;">
+                                <span><input type="text" class="custom_prefix" id="reddit_settings_custom_prefix" style="width: 100%;" setting="redditCustomPrefix"></span>
                             </td>
                         </tr>
                     </table>
@@ -573,83 +353,23 @@
 
             <!-- TAB : BLUESKY -->
             <div id="bluesky" data-tab-content>
-                <div class="tab-content-main">
+                <div id="tab-bluesky" class="tab-content-main">
                     <div class="main-body-table">
-                        <table class="main-body-table">
-                            <tr>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <td><b><img class="section-ico" src="/assets/bluesky-logo-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_bluesky"></span></b></td>
-                                <td>
-                                    <div class="button-container">
-                                        <button type="button" id="button_help_bluesky" data-i18n="button_help"></button>
-                                        <button type="submit" class="button_save" id="button_save_bluesky" data-i18n="button_save" value="save"></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><p data-i18n="bluesky_settings_description"></p></td>
-                            </tr>
-                        </table>
                         <br/>
 
                         <!-- SECTION : FILE NAME -->
                         <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-rename-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
-                            </div>
+                            <img class="section-ico" src="/assets/icons8-rename-48.png"></img>
+                            <span class="sidebar-btn-ico-text" data-i18n="common_section_file_name"></span>
                         </div>
-                        <table class="main-body-table">
-                            <tr>
-                            <th></th>
-                            <th></th>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="bluesky_settings_site_title"></label></td>
-                                <td><input type="checkbox" id="bsky_settings_include_site_title"></input></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="common_label_include_date_based_on_system_date"></label>
-                                </td>
-                                <td><input type="checkbox" id="bsky_settings_include_date"></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label data-i18n="common_label_generator_length"></label>
-                                </td>
-                                <td>
-                                    <select id="bsky_settings_string_length">
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
-                                        <option value="13">13</option>
-                                        <option value="14">14</option>
-                                        <option value="15">15</option>
-                                        <option value="16">16</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label data-i18n="twitter_settings_save_image_to_folder_based_on_username"></label></td>
-                                <td><input type="checkbox" id="bsky_settings_save_to_folder_by_username"></td>
-                            </tr>
-                        </table>
+
+                        <div id="bluesky-settings-file-parameter-area"></div>
                         <br/>
 
                         <!-- SECTION : PREFIX -->
                         <div class="main-body-section-header">
-                            <div style="display: inline-flex;">
-                                <img class="section-ico" src="/assets/icons8-tags-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
-                            </div>
+                            <img class="section-ico" src="/assets/icons8-tags-48.png"></img>
+                            <span class="sidebar-btn-ico-text" data-i18n="common_section_custom_prefix"></span>
                         </div>
 
                         <table class="main-body-table">
@@ -660,7 +380,7 @@
                             <tr>
                                 <td style="vertical-align: top;"><label data-i18n="common_label_prefix"></label></td>
                                 <td style="vertical-align: middle;">
-                                    <span><input type="text" id="bsky_settings_custom_prefix" style="width: 100%;"></span>
+                                    <span><input type="text" span="custom_prefix" id="bsky_settings_custom_prefix" style="width: 100%;" setting="blueskyCustomPrefix"></span>
                                 </td>
                             </tr>
                         </table>
@@ -672,16 +392,6 @@
             <!-- TAB : ABOUT -->
             <div id="about" data-tab-content>
                 <div class="tab-content-main">
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-about-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_header_about"></span></b></td>
-                            <td></td>
-                        </tr>
-                    </table>
                     <br/>
 
                     <table class="main-body-table">
@@ -690,15 +400,15 @@
                         <th></th>
                         </tr>
                         <tr>
-                            <td>AutoRename</td>
+                            <td><div class="extension_name"></div></td>
                         </tr>
                         <tr>
-                            <td>Copyright © 2024 Dasutein</td>
+                            <td>Copyright © 2025 Dasutein</td>
                             <td><a href="https://github.com/ddasutein/AutoRename#mit-license">MIT License</a></td>
                         </tr>
                         <tr>
                             <td>Version</td>
-                            <td><label id="main_extension_version"></label></td>
+                            <td><label class="extension_version"></label></td>
                         </tr>
                         <tr>
                             <td>If you like the extension, please consider giving it a rating 😄</td>
@@ -708,11 +418,8 @@
 
                     <!-- SECTION: SYSTEM INFORMATION -->
                     <div class="main-body-section-header">
-                        <table  border="0">
-                            <tr>
-                                <td><img class="section-ico" src="/assets/icons8-system-information-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_system_information"></span></td>
-                            </tr>
-                        </table>
+                        <img class="section-ico" src="/assets/icons8-system-information-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_system_information"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -733,11 +440,8 @@
 
                     <!-- SECTION: CREDITS -->
                     <div class="main-body-section-header">
-                        <table  border="0">
-                            <tr>
-                                <td><img class="section-ico" src="/assets/icons8-crowd-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_credits"></span></td>
-                            </tr>
-                        </table>
+                        <img class="section-ico" src="/assets/icons8-crowd-48.png"></img>
+                        <span class="sidebar-btn-ico-text" data-i18n="common_section_credits"></span>
                     </div>
 
                     <table class="main-body-table">
@@ -776,70 +480,21 @@
                     </table>
                     <br/>
 
-                    <!-- SECTION: PRIVACY & OTHER LINKS -->
-                    <div class="main-body-section-header">
-                        <table  border="0">
-                            <tr>
-                                <td><img class="section-ico" src="/assets/icons8-internet-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_privacy_policy_links"></span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <table class="main-body-table">
-                        <tr>
-                        <th></th>
-                        </tr>
-                        <tr>
-                            <td><a id="button_privacy_policy" href="#"><label data-i18n="privacy_policy_and_other_links_terms"></label></a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/ddasutein/AutoRename/wiki"><label data-i18n="privacy_policy_and_other_links_github_wiki"></label></a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/ddasutein/AutoRename"><label data-i18n="privacy_policy_and_other_links_github"></label></a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/ddasutein/AutoRename/blob/master/TRANSLATIONS.md"><label data-i18n="privacy_policy_and_other_links_translate_assist"></label></a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/ddasutein/AutoRename/issues/new/choose"><label data-i18n="privacy_policy_and_other_links_feedback"></label></a></td>
-                        </tr>
-                    </table>
-
                 </div>
             </div>
 
             <!-- TAB : ACTIONS : DOWNLOAD HISTORY -->
             <div id="downloadhistory" data-tab-content>
                 <div class="tab-content-main">
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-download-48.png"></img><span class="sidebar-btn-ico-text" data-i18n="common_section_downloads"></span></b></td>
-                            <td>
-                                <div class="button-container">
 
-                                    <button type="button" id="button_help_reddit" data-i18n="button_help"></button>
-                                    <button type="button" id="button_clear_queue"  value="Clear" data-i18n="downloads_section_button_clear_queue"></button>
-                                    <button type="submit" class="button_save" id="button_download_all" data-i18n="downloads_section_button_download"></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p data-i18n="downloads_section_description"></p></td>
-                        </tr>
-                    </table>
                     <br/>
 
                     <!-- SECTION : DOWNLOAD QUEUE -->
                     <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img><span class="sidebar-btn-ico-text" id="download-queue-label"></span>
-                        </div>
+                        <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img>
+                        <span class="sidebar-btn-ico-text" id="download-queue-label"></span>
                     </div>
+                    
                     <br/>
                     <div class="download_card_container" id="download_card_container"></div>
 
@@ -857,70 +512,36 @@
                 </div>
             </div>
 
-            <!-- TAB: ACTIONS : PARSE -->
-            <div id="parseFile" data-tab-content>
-                <div class="tab-content-main">
-                    <table class="main-body-table">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><b><img class="section-ico" src="/assets/icons8-file-48.png"></img><span class="sidebar-btn-ico-text">Open File</span></b></td>
-                            <td>
-                                <div class="button-container">
-
-                                    <button type="submit" class="button_save" id="button_open_file">Open</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><p>Upload a file to retrieve the original source</p></td>
-                        </tr>
-                    </table>
-                    <br/>
-
-                    <!-- SECTION : DOWNLOAD QUEUE -->
-                    <div class="main-body-section-header">
-                        <div style="display: inline-flex;">
-                            <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img><span class="sidebar-btn-ico-text" >Upload</span>
-                        </div>
-                    </div>
-                    <br/>
-                    <input type="file" id="file_picker">
-
-                </div>
             </div>
+
             
-        </div>
-    </div>  
+        </main>
 
-    <div class="modal" id="hide">
-        <div class="modal-header">
-            <button id="closeModalBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                width="48" height="48"
-                viewBox="0 0 48 48"
-                style=" fill:#000000;"><path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path></svg>
-            </button>
+        <div class="modal" id="hide">
+            <div class="modal-header">
+                <button id="closeModalBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                    width="48" height="48"
+                    viewBox="0 0 48 48"
+                    style=" fill:#000000;"><path fill="#f44336" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z"></path><path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z"></path></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div></div>
+                <iframe class="privacypolicy" src="https://ddasutein.github.io/autorename-privacy-policy/"></iframe>
+            </div>
         </div>
-        <div class="modal-body">
-            <div></div>
-            <iframe class="privacypolicy" src="https://ddasutein.github.io/autorename-privacy-policy/"></iframe>
-        </div>
+    
+
+
     </div>
-
+    <script type="module" src="/js/OptionsPage.js"></script>
+    <script type="module"  src="/lib/LetsBeOne/LetsBeOne.js" defer></script>
     <script src="/lib/ThemeEngine/ThemeEngine.js"></script>
-    <script src="/js/i18n.js"></script>
-    <script src="/js/OptionsPage.js" defer></script>
-    <script src="/js/ExtensionInfo.js"></script>
-    <script src="/js/ModalManager.js"></script>
-    <script src="/js/Announcement.js"></script>
     <script src="/lib/FileSaver/FileSaver.js"></script>
     <script src="/lib/JSZip/jszip-utils.js"></script>
     <script src="/lib/JSZip/jszip.js"></script>
-    <!-- <script src="/lib/JSZip/test.js"></script> -->
-    
+    <script src="/js/ExtensionInfo.js"></script>
 
 </body>
 
