@@ -1,6 +1,6 @@
 /** MIT License
  * 
- * Copyright (c) 2024 Dasutein
+ * Copyright (c) 2025 Dasutein
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
@@ -12,35 +12,7 @@
  * 
  */
 
-/**
- * Reusable dialog boxes for swal library
- */
-const messageBox = {
-
-    autoCloseTimer: 1500,
-
-    Save: (() => {
-
-        return swal({
-            title: "",
-            text: chrome.i18n.getMessage("context_save_success"),
-            icon: "success",
-            buttons: false,
-            dangerMode: false,
-            timer: messageBox.autoCloseTimer
-        });
-    }),
-
-    Warning: ((title, message) => {
-        return swal({
-            title: title,
-            text: message,
-            icon: "warning",
-            buttons: false,
-            dangerMode: false
-        });
-    })
-}
+import { GetLocale } from "../lib/LetsBeOne/i18n.js";
 
 const specialCharacters = new RegExp(/[?!@#$%^&*(),';\:*"<>|/]/g);
 
@@ -112,169 +84,18 @@ function ValidatePrefix(settingsKey, prefixString) {
     }
 }
 
-document.onreadystatechange = () => {
-
-    if (document.readyState == "interactive" || document.readyState == "complete") {
-        const generalPref = Settings.Load().General;
-
-        generalPref.forEach(function (x) {
-            switch (x.key) {
-                case "global_theme":
-                    document.getElementById("theme_selector").value = x.value
-                    document.getElementById("theme_selector").dispatchEvent(new Event("change"));
-                    break;
-                case "global_show_download_folder":
-                    document.getElementById("general_settings_auto_show_download_folder").checked = x.value
-                    break;
-                case "global_enable_save_as_window":
-                    document.getElementById("general_settings_enable_save_as_window").checked = x.value
-                    break;
-                case "global_notifications_updated":
-                    document.getElementById("general_settings_notification_updated").checked = x.value
-                    break;
-                case "global_use_autorename_folder":
-                    document.getElementById("general_settings_use_autorename_folder").checked = x.value;     
-                    break;
-                case "global_prefer_locale_format":
-                    document.getElementById("global_settings_prefer_locale_format").checked = x.value;
-                    break;
-                case "global_date_format":
-                    document.getElementById("global_settings_select_date_format").value = x.value;
-                    break;
-                case "global_custom_date_format":
-                    document.getElementById("global_custom_date_format").value = x.value;
-                    break;
-            }
-        });
-
-        const twitterPref = Settings.Load().Twitter;
-
-        twitterPref.map(function (x) {
-            switch (x.key) {
-                case "twitter_include_mention_symbol":
-                    document.getElementById("twitter_settings_include_mention_symbol").checked = x.value;
-                    break;
-                case "twitter_include_tweet_id":
-                    document.getElementById("twitter_settings_include_tweet_id").checked = x.value;
-                    break;
-                case "twitter_include_date":
-                    document.getElementById("twitter_settings_include_date_checkbox").checked = x.value;
-                    break;
-
-                case "twitter_random_string_length":
-                    document.getElementById("twitter_settings_string_length").value = x.value;
-                    break;
-                case "twitter_include_website_title":
-                    document.getElementById("twitter_settings_site_title").checked = x.value;
-                    break;
-
-                case "twitter_settings_custom_prefix":
-                    document.getElementById("twitter_settings_custom_prefix").value = x.value;
-                    break;
-
-                case "twitter_save_image_to_folder_based_on_username":
-                    document.getElementById("twitter_settings_save_to_folder_by_username").checked = x.value;
-                    break;
-
-                case "twitter_settings_download_as_jpeg":
-                    document.getElementById("twitter_settings_download_as_jpeg").checked = x.value;
-                    break;
-                
-                case "twitter_settings_set_timestamp_preference":
-                    document.getElementById("twitter_settings_select_date").value = x.value;
-                    break;
-            }
-        });
-
-        const lineblogPref = Settings.Load().Threads;
-
-        lineblogPref.map(function (x) {
-            switch (x.key) {
-                case "threadsIncludeWebsiteTitle":
-                    document.getElementById("threads_settings_include_site_title").checked = x.value;
-                    break;
-                case "threadsIncludeDate":
-                    document.getElementById("threads_settings_include_date").checked = x.value;
-                    break;
-
-                case "threadsRandomStringLength":
-                    document.getElementById("threads_settings_string_length").value = x.value;
-                    break;
-
-                case "threadsCustomPrefix":
-                    document.getElementById("threads_settings_custom_prefix").value = x.value;
-                    break;
-            }
-        });
-
-        const redditPref = Settings.Load().Reddit;
-
-        redditPref.map((x) => {
-            switch (x.key) {
-
-                case "redditIncludeWebsite":
-                    document.getElementById("reddit_settings_site_title").checked = x.value;
-                    break;
-
-                case "redditIncludePostID":
-                    document.getElementById("reddit_settings_subreddit_post_id").checked = x.value;
-                    break;
-
-                case "redditIncludeDate":
-                    document.getElementById("reddit_settings_include_date").checked = x.value;
-                    break;
-
-                case "redditStringGenerator":
-                    document.getElementById("reddit_settings_string_length").value = x.value;
-                    break;
-
-                case "redditCustomPrefix":
-                    document.getElementById("reddit_settings_custom_prefix").value = x.value;
-                    break;
-
-
-            }
-        });
-
-        const blueskyPref = Settings.Load().Bluesky;
-        blueskyPref.map((x) => {
-            switch (x.key) {
-
-                case "blueskyIncludeWebsite":
-                    document.getElementById("bsky_settings_include_site_title").checked = x.value;
-                    break;
-
-                case "blueskyIncludeDate":
-                    document.getElementById("bsky_settings_include_date").checked = x.value;
-                    break;
-
-                case "blueskyRandomStringLength":
-                    document.getElementById("bsky_settings_string_length").value = x.value;
-                    break;
-
-                case "blueskySaveImageToFolderBasedOnUsername":
-                    document.getElementById("bsky_settings_save_to_folder_by_username").checked = x.value;
-                    break;
-
-                case "blueskyCustomPrefix":
-                    document.getElementById("bsky_settings_custom_prefix").value = x.value;
-                    break;
-
-
-            }
-        });
-        
-
-    }
-}
-
-
-
 /**
  * Perform execution after page has loaded
  * 
  */
-document.addEventListener("DOMContentLoaded", (() => {
+document.addEventListener("DOMContentLoaded", (async () => {
+
+    const Button = {
+        Type: {
+            Primary: "autorename_primary_button_horizontal",
+            Secondary: "autorename_primary_button_secondary"
+        }
+    }
 
     //#region Tab Switching Logic
     const tabs = document.querySelectorAll("[data-tab-target]");
@@ -292,6 +113,54 @@ document.addEventListener("DOMContentLoaded", (() => {
     
     createDownloadCardItem();
 
+    function InsertButtons(params, site){
+        const buttonContainer = document.getElementById("options-quick-actions-button-container");
+        const buttons = buttonContainer.getElementsByTagName("button");
+        while(buttons.length > 0){
+            buttonContainer.removeChild(buttons[0]);
+        }
+
+        const getButtons = params[site].buttons;
+        getButtons.forEach((x) => {
+            const button = document.createElement("button");
+            const buttonClass = (x.class).charAt(0).toUpperCase() + (x.class).slice(1);
+            console.log(buttonClass);
+            button.id = x.id;
+            button.className = Button["Type"][buttonClass];
+
+            const buttonContent = document.createElement("div");
+            buttonContent.className = "button-content-container";
+            
+            if (x.icon){
+                const img = document.createElement("img");
+                img.src = x.icon;
+                buttonContent.appendChild(img);
+            }
+
+            const par = document.createElement("p");
+            par.textContent = x.name
+            buttonContent.appendChild(par);
+            button.appendChild(buttonContent);
+
+            buttonContainer.appendChild(button);
+        })
+        console.log(getButtons)
+    }
+
+    let tabConfig = await fetch(chrome.runtime.getURL("/ui/settings/tabs.json")).then((resp) => {
+        return resp.json();
+    }).then((res) => {
+        console.log(res)
+        return res;
+    }).catch((err) => {
+        console.warn("Fetch error >> " + err);
+    });
+    
+    tabConfig = tabConfig.reduce((obj, data) => {
+        obj[data.id] = data;
+        return obj;
+    }, {});
+
     tabs.forEach((tab, idx) => {
 
         if (idx == optionsConfig["optionsUITabIndexNumber"].value){
@@ -300,6 +169,14 @@ document.addEventListener("DOMContentLoaded", (() => {
             tabs.forEach(tabContent => tabContent.classList.remove("active"));
             tab.classList.add("active");
             target.classList.add("active");
+
+            const sectionTitle = document.getElementById("options-section-title")
+            const sectionDescription = document.getElementById("options-section-description");
+            const sectionLogo = document.getElementById("options-section-logo");
+            sectionTitle.textContent        = GetLocale(tabConfig[tab.dataset.tabTarget].name);
+            sectionDescription.textContent  = GetLocale(tabConfig[tab.dataset.tabTarget].description);
+            sectionLogo.src                 = tabConfig[tab.dataset.tabTarget].logo;
+            InsertButtons(tabConfig, tab.dataset.tabTarget);
 
         }
 
@@ -310,6 +187,13 @@ document.addEventListener("DOMContentLoaded", (() => {
             tab.classList.add("active");
             target.classList.add("active");
 
+            const sectionTitle = document.getElementById("options-section-title")
+            const sectionDescription = document.getElementById("options-section-description");
+            const sectionLogo = document.getElementById("options-section-logo");
+            sectionTitle.textContent        = chrome.i18n.getMessage(tabConfig[tab.dataset.tabTarget].name);
+            sectionDescription.textContent  = chrome.i18n.getMessage(tabConfig[tab.dataset.tabTarget].description);
+            sectionLogo.src                 = tabConfig[tab.dataset.tabTarget].logo;
+            InsertButtons(tabConfig, tab.dataset.tabTarget);
             Settings.Save("optionsUITabName", tab.dataset.tabTarget);
             Settings.Save("optionsUITabIndexNumber", idx);
 
@@ -317,372 +201,8 @@ document.addEventListener("DOMContentLoaded", (() => {
     });
     //#endregion
 
-    let temp = [];
-    let errorCode = {};
-
-    /**
-     * RULES FOR SAVING CONFIGURATION
-     * 
-     * 1. Add them in try-block. You need to perform text field validation
-     * 2. Any validation error in #1 should not save all configuration until condition is met
-     * 3. Remember to reset the temp and errorCode variables on every button click
-     * 4. Text field validation should take priority over checkbox or select controls
-     * 
-     */
-    document.querySelectorAll("button").forEach((buttons) => {
-
-        /**
-         * DEV NOTE #1
-         * -----------------
-         * It might seem odd but the logic behind this is that the date validation should
-         * only apply when "Custom" is selected. When a user types random values in the
-         * text field, validation does not apply. However, when custom is selected then the
-         * validation applies. No matter what, the user can't use illegal characters in the 
-         * date format
-         * 
-         */
-
-        switch (buttons.id) {
-
-            case "button_help_twitter":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#x-formerly-twitter"
-                    })
-                }));
-                break;
-
-            case "button_help_bluesky":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#bluesky"
-                    })
-                }));
-                break;
-
-            case "button_save_threads":
-                buttons.addEventListener("click", (() => {
-
-                    try {
-                        Settings.Save("threadsIncludeWebsiteTitle", document.getElementById("threads_settings_include_site_title").checked);
-                        Settings.Save("threadsIncludeDate", document.getElementById("threads_settings_include_date").checked);
-                        Settings.Save("threadsRandomStringLength", document.getElementById("threads_settings_string_length").value);
-                        Settings.Save("threadsCustomPrefix", document.getElementById("threads_settings_custom_prefix").value);
-
-                        messageBox.Save();
-
-                    } catch (e) {
-                        console.error(e)
-                        messageBox.Warning(e.title, e.message);
-                    }
-
-
-                }));
-
-                break;
-
-            case "button_help_reddit":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#reddit"
-                    })
-                }));
-                break;
-            case "button_save_general":
-                buttons.addEventListener("click", (() => {
-                    Settings.Save("global_theme", document.getElementById("theme_selector").value);
-                    Settings.Save("global_show_download_folder", document.getElementById("general_settings_auto_show_download_folder").checked);
-                    Settings.Save("global_enable_save_as_window", document.getElementById("general_settings_enable_save_as_window").checked);
-                    Settings.Save("global_notifications_updated", document.getElementById("general_settings_notification_updated").checked);
-                    Settings.Save("global_use_autorename_folder", document.getElementById("general_settings_use_autorename_folder").checked)
-                    Settings.Save("global_prefer_locale_format", document.getElementById("global_settings_prefer_locale_format").checked)
-                    Settings.Save("global_date_format", document.getElementById("global_settings_select_date_format").value)
-                    Settings.Save("global_custom_date_format", document.getElementById("global_custom_date_format").value);
-                    messageBox.Save();
-                }));
-
-                break;
-
-            case "button_save_twitter":
-
-                buttons.addEventListener("click", (() => {
-
-                    try {
-
-                        temp.push(ValidatePrefix("twitter_settings_custom_prefix", document.getElementById("twitter_settings_custom_prefix").value));
-                        temp.forEach((x) => {
-                            if (x.is_error == true) {
-                                errorCode["title"] = x.title;
-                                errorCode["message"] = x.message;
-                                throw errorCode;
-
-                            }
-                        });
-
-                        Settings.Save("twitter_include_mention_symbol", document.getElementById("twitter_settings_include_mention_symbol").checked);
-                        Settings.Save("twitter_include_tweet_id", document.getElementById("twitter_settings_include_tweet_id").checked);
-                        Settings.Save("twitter_include_date", document.getElementById("twitter_settings_include_date_checkbox").checked);
-                        Settings.Save("twitter_random_string_length", document.getElementById("twitter_settings_string_length").value);
-                        Settings.Save("twitter_include_website_title", document.getElementById("twitter_settings_site_title").checked);
-                        Settings.Save("twitter_save_image_to_folder_based_on_username", document.getElementById("twitter_settings_save_to_folder_by_username").checked);
-                        Settings.Save("twitter_settings_download_as_jpeg", document.getElementById("twitter_settings_download_as_jpeg").checked);
-                        Settings.Save("twitter_settings_set_timestamp_preference", document.getElementById("twitter_settings_select_date").value);
-                        messageBox.Save();
-
-                    } catch (e) {
-                        console.error(e);
-                        messageBox.Warning(e.title, e.message);
-                    }
-
-                }));
-
-                break;
-
-            case "button_save_bluesky":
-
-                buttons.addEventListener("click", (() => {
-
-                    try {
-                        temp.push(ValidatePrefix("blueskyCustomPrefix", document.getElementById("bsky_settings_custom_prefix").value));
-                        temp.forEach((x) => {
-                            if (x.is_error == true) {
-                                errorCode["title"] = x.title;
-                                errorCode["message"] = x.message;
-                                throw errorCode;
-
-                            }
-                        });
-
-                        Settings.Save("blueskyIncludeWebsite", document.getElementById("bsky_settings_include_site_title").checked);
-                        Settings.Save("blueskyIncludeDate", document.getElementById("bsky_settings_include_date").checked);
-                        Settings.Save("blueskyRandomStringLength", document.getElementById("bsky_settings_string_length").value);
-                        Settings.Save("blueskySaveImageToFolderBasedOnUsername", document.getElementById("bsky_settings_save_to_folder_by_username").checked);
-                        messageBox.Save();
-                    } catch(e){
-                        console.error(e);
-                        messageBox.Warning(e.title, e.message);
-                    }
-
-                }));
-
-                break;
-
-
-            case "button_save_reddit":
-                buttons.addEventListener("click", (() => {
-
-                    try {
-                        Settings.Save("redditIncludeWebsite", document.getElementById("reddit_settings_site_title").checked);
-                        Settings.Save("redditIncludePostID", document.getElementById("reddit_settings_subreddit_post_id").checked);
-                        Settings.Save("redditIncludeDate", document.getElementById("reddit_settings_include_date").checked);
-                        Settings.Save("redditStringGenerator", document.getElementById("reddit_settings_string_length").value);
-                        Settings.Save("redditCustomPrefix", document.getElementById("reddit_settings_custom_prefix").value)
-                        messageBox.Save();
-                    } catch (e) {
-                        console.error(e);
-                        messageBox.Warning(e.title, e.message);
-                    }
-
-                }));
-
-                break;
-
-            case "button_help_general":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#general"
-                    });
-                }));
-                break;
-            case "button_help_twitter":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#twitter"
-                    });
-                }));
-                break;
-            case "button_help_threads":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#threads"
-                    });
-                }));
-                break;
-            case "button_help_reddit":
-                buttons.addEventListener("click", (() => {
-                    chrome.tabs.create({
-                        url: "https://github.com/ddasutein/AutoRename/wiki/%E2%9A%99-Settings#reddit"
-                    });
-                }));
-                break;
-
-            case "button_download_all":
-                buttons.addEventListener("click", (()=>{
-                    let isDone = false;
-                    function createZip(zipName){
-                        
-                        let downloadJSONData = Settings.Load().General;
-                        downloadJSONData = downloadJSONData.filter((x) => x.key == "global_download_queue_data").map((x) => x.value)[0];
-                        if (typeof downloadJSONData == "string" && downloadJSONData.length == 0) {
-                            return swal({
-                                title: chrome.i18n.getMessage("downloads_section_dialog_empty_queue_title"),
-                                text: chrome.i18n.getMessage("downloads_section_empty_queue"),
-                                icon: "error",
-                                buttons: false,
-                                dangerMode: false
-                            });
-                        }
-                        
-                        downloadJSONData = JSON.parse(downloadJSONData);
-                        
-                        let zip = new JSZip();
-                        downloadJSONData.forEach((x)=>{
-                            zip.file(x.filename, urlToPromise(x.url), { binary: true});
-                        });
-                        zip.generateAsync({
-                            type: "blob",streamFiles: true
-                        }, function updateCallback(metaData){
-
-                            if(metaData.currentFile) {
-                                
-                                if (metaData.percent > 0){
-                                    msg = `${chrome.i18n.getMessage("downloads_section_saving_file")} ${metaData.currentFile} ${chrome.i18n.getMessage("downloads_section_saving_file_2")} ${metaData.percent.toFixed(2)}%`;
-                                } else if (metaData.percent == 0){
-                                    msg = `${chrome.i18n.getMessage("downloads_section_saving_file_3")}`
-                                }
-
-                                swal({
-                                    title: chrome.i18n.getMessage("downloads_section_downlaod_in_progress"),
-                                    text: `${msg}`,
-                                    closeOnClickOutside: false,
-                                    buttons: false
-                                })
-
-                            }
-
-                        }).then(function callback(blob){
-                            saveAs(blob, zipName)
-                            swal({
-                                title: chrome.i18n.getMessage("downloads_section_downlaod_complete_title"),
-                                text: zipName,
-                                icon: "success"
-                            }).then(()=>{
-                                Settings.Save("global_download_queue_data", "");
-                                window.location.reload();
-                                DownloadManager.UpdateBadge();
-                                Utility.SetBadgeText(0);
-                            });
-
-                        });
-                       return isDone;
-                    }
-
-
-                    swal({
-                        text: chrome.i18n.getMessage("downloads_section_dialog_enter_zip_name"),
-                        content: "input",
-                        button: {
-                          text: chrome.i18n.getMessage("downloads_section_dialog_enter_zip_name_button_create"),
-                          closeModal: false,
-                        },
-                      })
-                      .then(name => {
-                        if (!name) throw null;
-
-                       return createZip(name);
-                      }).catch(error =>{
-                        if (error == null){
-                            swal({
-                                title: chrome.i18n.getMessage("error_title"),
-                                text: chrome.i18n.getMessage("error_download_queue_invalid_file_name"),
-                                icon: "warning",
-                            })
-                        }
-                        console.error(error);
-                      })
-
-
-                }));
-                break;
-
-            case "button_clear_queue":
-                buttons.addEventListener("click", (()=>{
-                    swal({
-                        title: "",
-                        text: chrome.i18n.getMessage("downloads_section_dialog_queue_cleared"),
-                        icon: "success",
-                        buttons: false,
-                        dangerMode: false,
-                        timer: messageBox.autoCloseTimer
-                    });
-                    DownloadManager.ClearDownloadQueue();
-                    window.location.reload();
-                }));
-                break;
-
-            case "button_open_file":
-                buttons.addEventListener("click", (async ()=>{
-                    
-                    document.getElementById("file_picker").click();
-                    document.getElementById('file_picker').addEventListener('change', function(e) {
-                        if (e.target.files[0]) {
-                          document.getElementById("file_detail_name").textContent = e.target.files[0].name;
-                        }
-                      });
-                    // document.getElementById("button_parse_file").click();
-
-                }));
-                break;
-
-
-        }
-    });
-
-    document.querySelectorAll("input[type=checkbox]").forEach((input) => {
-
-        switch (input.id) {
-            case "twitter_settings_include_date_checkbox":
-                input.addEventListener("change", (() => {
-
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "twitter_settings_custom_date_format");
-
-                }));
-                break;
-
-            case "lineblog_settings_include_date":
-                input.addEventListener("change", (() => {
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "lineblog_settings_custom_date_format");
-                }));
-                break;
-
-            case "reddit_settings_include_date":
-                input.addEventListener("change", (() => {
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_prefer_locale_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_select_date_format");
-                    Utility.UpdateFieldDisplay("checkbox", input.checked, "reddit_settings_custom_date_format");
-                }));
-                break;
-        }
-
-    });
-
 }));
 
-function urlToPromise(url) {
-    return new Promise(function (resolve, reject) {
-        JSZipUtils.getBinaryContent(url, function (err, data) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(data);
-            }
-        });
-    });
-}
 
 function createDownloadCardItem(indexNumber, objData){
 
@@ -728,8 +248,8 @@ function createDownloadCardItem(indexNumber, objData){
                 <div class="download-card-info download-card-info-${idx}">${x.filename_display}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
-                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
-                <button id="download-primary-${idx}" class="download-card-actions-button-primary" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_download")}</button>
+                <button id="download-secondary-${idx}" class="autorename_primary_button_secondary" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
+                <button id="download-primary-${idx}" class="autorename_primary_button_horizontal" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_download")}</button>
             </div>
         </div>
         `;
