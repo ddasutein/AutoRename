@@ -122,7 +122,7 @@
             {
                 "id": "nav-github",
                 "class": "primary",
-                "icon": "/assets/github-mark.png",
+                "icon": "/assets/icons8-github-48.png",
                 "name": "GitHub"
             }
         ]
