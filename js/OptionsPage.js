@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", (async () => {
             }
 
             const par = document.createElement("p");
-            par.textContent = x.name
+            par.textContent = GetLocale(x.name);
             buttonContent.appendChild(par);
             button.appendChild(buttonContent);
 
