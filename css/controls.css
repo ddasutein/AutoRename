@@ -6,7 +6,11 @@
     --primary-button-background-color: #eee;
 
     --primary-button-background-color: #fff;
+    --primary-button-secondary-color: #4aa4ea;
     --primary-button-border-color: #cbcbcb;
+    --primary-button-danger-color: #e04052;
+
+    --notification-background-color: #232323;
 
 }
 
@@ -16,23 +20,15 @@
     --input-border-color: #1a1a1a;
 
     --primary-button-background-color: #242424;
+    --primary-button-secondary-color: #4aa4ea;
     --primary-button-border-color: #3a3a3a;
+    --primary-button-danger-color: #e04052;
+
+    --notification-background-color: #eee;
+
 }
 
 button {
-    /* padding: 10px 30px 10px 30px;
-    border-radius: 5px;
-    border: none;
-    background-color: #27ae60;
-    color: white;
-    cursor: pointer;
-    /* text-transform: uppercase; */
-    /* box-shadow: -1px 2px 10px #bebebe; */
-    /* font-weight: bold; */
-
-    /* padding: 10px 30px 10px 30px;
-    border-radius: 5px;
-    border: none;  */
     cursor: pointer;
     font-family: inherit;
 
@@ -95,8 +91,8 @@ input[type="text"i] {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #232323;
-    color: #eee;
+    background-color: var(--notification-background-color);
+    color: var(--primary-button-background-color);
     padding: 1rem 4rem;
     border-radius: 4px;
     font-weight: 600;
@@ -183,7 +179,7 @@ input[type="text"i] {
 
 .autorename_primary_button_secondary {
     background-color: #ffffff00;
-    color: #4162c1;
+    color: var(--primary-button-secondary-color);
     text-align: center;
     flex-grow: 1;
     border: 0.5px solid var(--primary-button-border-color);
@@ -206,6 +202,33 @@ input[type="text"i] {
     display: block;
     color: var(--secondary-control-color);
 }
+
+.autorename_primary_button_danger {
+    background-color: #ffffff00;
+    color: #4162c1;
+    text-align: center;
+    flex-grow: 1;
+    border: 0.5px solid var(--primary-button-border-color);
+    border-bottom: 3px solid var(--primary-button-border-color);
+    border-radius: 5px;
+    padding: 1em;
+    font-weight: 700;
+    display: flex;
+}
+
+.autorename_primary_button_danger img {
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    display: block;
+}
+
+.autorename_primary_button_danger p {
+    margin: 1vh;
+    display: block;
+    color: var(--primary-button-danger-color);
+}
+
 
 .autorename_primary_button {
     text-align: center;

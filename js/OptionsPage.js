@@ -248,8 +248,8 @@ function createDownloadCardItem(indexNumber, objData){
                 <div class="download-card-info download-card-info-${idx}">${x.filename_display}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
-                <button id="download-secondary-${idx}" class="autorename_primary_button_secondary" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_remove")}</button>
-                <button id="download-primary-${idx}" class="autorename_primary_button_horizontal" value="${idx}">${chrome.i18n.getMessage("downloads_section_button_download")}</button>
+                <button id="download-secondary-${idx}" class="autorename_primary_button_danger" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_remove")}</p></button>
+                <button id="download-primary-${idx}" class="autorename_primary_button_secondary" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_download")}</p></button>
             </div>
         </div>
         `;
