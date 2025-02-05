@@ -4,8 +4,9 @@ This library aims to create a common module between the main options page and po
 
 Module | Description
 :--| :--
-IO | Handles 
-ui | TBD
+Modules | Contains various sub-functions that can be added to the existing user interface
+IO | Handles file management under the Download Queue section in the main options page
+ui | User interface functions <br><br>`LoadSettings`: Retrieves settings from the Settings API. Additionally, this is where the field validation occurs for date/time formatting and prefix <br><br>`MessageBox`: Properties for swal library <br><br>`Notification`: This is where the functions are stored for the toast notification when settings are saved in the main options page
 util | TBD
 HyperlinkManager | Manage all hyperlinks for buttons here.
 i18n | Retrieves localization files from `_locales` folder
@@ -41,3 +42,7 @@ For input fields that are not loaded from JSON, you must add the `setting` attri
 ### Add Field Validation
 
 Use the `class` attribute on your input field then add it to the list in `/lib/LetsBeOne/ui/LoadSettings.js`
+
+## Additional Notes
+
+On X, I've made a semi-lengthy post on my inspiration on making this library. Feel free to read my tweet [here](https://x.com/ddasutein/status/1886007353683968406)
