@@ -167,7 +167,7 @@
         "message": "Lista de traductores"
     },
     "error_website_not_supported": {
-        "message": "Lo sentimos, esta extensión solamente está disponible para Twitter por ahora. Para la lista completa de paginas disponibles, visita mi repositorio en Github: https://github.com/ddasutein/AutoRename"
+        "message": "Settings not available for this Website"
     },
     "error_tweet_detail_alert_prompt": {
         "message": "Haga clic en el Tweet para usar esta extensión."
@@ -431,5 +431,17 @@
     },
     "bluesky_settings_site_title": {
         "message": "Include Website Title [Bluesky]"
+    },
+    "common_label_announcement": {
+        "message": "Announcement"
+    },
+    "setting_play_sound_effect": {
+        "message": "Play sound effect"
+    },
+    "common_label_donate": {
+        "message": "Donate"
+    },
+    "button_send_feedback": {
+        "message": "Send Feedback"
     }
 }

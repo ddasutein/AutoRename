@@ -167,7 +167,7 @@
         "message": "Liste des traducteurs"
     },
     "error_website_not_supported": {
-        "message": "Désolé, cette extension ne prend en charge que Twitter et LINE BLOG pour l'instant. Pour une liste des sites Web pris en charge, visitez mon référentiel Github: https://github.com/ddasutein/AutoRename"
+        "message": "Settings not available for this Website"
     },
     "error_tweet_detail_alert_prompt": {
         "message": "Cliquez sur le tweet pour utiliser cette extension."
@@ -431,5 +431,17 @@
     },
     "bluesky_settings_site_title": {
         "message": "Include Website Title [Bluesky]"
+    },
+    "common_label_announcement": {
+        "message": "Announcement"
+    },
+    "setting_play_sound_effect": {
+        "message": "Play sound effect"
+    },
+    "common_label_donate": {
+        "message": "Donate"
+    },
+    "button_send_feedback": {
+        "message": "Send Feedback"
     }
 }

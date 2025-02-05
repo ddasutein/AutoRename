@@ -167,7 +167,7 @@
         "message": "翻訳者一覧"
     },
     "error_website_not_supported": {
-        "message": "申し訳ありません、エクステンションは現在TwitterとLINE BLOGのみサッポートしてます。GitHubのリポジトリにサッポートのWebサイトのリスト： https://github.com/ddasutein/AutoRename"
+        "message": "ウェブサイトで設定できません"
     },
     "error_tweet_detail_alert_prompt": {
         "message": "エクステンションを使用するにクッリクをしてます"
@@ -432,5 +432,17 @@
     },
     "bluesky_settings_site_title": {
         "message": "ウェブサイトを題名含める 【Bluesky】"
+    },
+    "common_label_announcement": {
+        "message": "お知らせ"
+    },
+    "setting_play_sound_effect": {
+        "message": "効果音を再生する"
+    },
+    "common_label_donate": {
+        "message": "寄付"
+    },
+    "button_send_feedback": {
+        "message": "フィードバックを送信"
     }
 }

@@ -99,7 +99,7 @@
     },
 
     "common_section_header_bluesky": {
-        "message": "Threads Settings"
+        "message": "Bluesky Settings"
     },
 
     "common_section_downloads": {
@@ -139,7 +139,7 @@
     },
 
     "common_navigation_twitter": {
-        "message": "X (formerly Twitter)"
+        "message": "X"
     },
 
     "common_navigation_lineblog": {
@@ -243,7 +243,7 @@
     },
 
     "error_website_not_supported": {
-        "message": "Sorry, this extension only supports Twitter and LINE BLOG at this time. For a list of supported websites, visit my Github repository: https://github.com/ddasutein/AutoRename"
+        "message": "Settings not available for this Website"
     },
 
     "error_tweet_detail_alert_prompt": {
@@ -343,7 +343,7 @@
     },
 
     "privacy_policy_and_other_links_translate_assist": {
-        "message": "Want to help translate?"
+        "message": "Help with Localization"
     },
 
     "privacy_policy_and_other_links_feedback": {
@@ -552,5 +552,21 @@
 
     "common_section_appearance": {
         "message": "Appearance"
+    },
+
+    "common_label_announcement": {
+        "message": "Announcement"
+    }, 
+
+    "setting_play_sound_effect": {
+        "message": "Play sound effect"
+    },
+
+    "common_label_donate": {
+        "message": "Donate"
+    },
+
+    "button_send_feedback": {
+        "message": "Send Feedback"
     }
 }
