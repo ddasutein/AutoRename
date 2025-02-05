@@ -169,6 +169,7 @@ input[type="text"i] {
     height: 2em;
     margin: 0 auto;
     display: block;
+    object-fit: contain;
 }
 
 .autorename_primary_button_horizontal p {
@@ -195,6 +196,7 @@ input[type="text"i] {
     height: 30px;
     margin: 0 auto;
     display: block;
+    object-fit: contain;
 }
 
 .autorename_primary_button_secondary p {
@@ -221,6 +223,7 @@ input[type="text"i] {
     height: 30px;
     margin: 0 auto;
     display: block;
+    object-fit: contain;
 }
 
 .autorename_primary_button_danger p {
@@ -247,6 +250,7 @@ input[type="text"i] {
     height: 30px;
     margin: 0 auto;
     display: block;
+    object-fit: contain;
 }
 
 .autorename_primary_button p {
