@@ -248,8 +248,8 @@ function createDownloadCardItem(indexNumber, objData){
                 <div class="download-card-info download-card-info-${idx}">${x.filename_display}</div>
             </div>
             <div class="download-card-actions" id="download-card-actions">
-                <button id="download-secondary-${idx}" class="autorename_primary_button_danger" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_remove")}</p></button>
-                <button id="download-primary-${idx}" class="autorename_primary_button_secondary" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_download")}</p></button>
+                <button id="download-secondary-${idx}" class="download-card-actions-button-secondary autorename_primary_button_danger" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_remove")}</p></button>
+                <button id="download-primary-${idx}" class="download-card-actions-button-primary autorename_primary_button_secondary" value="${idx}"><p>${chrome.i18n.getMessage("downloads_section_button_download")}</p></button>
             </div>
         </div>
         `;
@@ -321,49 +321,40 @@ function updateDownloadButtonListeners(downloadBtns){
     downloadJSONData = JSON.parse(downloadJSONData);
     if (downloadJSONData.length == 0 || typeof downloadJSONData != "object") return;
 
-    downloadBtns.forEach((x)=>{
-    
-        document.querySelectorAll("button").forEach((buttons) => {
-            
-            if (x.secondary == buttons.id){
-                buttons.addEventListener("click", ((e) => {
+    downloadBtns.forEach((x, idx)=>{
 
-                    swal({
-                        title: "Remove from Queue",
-                        text: "Are you sure you want to remove this file?",
-                        icon: "warning",
-                        buttons: {
-                            cancel: true,
-                            confirm: true
-                        }
-                    }).then((result)=>{
-                        if (result){
-                            let id = e.target.id;
-                            id = id.split("-")[2]; // Temp workaround as for some reason, there is no value despite it being entered in the for-loop
-    
-                            downloadJSONData = downloadJSONData.filter((v,idx)=>idx != +id);
-                            Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
-                            Utility.SetBadgeText(downloadJSONData.length);
-                            window.location.reload();
-                        }
-                    }).catch((error)=> console.error(error));
-                }));
-            }
+        let deleteButton = document.getElementById(x.secondary);
+        let downloadButton = document.getElementById(x.primary);
 
-            if (x.primary == buttons.id){
-                buttons.addEventListener("click", ((e) => {
-                    data = downloadJSONData.filter((v,idx)=>idx == e.target.value)[0];
-                    DownloadManager.StartDownload([{filename: data.filename, url: data.url}]);
+        deleteButton.addEventListener("click", ((e) => {
+            swal({
+                title: "Remove from Queue",
+                text: "Are you sure you want to remove this file?",
+                icon: "warning",
+                buttons: {
+                    cancel: true,
+                    confirm: true
+                }
+            }).then((result)=>{
+                if (result){
+                    downloadJSONData = downloadJSONData.filter((x, jsonIdx) => jsonIdx != idx);
+                    Settings.Save("global_download_queue_data", JSON.stringify(downloadJSONData));
+                    Utility.SetBadgeText(downloadJSONData.length);
+                    window.location.reload();
+                }
+            }).catch((error)=> console.error(error));
+        }));
 
-                    // Remove once downloaded
-                    data = downloadJSONData.filter((v, idx) => idx != e.target.value);
-                    Settings.Save("global_download_queue_data", JSON.stringify(data));
+        downloadButton.addEventListener("click", ((e) => {
+            let data = downloadJSONData.filter((x, jsonIdx) => jsonIdx == idx)[0];
+            DownloadManager.StartDownload([{filename: data.filename, url: data.url}]);
 
-                }));
-            }
+            // Remove once downloaded
+            data = downloadJSONData.filter((v, jsonIdx) => jsonIdx != idx);
+            Settings.Save("global_download_queue_data", JSON.stringify(data));
+            window.location.reload();
+        }));
 
-        });
-        
     });
     
 }
