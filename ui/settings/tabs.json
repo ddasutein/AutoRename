@@ -6,7 +6,7 @@
         "description": "downloads_section_description",
         "buttons": [
             {
-                "id": "button_help_reddit",
+                "id": "button_help_download_queue",
                 "class": "primary",
                 "icon": "/assets/icons8-help-48.png",
                 "name": "button_help"
