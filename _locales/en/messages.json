@@ -396,7 +396,7 @@
     },
 
     "twitter_settings_include_date": {
-        "message": "Include Date (Based on System Date)"
+        "message": "Include Date"
     },
 
     "twitter_settings_site_title": {
@@ -430,7 +430,7 @@
     },
 
     "threads_settings_include_date": {
-        "message": "Include Date (Based on System Date)"
+        "message": "Include Date (Based on System Date and Time)"
     },
 
     "threads_settings_convert_blog_title_romaji": {
@@ -454,7 +454,7 @@
     },
 
     "reddit_settings_include_date": {
-        "message": "Include Date (Based on System Date)"
+        "message": "Include Date (Based on System Date and Time)"
     },
 
     "bluesky_settings_description": {

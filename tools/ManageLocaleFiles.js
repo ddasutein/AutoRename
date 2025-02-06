@@ -28,7 +28,7 @@ const fs = require("fs");
 const path = require("path");
 
 const BASE_LOCALIZATION = path.resolve("_locales", "en", "messages.json");
-const TARGET_LOCALIZATION = path.resolve("_locales", "fr", "messages.json");
+const TARGET_LOCALIZATION = path.resolve("_locales", "fr", "messages.json"); 
 
 let BASE_JSON = {};
 let TARGET_JSON = {};
