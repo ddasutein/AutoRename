@@ -108,7 +108,7 @@
                 "name": "privacy_policy_and_other_links_terms"
             },
             {
-                "id": "button_help_bluesky",
+                "id": "button_translation_assist",
                 "class": "primary",
                 "icon": "/assets/icons8-internet-48.png",
                 "name": "privacy_policy_and_other_links_translate_assist"
