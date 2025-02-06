@@ -61,7 +61,7 @@
         "show_beta_badge": false,
         "settings": {
             "website": "Twitter",
-            "key": "twitter_include_tweet_id"
+            "key": "twitter_include_date"
         },
         "field": {
             "type": "checkbox",
