@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", (async () => {
         getButtons.forEach((x) => {
             const button = document.createElement("button");
             const buttonClass = (x.class).charAt(0).toUpperCase() + (x.class).slice(1);
-            console.log(buttonClass);
+
             button.id = x.id;
             button.className = Button["Type"][buttonClass];
 
@@ -143,14 +143,12 @@ document.addEventListener("DOMContentLoaded", (async () => {
             button.appendChild(buttonContent);
 
             buttonContainer.appendChild(button);
-        })
-        console.log(getButtons)
+        });
     }
 
     let tabConfig = await fetch(chrome.runtime.getURL("/ui/settings/tabs.json")).then((resp) => {
         return resp.json();
     }).then((res) => {
-        console.log(res)
         return res;
     }).catch((err) => {
         console.warn("Fetch error >> " + err);
