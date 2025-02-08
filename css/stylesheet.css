@@ -81,7 +81,6 @@ body {
 .container {
   filter: none;
   display: flex;
-  height: 100vh;
 }
 
 
@@ -351,7 +350,6 @@ h2 {
 
 .navbar {
   width: 15rem;
-  height: 100vh;
   /* position: fixed; */
   background-color: var(--nav-bg);
   color: var(--secondary-color);
