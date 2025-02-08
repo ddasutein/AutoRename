@@ -268,7 +268,7 @@ const WebsiteConfigObject = [
         require_path: [],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage, ContextMenuID.AddDownloadQueue],
-        file_name: ""
+        file_name: "{prefix}-{website_title}-{subreddit}-{post_title}-{post_id}-{date}-{randomstring}"
     }, {
         name: "Threads",
         uri: [Website.Threads],
@@ -276,7 +276,7 @@ const WebsiteConfigObject = [
         require_path: [],
         inactive: false,
         allowed_context_menu_items: [ContextMenuID.SaveImage, ContextMenuID.SaveImageWithPrefix, ContextMenuID.ViewOriginalImage],
-        file_name: "{prefix}-{website_title}-{attrib1}-{attrib2}-{date}-{randomstring}"
+        file_name: "{prefix}-{website_title}-{username}-{post_id}-{date}-{randomstring}"
     }
 ];
 WebsiteConfigObject.forEach((x)=>{
