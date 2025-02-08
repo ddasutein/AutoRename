@@ -158,10 +158,9 @@ input[type="text"i] {
     border: 0.5px solid var(--primary-button-border-color);
     border-radius: 5px;
     border-bottom: 3px solid var(--primary-button-border-color);
-    padding: 1em;
+    padding: 0.5em;
     background-color: var(--primary-button-background-color);
     font-weight: 700;
-    display: flex;
 }
 
 .autorename_primary_button_horizontal img {
@@ -186,9 +185,8 @@ input[type="text"i] {
     border: 0.5px solid var(--primary-button-border-color);
     border-bottom: 3px solid var(--primary-button-border-color);
     border-radius: 5px;
-    padding: 1em;
+    padding: 0.5em;
     font-weight: 700;
-    display: flex;
 }
 
 .autorename_primary_button_secondary img {
@@ -213,9 +211,8 @@ input[type="text"i] {
     border: 0.5px solid var(--primary-button-border-color);
     border-bottom: 3px solid var(--primary-button-border-color);
     border-radius: 5px;
-    padding: 1em;
+    padding: 0.5em;
     font-weight: 700;
-    display: flex;
 }
 
 .autorename_primary_button_danger img {
