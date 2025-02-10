@@ -124,7 +124,7 @@ const Threads = {
 
         let threadsFileProp = [
             {
-                filename: filename,
+                filename: filename + ThreadsImgFormat,
                 filename_display: fileNameDisplay,
                 url: Threads.InfoUrl,
                 website: ThreadsName
