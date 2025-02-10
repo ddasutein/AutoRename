@@ -39,7 +39,7 @@ Check out the Wiki tab for instructions on how to use the extension.
 
 Developing this extension is not my full time job and I do it mostly on my free time. If you want to support my work, you are more than welcome to donate. Please don't spend anything beyond your means. I'm already financially stable with my actual job!
 
-[Donatation Link](paypal.me/dustinlirio)
+<a href="https://buymeacoffee.com/dasutein"><img width="175" alt="Image" src="https://github.com/user-attachments/assets/eb459cee-5872-4dbc-b9b0-528006303b3d" onclick="" /></a>
 
 
 ## Compatibility
@@ -59,13 +59,13 @@ Instagram | No (low priority, but you may submit PR)
 Facebook | No (low priority, but you may submit PR)
 Reddit | Yes 
 Threads | Yes
-Bluesky | Coming Soon
+Bluesky | Yes
 General Websites | In-development (as of 7/10/2023) but low priority
 
 
 ## MIT License
 
-Copyright (c) 2024 Dasutein
+Copyright &copy; 2025 Dasutein
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

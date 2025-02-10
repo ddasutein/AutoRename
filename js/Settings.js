@@ -49,7 +49,7 @@ let Settings = {};
     
         //#region Global Setings
         global_show_download_folder: false,
-        global_enable_save_as_window: true,
+        global_enable_save_as_window: false,
         global_notifications_updated: true,
         global_use_autorename_folder: false,
         global_download_queue_data: "",
@@ -58,6 +58,7 @@ let Settings = {};
         global_date_format: "custom",
         global_custom_date_format: "",
         global_theme: "auto",
+        global_notification_play_sound_fx: true,
 
         //#endregion
     
@@ -179,6 +180,11 @@ let Settings = {};
                 name: "appearance",
                 value: items.global_theme,
                 key: "global_theme"
+            }, {
+                category: Category.General,
+                name: "Play sound effect",
+                value: items.global_notification_play_sound_fx,
+                key: "global_notification_play_sound_fx"
             },
             
             //#endregion

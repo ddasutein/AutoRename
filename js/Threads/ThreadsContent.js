@@ -14,6 +14,12 @@
 
 const Threads = {
 
+    InfoUrl: null,
+    TabUrl: null,
+    LinkUrl: null,
+
+    Parameters: (() => WebsiteConfigObject.filter((x => (x.uri).includes(Website.Threads)))[0]),
+
     Settings: (()=>{
         return Settings.Load().Threads.map((data)=>{
             return {
@@ -26,143 +32,112 @@ const Threads = {
         }, {})
     }),
 
+    ParseURL: (() => {
+        let _url = Threads.TabUrl;
+
+        let urlObj = {};
+        _url = _url.split("/");
+        _url[3] != undefined ? urlObj["username"] = _url[3] : urlObj["username"] = null;
+        _url[5] != undefined ? urlObj["post_id"] = _url[5] : urlObj["post_id"] = null;
+        return urlObj;
+
+    }),
+
+    GetUsername: (() => {
+        return Threads.ParseURL().username;
+    }),
+
+    GetPostId: (() => {
+        return Threads.ParseURL().post_id;
+    }),
+
+    GetImageFormat: (() => {
+
+        const imageFormats = [".jpg", ".jpeg", ".png", ".webp"];
+        let mLink = Threads.InfoUrl;
+        mLink = mLink.split("?")[0];
+        let src = "";
+        if (imageFormats.some(x => (mLink).includes(x))) {
+            src = mLink.split("/")[5];
+            src = src.substring(src.lastIndexOf("."));
+        }
+        return src;
+    }),
+
     SaveMedia: ((data, contextMenuSelectedId) => {
 
-        let urlObj = {
-            info_url: data.info_url,
-            link_url: data.link_url,
-            tab_url: data.tab_url
-        }
-        console.log("enter func")
-        const getImageFormat = function (mediaLink) {
-
-            const imageFormats = [".jpg", ".jpeg", ".png", ".webp"];
-            let mLink = mediaLink.info_url;
-            mLink = mLink.split("?")[0];
-            let src;
-            if (imageFormats.some(x => (mLink).includes(x))) {
-                src = mLink.split("/")[5];
-                src = src.substring(src.lastIndexOf("."));
-                return src;
-            }
-        }
-
-        const BuildThreadsFileName = ((threadsSettings, urlObj, include_prefix)=>{
-
-            let GlobalSettings = Settings.Load().General.map((data)=>{
-                return {
-                    "key": data.key,
-                    "value": data.value
-                }
-            }).reduce((obj, data)=>{
-                obj[data.key] = data;
-                return obj;
-            }, {});
-
-            ThreadsAttributes = WebsiteConfigObject.filter((x => x.uri == "threads.net"))[0];
-            let temp = ThreadsAttributes.file_name;
-            let user;
-            temp = temp.split("-");
-
-            threadsSettings["threadsIncludeWebsiteTitle"].value ?  temp[temp.indexOf("{website_title}")] = "Threads" : Utility.RemoveUnusedParameter(temp, "{website_title}")
-            user = urlObj.tab_url.split("/")[3];
-            temp[temp.indexOf("{attrib1}")] = user;
-
-            if (threadsSettings["threadsIncludeDate"].value){
-                let prefObj = {};
-
-                if (GlobalSettings["global_prefer_locale_format"].value){
-                    prefObj["prefer_locale_format"] = true;
-                    const timedateValue = getTimeDate(prefObj);
-                    temp[temp.indexOf("{date}")] = timedateValue
-                } else {
-                    prefObj["prefer_locale_format"] = false;
-
-                    if (GlobalSettings["global_date_format"].value == "custom"){
-                        prefObj["date_format"] = GlobalSettings["global_custom_date_format"].value;
-                    } else {
-                        prefObj["date_format"] = GetDateFormat(GlobalSettings["global_date_format"].value);
-                    }
-                    const timedateValue = getTimeDate(prefObj);
-                    temp[temp.indexOf("{date}")] = timedateValue;
-                }
-            } else {
-                Utility.RemoveUnusedParameter(temp, "{date}");
-            }
-
-            include_prefix == true ? temp[temp.indexOf("{prefix}")] = threadsSettings["threadsCustomPrefix"].value : Utility.RemoveUnusedParameter(temp, "{prefix}");
-            
-            if (include_prefix){
-                threadsSettings["threadsCustomPrefix"].value == "" ? Utility.RemoveUnusedParameter(temp, "{prefix}") : temp[temp.indexOf("{prefix}")] = threadsSettings["threadsCustomPrefix"].value;
-
-            } else {
-                Utility.RemoveUnusedParameter(temp, "{prefix}");
-            }
-
-            if (urlObj.tab_url.includes("post")){
-                temp[temp.indexOf("{attrib2}")] = urlObj.tab_url.split("/")[5];
-            } else {
-                Utility.RemoveUnusedParameter(temp, "{attrib2}");
-            }
-
-            temp[temp.indexOf("{randomstring}")] = Utility.GenerateRandomString(threadsSettings["threadsRandomStringLength"].value);
-            
-            Object.freeze(temp);
-
-            let finalFilePath;
-
-            if (threadsSettings["threadsSaveImageToFolderBasedOnUsername"].value == true){
-                finalFilePath = `${user}/${temp.toString().replace(/,/g, "-")}`;
-            } else {
-                finalFilePath = `${temp.toString().replace(/,/g, "-")}`;
-            }
-
+        const GlobalSettings = Settings.Load().General.map((data) => {
             return {
-                filename_path: finalFilePath + getImageFormat(urlObj),
-                filename_display: temp.toString().replace(/,/g, "-"),
-                title: ThreadsAttributes.name
+                "key": data.key,
+                "value": data.value
             }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
 
-        });
+        Threads.InfoUrl         = data.info_url;
+        Threads.TabUrl          = data.tab_url;
+        Threads.LinkUrl         = data.link_url;
+        const ThreadsParams     = Threads.Parameters();
+        const ThreadsName       = ThreadsParams.name;
+        const ThreadsSettings   = Threads.Settings();
+        const ThreadsPostId     = Threads.GetPostId();
+        const ThreadsGetUser    = Threads.GetUsername();
+        const ThreadsImgFormat  = Threads.GetImageFormat();
+        const DateUtils         = Utility.DateUtils();
+        const CurrentTime       = DateUtils.GetCurrentTime();
+        const CurrentFormat     = DateUtils.GetUserFormat();
+        
+        const ThreadsObj = {};
+        ThreadsSettings["threadsIncludeWebsiteTitle"].value ? ThreadsObj["website_title"] = ThreadsName : null;
+        ThreadsObj["username"] = ThreadsGetUser;
+        ThreadsObj["post_id"] = ThreadsPostId;
+        ThreadsSettings["threadsIncludeDate"].value ? ThreadsObj["date"] = DateUtils.SetupDateFormat({
+            inputDate: CurrentTime,
+            preferLocaleFormat: false,
+            dateFormat: CurrentFormat
+        }) : null ;
+        ThreadsObj["randomstring"] = Utility.GenerateRandomString(ThreadsSettings["threadsRandomStringLength"].value);
+        contextMenuSelectedId == ContextMenuID.SaveImageWithPrefix ? ThreadsObj["prefix"] = ThreadsSettings["threadsCustomPrefix"].value : null;
 
-        let threadsFileProp = [];
+        FILE_NAME_FORMAT = ThreadsParams.file_name;
+        FILE_NAME_FORMAT = FILE_NAME_FORMAT.split("-");
+        FILE_NAME_FORMAT = FILE_NAME_FORMAT.map((FNF)=>{
+            let hasReplacedValue = false;
+            for (let BFN in ThreadsObj){
+                if (FNF == `{${BFN}}`) {
+                    FNF = FNF.replace(`{${BFN}}`, ThreadsObj[BFN]);
+                    hasReplacedValue = true;
+                    break;
+                }
+            }
+            return hasReplacedValue ? FNF : null;
+        }).filter((x => x != null)).join("-");
 
-        console.log(contextMenuSelectedId)
+        let filename = FILE_NAME_FORMAT;
+        let fileNameDisplay = FILE_NAME_FORMAT;
+
+        if (GlobalSettings["global_use_autorename_folder"].value == true && ThreadsSettings["threadsSaveImageToFolderBasedOnUsername"].value == true){
+            filename = `${ThreadsGetUser}/${filename}`;
+        }
+
+        let threadsFileProp = [
+            {
+                filename: filename + ThreadsImgFormat,
+                filename_display: fileNameDisplay,
+                url: Threads.InfoUrl,
+                website: ThreadsName
+            }
+        ];
+
         switch (contextMenuSelectedId) {
             case ContextMenuID.SaveImage:
-                fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
-                console.log(fl);
-                threadsFileProp.push({
-                    filename: fl.filename_path,
-                    filename_display: fl.filename_display,
-                    url: urlObj.info_url,
-                    website: fl.title,
-
-                });
-                DownloadManager.StartDownload(threadsFileProp);
-                break;
-
             case ContextMenuID.SaveImageWithPrefix:
-                fl = BuildThreadsFileName(Threads.Settings(), urlObj, true);
-                threadsFileProp.push({
-                    filename: fl.filename_path,
-                    filename_display: fl.filename_display,
-                    url: urlObj.info_url,
-                    website: fl.title,
-
-                });
                 DownloadManager.StartDownload(threadsFileProp);
                 break;
 
             case ContextMenuID.AddDownloadQueue:
-                fl = BuildThreadsFileName(Threads.Settings(), urlObj, false);
-                threadsFileProp.push({
-                    filename: fl.filename_path,
-                    filename_display: fl.filename_display,
-                    url: urlObj.info_url,
-                    website: fl.title,
-
-                });
                 DownloadManager.AddDownloadQueue(threadsFileProp);
                 break;
 

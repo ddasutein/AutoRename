@@ -16,43 +16,6 @@
 
 
 /**
- * Loads extension data from Manifest
- */
-function LoadExtensionData() {
-    let request = new XMLHttpRequest();
-
-    request.onload = function (e) {
-        if (request.readyState === 4) {
-            if (request.readyState === 200) {
-                console.log(request.responseText);
-            } else {
-                let jsonConfig = this.responseText;
-                let jsonParse = JSON.parse(jsonConfig);
-                document.getElementById("main_extension_name").textContent = jsonParse.short_name;
-
-                if ((jsonParse.version).split(".")[3] >= 1000) {
-                    document.getElementById("main_extension_version").textContent = `${jsonParse.version} (dev-build)`;
-
-                } else if ((jsonParse.version).split(".")[3] == undefined) {
-                    document.getElementById("main_extension_version").textContent = `${jsonParse.version}`;
-                }
-
-                // document.getElementById("extension_description").innerHTML = jsonParse.description;
-                console.log("AND IT SHALL BE BESTOWNED UPON YOU, THE STAR WHICH YOU HAVE LONGED FOR—");
-                console.log("Status: " + request.statusText + "👍");
-            }
-        }
-    }
-    request.open('GET', chrome.runtime.getURL('manifest.json'), true);
-    request.onerror = function (e) {
-        console.error(request.statusText);
-    };
-
-    request.send(null);
-}
-
-
-/**
  * Queries Browser and Operating System information
  */
 function GetSystemInfo() {
@@ -198,4 +161,3 @@ function GetSystemInfo() {
 }
 
 document.addEventListener("DOMContentLoaded", GetSystemInfo());
-document.addEventListener("DOMContentLoaded", LoadExtensionData());

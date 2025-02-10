@@ -1,0 +1,130 @@
+[
+    {
+        "id": "#downloadhistory",
+        "name": "common_section_downloads",
+        "logo": "/assets/icons8-download-48.png",
+        "description": "downloads_section_description",
+        "buttons": [
+            {
+                "id": "button_help_download_queue",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            },
+            {
+                "id": "button_clear_queue",
+                "class": "primary",
+                "icon": "/assets/icons8-trash-48.png",
+                "name": "downloads_section_button_clear_queue"
+            },
+            {
+                "id": "button_download_all",
+                "class": "primary",
+                "icon": "/assets/icons8-download-48.png",
+                "name": "downloads_section_button_download"
+            }
+        ]
+    },
+    {
+        "id": "#general",
+        "name": "common_section_header_general",
+        "logo": "/assets/icons8-settings-48.png",
+        "description": "general_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_general",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            }
+        ]
+    },
+    {
+        "id": "#twitter",
+        "name": "common_section_header_twitter",
+        "logo": "/assets/icons8-twitter-48.png",
+        "description": "twitter_settings_desciption",
+        "buttons": [
+            {
+                "id": "button_help_twitter",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            }
+        ]
+    },
+    {
+        "id": "#reddit",
+        "name": "common_section_header_reddit",
+        "logo": "/assets/reddit_logo.png",
+        "description": "reddit_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_reddit",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            }
+        ]
+    },
+    {
+        "id": "#threads",
+        "name": "common_section_header_threads",
+        "logo": "/assets/threads.png",
+        "description": "threads_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_threads",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            }
+        ]
+    },
+    {
+        "id": "#bluesky",
+        "name": "common_section_header_bluesky",
+        "logo": "/assets/bluesky-logo-48.png",
+        "description": "bluesky_settings_description",
+        "buttons": [
+            {
+                "id": "button_help_bluesky",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            }
+        ]
+    },
+    {
+        "id": "#about",
+        "name": "common_section_header_about",
+        "logo": "/assets/icons8-about-48.png",
+        "description": "none",
+        "buttons": [
+            {
+                "id": "button_privacy_policy",
+                "class": "primary",
+                "icon": "/assets/icons8-privacy-policy-48.png",
+                "name": "privacy_policy_and_other_links_terms"
+            },
+            {
+                "id": "button_translation_assist",
+                "class": "primary",
+                "icon": "/assets/icons8-internet-48.png",
+                "name": "privacy_policy_and_other_links_translate_assist"
+            }, 
+            {
+                "id": "button_feedback",
+                "class": "primary",
+                "icon": "/assets/icons8-feedback-48.png",
+                "name": "button_send_feedback"
+            }, 
+            {
+                "id": "nav-github",
+                "class": "primary",
+                "icon": "/assets/icons8-github-48.png",
+                "name": "privacy_policy_and_other_links_github"
+            }
+        ]
+    }
+]
