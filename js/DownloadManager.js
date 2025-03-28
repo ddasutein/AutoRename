@@ -14,6 +14,66 @@
 
 var DownloadManager = {
 
+    AddToRecentDownloads: (( {
+        title,
+        file_name,
+        file_extension,
+        website,
+        url,
+        media_url
+    } ) => {
+        generalSettings = Settings.Load().General.map((data) => {
+            return {
+                "key": data.key,
+                "value": data.value
+            }
+        }).reduce((obj, data) => {
+            obj[data.key] = data;
+            return obj;
+        }, {});
+
+        let recentItemsArray = generalSettings["global_download_history_data"].value;
+        if (recentItemsArray.length > 0) {
+            recentItemsArray = JSON.parse(recentItemsArray)
+        } else {
+            recentItemsArray = [];
+        }
+        const MAX_LIMIT = 21;
+
+        const DateUtils         = Utility.DateUtils();
+        const CurrentTime       = DateUtils.GetCurrentTime();
+
+        const recentItemObj = {
+            "title": null,
+            "file_name": null,
+            "website": null,
+            "created_time": null,
+            "file_size": null,
+            "file_extension": null,
+            "url": null,
+            "media_url": null
+        }
+        recentItemObj["id"] = Utility.GenerateRandomString(6);
+        recentItemObj["title"] = title;
+        recentItemObj["file_name"] = file_name;
+        recentItemObj["file_extension"] = file_extension;
+        recentItemObj["website"] = website;
+        recentItemObj["url"] = url;
+        recentItemObj["media_url"] = media_url;
+        recentItemObj["created_time"] = DateUtils.SetupDateFormat({
+            inputDate: CurrentTime,
+            preferLocaleFormat: false,
+            dateFormat: "X" // Unix time
+        });
+        recentItemsArray.unshift(recentItemObj);
+
+        if (recentItemsArray.length >= MAX_LIMIT){
+            recentItemsArray.pop();
+        }
+
+        Settings.Save("global_download_history_data", JSON.stringify(recentItemsArray));
+    }),
+
     UpdateBadge: (async ()=>{
         generalSettings = Settings.Load().General.map((data) => {
             return {
@@ -119,6 +179,15 @@ var DownloadManager = {
                             tmp.push(fileData);
                             Settings.Save("global_download_history_data", JSON.stringify(tmp));
                             DownloadManager.UpdateBadge();
+
+                            DownloadManager.AddToRecentDownloads({
+                                "title": x.title,
+                                "file_name": x.filename_display,
+                                "file_size": fileData.size,
+                                "url": x.tab_url,
+                                "media_url": x.url,
+                                "website": x.website
+                            });
                         }
                     }
                 });
