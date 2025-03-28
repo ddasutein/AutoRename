@@ -277,6 +277,10 @@ var Twitter = {
                     filename_display: fileNameDisplay,
                     url: Twitter.GetImageSource(),
                     website: XTitle,
+
+                    // "Recent" module
+                    tab_url: Twitter.LinkUrl,
+                    title: XUsername
         
                 });
                 DownloadManager.StartDownload(twitterFileProp);
