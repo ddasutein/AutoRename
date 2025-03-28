@@ -127,6 +127,7 @@ var Bluesky = {
             return obj;
         }, {});
 
+        console.log(data)
         const BKSY              = Bluesky.Parameters();
         const BKSYUrl           = Bluesky.ViewOriginalImage(data, false);
         const BSKYTitle         = BKSY.name;
@@ -186,6 +187,10 @@ var Bluesky = {
                     filename_display: FILE_NAME,
                     url: BKSYUrl,
                     website: BSKYTitle,
+
+                    // "Recent" module
+                    tab_url: data.tab_url,
+                    title: BKSYUsername
                 });
                 DownloadManager.StartDownload(BlueskyProp);
                 break;
