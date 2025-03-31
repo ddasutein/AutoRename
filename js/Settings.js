@@ -53,7 +53,7 @@ let Settings = {};
         global_notifications_updated: true,
         global_use_autorename_folder: false,
         global_download_queue_data: "",
-        global_download_history_data: "",
+        global_download_history_data: [],
         global_prefer_locale_format: true,
         global_date_format: "custom",
         global_custom_date_format: "",
