@@ -127,7 +127,11 @@ const Threads = {
                 filename: filename + ThreadsImgFormat,
                 filename_display: fileNameDisplay,
                 url: Threads.InfoUrl,
-                website: ThreadsName
+                website: ThreadsName,
+
+                // Recent
+                tab_url: Threads.TabUrl,
+                title: ThreadsName
             }
         ];
 
