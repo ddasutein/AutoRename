@@ -131,7 +131,7 @@ const Threads = {
 
                 // Recent
                 tab_url: Threads.TabUrl,
-                title: ThreadsName
+                title: ThreadsGetUser
             }
         ];
 
