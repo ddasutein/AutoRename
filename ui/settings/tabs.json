@@ -1,5 +1,25 @@
 [
     {
+        "id": "#recentitems",
+        "name": "common_section_recent_downloads",
+        "logo": "/assets/icons8-download-48.png",
+        "description": "recent_section_description",
+        "buttons": [
+            {
+                "id": "button_help_recent",
+                "class": "primary",
+                "icon": "/assets/icons8-help-48.png",
+                "name": "button_help"
+            },
+            {
+                "id": "button_clear_recent",
+                "class": "primary",
+                "icon": "/assets/icons8-trash-48.png",
+                "name": "downloads_section_button_clear_recent"
+            }
+        ]
+    },
+    {
         "id": "#downloadhistory",
         "name": "common_section_downloads",
         "logo": "/assets/icons8-download-48.png",
