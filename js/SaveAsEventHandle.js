@@ -227,7 +227,7 @@ const Website = {
     Reddit_Old: 'old.reddit.com',
     LINE_BLOG: 'lineblog.me',
     LINE_BLOG_CDN: 'obs.line-scdn.net',
-    Threads: "threads.net",
+    Threads: "threads.com",
     X: "x.com",
     Bluesky: "bsky.app",
     XPro: "pro.x.com"
