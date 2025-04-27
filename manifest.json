@@ -9,17 +9,17 @@
 
     "action":{
         "default_icon":{
-           "16":"/assets/autorename-16px.png",
+           "16":"assets/autorename-16px.png",
            "32":"assets/autorename-48px.png",
-           "128":"/assets/autorename-128px.png"
+           "128":"assets/autorename-128px.png"
         },
         "default_title": "AutoRename",
         "default_popup": "/ui/popup.html"
      },
     "icons": {
-        "16": "/assets/autorename-16px.png",
-	    "48": "/assets/autorename-48px.png",
-        "128": "/assets/autorename-128px.png"
+        "16": "assets/autorename-16px.png",
+	    "48": "assets/autorename-48px.png",
+        "128": "assets/autorename-128px.png"
     },
 
 
@@ -28,7 +28,7 @@
     },
 
     "minimum_chrome_version": "92",
-    "options_page": "/ui/options.html",
+    "options_page": "ui/options.html",
 
     "host_permissions": [ "https://www.reddit.com/*", "https://preview.redd.it/*", "https://bsky.app/*", "https://cdn.bsky.app/*"],
 
