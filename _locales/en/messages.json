@@ -568,5 +568,22 @@
 
     "button_send_feedback": {
         "message": "Send Feedback"
+    },
+
+    "button_view_on_sns": {
+        "message": "View on {sns}",
+        "description": "Please include {sns} in your localization"
+    },
+
+    "common_section_recent_downloads": {
+        "message": "Recent"
+    },
+
+    "recent_section_description": {
+        "message": "View images you recently downloaded"
+    },
+
+    "downloads_section_button_clear_recent": {
+        "message": "Clear Recent"
     }
 }

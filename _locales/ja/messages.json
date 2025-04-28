@@ -444,5 +444,9 @@
     },
     "button_send_feedback": {
         "message": "フィードバックを送信"
+    },
+    "button_view_on_sns": {
+        "message": "{sns}で見る",
+        "description": "Please include {sns} in your localization"
     }
 }
