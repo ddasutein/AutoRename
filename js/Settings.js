@@ -59,6 +59,7 @@ let Settings = {};
         global_custom_date_format: "",
         global_theme: "auto",
         global_notification_play_sound_fx: true,
+        global_recent_downloads: "",
 
         //#endregion
     
@@ -185,6 +186,11 @@ let Settings = {};
                 name: "Play sound effect",
                 value: items.global_notification_play_sound_fx,
                 key: "global_notification_play_sound_fx"
+            }, {
+                category: Category.General,
+                name: "Recent downloads",
+                value: items.global_recent_downloads,
+                key: "global_recent_downloads"
             },
             
             //#endregion
