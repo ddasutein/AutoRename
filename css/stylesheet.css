@@ -11,6 +11,8 @@
   --web-link: #036273;
   --primary-font: 'Noto Sans JP', 'Segoe UI Variable Display', 'Segoe UI', 'Roboto', '-apple-system', 'BlinkMacSystemFont', 'Arial', sans-serif !important;
   --navigation-section-container-primary-background-color: #efefef;
+
+  --autorename-drop-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 [page-theme="dark"] {
@@ -614,4 +616,154 @@ a:-webkit-any-link {
     transform: translateX(0)
   }
 
+}
+
+/** EXPERIMENTAL **/
+
+.grid-container {
+  display: grid;
+  gap: 1em;
+  width: 100%;
+}
+
+/* For larger screens, let's use a single row if possible */
+@media (min-width: 1200px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* For medium screens, let's still try to fit them in one row */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+/* For small screens, we keep two columns as before */
+@media (max-width: 767px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--autorename-drop-shadow);
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+}
+.image-container {
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  position: relative;
+  background: #ddd; /* Placeholder background */
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintains aspect ratio while covering the container */
+}
+
+.card-content {
+  padding: 1em;
+  /* text-align: center; */
+  /* word-wrap: break-word; */
+  height: 12em;
+}
+
+.card-content h2 {
+  margin-top: 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.card-content p {
+  margin-bottom: 15px;
+  color: #666;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8em;
+}
+
+.action-btn {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+}
+
+.card-label {
+  background-color: #000; /* Twitter blue */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  display: inline-block;
+  text-align: left; /* This ensures the text inside the label is left-aligned */
+  margin-left: 0; /* Reset any left margin if previously set */
+  margin-right: auto; /* Push the label to the left side */
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+}
+
+/** CUSTOM CONTEXT MENU **/
+
+.three-dots {
+  margin-left: auto;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 5px;
+}
+
+.context-menu {
+  display: none;
+  position: absolute;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: var(--autorename-drop-shadow);
+  min-width: 200px;
+  z-index: 1000;
+  font-family: inherit;
+  font-size: 1em;
+}
+.context-menu div {
+  padding: 0.1em 0.5em;
+  cursor: pointer;
+}
+.context-menu div:hover {
+  background-color: #ffffff;
+}
+.context-menu-container {
+  display: flex; 
+  align-items: center; 
+  border-radius: 10px;
+}
+
+.context-menu-item-icon {
+  width: auto;
+  height: 1em;
 }

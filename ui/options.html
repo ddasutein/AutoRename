@@ -39,6 +39,11 @@
             </div>
             <label class="navbar-label">Actions</label><br/>
             <ul class="tabs">
+                <li data-tab-target="#recentitems" class="tab">
+                    <div class="navbar-tab-label">
+                        <div>Recent</div>
+                    </div>
+                </li>
                 <li data-tab-target="#downloadhistory" class="tab">
                     <div class="navbar-tab-label">
                         <div data-i18n="common_section_downloads"></div>
@@ -512,7 +517,23 @@
                 </div>
             </div>
 
+            <!-- TAB : ACTIONS : RECENT -->
+            <div id="recentitems" data-tab-content>
+                <div class="tab-content-main">
+
+                    <!-- SECTION : DOWNLOAD QUEUE -->
+                    <div class="main-body-section-header">
+                        <img class="section-ico" src="/assets/icons8-data-pending-48.png"></img>
+                        <span class="sidebar-btn-ico-text">Recent</span>
+                    </div>
+                    
+                    <br/>
+                    <div id="recent-item-container" class="grid-container"> </div>
+
+                </div>
             </div>
+            
+            <div id="context_menu_container"></div>
 
             
         </main>
