@@ -1,0 +1,258 @@
+[
+    {
+        "label": "Appearance",
+        "data-i18n": "twitter_settings_site_title",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_theme"
+        },
+        "field": {
+            "type": "select",
+            "id": "theme_selector",
+            "value": 4,
+            "options": [
+                {
+                    "text": "set_theme_auto",
+                    "value": "auto"
+                },
+                {
+                    "text": "set_theme_light",
+                    "value": "light"
+                },
+                {
+                    "text": "set_theme_dark",
+                    "value": "dark"
+                }
+            ]
+        },
+        "category": "Appearance"
+    },
+
+    {
+        "label": "Show Download Folder",
+        "data-i18n": "general_settings_show_download_folder",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_show_download_folder"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "general_settings_auto_show_download_folder",
+            "value": false,
+            "options": null
+        },
+        "category": "File System"
+    },
+
+    {
+        "label": "Show Save as Window",
+        "data-i18n": "general_settings_enable_save_as_dialog",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_enable_save_as_window"
+        },
+
+        "field": {
+            "type": "checkbox",
+            "id": "general_settings_enable_save_as_window",
+            "value": false,
+            "options": null
+        },
+        "category": "File System"
+    },
+
+    {
+        "label": "Show to AutoRename Folder",
+        "data-i18n": "general_settings_store_images_to_custom_folder",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_use_autorename_folder"
+        },
+
+        "field": {
+            "type": "checkbox",
+            "id": "general_settings_use_autorename_folder",
+            "value": false,
+            "options": null
+        },
+        "category": "File System"
+    },
+
+    {
+        "label": "Prefer Locale Format",
+        "data-i18n": "common_label_prefer_locale_format",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_prefer_locale_format"
+        },
+
+        "field": {
+            "type": "checkbox",
+            "id": "global_settings_prefer_locale_format",
+            "value": false,
+            "options": null
+        },
+        "category": "timeanddate"
+    },
+
+    {
+        "label": "Date Format",
+        "data-i18n": "common_label_date_format",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_date_format"
+        },      
+        "field": {
+            "type": "select",
+            "id": "global_settings_select_date_format",
+            "value": 4,
+            "options": [
+                {
+                    "text": "common_date_format_item_label_option_custom",
+                    "value": "custom",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_label_numerical",
+                    "value": "",
+                    "disabled": true
+                },
+                {
+                    "text": "common_date_format_item_label_option_1",
+                    "value": "0",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_2",
+                    "value": "1",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_3",
+                    "value": "2",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_label_long",
+                    "value": "",
+                    "disabled": true
+                },
+                {
+                    "text": "common_date_format_item_label_option_4",
+                    "value": "3",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_5",
+                    "value": "4",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_6",
+                    "value": "5",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_label_short",
+                    "value": "",
+                    "disabled": true
+                },
+                {
+                    "text": "common_date_format_item_label_option_7",
+                    "value": "6",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_8",
+                    "value": "7",
+                    "disabled": false
+                },
+                {
+                    "text": "common_date_format_item_label_option_9",
+                    "value": "8",
+                    "disabled": false
+                }
+            ]
+        }
+    },
+
+    {
+        "label": "Custom Date Format",
+        "data-i18n": "common_label_custom_date_format",
+        "inactive": false,
+        "show_in_ui": ["main"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_custom_date_format"
+        },
+
+        "field": {
+            "type": "textbox",
+            "id": "global_settings_prefer_locale_format",
+            "value": false,
+            "options": null,
+            "help": "help_text_date_format"
+        },
+        "category": "timeanddate"
+    },
+
+    {
+        "label": "Enable notification when extension is updated",
+        "data-i18n": "general_settings_enable_notifications_on_update",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_notifications_updated"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "general_settings_notification_updated",
+            "value": false,
+            "options": null
+        },
+        "category": "sysnotification"
+        
+    },
+
+    {
+        "label": "Play sound effect",
+        "data-i18n": "setting_play_sound_effect",
+        "inactive": false,
+        "show_in_ui": ["main", "popup"],
+        "show_beta_badge": false,
+        "settings": {
+            "website": "",
+            "key": "global_notification_play_sound_fx"
+        },
+        "field": {
+            "type": "checkbox",
+            "id": "general_settings_notification_play_sound_fx",
+            "value": false,
+            "options": null
+        },
+        "category": "sysnotification"
+        
+    }
+    
+]
